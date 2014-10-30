@@ -18,3 +18,7 @@ Kajaanin ammattikorkeakoulun teknologiapajan Isis ryhmän projektityö.
  
 5. Pelaaja ignoree collisionin NPC:dein kanssa (Group = X) 
  * a.k.a kaikki liikkuvat HAHMOT on Groupissa X
+
+
+# Game spec
+1. world, gamestate manager, scripti manager ja gameobject manager asuu Game:ssa
