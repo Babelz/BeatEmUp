@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6727D705-34D4-412F-88BF-B41ADC3DE56F}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Neva.BeatEmUp</RootNamespace>
+    <AssemblyName>Neva.BeatEmUp</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Windows\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Windows\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BeatEmUpGame.cs" />
+    <Compile Include="Behaviours\TestScript.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Camera.cs" />
+    <Compile Include="Collision\Broadphase\BroadphaseProxy.cs" />
+    <Compile Include="Collision\Broadphase\BruteForceBroadphase.cs" />
+    <Compile Include="Collision\Broadphase\IBroadphase.cs" />
+    <Compile Include="Collision\Broadphase\QuadTreeBroadphase.cs" />
+    <Compile Include="Collision\CollisionDebug.cs" />
+    <Compile Include="Collision\CollisionDelegates.cs" />
+    <Compile Include="Collision\CollisionGroup.cs" />
+    <Compile Include="Collision\CollisionPair.cs" />
+    <Compile Include="Collision\CollisionResult.cs" />
+    <Compile Include="Collision\DataStructures\QuadTree.cs" />
+    <Compile Include="Collision\Dynamics\Body.cs" />
+    <Compile Include="Collision\Dynamics\Fixture.cs" />
+    <Compile Include="Collision\ICollidable.cs" />
+    <Compile Include="Collision\Narrowphase\BoxBoxSolver.cs" />
+    <Compile Include="Collision\Narrowphase\ICollisionSolver.cs" />
+    <Compile Include="Collision\Narrowphase\INarrowphase.cs" />
+    <Compile Include="Collision\Narrowphase\SeparatingAxisTheorem.cs" />
+    <Compile Include="Collision\SaNiMath.cs" />
+    <Compile Include="Collision\Shape\BoxShape.cs" />
+    <Compile Include="Collision\Shape\ConvexShape.cs" />
+    <Compile Include="Collision\Shape\IShape.cs" />
+    <Compile Include="Collision\Structs.cs" />
+    <Compile Include="Collision\Vertices.cs" />
+    <Compile Include="DiagnosticInfo.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="GameObjectContainer.cs" />
+    <Compile Include="GameObjects\Args.cs" />
+    <Compile Include="GameObjects\ComponentManager.cs" />
+    <Compile Include="GameObjects\Delegates.cs" />
+    <Compile Include="GameObjects\Results.cs" />
+    <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\GameObjectComponent.cs" />
+    <Compile Include="GameObjects\TagContainer.cs" />
+    <Compile Include="GameStates\GameState.cs" />
+    <Compile Include="GameStates\GameStateManager.cs" />
+    <Compile Include="Gui\Controls\Button.cs" />
+    <Compile Include="Gui\Controls\ButtonBase.cs" />
+    <Compile Include="Gui\Controls\Canvas.cs" />
+    <Compile Include="Gui\Controls\ColorBox.cs" />
+    <Compile Include="Gui\Controls\Components\CellSize.cs" />
+    <Compile Include="Gui\Controls\Components\ChildCollection.cs" />
+    <Compile Include="Gui\Controls\Components\ControlRenderTarget.cs" />
+    <Compile Include="Gui\Controls\Components\InvocationContainer.cs" />
+    <Compile Include="Gui\Controls\Components\InvokerContainer.cs" />
+    <Compile Include="Gui\Controls\Components\Margin.cs" />
+    <Compile Include="Gui\Controls\Components\Padding.cs" />
+    <Compile Include="Gui\Controls\Components\ResourceContainer.cs" />
+    <Compile Include="Gui\Controls\Components\ServiceFinder.cs" />
+    <Compile Include="Gui\Controls\Components\SpriteBatchFinder.cs" />
+    <Compile Include="Gui\Controls\Container.cs" />
+    <Compile Include="Gui\Controls\ContentControl.cs" />
+    <Compile Include="Gui\Controls\Control.cs" />
+    <Compile Include="Gui\Controls\Grid.cs" />
+    <Compile Include="Gui\Controls\GridCell.cs" />
+    <Compile Include="Gui\Controls\IContainer.cs" />
+    <Compile Include="Gui\Controls\Label.cs" />
+    <Compile Include="Gui\Controls\Panel.cs" />
+    <Compile Include="Gui\Controls\RadioButton.cs" />
+    <Compile Include="Gui\Controls\Renderers\BasicButtonRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\BasicRadioButtonRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\BasicScrollbarRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\BasicScrollThumbRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\BasicScrollViewerRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\BasicSpriteRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\BasicTextRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\BasicWindowRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\ColorRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\GridCellBorderRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\IRenderer.cs" />
+    <Compile Include="Gui\Controls\Renderers\Renderer.cs" />
+    <Compile Include="Gui\Controls\ScrollBar.cs" />
+    <Compile Include="Gui\Controls\ScrollThumb.cs" />
+    <Compile Include="Gui\Controls\ScrollViewer.cs" />
+    <Compile Include="Gui\Controls\SpriteBox.cs" />
+    <Compile Include="Gui\Cursor\Args\CursorInputArgs.cs" />
+    <Compile Include="Gui\Cursor\Args\CursorMovementArgs.cs" />
+    <Compile Include="Gui\Cursor\Components\CursorBehaviour.cs" />
+    <Compile Include="Gui\Cursor\Components\CursorRenderer.cs" />
+    <Compile Include="Gui\Cursor\Components\EmptyRenderer.cs" />
+    <Compile Include="Gui\Cursor\Components\FreeCursorBehaviour.cs" />
+    <Compile Include="Gui\Cursor\Components\IndexCursorBehaviour.cs" />
+    <Compile Include="Gui\Cursor\Components\SpriteRenderer.cs" />
+    <Compile Include="Gui\Cursor\GuiCursor.cs" />
+    <Compile Include="Gui\Delegates.cs" />
+    <Compile Include="Gui\Enums.cs" />
+    <Compile Include="Gui\EventArgs.cs" />
+    <Compile Include="Gui\Exceptions.cs" />
+    <Compile Include="Gui\Structs.cs" />
+    <Compile Include="Gui\Transitions\ModerTransition.cs" />
+    <Compile Include="Gui\Transitions\Transition.cs" />
+    <Compile Include="Gui\Window.cs" />
+    <Compile Include="Gui\WindowGroup.cs" />
+    <Compile Include="Gui\WindowManager.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="Input\Buffer\GamepadInputBuffer.cs" />
+    <Compile Include="Input\Buffer\InputBuffer.cs" />
+    <Compile Include="Input\Buffer\KeyboardInputBuffer.cs" />
+    <Compile Include="Input\Buffer\MouseInputBuffer.cs" />
+    <Compile Include="Input\InputEventArgs.cs" />
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Input\InputState.cs" />
+    <Compile Include="Input\KeyTimer.cs" />
+    <Compile Include="Input\Listener\GamepadInputListener.cs" />
+    <Compile Include="Input\Listener\InputListener.cs" />
+    <Compile Include="Input\Listener\KeyboardInputListener.cs" />
+    <Compile Include="Input\Listener\MouseListener.cs" />
+    <Compile Include="Input\Mapping.cs" />
+    <Compile Include="Input\MouseButtons.cs" />
+    <Compile Include="Input\Setup\InputSetup.cs" />
+    <Compile Include="Input\State\GamepadStateProvider.cs" />
+    <Compile Include="Input\State\IStateProvider.cs" />
+    <Compile Include="Input\State\KeyboardStateProvider.cs" />
+    <Compile Include="Input\State\MouseStateProvider.cs" />
+    <Compile Include="Input\Trigger\ButtonTrigger.cs" />
+    <Compile Include="Input\Trigger\ITrigger.cs" />
+    <Compile Include="Input\Trigger\KeyTrigger.cs" />
+    <Compile Include="Input\Trigger\MouseTrigger.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\ScriptClasses\Behaviour.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Builders\ParallelScriptBuilder.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Builders\ScriptBuilder.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Containers\ScriptAssemblyContainer.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Containers\ScriptDepencyContainer.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Containers\ScriptObserverContainer.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Containers\ScriptPathContainer.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Enums.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Resolvers\BlockingScriptResolver.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Resolvers\CompilerErrorLogger.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Resolvers\ParallelScriptResolver.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Resolvers\ResolverErrorLogger.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Resolvers\ScriptCompiler.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\Resolvers\ScriptResolver.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\ScriptAssembly.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\ScriptClasses\IAautonomousScript.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\ScriptClasses\IRunnableScript.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\ScriptClasses\IScript.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\ScriptClasses\IScriptComponent.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\ScriptClasses\IScriptService.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\ScriptEngine.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\ScriptObserver.cs" />
+    <Compile Include="Pathfinding\AStart\AStarNode.cs" />
+    <Compile Include="Pathfinding\AStart\AStarPathfinder.cs" />
+    <Compile Include="Pathfinding\AStart\AStartGrid.cs" />
+    <Compile Include="Pathfinding\Enums.cs" />
+    <Compile Include="Pathfinding\Exceptions.cs" />
+    <Compile Include="Pathfinding\INode.cs" />
+    <Compile Include="Pathfinding\INodeGrid.cs" />
+    <Compile Include="Pathfinding\IPathfinder.cs" />
+    <Compile Include="Pathfinding\NodeGrid.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SafeTypeSortedContainer.cs" />
+    <Compile Include="Sprite.cs" />
+    <Compile Include="SpriteBatchExtensions.cs" />
+    <Compile Include="TypeSortedContainer.cs" />
+    <Compile Include="World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+    <Content Include="Scripts\CSharpScriptEngine\csharpscriptengine_README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="scripteng.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
