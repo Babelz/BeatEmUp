@@ -22,3 +22,12 @@ Kajaanin ammattikorkeakoulun teknologiapajan Isis ryhmän projektityö.
 
 # Game spec
 1. world, gamestate manager, scripti manager ja gameobject manager asuu Game:ssa
+
+# Map spec
+1. kartoista tulee objecteja maailmaan
+
+2. Tikkaat vois olla
+
+3. Ruutu ei liiku jos x määrä pelaajia yrittää molempiin suuntiin
+ * kun vihreä nuoli tulee, taaksepäin ei pääse
+ * mappi generoi näkymättömät seinät oikeille paikoille
