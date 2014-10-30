@@ -31,3 +31,20 @@ Kajaanin ammattikorkeakoulun teknologiapajan Isis ryhmän projektityö.
 3. Ruutu ei liiku jos x määrä pelaajia yrittää molempiin suuntiin
  * kun vihreä nuoli tulee, taaksepäin ei pääse
  * mappi generoi näkymättömät seinät oikeille paikoille
+ 
+# World spec
+1. piirtojärjestys ylhäältä alaspäin, ota size huomioon, algoritmi = null
+ 
+ 
+# Gamestate spec
+1. Cameran zoom ei saa olla koskaan yli 100%, initial jotain 75%
+ * zoomaa max 100%, sitä mukaa missä pelaajat on
+ * pelaajien distance = suurin x - pienin x
+ 
+# Gameobject spec
+ 
+## Animation spec
+  1. Vaihdettavat aseet, spriterillä käden pos jj jne
+  
+## Sound spec
+ 1. Äänet kännissä nauhotetaan/huudetaan mikkiin tms, hahmoille jne.
