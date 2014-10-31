@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.Collision.Dynamics;
 using Neva.BeatEmUp.Collision.Shape;
+using Neva.BeatEmUp.GameObjects.Components;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine.Builders;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses;
 using System;
@@ -26,6 +27,8 @@ namespace Neva.BeatEmUp.GameObjects
         private bool destroyed;
         private bool visible;
         private bool enabled;
+
+        private string name;
 
         private GameObject parent;
         #endregion
@@ -54,7 +57,7 @@ namespace Neva.BeatEmUp.GameObjects
             }
         }
 
-        protected Body Body
+        public Body Body
         {
             get
             {
@@ -128,6 +131,17 @@ namespace Neva.BeatEmUp.GameObjects
                 return parent != null;
             }
         }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
         #endregion
 
         public GameObject(BeatEmUpGame game)
@@ -153,6 +167,8 @@ namespace Neva.BeatEmUp.GameObjects
 
             enabled = true;
             visible = true;
+
+            name = this.GetType().Name;
         }
         public GameObject(BeatEmUpGame game, string behaviourName)
             : this(game)

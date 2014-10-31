@@ -1,0 +1,6 @@
+﻿<Maps>
+  <Object Key="perkele" X="100.0" Y="100.0" Width="100" Height="100" Visible="true" Enabled="true" Name="jeesus">
+    <Behaviour Name="City1Behaviour" Start="true"/>
+    <Component Name="SpriteRenderer"/>
+  </Object>
+</Maps>

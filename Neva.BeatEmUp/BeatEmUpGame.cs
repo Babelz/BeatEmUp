@@ -16,6 +16,9 @@ using Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameStates;
 using Neva.BeatEmUp.Collision.Dynamics;
+using Neva.BeatEmUp.RunTime;
+using Neva.BeatEmUp.GameObjects.Components;
+using Neva.BeatEmUp.Gui;
 #endregion
 
 namespace Neva.BeatEmUp
@@ -26,6 +29,9 @@ namespace Neva.BeatEmUp
     public class BeatEmUpGame : Game
     {
         #region Vars
+        private readonly List<ObjectCreator> objectCreators;
+        private readonly ComponentCreator componentCreator;
+
         private readonly List<GameObject> gameObjects;
         private readonly List<GameObject> destroyedObjects;
 
@@ -35,6 +41,7 @@ namespace Neva.BeatEmUp
         private InputManager inputManager;
         private ScriptEngine scriptEngine;
         private GameStateManager stateManager;
+        private WindowManager windowManager;
         private World world;
         #endregion
 
@@ -56,6 +63,29 @@ namespace Neva.BeatEmUp
 
             gameObjects = new List<GameObject>();
             destroyedObjects = new List<GameObject>();
+
+            componentCreator = new ComponentCreator();
+            objectCreators = new List<ObjectCreator>();
+        }
+
+        private ObjectCreator GetCreator(string key = "", string name = "")
+        {
+            if (name != string.Empty && key != string.Empty)
+            {
+                return objectCreators.Find(c => c.ContainsKeyWithName(key, name));
+            }
+            else if (name != string.Empty)
+            {
+                return objectCreators.Find(c => c.ContainsName(name));
+            }
+            else if (key != string.Empty)
+            {
+                return objectCreators.Find(c => c.ContainsKey(key));
+            }
+            else
+            {
+                throw new InvalidOperationException("Both name and key cant be empty.");
+            }
         }
 
         /// <summary>
@@ -75,38 +105,22 @@ namespace Neva.BeatEmUp
                 LoggingMethod = LoggingMethod.Console
             };
 
+            windowManager = new WindowManager(this);
             stateManager = new GameStateManager(this);
             world = new World();
 
             Components.Add(inputManager);
+            Components.Add(windowManager);
             Components.Add(stateManager);
             Components.Add(scriptEngine);
 
             base.Initialize();
 
             scriptEngine.CompileAll();
+            
+            objectCreators.Add(new ObjectCreator("ObjectFiles\\Maps.xml"));
 
-            GameObject c = new GameObject(this, "TestScript");
-            c.StartBehaviour("TestScript");
-
-
-            GameObject c1 = new GameObject(this);
-
-            GameObject c2 = new GameObject(this);
-
-            GameObject c3 = new GameObject(this);
-
-            c1.AddChild(c2);
-            c2.AddChild(c3);
-            c.AddChild(c1);
-
-            AddGameObject(c1);
-
-            AddGameObject(c2);
-
-            AddGameObject(c3);
-
-            gameObjects.Add(c);
+            GameObject map = CreateGameObjectFromKey("perkele");
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -139,7 +153,6 @@ namespace Neva.BeatEmUp
             for (int i = 0; i < destroyedObjects.Count; i++)
             {
                 RemoveGameObject(destroyedObjects[i]);
-                Console.WriteLine("Removed object with {0} childs.", destroyedObjects[i].ChildsCount);
             }
 
             destroyedObjects.Clear();
@@ -208,6 +221,110 @@ namespace Neva.BeatEmUp
         public bool ContainsBody(Body body)
         {
             return false;
+        }
+
+        /// <summary>
+        /// Luo uuden objektin käyttäen olemassa olevia repoja ja lisää sen worldiin jos argumentin add arvo on true.
+        /// </summary>
+        /// <param name="key">Modelin avain josta olio tulee luoda.</param>
+        /// <returns>Luotu olio.</returns>
+        public GameObject CreateGameObjectFromKey(string key, bool add = true)
+        {
+            ObjectCreator creator = null;
+
+            if ((creator = GetCreator(key: key)) == null)
+            {
+                // TODO: log warning.
+
+                return null;
+            }
+
+            GameObject gameObject = creator.CreateFromKey(key, this);
+
+            if (add)
+            {
+                AddGameObject(gameObject);
+            }
+
+            return gameObject;
+        }
+        /// <summary>
+        /// Luo uuden objektin käyttäen olemassa olevia repoja ja lisää sen worldiin jos argumentin add arvo on true.
+        /// </summary>
+        /// <param name="name">Modelissa oleva nimi.</param>
+        /// <returns>Luotu olio.</returns>
+        public GameObject CreateGameObjectFromName(string name, bool add = true)
+        {
+            ObjectCreator creator = null;
+
+            if ((creator = GetCreator(name: name)) == null)
+            {
+                // TODO: log warning.
+
+                return null;
+            }
+
+            GameObject gameObject = creator.CreateFromName(name, this);
+
+            if (add)
+            {
+                AddGameObject(gameObject);
+            }
+
+            return gameObject;
+        }
+        /// <summary>
+        /// Luo uuden objektin käyttäen olemassa olevia repoja ja lisää sen worldiin jos argumentin add arvo on true.
+        /// </summary>
+        /// <param name="key">Modelin avain josta olio tulee luoda.</param>
+        /// <param name="name">Modelissa oleva nimi.</param>
+        /// <returns>Luotu olio.</returns>
+        public GameObject CreateGameObject(string key, string name, bool add = true)
+        {
+            ObjectCreator creator = null;
+
+            if ((creator = GetCreator(key, name)) == null)
+            {
+                // TODO: log warning.
+
+                return null;
+            }
+
+            GameObject gameObject = creator.Create(key, name, this);
+
+            if (add)
+            {
+                AddGameObject(gameObject);
+            }
+
+            return gameObject;
+        }
+
+        /// <summary>
+        /// Luo uuden komponentin tyypin perusteella ja asettaa sen omistajalle.
+        /// </summary>
+        /// <returns>Luotu komponentti.</returns>
+        public GameObjectComponent CreateComponent(Type type, GameObject owner)
+        {
+            return componentCreator.Create(type, owner);
+        }
+        /// <summary>
+        /// Luo uuden komponentin tyypin perusteella ja asettaa sen omistajalle.
+        /// </summary>
+        /// <returns>Luotu komponentti.</returns>
+        public T CreateComponent<T>(GameObject owner) where T : GameObjectComponent
+        {
+            return componentCreator.Create<T>(owner);
+        }
+        /// <summary>
+        /// Luo uuden komponentin ja asettaa sen omistajalle.
+        /// </summary>
+        /// <param name="name">Komponentin tyyppi nimi.</param>
+        /// <param name="owner">Objekti joka saa tämän komponentin alustuksessa.</param>
+        /// <returns>Luotu komponentti.</returns>
+        public GameObjectComponent CreateComponent(string name, GameObject owner)
+        {
+            return componentCreator.Create(name, owner);
         }
     }
 }

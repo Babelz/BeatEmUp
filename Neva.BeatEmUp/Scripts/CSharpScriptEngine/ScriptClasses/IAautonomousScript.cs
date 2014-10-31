@@ -5,8 +5,6 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
 {
-    #warning IAautonomousScript - proto.
-
     /// <summary>
     /// Rajapinta jonka täysin itsenäisesti scriptit perivät,
     /// scripti voi suorittaa tietyn toiminnon tai 

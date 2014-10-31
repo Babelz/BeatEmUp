@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BeatEmUpGame.cs" />
-    <Compile Include="Behaviours\TestScript.cs">
+    <Compile Include="Behaviours\City1Behaviour.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Camera.cs" />
@@ -71,10 +71,11 @@
     <Compile Include="GameObjectContainer.cs" />
     <Compile Include="GameObjects\Args.cs" />
     <Compile Include="GameObjects\ComponentManager.cs" />
+    <Compile Include="GameObjects\Components\SpriteRenderer.cs" />
     <Compile Include="GameObjects\Delegates.cs" />
     <Compile Include="GameObjects\Results.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
-    <Compile Include="GameObjects\GameObjectComponent.cs" />
+    <Compile Include="GameObjects\Components\GameObjectComponent.cs" />
     <Compile Include="GameObjects\TagContainer.cs" />
     <Compile Include="GameStates\GameState.cs" />
     <Compile Include="GameStates\GameStateManager.cs" />
@@ -160,6 +161,10 @@
     <Compile Include="Input\Trigger\ITrigger.cs" />
     <Compile Include="Input\Trigger\KeyTrigger.cs" />
     <Compile Include="Input\Trigger\MouseTrigger.cs" />
+    <Compile Include="RunTime\ComponentCreator.cs" />
+    <Compile Include="RunTime\ModelReader.cs" />
+    <Compile Include="RunTime\Models.cs" />
+    <Compile Include="RunTime\ObjectCreator.cs" />
     <Compile Include="Scripts\CSharpScriptEngine\ScriptClasses\Behaviour.cs" />
     <Compile Include="Scripts\CSharpScriptEngine\Builders\ParallelScriptBuilder.cs" />
     <Compile Include="Scripts\CSharpScriptEngine\Builders\ScriptBuilder.cs" />
@@ -209,10 +214,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <Content Include="ObjectFiles\Maps.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\CSharpScriptEngine\csharpscriptengine_README.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
+    <Folder Include="Maps\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="scripteng.cfg">

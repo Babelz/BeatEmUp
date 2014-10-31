@@ -15,6 +15,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
 
         private bool running;
         private bool initialized;
+
         private string name;
         #endregion
 

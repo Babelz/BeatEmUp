@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neva.BeatEmUp.GameObjects.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,7 +57,11 @@ namespace Neva.BeatEmUp.GameObjects
 
         static ComponentUpdateResults()
         {
-            emptyResults = new ComponentUpdateResults(null, false);
+            emptyResults = new ComponentUpdateResults();
+        }
+
+        private ComponentUpdateResults()
+        {
         }
 
         public ComponentUpdateResults(GameObjectComponent creator, bool wasSuccessfulUpdate)
