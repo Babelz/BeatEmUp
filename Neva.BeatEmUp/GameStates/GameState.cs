@@ -10,7 +10,7 @@ namespace Neva.BeatEmUp.GameStates
     public abstract class GameState
     {
         #region Properties
-        public Game Game
+        public BeatEmUpGame Game
         {
             get;
             private set;
@@ -27,7 +27,7 @@ namespace Neva.BeatEmUp.GameStates
         }
         #endregion
 
-        public void Initialize(Game game, GameStateManager gameStateManager, string name = "")
+        public void Initialize(BeatEmUpGame game, GameStateManager gameStateManager, string name = "")
         {
             Game = game;
             GameStateManager = gameStateManager;
@@ -50,7 +50,7 @@ namespace Neva.BeatEmUp.GameStates
         {
         }
 
-        public abstract void OnInitialize(Game game, GameStateManager gameStateManager);
+        public abstract void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager);
 
         public abstract void Update(GameTime gameTime);
 

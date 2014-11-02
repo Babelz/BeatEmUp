@@ -13,7 +13,7 @@ namespace Neva.BeatEmUp.GameStates
 
         private readonly List<GameState> states;
         private GameState current, previous;
-
+        private readonly BeatEmUpGame game;
         #endregion
 
         #region Properties
@@ -35,9 +35,10 @@ namespace Neva.BeatEmUp.GameStates
 
         #region Ctor
 
-        public GameStateManager(Game game) : 
+        public GameStateManager(BeatEmUpGame game) : 
             base(game)
         {
+            this.game = game;
             states = new List<GameState>();
         }
 
@@ -61,7 +62,7 @@ namespace Neva.BeatEmUp.GameStates
             current = gameState;
 
             states.Add(gameState);
-            gameState.Initialize(Game, this);
+            gameState.Initialize(game, this);
         }
 
         public void Pop()
@@ -94,7 +95,7 @@ namespace Neva.BeatEmUp.GameStates
                 states[states.Count - 1] = gameState;
             }
 
-            gameState.Initialize(Game, this);
+            gameState.Initialize(game, this);
         }
 
         public override void Update(GameTime gameTime)

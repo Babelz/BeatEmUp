@@ -8,7 +8,7 @@ using Neva.BeatEmUp.Collision.Broadphase;
 namespace Neva.BeatEmUp.Collision
 {
     [DebuggerDisplay("ProxyA {ProxyA.ProxyID}, ProxyB {ProxyB.ProxyID}")]
-    internal struct CollisionPair : IEquatable<CollisionPair>, IComparable<CollisionPair>
+    public struct CollisionPair : IEquatable<CollisionPair>, IComparable<CollisionPair>
     {
         public BroadphaseProxy ProxyA
         {

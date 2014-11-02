@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Neva.BeatEmUp.Input.State
 {
-    internal class MouseStateProvider : IStateProvider
+    public class MouseStateProvider : IStateProvider
     {
 
         #region Vars

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Neva.BeatEmUp.Input.State
 {
-    internal sealed class KeyboardStateProvider : IStateProvider
+    public sealed class KeyboardStateProvider : IStateProvider
     {
         #region Properties
 

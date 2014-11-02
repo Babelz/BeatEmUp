@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Input
 {
-    internal enum MouseButtons
+    public enum MouseButtons
     {
         LeftButton = 0,
         RightButton,

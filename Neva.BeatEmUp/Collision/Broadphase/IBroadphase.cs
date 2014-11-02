@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Neva.BeatEmUp.Collision.Broadphase
 {
-    internal interface IBroadphase
+    public interface IBroadphase
     {
         List<CollisionPair> CollisionPairs { get;  } 
 

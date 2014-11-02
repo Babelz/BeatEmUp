@@ -8,8 +8,8 @@ using Neva.BeatEmUp.Input.Trigger;
 
 namespace Neva.BeatEmUp.Input.Listener
 {
-    internal delegate void InputEvent(InputEventArgs args);
-    abstract internal class InputListener
+    public delegate void InputEvent(InputEventArgs args);
+    public abstract class InputListener
     {
 
         #region Properties

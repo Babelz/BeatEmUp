@@ -6,7 +6,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
+using Neva.BeatEmUp.Collision.Broadphase;
+using Neva.BeatEmUp.Collision.Narrowphase;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine.Builders;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine;
 using Neva.BeatEmUp.Input;
@@ -63,6 +64,13 @@ namespace Neva.BeatEmUp
                 return camera;
             }
         }
+        public World World
+        {
+            get
+            {
+                return world;
+            }
+        }
         #endregion
 
         public BeatEmUpGame()
@@ -106,9 +114,15 @@ namespace Neva.BeatEmUp
         /// </summary>
         protected override void Initialize()
         {
-            int index = 0;
-
-            inputManager = new InputManager(this, new KeyboardInputListener(), Enumerable.Repeat<GamepadInputListener>(new GamepadInputListener((PlayerIndex)index++), 4).ToArray(), null);
+            inputManager = new InputManager(this, new KeyboardInputListener(), 
+                new[]
+                {
+                    new GamepadInputListener(PlayerIndex.One), 
+                    new GamepadInputListener(PlayerIndex.Two), 
+                    new GamepadInputListener(PlayerIndex.Three), 
+                    new GamepadInputListener(PlayerIndex.Four)
+                }, 
+                null);
             
             scriptEngine = new ScriptEngine(this, "scripteng.cfg")
             {
@@ -117,7 +131,7 @@ namespace Neva.BeatEmUp
 
             windowManager = new WindowManager(this);
             stateManager = new GameStateManager(this);
-            world = new World();
+            world = new World(this, new BruteForceBroadphase(), new SeparatingAxisTheorem());
 
             Components.Add(inputManager);
             Components.Add(windowManager);
@@ -129,6 +143,9 @@ namespace Neva.BeatEmUp
             camera = new Camera(Vector2.Zero, this.GraphicsDevice.Viewport);
 
             scriptEngine.CompileAll();
+            
+            objectCreators.Add(new ObjectCreator("ObjectFiles\\Maps.xml"));
+            objectCreators.Add(new ObjectCreator("ObjectFiles\\Entities.xml"));
 
             string[] objectFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "ObjectFiles\\")
                 .Where(f => f.EndsWith(".xml"))
@@ -139,11 +156,7 @@ namespace Neva.BeatEmUp
                 objectCreators.Add(new ObjectCreator(objectFiles[i]));
             }
 
-            GameObject map = CreateGameObject("Map", "map1");
-            MapBehaviour behaviour = new MapBehaviour(map, "City1.xml");
-            map.AddBehaviour(behaviour);
-
-            map.StartBehaviours();
+            stateManager.Change(new GameplayState());
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -180,6 +193,8 @@ namespace Neva.BeatEmUp
 
             destroyedObjects.Clear();
 
+            world.Step(gameTime);
+
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update(gameTime);
@@ -190,6 +205,7 @@ namespace Neva.BeatEmUp
                 }
             }
         }
+        
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>

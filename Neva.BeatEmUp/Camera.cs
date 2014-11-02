@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.GameObjects.Components;
 
-namespace Neva.BeatEmUp.GameObjects.Components
+namespace Neva.BeatEmUp
 {
     public sealed class Camera 
     {

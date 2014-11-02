@@ -6,7 +6,7 @@ using Neva.BeatEmUp.Input.Listener;
 
 namespace Neva.BeatEmUp.Input
 {
-    internal class InputEventArgs
+    public class InputEventArgs
     {
         public InputEventArgs(InputState state, int holdTime, InputListener sender)
         {
