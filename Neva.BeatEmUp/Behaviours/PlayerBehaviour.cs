@@ -16,7 +16,7 @@ namespace Neva.BeatEmUp.Behaviours
 {
     public sealed class PlayerBehaviour : Behaviour
     {
-        private float speed = 10f;
+        private float speed = 5f;
         public PlayerBehaviour(GameObject owner) : base(owner)
         {
             owner.Body.Shape.Size = new Vector2(32.0f, 32.0f);
@@ -25,37 +25,84 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            Owner.GetComponentOfType<SpriterAnimationRenderer>().FilePath = "Animations\\test.scml";
-            Owner.GetComponentOfType<SpriterAnimationRenderer>().Entity = "Impacts_a";
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().FilePath = "Animations\\player.scml";
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().Entity = "Player";
+            
 
             InputManager inputManager = Owner.Game.Components.First(c => c as InputManager != null) as InputManager;
             KeyboardInputListener keylistener = inputManager.Listeners.Find(c => c as KeyboardInputListener != null) as KeyboardInputListener;
-            keylistener.Map("Left", args => {
-                Owner.Body.Velocity = new Vector2(VelocityFunc(-speed, args), Owner.Body.Velocity.Y);
-            }, new KeyTrigger(Keys.A), new KeyTrigger(Keys.Left));
-            keylistener.Map("Right", args =>
-            {
-                Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
-            }, new KeyTrigger(Keys.D), new KeyTrigger(Keys.Right));
-
-            keylistener.Map("Up", args =>
-            {
-                Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(-speed, args));
-            }, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
-
-            keylistener.Map("Down", args =>
-            {
-                Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(speed, args));
-            }, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
+            keylistener.Map("Left", MoveLeft, new KeyTrigger(Keys.A), new KeyTrigger(Keys.Left));
+            keylistener.Map("Right", MoveRight, new KeyTrigger(Keys.D), new KeyTrigger(Keys.Right));
+            keylistener.Map("Up", MoveUp, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
+            keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
+            keylistener.Map("Jump", Jump, new KeyTrigger(Keys.Space));
 
 
             Owner.InitializeComponents();
-            Owner.GetComponentOfType<SpriterAnimationRenderer>().ChangeAnimation("spack_0a");
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().ChangeAnimation("idle");
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().Scale = 0.4f;
+            
         }
+
+        #region Input maps
+
+        private void MoveLeft(InputEventArgs args)
+        {
+            ChangeWalkAnimation(args);
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().FlipX = true;
+            Owner.Body.Velocity = new Vector2(VelocityFunc(-speed, args), Owner.Body.Velocity.Y);
+        }
+
+        private void MoveDown(InputEventArgs args)
+        {
+            ChangeWalkAnimation(args);
+            Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(speed, args));
+        }
+
+        private void MoveUp(InputEventArgs args)
+        {
+            ChangeWalkAnimation(args);
+            Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(-speed, args));
+        }
+
+        private void MoveRight(InputEventArgs args)
+        {
+            ChangeWalkAnimation(args);
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().FlipX = false;
+            Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
+        }
+
+        private void Jump(InputEventArgs args)
+        {
+            
+        }
+
+        #region Util
+
+        private void ChangeWalkAnimation(InputEventArgs args)
+        {
+            if (args.InputState == InputState.Pressed)
+            {
+                var spriter = Owner.GetComponentOfType<SpriterAnimationRenderer>();
+                if (spriter.CurrentAnimation.Name != "walk")
+                    spriter.ChangeAnimation("walk");
+            }
+        }
+
+        #endregion
+
+        #endregion
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
+            SpriterAnimationRenderer spriter = Owner.GetComponentOfType<SpriterAnimationRenderer>();
             //todo miten vittu
+
+            Owner.Position += Owner.Body.Velocity;
+            if (spriter.CurrentAnimation.Name != "idle" && Owner.Body.Velocity == Vector2.Zero)
+            {
+                spriter.ChangeAnimation("idle");
+            }
             Owner.Position += Owner.Body.Velocity;
         }
 
