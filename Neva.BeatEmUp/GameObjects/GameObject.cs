@@ -353,9 +353,9 @@ namespace Neva.BeatEmUp.GameObjects
         /// </summary>
         public void InitializeComponents()
         {
-            foreach (GameObjectComponent component in componentManager.Components())
+            for (int i = 0; i < componentManager.ComponentsCount; i++)
             {
-                component.Initialize();
+                componentManager[i].Initialize();
             }
         }
         /// <summary>

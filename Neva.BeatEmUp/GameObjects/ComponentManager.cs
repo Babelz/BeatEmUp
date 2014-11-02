@@ -16,6 +16,26 @@ namespace Neva.BeatEmUp.GameObjects
         private List<GameObjectComponent> sortedDrawableComponents;
         #endregion
 
+        #region Indexer
+        public GameObjectComponent this[int index]
+        {
+            get
+            {
+                return components[index];
+            }
+        }
+        #endregion
+
+        #region Properties
+        public int ComponentsCount
+        {
+            get
+            {
+                return components.ItemsCount;
+            }
+        }
+        #endregion
+
         public ComponentManager()
         {
             components = new TypeSortedContainer<GameObjectComponent>();
