@@ -15,11 +15,13 @@ namespace Neva.BeatEmUp.GameObjects.Components
         private int updateOrder;
         private int drawOrder;
 
+        private bool initialized;
         private bool enabled;
         private bool visible;
 
         private bool skipUpdate;
         private bool skipDraw;
+        private string name;
 
         protected readonly GameObject owner;
         #endregion
@@ -68,6 +70,17 @@ namespace Neva.BeatEmUp.GameObjects.Components
                 return isUnique;
             }
         }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
         #endregion
 
         public GameObjectComponent(GameObject owner, bool isUnique)
@@ -75,8 +88,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
             this.owner = owner;
             this.isUnique = isUnique;
 
-            enabled = true;
-            visible = true;
+            enabled = false;
+            visible = false;
+
+            name = this.GetType().Name;
         }
 
         protected virtual ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -98,6 +113,21 @@ namespace Neva.BeatEmUp.GameObjects.Components
         }
         protected virtual void OnHide()
         {
+        }
+        protected virtual void OnInitialize()
+        {
+        }
+
+        public void Initialize()
+        {
+            if (initialized)
+            {
+                return;
+            }
+
+            initialized = true;
+
+            OnInitialize();
         }
 
         /// <summary>
@@ -162,7 +192,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         public ComponentUpdateResults Update(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            if (skipUpdate)
+            if (skipUpdate || !initialized)
             {
                 skipUpdate = false;
 
@@ -178,7 +208,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (skipDraw)
+            if (skipDraw || !initialized)
             {
                 skipDraw = false;
 

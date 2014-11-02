@@ -329,6 +329,15 @@ namespace Neva.BeatEmUp.GameObjects
         {
             return componentManager.Find<GameObjectComponent>(c => ReferenceEquals(c, component)) != null;
         }
+        
+        public IEnumerable<GameObjectComponent> Components()
+        {
+            return componentManager.Components();
+        }
+        public IEnumerable<T> ComponentsOftype<T>() where T : GameObjectComponent
+        {
+            return componentManager.ComponentsOfType<T>();
+        }
 
         public T GetComponentOfType<T>() where T : GameObjectComponent
         {

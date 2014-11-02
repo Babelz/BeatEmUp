@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Neva.BeatEmUp
 {
-    internal class Sprite
+    public class Sprite
     {
         #region Vars
         private SpriteEffects effect;
@@ -39,7 +39,10 @@ namespace Neva.BeatEmUp
             }
             set
             {
-                texture = value;
+                if (value != null)
+                {
+                    texture = value;
+                }
             }
         }
         public Vector2 Position
@@ -84,6 +87,10 @@ namespace Neva.BeatEmUp
             {
                 return new Vector2(texture.Width * scale.X, texture.Height * scale.Y);
             }
+            set
+            {
+                scale = new Vector2(value.X / texture.Width, value.Y / texture.Height);
+            }
         }
         public Color Color
         {
@@ -110,11 +117,11 @@ namespace Neva.BeatEmUp
         #endregion
 
         public Sprite(Texture2D texture)
-            : this(texture, Vector2.Zero, new Vector2(1, 1), Vector2.Zero, Color.White, 0.0f, SpriteEffects.None)
+            : this(texture, Vector2.Zero, new Vector2(1f, 1f), Vector2.Zero, Color.White, 0.0f, SpriteEffects.None)
         {
         }
         public Sprite(Texture2D texture, Vector2 position)
-            : this(texture, position, new Vector2(1, 1), Vector2.Zero, Color.White, 0.0f, SpriteEffects.None)
+            : this(texture, position, new Vector2(1f, 1f), Vector2.Zero, Color.White, 0.0f, SpriteEffects.None)
         {
         }
         public Sprite(Texture2D texture, Vector2 position, Vector2 scale)
@@ -123,6 +130,11 @@ namespace Neva.BeatEmUp
         }
         private Sprite(Texture2D texture, Vector2 position, Vector2 scale, Vector2 origin, Color color, float rotation, SpriteEffects effects)
         {
+            if (texture == null)
+            {
+                throw new ArgumentNullException("texture");
+            }
+
             this.texture = texture;
             this.position = position;
             this.scale = scale;

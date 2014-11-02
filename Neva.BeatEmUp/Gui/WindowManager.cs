@@ -251,7 +251,8 @@ namespace Neva.BeatEmUp.Gui
         }
         public override void Draw(GameTime gameTime)
         {
-            if (!visible || spriteBatch == null)
+            if (!visible || spriteBatch == null || 
+               (transition == null && topmost == null))
             {
                 return;
             }

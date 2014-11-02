@@ -119,6 +119,8 @@ namespace Neva.BeatEmUp
             Components.Add(stateManager);
             Components.Add(scriptEngine);
 
+            objectCreators.Add(new ObjectCreator("ObjectFiles\\Maps.xml"));
+
             base.Initialize();
 
             scriptEngine.CompileAll();
@@ -126,11 +128,9 @@ namespace Neva.BeatEmUp
             objectCreators.Add(new ObjectCreator("ObjectFiles\\Maps.xml"));
             objectCreators.Add(new ObjectCreator("ObjectFiles\\Entities.xml"));
 
-            GameObject map = CreateGameObjectFromKey("perkele");
-
+            GameObject map = CreateGameObject("Map", "map1");
 
             stateManager.Change(new GameplayState());
-            
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -186,7 +186,14 @@ namespace Neva.BeatEmUp
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                gameObjects[i].Draw(spriteBatch);
+            }
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

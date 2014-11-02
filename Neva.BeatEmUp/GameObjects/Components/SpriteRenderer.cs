@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameObjects.Components
 {
-    internal sealed class SpriteRenderer : GameObjectComponent
+    public sealed class SpriteRenderer : GameObjectComponent
     {
         #region Vars
         private Sprite sprite;
@@ -126,22 +126,12 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
-            if (!CanRender())
+            if (sprite == null)
             {
                 return;
             }
 
             sprite.Draw(spriteBatch);
-        }
-
-        public bool CanRender()
-        {
-            if (sprite != null)
-            {
-                return sprite.Texture != null;
-            }
-
-            return false;
         }
     }
 }

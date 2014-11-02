@@ -3,61 +3,77 @@ using Neva.BeatEmUp.GameObjects.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Neva.BeatEmUp.RunTime
 {
     internal sealed class ComponentCreator
     {
-        #region Vars
-        private static object padLock = new object();
-        private static readonly Dictionary<Type, Func<GameObject, GameObjectComponent>> creators;
+        #region Static vars
+        private static readonly object padLock = new object();
+
+        private static readonly List<Type> types;
         #endregion
 
         static ComponentCreator()
         {
-            creators = new Dictionary<Type, Func<GameObject, GameObjectComponent>>();
-
-            // TODO: generoi koodi skriptillä.
-            creators.Add(typeof(SpriteRenderer), (gameObject) => { return new SpriteRenderer(gameObject); });
+            types = AppDomain.CurrentDomain.GetAssemblies()
+                .First(a => a.FullName.Contains("Neva"))
+                .GetTypes()
+                .Where(t => t.BaseType == typeof(GameObjectComponent))
+                .ToList();
         }
 
         public ComponentCreator()
         {
         }
 
-        private GameObjectComponent InternalCreate(Type key, GameObject owner)
+        private object[] CreateArgumentsArray(GameObject owner, object[] args = null)
+        {
+            object[] arguments = null;
+
+            if (args != null)
+            {
+                arguments = new object[args.Length + 1];
+                arguments[0] = owner;
+
+                for (int i = 1; i < arguments.Length; i++)
+                {
+                    arguments[i] = args[i];
+                }
+            }
+            else
+            {
+                arguments = new object[] 
+                {
+                    owner
+                };
+            }
+
+            return arguments;
+        }
+
+        public T Create<T>(GameObject owner, object[] args = null) where T : GameObjectComponent
+        {
+            args = CreateArgumentsArray(owner, args);
+
+            return Activator.CreateInstance(typeof(T), args) as T;
+        }
+        public GameObjectComponent Create(Type type, GameObject owner, object[] args = null)
+        {
+            args = CreateArgumentsArray(owner, args);
+
+            return Activator.CreateInstance(type, args) as GameObjectComponent;
+        }
+        public GameObjectComponent Create(string name, GameObject owner, object[] args = null)
         {
             lock (padLock)
             {
-                if (creators.ContainsKey(key))
-                {
-                    return creators[key](owner);
-                }
+                Type type = types.Find(c => string.Equals(c.Name, name, StringComparison.OrdinalIgnoreCase));
 
-                return null;
+                return Create(type, owner, args);
             }
-        }
-
-        public T Create<T>(GameObject owner) where T : GameObjectComponent
-        {
-            return InternalCreate(typeof(T), owner) as T;
-        }
-        public GameObjectComponent Create(Type type, GameObject owner)
-        {
-            return InternalCreate(type, owner);
-        }
-        public GameObjectComponent Create(string name, GameObject owner)
-        {
-            KeyValuePair<Type, Func<GameObject, GameObjectComponent>>? keyValuePair = creators
-                .FirstOrDefault(k => string.Equals(k.Key.Name, name, StringComparison.OrdinalIgnoreCase));
-
-            if (keyValuePair.HasValue)
-            {
-                return keyValuePair.Value.Value(owner);
-            }
-
-            return null;
         }
     }
 }
