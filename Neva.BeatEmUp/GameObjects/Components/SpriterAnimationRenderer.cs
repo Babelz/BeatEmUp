@@ -6,6 +6,7 @@ using System.Text;
 using BrashMonkeyContentPipelineExtension;
 using BrashMonkeySpriter;
 using BrashMonkeySpriter.Content;
+using BrashMonkeySpriter.Spriter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -41,8 +42,12 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
+            // halutaan että jalat collidaa
+            animator.Location = owner.Position + new Vector2(
+                owner.Body.BroadphaseProxy.AABB.Width / 2,
+                owner.Body.BroadphaseProxy.AABB.Height) ;
             animator.Update(gameTime);
-            animator.Location = owner.Position;
+            
             return new ComponentUpdateResults(this, true);
         }
 
@@ -68,6 +73,38 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             get;
             set;
+        }
+
+        public float Scale
+        {
+            get
+            {
+                return animator.Scale; 
+            }
+            set
+            {
+                animator.Scale = value;
+            }
+        }
+
+        public bool FlipX
+        {
+            get { return animator.FlipX; }
+            set { animator.FlipX = value;  }
+        }
+
+        public bool FlipY
+        {
+            get { return animator.FlipY; }
+            set { animator.FlipY = value; }
+        }
+
+        public Animation CurrentAnimation
+        {
+            get
+            {
+                return animator.CurrentAnimation;
+            }
         }
 
         public void ChangeAnimation(string name)

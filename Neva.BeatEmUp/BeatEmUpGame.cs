@@ -57,7 +57,7 @@ namespace Neva.BeatEmUp
 
         public World World
         {
-            get { return world;  }
+            get { return world; }
         }
         #endregion
 
