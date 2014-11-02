@@ -9,6 +9,7 @@ namespace Neva.BeatEmUp.GameObjects
     public class ComponentUpdateResults
     {
         #region Static vars
+        private static readonly object padLock = new object();
         private static readonly ComponentUpdateResults emptyResults;
         #endregion
 
@@ -82,7 +83,10 @@ namespace Neva.BeatEmUp.GameObjects
 
         public static bool IsEmpty(ComponentUpdateResults results)
         {
-            return ReferenceEquals(results, emptyResults);
+            lock (padLock)
+            {
+                return ReferenceEquals(results, emptyResults);
+            }
         }
     }
 }

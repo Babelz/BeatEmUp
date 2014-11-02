@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Neva.BeatEmUp.GameObjects.Components;
 
 namespace Neva.BeatEmUp
 {
-    public sealed class Camera
+    public sealed class Camera 
     {
         #region Properties
         public Vector2 Position
@@ -20,7 +21,7 @@ namespace Neva.BeatEmUp
             get;
             private set;
         }
-        public Matrix TransFormation
+        public Matrix Transformation
         {
             get
             {

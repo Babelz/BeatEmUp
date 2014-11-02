@@ -19,8 +19,9 @@ namespace Neva.BeatEmUp.GameObjects
         #region Vars
         private readonly List<GameObject> childs;
         private readonly TagContainer tags;
+
         private readonly ComponentManager componentManager;
-        private readonly List<Behaviour> behaviours;
+        private readonly TypeSortedContainer<Behaviour> behaviours;
         private readonly BeatEmUpGame game;
 
         private Body body;
@@ -150,7 +151,7 @@ namespace Neva.BeatEmUp.GameObjects
         {
             this.game = game;
 
-            behaviours = new List<Behaviour>();
+            behaviours = new TypeSortedContainer<Behaviour>();
             componentManager = new ComponentManager();
             
             tags = new TagContainer();
@@ -231,6 +232,13 @@ namespace Neva.BeatEmUp.GameObjects
             OnHide(this, new GameObjectEventArgs());
         }
 
+        public void AddBehaviour(Behaviour behaviour)
+        {
+            if (ReferenceEquals(behaviour.Owner, this))
+            {
+                behaviours.Add(behaviour);
+            }
+        }
         /// <summary>
         /// Lisää uuden behaviourin.
         /// </summary>
@@ -245,7 +253,14 @@ namespace Neva.BeatEmUp.GameObjects
         {
             Behaviour behaviour = behaviours.Find(b => b.Name == name);
 
-            return behaviours.Remove(behaviour);
+            if (behaviour == null)
+            {
+                return false;
+            }
+
+            behaviours.Remove(behaviour);
+
+            return true;
         }
         /// <summary>
         /// Aloittaa behaviourin suorittamisen.
@@ -284,6 +299,19 @@ namespace Neva.BeatEmUp.GameObjects
             return true;
         }
 
+        public Behaviour FindBehaviour(Predicate<Behaviour> predicate)
+        {
+            return behaviours.Find(b => predicate(b));
+        }
+        public T GetBehaviourOfType<T>() where T : Behaviour
+        {
+            return behaviours.FirstOfType<T>();
+        }
+        public T FindBehaviour<T>(Predicate<T> predicate) where T : Behaviour
+        {
+            return behaviours.FindOfType<T>(predicate);
+        }
+
         public bool ContainsTag(string tag)
         {
             return tags.ContainsTag(tag);
@@ -314,7 +342,7 @@ namespace Neva.BeatEmUp.GameObjects
 
             return false;
         }
-        public GameObject GetChild(Predicate<GameObject> predicate)
+        public GameObject FindChild(Predicate<GameObject> predicate)
         {
             return childs.Find(c => predicate(c));
         }
@@ -355,9 +383,9 @@ namespace Neva.BeatEmUp.GameObjects
         /// </summary>
         public void InitializeComponents()
         {
-            foreach (GameObjectComponent component in componentManager.Components())
+            for (int i = 0; i < componentManager.ComponentsCount; i++)
             {
-                component.Initialize();
+                componentManager[i].Initialize();
             }
         }
         /// <summary>
@@ -365,7 +393,7 @@ namespace Neva.BeatEmUp.GameObjects
         /// </summary>
         public void StartBehaviours()
         {
-            for (int i = 0; i < behaviours.Count; i++)
+            for (int i = 0; i < behaviours.ItemsCount; i++)
             {
                 behaviours[i].Start();
             }
@@ -399,7 +427,7 @@ namespace Neva.BeatEmUp.GameObjects
 
             IEnumerable<ComponentUpdateResults> results = componentManager.Update(gameTime);
 
-            for (int i = 0; i < behaviours.Count; i++)
+            for (int i = 0; i < behaviours.ItemsCount; i++)
             {
                 behaviours[i].Update(gameTime, results);
             }
@@ -413,7 +441,7 @@ namespace Neva.BeatEmUp.GameObjects
 
             componentManager.Draw(spriteBatch);
 
-            for (int i = 0; i < behaviours.Count; i++)
+            for (int i = 0; i < behaviours.ItemsCount; i++)
             {
                 behaviours[i].Draw(spriteBatch);
             }

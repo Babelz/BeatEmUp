@@ -1,0 +1,11 @@
+﻿<Map Top="taustatemp" Bottom="blank">
+  <Scene>
+    <Waves>
+      <Wave Monster="Blob" ReleaseTime="0" Count="10" Direction="Right"/>
+    </Waves>
+
+    <Objects>
+      <Object Name="Blob"/>
+    </Objects>
+  </Scene>
+</Map>

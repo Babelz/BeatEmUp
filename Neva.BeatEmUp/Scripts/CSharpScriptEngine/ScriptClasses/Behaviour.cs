@@ -11,7 +11,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
     public abstract class Behaviour : IScript
     {
         #region Vars
-        protected readonly GameObject owner;
+        private readonly GameObject owner;
 
         private bool running;
         private bool initialized;
@@ -29,6 +29,13 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
             protected set
             {
                 name = value;
+            }
+        }
+        public GameObject Owner
+        {
+            get
+            {
+                return owner;
             }
         }
         #endregion

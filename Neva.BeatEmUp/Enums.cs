@@ -10,4 +10,10 @@ namespace Neva.BeatEmUp
         BackgroundArea,
         GameplayArea
     }
+
+    public enum WaveDirection
+    {
+        Left,
+        Right
+    }
 }

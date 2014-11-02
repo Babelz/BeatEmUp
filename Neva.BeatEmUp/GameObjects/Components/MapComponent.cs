@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Neva.BeatEmUp.Maps;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,25 +11,69 @@ namespace Neva.BeatEmUp.GameObjects.Components
     public sealed class MapComponent : GameObjectComponent
     {
         #region Vars
-        private string filename;
+        private readonly List<Scene> scenes;
+
+        private Scene currentScene;
+
+        private bool calledSceneFinished;
+        private bool calledMapFinished;
         #endregion
 
-        public MapComponent(GameObject owner)
+        #region Events
+        public event GameObjectComponentEventHandler SceneFinished;
+        public event GameObjectComponentEventHandler MapFinished;
+        #endregion
+
+        public MapComponent(GameObject owner, List<Scene> scenes)
             : base(owner, true)
         {
+            this.scenes = scenes;
+
+            SceneFinished += delegate { };
+            MapFinished += delegate { };
         }
 
         protected override void OnInitialize()
         {
-            if (string.IsNullOrEmpty(filename))
-            {
-                throw GameObjectComponentException.InitializationException("Filename cant be empty.", this);
-            }
+            currentScene = scenes[0];
+
+            currentScene.Start();
         }
 
-        public void SetMapFilename(string filename)
+        protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            this.filename = filename; 
+            currentScene.Update(gameTime, owner.Game.View.Position);
+
+            if (currentScene.Finished())
+            {
+                if (!calledSceneFinished)
+                {
+                    SceneFinished(this, new GameObjectComponentEventArgs());
+
+                    calledSceneFinished = true;
+                }
+            }
+
+            return new ComponentUpdateResults(this, true);
+        }
+        
+        public void ChangeScene()
+        {
+            if (scenes.IndexOf(currentScene) + 1 == scenes.Count)
+            {
+                if (!calledMapFinished)
+                {
+                    MapFinished(this, new GameObjectComponentEventArgs());
+
+                    calledMapFinished = true;
+
+                    return;
+                }
+            }
+
+            currentScene = scenes[scenes.IndexOf(currentScene) + 1];
+            
+            calledSceneFinished = false;
         }
     }
 }

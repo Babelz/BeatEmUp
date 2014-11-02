@@ -25,11 +25,11 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            owner.GetComponentOfType<SpriterAnimationRenderer>().FilePath = "Animations\\player.scml";
-            owner.GetComponentOfType<SpriterAnimationRenderer>().Entity = "Player";
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().FilePath = "Animations\\player.scml";
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().Entity = "Player";
             
 
-            InputManager inputManager = owner.Game.Components.First(c => c as InputManager != null) as InputManager;
+            InputManager inputManager = Owner.Game.Components.First(c => c as InputManager != null) as InputManager;
             KeyboardInputListener keylistener = inputManager.Listeners.Find(c => c as KeyboardInputListener != null) as KeyboardInputListener;
             keylistener.Map("Left", MoveLeft, new KeyTrigger(Keys.A), new KeyTrigger(Keys.Left));
             keylistener.Map("Right", MoveRight, new KeyTrigger(Keys.D), new KeyTrigger(Keys.Right));
@@ -38,9 +38,9 @@ namespace Neva.BeatEmUp.Behaviours
             keylistener.Map("Jump", Jump, new KeyTrigger(Keys.Space));
 
 
-            owner.InitializeComponents();
-            owner.GetComponentOfType<SpriterAnimationRenderer>().ChangeAnimation("idle");
-            owner.GetComponentOfType<SpriterAnimationRenderer>().Scale = 0.4f;
+            Owner.InitializeComponents();
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().ChangeAnimation("idle");
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().Scale = 0.4f;
             
         }
 
@@ -49,27 +49,27 @@ namespace Neva.BeatEmUp.Behaviours
         private void MoveLeft(InputEventArgs args)
         {
             ChangeWalkAnimation(args);
-            owner.GetComponentOfType<SpriterAnimationRenderer>().FlipX = true;
-            owner.Body.Velocity = new Vector2(VelocityFunc(-speed, args), owner.Body.Velocity.Y);
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().FlipX = true;
+            Owner.Body.Velocity = new Vector2(VelocityFunc(-speed, args), Owner.Body.Velocity.Y);
         }
 
         private void MoveDown(InputEventArgs args)
         {
             ChangeWalkAnimation(args);
-            owner.Body.Velocity = new Vector2(owner.Body.Velocity.X, VelocityFunc(speed, args));
+            Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(speed, args));
         }
 
         private void MoveUp(InputEventArgs args)
         {
             ChangeWalkAnimation(args);
-            owner.Body.Velocity = new Vector2(owner.Body.Velocity.X, VelocityFunc(-speed, args));
+            Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(-speed, args));
         }
 
         private void MoveRight(InputEventArgs args)
         {
             ChangeWalkAnimation(args);
-            owner.GetComponentOfType<SpriterAnimationRenderer>().FlipX = false;
-            owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), owner.Body.Velocity.Y);
+            Owner.GetComponentOfType<SpriterAnimationRenderer>().FlipX = false;
+            Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
         }
 
         private void Jump(InputEventArgs args)
@@ -83,7 +83,7 @@ namespace Neva.BeatEmUp.Behaviours
         {
             if (args.InputState == InputState.Pressed)
             {
-                var spriter = owner.GetComponentOfType<SpriterAnimationRenderer>();
+                var spriter = Owner.GetComponentOfType<SpriterAnimationRenderer>();
                 if (spriter.CurrentAnimation.Name != "walk")
                     spriter.ChangeAnimation("walk");
             }
@@ -95,13 +95,15 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            SpriterAnimationRenderer spriter = owner.GetComponentOfType<SpriterAnimationRenderer>();
+            SpriterAnimationRenderer spriter = Owner.GetComponentOfType<SpriterAnimationRenderer>();
             //todo miten vittu
-            owner.Position += owner.Body.Velocity;
-            if (spriter.CurrentAnimation.Name != "idle" && owner.Body.Velocity == Vector2.Zero)
+
+            Owner.Position += Owner.Body.Velocity;
+            if (spriter.CurrentAnimation.Name != "idle" && Owner.Body.Velocity == Vector2.Zero)
             {
                 spriter.ChangeAnimation("idle");
             }
+            Owner.Position += Owner.Body.Velocity;
         }
 
         private float VelocityFunc(float src, InputEventArgs args)
