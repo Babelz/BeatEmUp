@@ -39,10 +39,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BeatEmUpGame.cs" />
-    <Compile Include="Behaviours\City1Behaviour.cs">
+    <Compile Include="Behaviours\Blob.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Camera.cs" />
+    <Compile Include="Behaviours\MapBehaviour.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="GameObjects\Components\AI\FiniteStateMachine.cs" />
+    <Compile Include="GameObjects\Components\Camera.cs" />
     <Compile Include="Collision\Broadphase\BroadphaseProxy.cs" />
     <Compile Include="Collision\Broadphase\BruteForceBroadphase.cs" />
     <Compile Include="Collision\Broadphase\IBroadphase.cs" />
@@ -163,6 +167,8 @@
     <Compile Include="Input\Trigger\ITrigger.cs" />
     <Compile Include="Input\Trigger\KeyTrigger.cs" />
     <Compile Include="Input\Trigger\MouseTrigger.cs" />
+    <Compile Include="Maps\Scene.cs" />
+    <Compile Include="Maps\Wave.cs" />
     <Compile Include="RunTime\ComponentCreator.cs" />
     <Compile Include="RunTime\ModelReader.cs" />
     <Compile Include="RunTime\Models.cs" />
@@ -218,14 +224,26 @@
     <Content Include="Content\blank.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Maps\City1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\taustatemp.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
     <Content Include="ObjectFiles\Maps.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ObjectFiles\Monsters.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\CSharpScriptEngine\csharpscriptengine_README.txt" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Content\default.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripteng.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

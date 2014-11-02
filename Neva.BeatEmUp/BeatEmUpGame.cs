@@ -19,6 +19,8 @@ using Neva.BeatEmUp.Collision.Dynamics;
 using Neva.BeatEmUp.RunTime;
 using Neva.BeatEmUp.GameObjects.Components;
 using Neva.BeatEmUp.Gui;
+using Neva.BeatEmUp.Behaviours;
+using System.IO;
 #endregion
 
 namespace Neva.BeatEmUp
@@ -38,6 +40,7 @@ namespace Neva.BeatEmUp
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        private Camera camera;
         private InputManager inputManager;
         private ScriptEngine scriptEngine;
         private GameStateManager stateManager;
@@ -51,6 +54,13 @@ namespace Neva.BeatEmUp
             get
             {
                 return stateManager.Current;
+            }
+        }
+        public Camera View
+        {
+            get
+            {
+                return camera;
             }
         }
         #endregion
@@ -114,13 +124,26 @@ namespace Neva.BeatEmUp
             Components.Add(stateManager);
             Components.Add(scriptEngine);
 
-            objectCreators.Add(new ObjectCreator("ObjectFiles\\Maps.xml"));
-
             base.Initialize();
+
+            camera = new Camera(Vector2.Zero, this.GraphicsDevice.Viewport);
 
             scriptEngine.CompileAll();
 
+            string[] objectFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "ObjectFiles\\")
+                .Where(f => f.EndsWith(".xml"))
+                .ToArray();
+
+            for (int i = 0; i < objectFiles.Length; i++)
+            {
+                objectCreators.Add(new ObjectCreator(objectFiles[i]));
+            }
+
             GameObject map = CreateGameObject("Map", "map1");
+            MapBehaviour behaviour = new MapBehaviour(map, "City1.xml");
+            map.AddBehaviour(behaviour);
+
+            map.StartBehaviours();
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -175,7 +198,12 @@ namespace Neva.BeatEmUp
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
+                null,
+                null,
+                null,
+                null,
+                camera.Transformation);
 
             for (int i = 0; i < gameObjects.Count; i++)
             {

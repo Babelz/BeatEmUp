@@ -12,4 +12,12 @@ namespace Neva.BeatEmUp.GameObjects
         {
         }
     }
+
+    public class GameObjectComponentEventArgs : EventArgs
+    {
+        public GameObjectComponentEventArgs()
+            : base()
+        {
+        }
+    }
 }

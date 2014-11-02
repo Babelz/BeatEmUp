@@ -1,0 +1,5 @@
+﻿<Monsters>
+  <Object Key="Monster" Enabled="true" Visible="true" Name="Blob" Width="32" Height="32">
+    <Behaviour Name="Blob" Start="true"/>
+  </Object>
+</Monsters>

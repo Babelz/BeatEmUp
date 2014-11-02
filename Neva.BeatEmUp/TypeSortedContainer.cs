@@ -247,11 +247,23 @@ namespace Neva.BeatEmUp
         public T Find(Predicate<T> predicate)
         {
             List<T> allItems = GetList(typeof(T));
+
+            if (allItems == null)
+            {
+                return null;
+            }
+
             return allItems.FirstOrDefault(i => predicate(i));
         }
         public IEnumerable<T> FindAll(Predicate<T> predicate)
         {
             List<T> allItems = GetList(typeof(T));
+
+            if (allItems == null)
+            {
+                new List<T>();
+            }
+
             return allItems.Where(i => predicate(i));
         }
         public bool Contains(T item)

@@ -88,8 +88,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
             this.owner = owner;
             this.isUnique = isUnique;
 
-            enabled = false;
-            visible = false;
+            enabled = true;
+            visible = true;
 
             name = this.GetType().Name;
         }
