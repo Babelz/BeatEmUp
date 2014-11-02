@@ -10,7 +10,7 @@ using Neva.BeatEmUp.Input.Trigger;
 
 namespace Neva.BeatEmUp.Input.Listener
 {
-    internal sealed class KeyboardInputListener : InputListener
+    public sealed class KeyboardInputListener : InputListener
     {
         #region Vars
 

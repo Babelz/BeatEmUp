@@ -8,7 +8,7 @@ using Neva.BeatEmUp.Input.Listener;
 
 namespace Neva.BeatEmUp.Input.State
 {
-    internal sealed class GamepadStateProvider : IStateProvider
+    public sealed class GamepadStateProvider : IStateProvider
     {
 
         #region Vars

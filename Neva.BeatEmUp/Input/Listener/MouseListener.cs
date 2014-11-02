@@ -8,7 +8,7 @@ using Neva.BeatEmUp.Input.State;
 
 namespace Neva.BeatEmUp.Input.Listener
 {
-    internal class MouseListener : InputListener
+    public class MouseListener : InputListener
     {
         #region Vars
 

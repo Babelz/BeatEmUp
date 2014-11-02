@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine.Builders;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine;
 using Neva.BeatEmUp.Input;
@@ -96,9 +95,15 @@ namespace Neva.BeatEmUp
         /// </summary>
         protected override void Initialize()
         {
-            int index = 0;
-
-            inputManager = new InputManager(this, new KeyboardInputListener(), Enumerable.Repeat<GamepadInputListener>(new GamepadInputListener((PlayerIndex)index++), 4).ToArray(), null);
+            inputManager = new InputManager(this, new KeyboardInputListener(), 
+                new[]
+                {
+                    new GamepadInputListener(PlayerIndex.One), 
+                    new GamepadInputListener(PlayerIndex.Two), 
+                    new GamepadInputListener(PlayerIndex.Three), 
+                    new GamepadInputListener(PlayerIndex.Four)
+                }, 
+                null);
             
             scriptEngine = new ScriptEngine(this, "scripteng.cfg")
             {
@@ -119,8 +124,13 @@ namespace Neva.BeatEmUp
             scriptEngine.CompileAll();
             
             objectCreators.Add(new ObjectCreator("ObjectFiles\\Maps.xml"));
+            objectCreators.Add(new ObjectCreator("ObjectFiles\\Entities.xml"));
 
             GameObject map = CreateGameObjectFromKey("perkele");
+
+
+            stateManager.Change(new GameplayState());
+            
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -167,6 +177,7 @@ namespace Neva.BeatEmUp
                 }
             }
         }
+        
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>

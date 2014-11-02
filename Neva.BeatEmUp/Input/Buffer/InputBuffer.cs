@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Input.Buffer
 {
-    internal abstract class InputBuffer
+    public abstract class InputBuffer
     {
         #region Properties
 

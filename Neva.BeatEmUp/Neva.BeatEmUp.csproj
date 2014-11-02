@@ -42,6 +42,9 @@
     <Compile Include="Behaviours\City1Behaviour.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Behaviours\PlayerBehaviour.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Camera.cs" />
     <Compile Include="Collision\Broadphase\BroadphaseProxy.cs" />
     <Compile Include="Collision\Broadphase\BruteForceBroadphase.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Components\GameObjectComponent.cs" />
     <Compile Include="GameObjects\TagContainer.cs" />
+    <Compile Include="GameStates\GameplayState.cs" />
     <Compile Include="GameStates\GameState.cs" />
     <Compile Include="GameStates\GameStateManager.cs" />
     <Compile Include="Gui\Controls\Button.cs" />
@@ -214,6 +218,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <Content Include="ObjectFiles\Entities.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ObjectFiles\Maps.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

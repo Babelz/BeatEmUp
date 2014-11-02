@@ -7,7 +7,7 @@ using Neva.BeatEmUp.Input.Listener;
 
 namespace Neva.BeatEmUp.Input
 {
-    internal sealed class InputManager : GameComponent
+    public sealed class InputManager : GameComponent
     {
         #region Vars
 

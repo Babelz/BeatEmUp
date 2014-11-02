@@ -7,7 +7,7 @@ using Neva.BeatEmUp.Input.Trigger;
 
 namespace Neva.BeatEmUp.Input
 {
-    internal sealed class Mapping
+    public sealed class Mapping
     {
         public string MappingName { get; private set; }
         public InputEvent Callback { get; private set; }

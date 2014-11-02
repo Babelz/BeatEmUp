@@ -1,0 +1,6 @@
+﻿<Entities>
+  <Object Key="Player" Visible="true" Enabled="true">
+    <Behaviour Name="PlayerBehaviour"/>
+    <Component Name="SpriteRenderer" />
+  </Object>
+</Entities>

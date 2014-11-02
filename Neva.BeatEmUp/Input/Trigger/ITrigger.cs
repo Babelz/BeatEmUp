@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Input.Trigger
 {
-    internal interface ITrigger
+    public interface ITrigger
     {
         int TriggerHash();
     }

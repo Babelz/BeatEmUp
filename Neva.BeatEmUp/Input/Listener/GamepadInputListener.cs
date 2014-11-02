@@ -10,8 +10,8 @@ using Neva.BeatEmUp.Input.Trigger;
 
 namespace Neva.BeatEmUp.Input.Listener
 {
-    internal delegate void InputDeviceEventHandler(object sender);
-    internal sealed class GamepadInputListener : InputListener
+    public delegate void InputDeviceEventHandler(object sender);
+    public sealed class GamepadInputListener : InputListener
     {
 
         #region Vars

@@ -6,7 +6,7 @@ using System.Text;
 namespace Neva.BeatEmUp.Input
 {
     [Flags]
-    internal enum InputState
+    public enum InputState
     {
         Pressed = 0,
         Down = 1,
