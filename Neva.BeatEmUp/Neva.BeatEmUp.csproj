@@ -74,6 +74,7 @@
     <Compile Include="GameObjectContainer.cs" />
     <Compile Include="GameObjects\Args.cs" />
     <Compile Include="GameObjects\ComponentManager.cs" />
+    <Compile Include="GameObjects\Components\ColliderRenderer.cs" />
     <Compile Include="GameObjects\Components\Exceptions.cs" />
     <Compile Include="GameObjects\Components\MapComponent.cs" />
     <Compile Include="GameObjects\Components\SpriterAnimationRenderer.cs" />

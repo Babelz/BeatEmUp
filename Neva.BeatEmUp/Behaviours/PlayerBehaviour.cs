@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Neva.BeatEmUp.Collision;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
 using Neva.BeatEmUp.Input;
@@ -19,7 +20,7 @@ namespace Neva.BeatEmUp.Behaviours
         public PlayerBehaviour(GameObject owner) : base(owner)
         {
             owner.Body.Shape.Size = new Vector2(32.0f, 32.0f);
-            owner.Position = new Vector2(500, 300);
+            owner.Game.World.CreateBody(owner.Body, CollisionGroup.Group1, CollisionGroup.All);
         }
 
         protected override void OnInitialize()

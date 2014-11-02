@@ -7,7 +7,7 @@ using Neva.BeatEmUp.Collision.Dynamics;
 
 namespace Neva.BeatEmUp.Collision
 {
-    internal struct CollisionResult
+    public struct CollisionResult
     {
         /// <summary>
         /// Cachetettu että ei tarvi alloccia

@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using Neva.BeatEmUp.Collision.Broadphase;
+using Neva.BeatEmUp.Collision.Narrowphase;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine.Builders;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine;
 using Neva.BeatEmUp.Input;
@@ -51,6 +53,11 @@ namespace Neva.BeatEmUp
             {
                 return stateManager.Current;
             }
+        }
+
+        public World World
+        {
+            get { return world;  }
         }
         #endregion
 
@@ -112,7 +119,7 @@ namespace Neva.BeatEmUp
 
             windowManager = new WindowManager(this);
             stateManager = new GameStateManager(this);
-            world = new World();
+            world = new World(this, new BruteForceBroadphase(), new SeparatingAxisTheorem());
 
             Components.Add(inputManager);
             Components.Add(windowManager);
@@ -166,6 +173,8 @@ namespace Neva.BeatEmUp
             }
 
             destroyedObjects.Clear();
+
+            world.Step(gameTime);
 
             for (int i = 0; i < gameObjects.Count; i++)
             {
