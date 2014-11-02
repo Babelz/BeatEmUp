@@ -255,7 +255,7 @@ namespace BrashMonkeySpriter
             //  Create a tranformation matrix so we can find out the location of the bone \ body
             Matrix l_matrix = Matrix.CreateScale(p_baseTransform.Scale.X, p_baseTransform.Scale.Y, 0) *
                                 Matrix.CreateRotationZ(p_baseTransform.Rotation) *
-                                Matrix.CreateTranslation(p_baseTransform.Location.X / 2, p_baseTransform.Location.Y / 2, 0);
+                                Matrix.CreateTranslation(p_baseTransform.Location.X , p_baseTransform.Location.Y , 0);
 
             AnimationTransform l_result = new AnimationTransform();
 
