@@ -158,14 +158,29 @@ namespace Neva.BeatEmUp.Gui
             }
         }
 
+        /// <summary>
+        /// Lisää ikkunan managerille.
+        /// </summary>
+        /// <param name="name">Ikkunalle annettava nimi.</param>
+        /// <param name="window">Ikkuna joka halutaan lisätä.</param>
         public void AddWindow(string name, Window window)
         {
             window.Disable();
 
             windowGroup.AddWindow(name, window);
         }
+        /// <summary>
+        /// Lisää ikkunan managerille. Ikkunalla tulee olla nimi.
+        /// </summary>
+        /// <param name="window">Ikkuna joka halutaan lisätä.</param>
+        /// <exception cref="GuiException"></exception>
         public void AddWindow(Window window)
         {
+            if (string.IsNullOrEmpty(window.Name))
+            {
+                throw new InvalidGuiOperationException("Name cant be empty.");
+            }
+
             window.Disable();
 
             windowGroup.AddWindow(window);

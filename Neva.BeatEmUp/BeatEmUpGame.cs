@@ -84,6 +84,8 @@ namespace Neva.BeatEmUp
 
             componentCreator = new ComponentCreator();
             objectCreators = new List<ObjectCreator>();
+
+            IsMouseVisible = true;
         }
 
         private ObjectCreator GetCreator(string key = "", string name = "")
@@ -156,7 +158,7 @@ namespace Neva.BeatEmUp
                 objectCreators.Add(new ObjectCreator(objectFiles[i]));
             }
 
-            stateManager.Change(new GameplayState());
+            stateManager.Change(new SplashMenuState());
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
