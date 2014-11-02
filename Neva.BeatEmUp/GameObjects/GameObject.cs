@@ -348,6 +348,27 @@ namespace Neva.BeatEmUp.GameObjects
             return componentManager.Find<T>(predicate);
         }
 
+        /// <summary>
+        /// Alustaa kaikki komponentit.
+        /// </summary>
+        public void InitializeComponents()
+        {
+            foreach (GameObjectComponent component in componentManager.Components())
+            {
+                component.Initialize();
+            }
+        }
+        /// <summary>
+        /// Käynnistää kaikki toiminnot.
+        /// </summary>
+        public void StartBehaviours()
+        {
+            for (int i = 0; i < behaviours.Count; i++)
+            {
+                behaviours[i].Start();
+            }
+        }
+
         public void Destroy()
         {
             if (destroyed)
