@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.Collision.Dynamics;
 using Neva.BeatEmUp.Collision.Shape;
@@ -12,6 +13,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameObjects
 {
+    [DebuggerDisplay("Name = {Name}" )]
     public sealed class GameObject
     {
         #region Vars

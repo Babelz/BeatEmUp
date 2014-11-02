@@ -76,6 +76,7 @@
     <Compile Include="GameObjects\ComponentManager.cs" />
     <Compile Include="GameObjects\Components\Exceptions.cs" />
     <Compile Include="GameObjects\Components\MapComponent.cs" />
+    <Compile Include="GameObjects\Components\SpriterAnimationRenderer.cs" />
     <Compile Include="GameObjects\Components\SpriteRenderer.cs" />
     <Compile Include="GameObjects\Delegates.cs" />
     <Compile Include="GameObjects\Results.cs" />
@@ -207,6 +208,20 @@
     <Compile Include="SafeTypeSortedContainer.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="SpriteBatchExtensions.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Character.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Pipeline\SpritePacker.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Pipeline\SpriterImporter.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Pipeline\SpriterProcessor.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Pipeline\SpriterReader.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Pipeline\SpriterShadow.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Pipeline\Utils.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Spriter\Animation.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Spriter\Bone.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Spriter\Entity.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Spriter\Mainline.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Spriter\Reference.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Spriter\Timeline.cs" />
+    <Compile Include="ThirdParty\BrashMonkey\Spriter\Types.cs" />
     <Compile Include="TypeSortedContainer.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
@@ -219,6 +234,105 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Animations\impacts\blue_hitspark_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\blue_hitspark_ring.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\charge_flash.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\crescent_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\crescent_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\crescent_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\dustcloud0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\orange_impx_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\orange_impx_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\orange_impx_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\orange_imp_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\orange_imp_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\orange_imp_a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\orange_imp_b.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\orange_imp_o.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\Revup1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\Revup2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\Revup3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\Revup4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\Revup5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\spack_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\spack_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\spack_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\spack_3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\white_circle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\white_pak_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\white_pak_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\white_pak_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\white_pak_3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\zpack_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\zpack_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\zpack_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Animations\impacts\zpack_3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\blank.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -233,9 +347,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Content\Animations\test.scml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripteng.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ThirdParty\BrashMonkey\LICENSE" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

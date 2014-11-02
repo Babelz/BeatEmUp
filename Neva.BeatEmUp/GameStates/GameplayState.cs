@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Neva.BeatEmUp.GameObjects;
+using Neva.BeatEmUp.GameObjects.Components;
 
 namespace Neva.BeatEmUp.GameStates
 {
@@ -11,7 +13,8 @@ namespace Neva.BeatEmUp.GameStates
     {
         public override void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager)
         {
-            Game.CreateGameObjectFromKey("player");
+            GameObject player = Game.CreateGameObjectFromKey("player");
+            
         }
 
         public override void Update(GameTime gameTime)
