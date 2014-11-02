@@ -77,7 +77,7 @@ namespace Neva.BeatEmUp.Behaviours
             Sprite bottomSprite = new Sprite(texture)
             {
                 Size = new Vector2(Owner.Game.Window.ClientBounds.Width, Owner.Game.Window.ClientBounds.Height / 2),
-                Color = Color.White,
+                Color = Color.Gray,
                 Position = new Vector2(0.0f, Owner.Game.Window.ClientBounds.Height / 2)
             };
 

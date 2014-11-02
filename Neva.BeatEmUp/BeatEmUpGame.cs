@@ -47,6 +47,8 @@ namespace Neva.BeatEmUp
         private GameStateManager stateManager;
         private WindowManager windowManager;
         private World world;
+
+        private bool paused;
         #endregion
 
         #region Properties
@@ -86,6 +88,9 @@ namespace Neva.BeatEmUp
             objectCreators = new List<ObjectCreator>();
 
             IsMouseVisible = true;
+
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
         }
 
         private ObjectCreator GetCreator(string key = "", string name = "")
@@ -188,6 +193,11 @@ namespace Neva.BeatEmUp
         {
             base.Update(gameTime);
 
+            if (paused)
+            {
+                return;
+            }
+
             for (int i = 0; i < destroyedObjects.Count; i++)
             {
                 RemoveGameObject(destroyedObjects[i]);
@@ -231,6 +241,15 @@ namespace Neva.BeatEmUp
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void Pause()
+        {
+            paused = true;
+        }
+        public void Resume()
+        {
+            paused = false;
         }
 
         public T GetScript<T>(ScriptBuilder scriptBuilder) where T : IScript

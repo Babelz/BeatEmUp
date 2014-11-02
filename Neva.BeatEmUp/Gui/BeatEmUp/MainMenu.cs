@@ -99,17 +99,23 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
                 TextSize = new Vector2(50f)
             };
 
+            options.MouseButtonDown += options_MouseButtonDown;
+            options.ButtonPressed += options_ButtonPressed;
+
             exit = new Button(game)
             {
-                Text = "Chicken out!",
+                Text = "Exit",
                 TextColor = Color.White,
                 Font = font,
                 SizeBehaviour = Gui.SizeBehaviour.OverwriteBoth,
                 VerticalAlingment = Vertical.Center,
                 HorizontalAlingment = Horizontal.Center,
                 Brush = new Gui.Brush(Color.Transparent),
-                TextSize = new Vector2(50f)
+                TextSize = new Vector2(45f, 55f)
             };
+
+            exit.MouseButtonDown += exit_MouseButtonDown;
+            exit.ButtonPressed += exit_ButtonPressed;
 
             grid.SetColumnWidth(1, 50f);
 
@@ -119,6 +125,30 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             grid.Add(exit, 4, 1);
 
             SetContent(root);
+        }
+
+        private void exit_ButtonPressed(GuiButtonEventArgs e, object sender)
+        {
+            game.Exit();
+        }
+        private void exit_MouseButtonDown(GuiCursorInputEventArgs e, object sender)
+        {
+            if (e.PressedButtons.Contains(MouseButtons.LeftButton))
+            {
+                exit.Press();
+            }
+        }
+
+        private void options_ButtonPressed(GuiButtonEventArgs e, object sender)
+        {
+            Console.WriteLine("Nothing here yet!");
+        }
+        private void options_MouseButtonDown(GuiCursorInputEventArgs e, object sender)
+        {
+            if (e.PressedButtons.Contains(MouseButtons.LeftButton))
+            {
+                options.Press();
+            }
         }
 
        private void start_ButtonPressed(GuiButtonEventArgs e, object sender)

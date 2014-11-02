@@ -36,6 +36,13 @@ namespace Neva.BeatEmUp
             get;
             set;
         }
+        public Rectangle Area
+        {
+            get
+            {
+                return new Rectangle((int)Position.X, (int)Position.Y, (int)(Viewport.Width * Zoom - Viewport.Width), (int)(Viewport.Height * Zoom - Viewport.Height));
+            }
+        }
         #endregion
 
         public Camera(Vector2 position, Viewport viewport)
