@@ -61,13 +61,16 @@ namespace Neva.BeatEmUp.GameStates
             keyboardListenenr = inputManager.Listeners.First(l => l.GetType() == typeof(KeyboardInputListener))
                 as KeyboardInputListener;
 
-            gamepadListenenr = inputManager.Listeners.First(l => l.GetType() == typeof(GamepadInputListener) &&
+            gamepadListenenr = inputManager.Listeners.FirstOrDefault(l => l.GetType() == typeof(GamepadInputListener) &&
                 (l as GamepadInputListener).IsConnected)
                 as GamepadInputListener;
 
             keyboardListenenr.Map("Skip", Skip, new KeyTrigger(Keys.Enter));
-            gamepadListenenr.Map("Skip", Skip, new ButtonTrigger(Buttons.A));
-            gamepadListenenr.OnControlConnected += gamepadListenenr_OnControlConnected;
+            if (gamepadListenenr != null)
+            {
+                gamepadListenenr.Map("Skip", Skip, new ButtonTrigger(Buttons.A));
+                gamepadListenenr.OnControlConnected += gamepadListenenr_OnControlConnected;
+            }
 
             rect = new Rectangle(0, 0, game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
 
@@ -109,7 +112,8 @@ namespace Neva.BeatEmUp.GameStates
                     gameStateManager.Change(new MainMenuState());
 
                     keyboardListenenr.RemoveMapping("Skip");
-                    gamepadListenenr.RemoveMapping("Skip");
+                    if (gamepadListenenr != null)
+                        gamepadListenenr.RemoveMapping("Skip");
                 }
             }
         }
