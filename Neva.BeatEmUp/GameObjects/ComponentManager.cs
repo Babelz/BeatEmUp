@@ -62,6 +62,14 @@ namespace Neva.BeatEmUp.GameObjects
         {
             return components.FindOfType(predicate);
         }
+        public IEnumerable<T> ComponentsOfType<T>() where T : GameObjectComponent
+        {
+            return components.ItemsOfType<T>();
+        }
+        public IEnumerable<GameObjectComponent> Components()
+        {
+            return components.AllItems();
+        }
 
         public IEnumerable<ComponentUpdateResults> Update(GameTime gameTime)
         {
