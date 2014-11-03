@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Neva.BeatEmUp
 {
-    internal static class SpriteBatchExtensions
+    public static class SpriteBatchExtensions
     {
         private static Texture2D rectText;
 

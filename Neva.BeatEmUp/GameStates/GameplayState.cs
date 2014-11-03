@@ -22,7 +22,7 @@ namespace Neva.BeatEmUp.GameStates
             this.game = game;
 
             GameObject map = new GameObject(game);
-            map.AddBehaviour(new MapBehaviour(map, "City1.xml"));
+            map.AddBehaviour("MapBehaviour", new object[] { "City1.xml" });
 
             map.StartBehaviours();
 

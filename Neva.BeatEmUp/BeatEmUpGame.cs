@@ -93,7 +93,7 @@ namespace Neva.BeatEmUp
             graphics.PreferredBackBufferHeight = 720;
         }
 
-        private ObjectCreator GetCreator(string key = "", string name = "")
+        private ObjectCreator FindCreator(string key = "", string name = "")
         {
             if (name != string.Empty && key != string.Empty)
             {
@@ -217,7 +217,6 @@ namespace Neva.BeatEmUp
                 }
             }
         }
-        
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -252,9 +251,33 @@ namespace Neva.BeatEmUp
             paused = false;
         }
 
-        public T GetScript<T>(ScriptBuilder scriptBuilder) where T : IScript
+        public T CreateScript<T>(ScriptBuilder scriptBuilder) where T : IScript
         {
             return scriptEngine.GetScript<T>(scriptBuilder);
+        }
+        public Behaviour CreateBehaviour(string name, GameObject owner, object[] args = null)
+        {
+            object[] arguments = null;
+
+            if (args != null)
+            {
+                arguments = new object[args.Length + 1];
+
+                arguments[0] = owner;
+
+                for (int i = 0; i < args.Length; i++)
+                {
+                    arguments[i + 1] = args[i];
+                }
+            }
+            else
+            {
+                arguments = new object[] { owner };
+            }
+
+            ScriptBuilder scriptBuilder = new ScriptBuilder(name, arguments);
+
+            return scriptEngine.GetScript<Behaviour>(scriptBuilder);
         }
 
         public void AddGameObject(GameObject gameObject)
@@ -304,7 +327,7 @@ namespace Neva.BeatEmUp
         {
             ObjectCreator creator = null;
 
-            if ((creator = GetCreator(key: key)) == null)
+            if ((creator = FindCreator(key: key)) == null)
             {
                 // TODO: log warning.
 
@@ -329,7 +352,7 @@ namespace Neva.BeatEmUp
         {
             ObjectCreator creator = null;
 
-            if ((creator = GetCreator(name: name)) == null)
+            if ((creator = FindCreator(name: name)) == null)
             {
                 // TODO: log warning.
 
@@ -355,7 +378,7 @@ namespace Neva.BeatEmUp
         {
             ObjectCreator creator = null;
 
-            if ((creator = GetCreator(key, name)) == null)
+            if ((creator = FindCreator(key, name)) == null)
             {
                 // TODO: log warning.
 
