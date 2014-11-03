@@ -163,7 +163,7 @@ namespace Neva.BeatEmUp
                 objectCreators.Add(new ObjectCreator(objectFiles[i]));
             }
 
-            stateManager.Change(new SplashMenuState());
+            stateManager.Change(new GameplayState());
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -226,12 +226,12 @@ namespace Neva.BeatEmUp
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+        /*        null,
                 null,
                 null,
                 null,
-                null,
-                camera.Transformation);
+                camera.Transformation);*/
 
             for (int i = 0; i < gameObjects.Count; i++)
             {

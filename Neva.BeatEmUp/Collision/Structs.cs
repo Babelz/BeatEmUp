@@ -102,6 +102,11 @@ namespace Neva.BeatEmUp.Collision
             Position = pos;
             Rotation.Set(angle);
         }
+
+        public void TransformVector(ref Vector2 vec)
+        {
+            vec = SaNiMath.Multiply(ref this, vec);
+        }
     }
 
     public struct Rotation

@@ -11,13 +11,14 @@ namespace Neva.BeatEmUp.GameObjects.Components
     {
         public ColliderRenderer(GameObject owner) : base(owner, false)
         {
-            Enable();
-            Show();
         }
 
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawRectangle(owner.Body.BroadphaseProxy.AABB.ToRectangle(), Color.Violet, 0f);
+            Rectangle rect = owner.Body.BroadphaseProxy.AABB.ToRectangle();
+            /*rect.X += (int)owner.Body.Shape.Size.X/2;
+            rect.Y += (int)owner.Body.Shape.Size.Y/2;*/
+            spriteBatch.FillRectangle(rect, Color.Red, 0f);
         }
     }
 }

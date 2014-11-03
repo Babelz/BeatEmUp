@@ -187,18 +187,7 @@ namespace Neva.BeatEmUp.Collision.Dynamics
 
         public void OnAdded()
         {
-            // TODO dirty hack
-            /*if (Owner is Player)
-            {
-                SetCollisionGroup(CollisionGroup.Group2);
-                CollidesWithGroup(CollisionGroup.Group1);
-            }
-            else
-            {*/
-                SetCollisionGroup(CollisionGroup.Group1);
-                CollidesWithGroup(CollisionGroup.Group2);
-                
-            //}
+
         }
 
         public void OnRemoved()

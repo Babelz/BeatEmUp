@@ -20,16 +20,17 @@ namespace Neva.BeatEmUp.Collision.Narrowphase
             Transform tfA = bodyA.Transform;
             Transform tfB = bodyB.Transform;
 
-            // MIT ÄVITUTHSD FS NÄIHIN PITÄÄ TUNKEA SAAATANA
-            //TODO MITEN VITTU SELVITETÄÄN MITKÄ NELJÄ AXISTA PIITÄÄ KATTOA
-            // VITTU TÄÄ ON PASKAAAAAAAAAA
-            axesToCheck[0] = SaNiMath.Multiply(ref tfA, Vector2.UnitX) - tfA.Position;
-            axesToCheck[1] = SaNiMath.Multiply(ref tfB, Vector2.UnitX) - tfB.Position;
-            //axesToCheck[1] = boxB.Normals[1];
+
+            // TODO miten toi position saatais keskelle suoraan
+            Vector2 centerA = tfA.Position + new Vector2(boxA.HalfWidth, boxA.HalfHeight);
+            Vector2 centerB = tfB.Position + new Vector2(boxB.HalfWidth, boxB.HalfHeight);
+
+            boxA.CalculateOrientation(ref tfA, out axesToCheck[0]);
+            boxB.CalculateOrientation(ref tfB, out axesToCheck[1]);
             axesToCheck[2] = new Vector2(-axesToCheck[0].Y, axesToCheck[0].X);
             axesToCheck[3] = new Vector2(-axesToCheck[1].Y, axesToCheck[1].X);
 
-            Vector2 distance = bodyA.Position - bodyB.Position;
+            Vector2 distance = centerA - centerB  ;
             float projectedDistance = 0;
             float minPenetration = float.MaxValue;
 

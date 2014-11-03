@@ -461,6 +461,9 @@
     <Content Include="Content\Animations\torso\p_torso_walk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Assets\Objects\table.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\blank.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -512,6 +515,7 @@
     </None>
     <None Include="ThirdParty\BrashMonkey\LICENSE" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

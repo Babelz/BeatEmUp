@@ -165,6 +165,7 @@ namespace Neva.BeatEmUp.GameObjects
             OnShow += delegate { };
             OnHide += delegate { };
 
+            size = new Vector2(1f);
             body = new Body(this, new BoxShape(size.X, size.Y), Vector2.Zero);
             childs = new List<GameObject>();
 

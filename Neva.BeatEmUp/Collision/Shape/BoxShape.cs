@@ -107,16 +107,44 @@ namespace Neva.BeatEmUp.Collision.Shape
             
         }
 
-        public void Project(ref Transform tf, ref Vector2 normal, out Vector2 projection)
+        public void Project(ref Transform tf, ref Vector2 axis, out Vector2 projection)
         {
-            Vector2 hw = new Vector2(HalfWidth, 0);
-            Vector2 hh = new Vector2(0, HalfHeight);
+            
+            Vector2 halfWidth, halfHeight;
+            CalculateExtents(ref tf, out halfWidth, out halfHeight);
+            halfWidth -= tf.Position;
+            halfHeight -= tf.Position;
 
-            hw = SaNiMath.Multiply(ref tf, hw) - tf.Position;
-            hh = SaNiMath.Multiply(ref tf, hh) - tf.Position;
+            projection.X = Vector2.Dot(halfWidth, axis);
+            projection.Y = Vector2.Dot( halfHeight, axis);
+           /* float min = Vector2.Dot(Vertices.GetVertex(0), axis);
+            float max = min;
+            float projected = 0;
+            for (int i = 1; i < Vertices.Count; i++)
+            {
+                projected = Vector2.Dot(Vertices.GetVertex(i), axis);
+                if (projected > max)
+                    max = projected;
+                if (projected < min)
+                    min = projected;
+            }
+            projection.X = min;
+            projection.Y = max;*/
+        }
 
-            projection.X = Vector2.Dot(hw, normal);
-            projection.Y = Vector2.Dot(hh, normal);
+        public void CalculateOrientation(ref Transform tf, out Vector2 orientation)
+        {
+            orientation = Vector2.UnitX;
+            tf.TransformVector(ref orientation);
+            orientation -= tf.Position;
+        }
+
+        public void CalculateExtents(ref Transform tf, out Vector2 halfWidth, out Vector2 halfHeight)
+        {
+            halfWidth = new Vector2(HalfWidth, 0f);
+            halfHeight = new Vector2(0, HalfHeight);
+            tf.TransformVector(ref halfWidth);
+            tf.TransformVector(ref halfHeight);
         }
 
         #endregion

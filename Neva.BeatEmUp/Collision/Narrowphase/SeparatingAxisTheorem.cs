@@ -50,7 +50,7 @@ namespace Neva.BeatEmUp.Collision.Narrowphase
                     if ((result.Us.CollisionFlags & CollisionFlags.Response) != 0)
                         result.Us.Position += result.Response;
                     if ((result.Them.CollisionFlags & CollisionFlags.Response) != 0)
-                        result.Them.Position += -result.Response;
+                        result.Them.Position -= result.Response;
                     
                     // TODO Lauo eventit
                     if (bodyA.OnCollision != null)

@@ -16,11 +16,12 @@ namespace Neva.BeatEmUp.Behaviours
 {
     public sealed class PlayerBehaviour : Behaviour
     {
-        private float speed = 5f;
+        private float speed = 2.5f;
         public PlayerBehaviour(GameObject owner) : base(owner)
         {
             owner.Body.Shape.Size = new Vector2(32.0f, 32.0f);
-            owner.Game.World.CreateBody(owner.Body, CollisionGroup.Group1, CollisionGroup.All);
+            //owner.Body.Rotation = MathHelper.ToRadians(45);
+            owner.Game.World.CreateBody(owner.Body);
         }
 
         protected override void OnInitialize()

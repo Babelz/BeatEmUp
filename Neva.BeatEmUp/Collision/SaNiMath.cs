@@ -24,5 +24,6 @@ namespace Neva.BeatEmUp.Collision
             float y = (t.Rotation.Sin * v.X + t.Rotation.Cos * v.Y) + t.Position.Y;
             return new Vector2(x,y);
         }
+
     }
 }
