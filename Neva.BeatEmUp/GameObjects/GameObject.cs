@@ -174,19 +174,6 @@ namespace Neva.BeatEmUp.GameObjects
 
             name = this.GetType().Name;
         }
-        public GameObject(BeatEmUpGame game, string behaviourName)
-            : this(game)
-        {
-            behaviours.Add(game.GetScript<Behaviour>(new ScriptBuilder(behaviourName, new object[] { this })));
-        }
-        public GameObject(BeatEmUpGame game, string[] behaviourNames)
-            : this(game)
-        {
-            for (int i = 0; i < behaviourNames.Length; i++)
-            {
-                behaviours.Add(game.GetScript<Behaviour>(new ScriptBuilder(behaviourNames[i], new object[] { this })));
-            }
-        }
 
         public void Enable()
         {
@@ -233,19 +220,23 @@ namespace Neva.BeatEmUp.GameObjects
             OnHide(this, new GameObjectEventArgs());
         }
 
-        public void AddBehaviour(Behaviour behaviour)
-        {
-            if (ReferenceEquals(behaviour.Owner, this))
-            {
-                behaviours.Add(behaviour);
-            }
-        }
         /// <summary>
         /// Lisää uuden behaviourin.
         /// </summary>
-        public void AddBehaviour(string name)
+        public bool AddBehaviour(string name, object[] args = null)
         {
-            behaviours.Add(game.GetScript<Behaviour>(new ScriptBuilder(name, new object[] { this })));
+            Behaviour behaviour = game.CreateBehaviour(name, this, args);
+
+            if (behaviour != null)
+            {
+                behaviours.Add(behaviour);
+            }
+            else
+            {
+                // TODO: log warning.
+            }
+
+            return behaviour != null;
         }
         /// <summary>
         /// Poistaa behaviourin.
