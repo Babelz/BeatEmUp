@@ -25,6 +25,10 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
         private ParallelScriptResolver parallelScriptResolver;
 
         private string configurationFilePath;
+
+        // Tuleeko skripteistä löytyvät samat tyypit korvata tämän hetkisestä
+        // app domainista löytyvillä tyypeillä.
+        private bool hideCompiledIfExists;
         #endregion
 
         #region Properties
@@ -67,6 +71,17 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
                 return parallelScriptResolver.HasPendingResolves;
             }
         }
+        /// <summary>
+        /// Tuleeko skripteistä löytyvät samat tyypit korvata tämän hetkisestä
+        /// app domainista löytyvillä tyypeillä.
+        /// </summary>
+        public bool HideCompiledIfExists
+        {
+            get
+            {
+                return hideCompiledIfExists;
+            }
+        }
         #endregion
 
         public ScriptEngine(Game game, string configurationFilePath)
@@ -76,10 +91,29 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
             LoggingMethod = LoggingMethod.None;
         }
 
+        private void ReadSettings(XDocument configurationFile)
+        {
+            XElement root = configurationFile.Root;
+
+            XElement settingsElement = root.Element("Settings");
+
+            if (settingsElement != null)
+            {
+                XAttribute typeSetting = settingsElement.Attribute("HideCompiledIfExists");
+
+                if (typeSetting != null)
+                {
+                    hideCompiledIfExists = bool.Parse(typeSetting.Value);
+                }
+            }
+        }
+
         // Alustaa kaikki tarvittavat containerit.
         private void InitializeContainers()
         {
             XDocument configurationFile = XDocument.Load(configurationFilePath);
+
+            ReadSettings(configurationFile);
 
             scriptPathContainer = new ScriptPathContainer(configurationFile);
             scriptDepencyContainer = new ScriptDepencyContainer(configurationFile);
@@ -90,8 +124,8 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
         // Alustaa kaikki resolverit.
         private void InitializeResolvers()
         {
-            blockingScriptResolver = new BlockingScriptResolver(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer);
-            parallelScriptResolver = new ParallelScriptResolver(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer);
+            blockingScriptResolver = new BlockingScriptResolver(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer, hideCompiledIfExists);
+            parallelScriptResolver = new ParallelScriptResolver(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer, hideCompiledIfExists);
         }
 
         /// <summary>
@@ -185,17 +219,19 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
             {
                 List<string> files = Directory.GetFiles(scriptPathContainer.ScriptPaths[i]).ToList();
 
-                ScriptCompiler compiler = new ScriptCompiler(scriptDepencyContainer.ScriptDepencies);
+                ScriptCompiler compiler = new ScriptCompiler(scriptDepencyContainer.ScriptDepencies, hideCompiledIfExists);
 
                 for (int j = 0; j < files.Count; j++)
                 {
-                    Assembly assembly = compiler.CompileScript(files[i]);
+                    string fullname = files[j];
+                    string scriptName = files[j].Substring(files[j].LastIndexOf("\\") + 1);
+                    scriptName = scriptName.Substring(0, scriptName.LastIndexOf("."));
+
+                    ScriptAssembly assembly = compiler.CompileScript(fullname, scriptName);
 
                     if (assembly != null)
                     {
-                        ScriptAssembly scriptAssembly = new ScriptAssembly(assembly, files[i].Substring(files[i].LastIndexOf("\\") + 1).Split(".".ToCharArray()).First(), files[i]);
-
-                        scriptAssemblyContainer.AddAssembly(scriptAssembly);
+                        scriptAssemblyContainer.AddAssembly(assembly);
                     }
                 }
             }

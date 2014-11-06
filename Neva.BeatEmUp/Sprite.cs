@@ -56,6 +56,28 @@ namespace Neva.BeatEmUp
                 position = value;
             }
         }
+        public float X
+        {
+            get
+            {
+                return position.X;
+            }
+            set
+            {
+                position.X = value;
+            }
+        }
+        public float Y
+        {
+            get
+            {
+                return position.Y;
+            }
+            set
+            {
+                position.Y = value;
+            }
+        }
         public Vector2 Scale
         {
             get

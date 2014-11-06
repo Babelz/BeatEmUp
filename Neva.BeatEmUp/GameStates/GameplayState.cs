@@ -15,16 +15,23 @@ namespace Neva.BeatEmUp.GameStates
     internal class GameplayState : GameState
     {
         #region Vars
+        private readonly string mapName;
+
         private BeatEmUpGame game;
         private GameObject player;
         #endregion
+
+        public GameplayState(string mapName)
+        {
+            this.mapName = mapName;    
+        }
 
         public override void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager)
         {
             this.game = game;
 
             GameObject map = new GameObject(game);
-           map.AddBehaviour("MapBehaviour", new object[] { "City1.xml" });
+            map.AddBehaviour("MapBehaviour", new object[] { mapName });
 
             map.StartBehaviours();
 
@@ -38,12 +45,13 @@ namespace Neva.BeatEmUp.GameStates
             {
                Sprite = new Sprite(Game.Content.Load<Texture2D>("Assets\\Objects\\table"))
             });
-            table.Size = table.GetComponentOfType<SpriteRenderer>().Size;
+            table.Size = table.FirstComponentOfType<SpriteRenderer>().Size;
 
             table.Body = new Body(table, new BoxShape(table.Size.X /2f, table.Size.Y /2f, 0f), Vector2.Zero);
             table.Position = new Vector2(400, 300);
+
             table.AddComponent(new ColliderRenderer(table));
-            table.GetComponentOfType<SpriteRenderer>().Position = table.Position;
+            table.FirstComponentOfType<SpriteRenderer>().Position = table.Position;
             table.Body.CollisionFlags = CollisionFlags.Solid;
          
 

@@ -167,7 +167,7 @@ namespace Neva.BeatEmUp.Behaviours
 
                 if (elapsed > FADEIN_TIME)
                 {
-                    Owner.GetComponentOfType<MapComponent>().Initialize();
+                    Owner.FirstComponentOfType<MapComponent>().Initialize();
                 }
             }
         }

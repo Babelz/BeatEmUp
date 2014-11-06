@@ -40,6 +40,8 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         private readonly ScriptAssemblyContainer scriptAssemblyContainer;
         private readonly ScriptPathContainer scriptPathContainer;
         private readonly ScriptDepencyContainer scriptDepencyContainer;
+
+        private readonly bool hideCompiledIfExists;
         #endregion
 
         #region Properties
@@ -53,11 +55,12 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         }
         #endregion
 
-        public ScriptResolver(ScriptPathContainer scriptPathContainer, ScriptDepencyContainer scriptDepencyContainer, ScriptAssemblyContainer scriptAssemblyContainer)
+        public ScriptResolver(ScriptPathContainer scriptPathContainer, ScriptDepencyContainer scriptDepencyContainer, ScriptAssemblyContainer scriptAssemblyContainer, bool hideCompiledIfExists)
         {
             this.scriptPathContainer = scriptPathContainer;
             this.scriptDepencyContainer = scriptDepencyContainer;
             this.scriptAssemblyContainer = scriptAssemblyContainer;
+            this.hideCompiledIfExists = hideCompiledIfExists;
 
             LoggingMethod = LoggingMethod.None;
         }
@@ -107,38 +110,19 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         {
             ScriptBuilder scriptBuilder = resolverWorkItem.ScriptBuilder;
 
-            ScriptCompiler scriptCompiler = new ScriptCompiler(scriptDepencyContainer.ScriptDepencies)
+            ScriptCompiler scriptCompiler = new ScriptCompiler(scriptDepencyContainer.ScriptDepencies, hideCompiledIfExists)
             {
                 LoggingMethod = LoggingMethod
             };
 
             // Kääntää scriptin ja luo käännöksen perusteella uuden ScriptAssemblyn.
-            Assembly assembly = scriptCompiler.CompileScript(resolverWorkItem.FullName);
-            ScriptAssembly scriptAssembly = null;
+            ScriptAssembly scriptAssembly = scriptCompiler.CompileScript(resolverWorkItem.FullName, resolverWorkItem.ScriptBuilder.ClassName);
 
             // Logataan errori jos kääntäminen ei onnistunut.
-            if (assembly == null)
+            if (scriptAssembly == null)
             {
                 resolverWorkItem.ResolverErrorLogger.LogError("Compiler could not compile the given script");
             }
-            else
-            {
-                scriptAssembly = MakeScriptAssembly(assembly, resolverWorkItem);
-            }
-
-            return scriptAssembly;
-        }
-        /// <summary>
-        /// Luo uuden ScriptAssembly olion Assemblyn ja ResolverAtributes
-        /// oliojen perusteella.
-        /// </summary>
-        private ScriptAssembly MakeScriptAssembly(Assembly assembly, ResolverWorkItem resolverWorkItem)
-        {
-            ScriptAssembly scriptAssembly = new ScriptAssembly(assembly,
-                                                               resolverWorkItem.ScriptBuilder.ScriptName,
-                                                               resolverWorkItem.FullName);
-
-            scriptAssemblyContainer.AddAssembly(scriptAssembly);
 
             return scriptAssembly;
         }
@@ -154,8 +138,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
             if (!resolverWorkItem.ResolverErrorLogger.HasErrors)
             {
                 // Haetaan tyypit assemblystä ja etsitään resolveratributes oliolle tyyppi näistä tyypeistä.
-                Type[] types = resolverWorkItem.ScriptAssembly.Assembly.GetTypes();
-                resolverWorkItem.Type = Array.Find<Type>(types, t => t.Name == resolverWorkItem.ScriptBuilder.ClassName);
+                resolverWorkItem.Type = resolverWorkItem.ScriptAssembly.GetTypeFromAssembly(resolverWorkItem.ScriptBuilder.ClassName);
 
                 // Jos tyyppiä ei löydy, logataan errori.
                 if (resolverWorkItem.Type == null)

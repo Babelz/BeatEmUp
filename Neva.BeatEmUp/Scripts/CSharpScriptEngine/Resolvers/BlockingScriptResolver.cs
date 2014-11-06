@@ -9,8 +9,8 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
     /// </summary>
     public class BlockingScriptResolver : ScriptResolver
     {
-        public BlockingScriptResolver(ScriptPathContainer scriptPathContainer, ScriptDepencyContainer scriptDepencyContainer, ScriptAssemblyContainer scriptAssemblyContainer)
-            : base(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer)
+        public BlockingScriptResolver(ScriptPathContainer scriptPathContainer, ScriptDepencyContainer scriptDepencyContainer, ScriptAssemblyContainer scriptAssemblyContainer, bool hideCompiledIfExists)
+            : base(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer, hideCompiledIfExists)
         {
         }
 

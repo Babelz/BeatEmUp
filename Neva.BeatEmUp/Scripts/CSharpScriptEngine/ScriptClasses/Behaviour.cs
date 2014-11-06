@@ -8,6 +8,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
 {
+    [ScriptAttribute(true)]
     public abstract class Behaviour : IScript
     {
         #region Vars

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Linq;
 
 namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
 {
@@ -11,8 +12,10 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
     public class ScriptAssembly
     {
         #region Vars
+        private readonly Assembly assembly;
+        private readonly Type type;
+
         private AssemblyLifeTime assemblyLifeTime;
-        private Assembly assembly;
         private DateTime lastTimeModified;
         private DateTime timeToKeepAlive;
         #endregion
@@ -58,17 +61,6 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
             private set;
         }
         /// <summary>
-        /// Assembly joka sisältää yhden tai useamman scriptin.
-        /// </summary>
-        public Assembly Assembly
-        {
-            get
-            {
-                CalculateAliveTime();
-                return assembly;
-            }
-        }
-        /// <summary>
         /// Voidaanko tämä assembly poistaa muistista.
         /// </summary>
         public bool CanBeDisposed
@@ -87,6 +79,23 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
         public ScriptAssembly(Assembly assembly, string scriptName, string fullName)
         {
             this.assembly = assembly;
+
+            ScriptName = scriptName;
+            FullName = fullName;
+
+            lastTimeModified = File.GetLastWriteTime(fullName);
+
+            CanBeDisposed = false;
+        }
+        /// <summary>
+        /// Luo uuden instanssin script assemblystä.
+        /// </summary>
+        /// <param name="type">Tyyppi joka on skripti.</param>
+        /// <param name="scriptName">Scriptin nimi.</param>
+        /// <param name="fullName">Scriptin koko nimi.</param>
+        public ScriptAssembly(Type type, string scriptName, string fullName)
+        {
+            this.type = type;
 
             ScriptName = scriptName;
             FullName = fullName;
@@ -128,6 +137,22 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
             {
                 CauseToDisposal = CauseToDisposal.Modified;
                 CanBeDisposed = true;
+            }
+        }
+        public Type GetTypeFromAssembly(string name)
+        {
+            if (assembly == null)
+            {
+                if (!string.Equals(name, type.Name))
+                {
+                    throw new ArgumentException("Invalid name, assembly does not contain script named " + name + ".");
+                }
+
+                return type;
+            }
+            else
+            {
+                return assembly.GetTypes().FirstOrDefault(t => t.Name == name);
             }
         }
     }

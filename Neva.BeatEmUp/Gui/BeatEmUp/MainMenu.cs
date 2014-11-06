@@ -156,7 +156,7 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             GameStateManager gameStateManager = game.Components.First(c => c.GetType() == typeof(GameStateManager))
                 as GameStateManager;
 
-            gameStateManager.Change(new GameplayState());
+            gameStateManager.Change(new WorldMapState());
 
             WindowManager windowMananger = game.Components.First(c => c.GetType() == typeof(WindowManager))
                 as WindowManager;

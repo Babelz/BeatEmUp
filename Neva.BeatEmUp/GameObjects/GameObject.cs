@@ -59,6 +59,13 @@ namespace Neva.BeatEmUp.GameObjects
                 return game;
             }
         }
+        public GameObject Parent
+        {
+            get
+            {
+                return parent;
+            }
+        }
 
         public Body Body
         {
@@ -295,7 +302,7 @@ namespace Neva.BeatEmUp.GameObjects
         {
             return behaviours.Find(b => predicate(b));
         }
-        public T GetBehaviourOfType<T>() where T : Behaviour
+        public T FirstBehaviourOfType<T>() where T : Behaviour
         {
             return behaviours.FirstOfType<T>();
         }
@@ -338,6 +345,10 @@ namespace Neva.BeatEmUp.GameObjects
         {
             return childs.Find(c => predicate(c));
         }
+        public GameObject ChildAtIndex(int index)
+        {
+            return childs[index];
+        }
 
         public void AddComponent(GameObjectComponent component)
         {
@@ -356,12 +367,12 @@ namespace Neva.BeatEmUp.GameObjects
         {
             return componentManager.Components();
         }
-        public IEnumerable<T> ComponentsOftype<T>() where T : GameObjectComponent
+        public IEnumerable<T> FindComponentsOftype<T>() where T : GameObjectComponent
         {
             return componentManager.ComponentsOfType<T>();
         }
 
-        public T GetComponentOfType<T>() where T : GameObjectComponent
+        public T FirstComponentOfType<T>() where T : GameObjectComponent
         {
             return componentManager.FirstOfType<T>();
         }

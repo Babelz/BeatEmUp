@@ -16,7 +16,10 @@ namespace Neva.BeatEmUp.Behaviours
 {
     public sealed class PlayerBehaviour : Behaviour
     {
+        #region Vars
         private float speed = 2.5f;
+        #endregion
+
         public PlayerBehaviour(GameObject owner) : base(owner)
         {
             owner.Body.Shape.Size = new Vector2(32.0f, 32.0f);
@@ -25,58 +28,33 @@ namespace Neva.BeatEmUp.Behaviours
             owner.Game.World.CreateBody(owner.Body);
         }
 
-        protected override void OnInitialize()
-        {
-            Owner.GetComponentOfType<SpriterAnimationRenderer>().FilePath = "Animations\\player.scml";
-            Owner.GetComponentOfType<SpriterAnimationRenderer>().Entity = "Player";
-            
-
-            InputManager inputManager = Owner.Game.Components.First(c => c as InputManager != null) as InputManager;
-            KeyboardInputListener keylistener = inputManager.Listeners.Find(c => c as KeyboardInputListener != null) as KeyboardInputListener;
-            keylistener.Map("Left", MoveLeft, new KeyTrigger(Keys.A), new KeyTrigger(Keys.Left));
-            keylistener.Map("Right", MoveRight, new KeyTrigger(Keys.D), new KeyTrigger(Keys.Right));
-            keylistener.Map("Up", MoveUp, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
-            keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
-            keylistener.Map("Jump", Jump, new KeyTrigger(Keys.Space));
-
-
-            Owner.InitializeComponents();
-            Owner.GetComponentOfType<SpriterAnimationRenderer>().ChangeAnimation("idle");
-            Owner.GetComponentOfType<SpriterAnimationRenderer>().Scale = 0.4f;
-            
-        }
-
         #region Input maps
-
         private void MoveLeft(InputEventArgs args)
         {
             ChangeWalkAnimation(args);
-            Owner.GetComponentOfType<SpriterAnimationRenderer>().FlipX = true;
+            Owner.FirstComponentOfType<SpriterAnimationRenderer>().FlipX = true;
             Owner.Body.Velocity = new Vector2(VelocityFunc(-speed, args), Owner.Body.Velocity.Y);
         }
-
         private void MoveDown(InputEventArgs args)
         {
             ChangeWalkAnimation(args);
             Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(speed, args));
         }
-
         private void MoveUp(InputEventArgs args)
         {
             ChangeWalkAnimation(args);
             Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(-speed, args));
         }
-
         private void MoveRight(InputEventArgs args)
         {
             ChangeWalkAnimation(args);
-            Owner.GetComponentOfType<SpriterAnimationRenderer>().FlipX = false;
+            Owner.FirstComponentOfType<SpriterAnimationRenderer>().FlipX = false;
             Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
         }
 
         private void Jump(InputEventArgs args)
         {
-            
+
         }
 
         #region Util
@@ -85,7 +63,7 @@ namespace Neva.BeatEmUp.Behaviours
         {
             if (args.InputState == InputState.Pressed)
             {
-                var spriter = Owner.GetComponentOfType<SpriterAnimationRenderer>();
+                var spriter = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
                 if (spriter.CurrentAnimation.Name != "walk")
                     spriter.ChangeAnimation("walk");
             }
@@ -95,9 +73,32 @@ namespace Neva.BeatEmUp.Behaviours
 
         #endregion
 
+        private float VelocityFunc(float src, InputEventArgs args)
+        {
+            return args.InputState == InputState.Released ? 0f : src;
+        }
+
+        protected override void OnInitialize()
+        {
+            Owner.FirstComponentOfType<SpriterAnimationRenderer>().FilePath = "Animations\\player.scml";
+            Owner.FirstComponentOfType<SpriterAnimationRenderer>().Entity = "Player";
+
+            InputManager inputManager = Owner.Game.Components.First(c => c as InputManager != null) as InputManager;
+            KeyboardInputListener keylistener = inputManager.Listeners.Find(c => c as KeyboardInputListener != null) as KeyboardInputListener;
+            keylistener.Map("Left", MoveLeft, new KeyTrigger(Keys.A), new KeyTrigger(Keys.Left));
+            keylistener.Map("Right", MoveRight, new KeyTrigger(Keys.D), new KeyTrigger(Keys.Right));
+            keylistener.Map("Up", MoveUp, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
+            keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
+            keylistener.Map("Jump", Jump, new KeyTrigger(Keys.Space));
+
+            Owner.InitializeComponents();
+            Owner.FirstComponentOfType<SpriterAnimationRenderer>().ChangeAnimation("idle");
+            Owner.FirstComponentOfType<SpriterAnimationRenderer>().Scale = 0.4f; 
+        }
+
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            SpriterAnimationRenderer spriter = Owner.GetComponentOfType<SpriterAnimationRenderer>();
+            SpriterAnimationRenderer spriter = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
             //todo miten vittu
 
             Owner.Position += Owner.Body.Velocity;
@@ -105,12 +106,6 @@ namespace Neva.BeatEmUp.Behaviours
             {
                 spriter.ChangeAnimation("idle");
             }
-            Owner.Position += Owner.Body.Velocity;
-        }
-
-        private float VelocityFunc(float src, InputEventArgs args)
-        {
-            return args.InputState == InputState.Released ? 0f : src;
         }
     }
 }

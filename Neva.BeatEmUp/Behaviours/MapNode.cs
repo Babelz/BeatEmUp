@@ -11,6 +11,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Behaviours
 {
+    [ScriptAttribute(true)]
     public sealed class MapNode : Behaviour
     {
         #region Vars
@@ -51,7 +52,7 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            LineRenderer renderer = Owner.GetComponentOfType<LineRenderer>();
+            LineRenderer renderer = Owner.FirstComponentOfType<LineRenderer>();
 
             if (Owner.ChildsCount > 0)
             {
@@ -60,7 +61,7 @@ namespace Neva.BeatEmUp.Behaviours
                 renderer.Color = Color.Red;
             }
 
-            SpriteRenderer spriteRenderer = Owner.GetComponentOfType<SpriteRenderer>();
+            SpriteRenderer spriteRenderer = Owner.FirstComponentOfType<SpriteRenderer>();
 
             spriteRenderer.Sprite = new Sprite(Owner.Game.Content.Load<Texture2D>("blank"));
             spriteRenderer.Size = new Vector2(32f);

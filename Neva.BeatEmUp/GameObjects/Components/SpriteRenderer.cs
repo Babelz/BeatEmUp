@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameObjects.Components
 {
-    public sealed class SpriteRenderer : GameObjectComponent
+    public sealed class SpriteRenderer : RenderComponent
     {
         #region Vars
         private Sprite sprite;
@@ -34,17 +34,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
             set
             {
                 sprite.Texture = value;
-            }
-        }
-        public Vector2 Position
-        {
-            get
-            {
-                return sprite.Position;
-            }
-            set
-            {
-                sprite.Position = value;
             }
         }
         public Vector2 Scale
@@ -77,6 +66,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
             get
             {
                 return sprite.Size;
+            }
+            set
+            {
+                sprite.Size = value;
             }
         }
         public Color Color
@@ -115,13 +108,18 @@ namespace Neva.BeatEmUp.GameObjects.Components
         #endregion
 
         public SpriteRenderer(GameObject owner)
-            : base(owner, false)
+            : this(owner, null)
         {
         }
         public SpriteRenderer(GameObject owner, Sprite sprite)
             : base(owner, false)
         {
-            this.sprite = sprite;
+            FollowOwner = true;
+        }
+
+        protected override void OnFollowOwner()
+        {
+            sprite.Position = Position;
         }
 
         protected override void OnDraw(SpriteBatch spriteBatch)

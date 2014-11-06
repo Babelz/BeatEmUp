@@ -49,6 +49,9 @@ namespace Neva.BeatEmUp
         private WindowManager windowManager;
         private World world;
 
+        private GamepadInputListener[] gamepadListeners;
+        private KeyboardInputListener keyboardListener;
+
         private bool paused;
         #endregion
 
@@ -74,6 +77,20 @@ namespace Neva.BeatEmUp
                 return world;
             }
         }
+        public KeyboardInputListener KeyboardListener
+        {
+            get
+            {
+                return keyboardListener;
+            }
+        }
+        public IEnumerable<GamepadInputListener> GamepadListeners
+        {
+            get
+            {
+                return gamepadListeners;
+            }
+        }
         #endregion
 
         public BeatEmUpGame()
@@ -93,6 +110,13 @@ namespace Neva.BeatEmUp
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
         }
+
+        #region Event handlers
+        private void stateManager_GameStateChanging(object sender, GameStateChangingEventArgs e)
+        {
+            gameObjects.RemoveAll(o => o.ContainsTag(e.Current.Name));
+        }
+        #endregion
 
         private ObjectCreator FindCreator(string key = "", string name = "")
         {
@@ -122,8 +146,8 @@ namespace Neva.BeatEmUp
         /// </summary>
         protected override void Initialize()
         {
-            inputManager = new InputManager(this, new KeyboardInputListener(), 
-                new[]
+            inputManager = new InputManager(this, keyboardListener = new KeyboardInputListener(), 
+                gamepadListeners = new GamepadInputListener[]
                 {
                     new GamepadInputListener(PlayerIndex.One), 
                     new GamepadInputListener(PlayerIndex.Two), 
@@ -138,7 +162,10 @@ namespace Neva.BeatEmUp
             };
 
             windowManager = new WindowManager(this);
+
             stateManager = new GameStateManager(this);
+            stateManager.GameStateChanging += stateManager_GameStateChanging;
+
             world = new World(this, new BruteForceBroadphase(), new SeparatingAxisTheorem());
 
             Components.Add(inputManager);
@@ -164,8 +191,9 @@ namespace Neva.BeatEmUp
                 objectCreators.Add(new ObjectCreator(objectFiles[i]));
             }
 
-            stateManager.Change(new GameplayState());
+            stateManager.Change(new WorldMapState());
         }
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -226,7 +254,7 @@ namespace Neva.BeatEmUp
             if (gameObject == other) return 0;
             Vector2 a = gameObject.Position ;
             Vector2 b = other.Position ;
-
+            if (a == b) return 0;
             if (a.Y - b.Y <= 0f)
                 return -1;
             if (b.Y - a.Y <= 0f)
