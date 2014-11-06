@@ -27,12 +27,8 @@ namespace Neva.BeatEmUp.GameStates
         }
         #endregion
 
-        public void Initialize(BeatEmUpGame game, GameStateManager gameStateManager, string name = "")
+        public GameState(string name)
         {
-            Game = game;
-            GameStateManager = gameStateManager;
-            OnInitialize(game, gameStateManager);
-
             if (string.IsNullOrEmpty(name))
             {
                 Name = this.GetType().Name;
@@ -41,6 +37,17 @@ namespace Neva.BeatEmUp.GameStates
             {
                 Name = name;
             }
+        }
+        public GameState()
+            : this("")
+        {
+        }
+
+        public void Initialize(BeatEmUpGame game, GameStateManager gameStateManager)
+        {
+            Game = game;
+            GameStateManager = gameStateManager;
+            OnInitialize(game, gameStateManager);
         }
 
         public virtual void OnActivate()

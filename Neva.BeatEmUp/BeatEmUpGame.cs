@@ -110,6 +110,13 @@ namespace Neva.BeatEmUp
             graphics.PreferredBackBufferHeight = 720;
         }
 
+        #region Event handlers
+        private void stateManager_GameStateChanging(object sender, GameStateChangingEventArgs e)
+        {
+            gameObjects.RemoveAll(o => o.ContainsTag(e.Current.Name));
+        }
+        #endregion
+
         private ObjectCreator FindCreator(string key = "", string name = "")
         {
             if (name != string.Empty && key != string.Empty)
@@ -154,7 +161,10 @@ namespace Neva.BeatEmUp
             };
 
             windowManager = new WindowManager(this);
+
             stateManager = new GameStateManager(this);
+            stateManager.GameStateChanging += stateManager_GameStateChanging;
+
             world = new World(this, new BruteForceBroadphase(), new SeparatingAxisTheorem());
 
             Components.Add(inputManager);
@@ -182,6 +192,7 @@ namespace Neva.BeatEmUp
 
             stateManager.Change(new WorldMapState());
         }
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.

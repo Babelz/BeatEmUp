@@ -33,6 +33,11 @@ namespace Neva.BeatEmUp.GameStates
 
         #endregion
 
+        #region Events
+        public event GameStateEventHandler<GameStateChangingEventArgs> GameStateChanging;
+        public event GameStateEventHandler<GameStateChangingEventArgs> GameStateChanged;
+        #endregion
+
         #region Ctor
 
         public GameStateManager(BeatEmUpGame game) : 
@@ -40,6 +45,9 @@ namespace Neva.BeatEmUp.GameStates
         {
             this.game = game;
             states = new List<GameState>();
+
+            GameStateChanging += delegate { };
+            GameStateChanged += delegate { };
         }
 
         #endregion
@@ -80,6 +88,8 @@ namespace Neva.BeatEmUp.GameStates
                 current.OnDeactivate();
             }
 
+            GameStateChanging(this, new GameStateChangingEventArgs(current, previous));
+
             previous = current;
             current = gameState;
 
@@ -94,6 +104,8 @@ namespace Neva.BeatEmUp.GameStates
             {
                 states[states.Count - 1] = gameState;
             }
+
+            GameStateChanged(this, new GameStateChangingEventArgs(current, null));
 
             gameState.Initialize(game, this);
         }

@@ -93,6 +93,8 @@
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Components\GameObjectComponent.cs" />
     <Compile Include="GameObjects\TagContainer.cs" />
+    <Compile Include="GameStates\Args.cs" />
+    <Compile Include="GameStates\Delegates.cs" />
     <Compile Include="GameStates\GameplayState.cs" />
     <Compile Include="GameStates\GameState.cs" />
     <Compile Include="GameStates\GameStateManager.cs" />
