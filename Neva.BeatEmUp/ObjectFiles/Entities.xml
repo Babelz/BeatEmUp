@@ -1,10 +1,12 @@
 ﻿<Entities>
-  <Object Key="Player" Visible="true" Enabled="true" Name="Player" Width="32f" Height="32f">
+  <Object Key="Player" Name="Player" Width="32f" Height="32f" Visible="true" Enabled="true">
     <Behaviour Name="PlayerBehaviour" Start="true"/>
     <!--<Component Name="SpriteRenderer" />-->
     <Component Name="SpriterAnimationRenderer" />
     <Component Name="ColliderRenderer" />
-    
-    
+  </Object>
+  <Object Key="MapNode" Name="Node" Visible="true" Enabled="true">
+    <Component Name="LineRenderer"/>
+    <Component Name="SpriteRenderer"/>
   </Object>
 </Entities>
