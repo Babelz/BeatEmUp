@@ -51,6 +51,7 @@ namespace Neva.BeatEmUp.Maps
 
             for (int i = 0; i < sceneObjects.Count; i++)
             {
+                
                 GameObject sceneObject = sceneObjects[i];
 
                 sceneObject.Position = new Vector2(sceneObject.Position.X + game.View.Position.X,

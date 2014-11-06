@@ -3,7 +3,7 @@
     <Behaviour Name="PlayerBehaviour" Start="true"/>
     <!--<Component Name="SpriteRenderer" />-->
     <Component Name="SpriterAnimationRenderer" />
-    <Component Name="ColliderRenderer" />
+    <!--<Component Name="ColliderRenderer" />-->
   </Object>
   <Object Key="MapNode" Name="Node" Visible="true" Enabled="true">
     <Component Name="LineRenderer"/>
