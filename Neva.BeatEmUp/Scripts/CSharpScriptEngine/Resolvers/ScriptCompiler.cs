@@ -2,12 +2,35 @@
 using System.CodeDom.Compiler;
 using System.Reflection;
 using Microsoft.CSharp;
+using System.Collections.Generic;
+using System.Linq;
+using Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses;
 
 namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
 {
     public class ScriptCompiler
     {
+        #region Static vars
+        private static readonly object padLock = new object();
+
+        private static readonly List<Type> scriptTypes;
+        #endregion
+
+        #region Static props
+        private static List<Type> ScriptTypes
+        {
+            get
+            {
+                lock (padLock)
+                {
+                    return scriptTypes;
+                }
+            }
+        }
+        #endregion
+
         #region Vars
+        private readonly bool hideCompiledIfExists;
         // Taulukko kaikista depencyistä jotka user on antanut config tiedostossa.
         private readonly string[] scriptDepencies;
 
@@ -33,12 +56,23 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         }
         #endregion
 
-        public ScriptCompiler(string[] scriptDepencies)
-            : this(scriptDepencies, new CompilerErrorLogger())
+        static ScriptCompiler()
+        {
+            scriptTypes = AppDomain.CurrentDomain
+                .GetAssemblies()
+                .First(a => a.FullName.Contains("Neva"))
+                .GetTypes()
+                .Where(t => t.GetInterface("IScript", true) != null)
+                .ToList();
+        }
+
+        public ScriptCompiler(string[] scriptDepencies, bool hideCompiledIfExists)
+            : this(scriptDepencies, new CompilerErrorLogger(), hideCompiledIfExists)
         {
         }
-        public ScriptCompiler(string[] scriptDepencies, CompilerErrorLogger compilerErrorLogger)
+        public ScriptCompiler(string[] scriptDepencies, CompilerErrorLogger compilerErrorLogger, bool hideCompiledIfExists)
         {
+            this.hideCompiledIfExists = hideCompiledIfExists;
             this.scriptDepencies = scriptDepencies;
             this.compilerErrorLogger = compilerErrorLogger ?? new CompilerErrorLogger();
         }
@@ -62,27 +96,58 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         /// Yrittää kääntää assemblyn, jos virheitä ilmenee, logger
         /// näyttää errorit userille.
         /// </summary>
-        /// <param name="scriptName">Scriptin koko nimi (path + filename + extension)</param>
+        /// <param name="fullname">Scriptin koko nimi (path + filename + extension)</param>
         /// <returns>Käännetty assembly tai null jos kääntäminen ei onnistu.</returns>
-        public Assembly CompileScript(string scriptName)
+        public ScriptAssembly CompileScript(string fullname, string scriptName)
         {
             CompilerResults compilerResults = null;
 
             using (CSharpCodeProvider csharpCompiler = new CSharpCodeProvider())
             {
-                compilerResults = csharpCompiler.CompileAssemblyFromFile(GenerateCompilerOptions(), scriptName);
+                compilerResults = csharpCompiler.CompileAssemblyFromFile(GenerateCompilerOptions(), fullname);
 
                 // Jos kääntämisen yhteydessä ilmenee virheitä, annetaan loggerin handlata errorit
                 // ja asetetaan resultit nulliksi.
                 if (compilerResults.Errors.HasErrors)
                 {
-                    compilerErrorLogger.ShowErrors(compilerResults.Errors, scriptName);
+                    compilerErrorLogger.ShowErrors(compilerResults.Errors, fullname);
 
                     compilerResults = null;
                 }
+                else if (hideCompiledIfExists)
+                {
+                    List<Type> scripts = compilerResults.CompiledAssembly
+                        .GetTypes()
+                        .Where(c => c.GetInterface("IScript", true) != null)
+                        .ToList();
+
+                    for (int i = 0; i < scripts.Count; i++)
+                    {
+                        ScriptAttribute attribute = scripts[i].GetCustomAttributes(false)
+                            .FirstOrDefault(a => a.GetType() == typeof(ScriptAttribute))
+                            as ScriptAttribute;
+
+                        if (attribute != null && attribute.ReplaceWithExistingAssembly)
+                        {
+                            string[] methods = scripts[i].GetMethods().Select<MethodInfo, string>(m => m.Name).ToArray();
+                            string[] members = scripts[i].GetMembers().Select<MemberInfo, string>(m => m.Name).ToArray();
+
+                            for (int j = 0; j < ScriptTypes.Count; j++)
+                            {
+                                string[] myMethods = ScriptTypes[j].GetMethods().Select<MethodInfo, string>(m => m.Name).ToArray();
+                                string[] myMembers = ScriptTypes[j].GetMembers().Select<MemberInfo, string>(m => m.Name).ToArray();
+
+                                if (Array.TrueForAll(methods, m => myMethods.Contains(m)) && Array.TrueForAll(members, m => myMembers.Contains(m)))
+                                {
+                                    return new ScriptAssembly(scriptTypes[j], scriptName, fullname);
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
-            return compilerResults == null ? null : compilerResults.CompiledAssembly;
+            return compilerResults == null ? null : new ScriptAssembly(compilerResults.CompiledAssembly, scriptName, fullname);
         }
     }
 }

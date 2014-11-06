@@ -45,6 +45,9 @@
     <Compile Include="Behaviours\MapBehaviour.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Behaviours\MapNode.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="GameObjects\Components\AI\FiniteStateMachine.cs" />
     <Compile Include="Behaviours\PlayerBehaviour.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -80,7 +83,9 @@
     <Compile Include="GameObjects\ComponentManager.cs" />
     <Compile Include="GameObjects\Components\ColliderRenderer.cs" />
     <Compile Include="GameObjects\Components\Exceptions.cs" />
+    <Compile Include="GameObjects\Components\LineRenderer.cs" />
     <Compile Include="GameObjects\Components\MapComponent.cs" />
+    <Compile Include="GameObjects\Components\RenderComponent.cs" />
     <Compile Include="GameObjects\Components\SpriterAnimationRenderer.cs" />
     <Compile Include="GameObjects\Components\SpriteRenderer.cs" />
     <Compile Include="GameObjects\Delegates.cs" />
@@ -93,6 +98,7 @@
     <Compile Include="GameStates\GameStateManager.cs" />
     <Compile Include="GameStates\MainMenuState.cs" />
     <Compile Include="GameStates\SplashMenuState.cs" />
+    <Compile Include="GameStates\WorldMapState.cs" />
     <Compile Include="Gui\BeatEmUp\MainMenu.cs" />
     <Compile Include="Gui\Controls\Button.cs" />
     <Compile Include="Gui\Controls\ButtonBase.cs" />
@@ -183,6 +189,7 @@
     <Compile Include="RunTime\ModelReader.cs" />
     <Compile Include="RunTime\Models.cs" />
     <Compile Include="RunTime\ObjectCreator.cs" />
+    <Compile Include="Scripts\CSharpScriptEngine\ScriptClasses\Attributes.cs" />
     <Compile Include="Scripts\CSharpScriptEngine\ScriptClasses\Behaviour.cs" />
     <Compile Include="Scripts\CSharpScriptEngine\Builders\ParallelScriptBuilder.cs" />
     <Compile Include="Scripts\CSharpScriptEngine\Builders\ScriptBuilder.cs" />

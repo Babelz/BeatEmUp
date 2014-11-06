@@ -48,6 +48,9 @@ namespace Neva.BeatEmUp
         private WindowManager windowManager;
         private World world;
 
+        private GamepadInputListener[] gamepadListeners;
+        private KeyboardInputListener keyboardListener;
+
         private bool paused;
         #endregion
 
@@ -71,6 +74,20 @@ namespace Neva.BeatEmUp
             get
             {
                 return world;
+            }
+        }
+        public KeyboardInputListener KeyboardListener
+        {
+            get
+            {
+                return keyboardListener;
+            }
+        }
+        public IEnumerable<GamepadInputListener> GamepadListeners
+        {
+            get
+            {
+                return gamepadListeners;
             }
         }
         #endregion
@@ -121,8 +138,8 @@ namespace Neva.BeatEmUp
         /// </summary>
         protected override void Initialize()
         {
-            inputManager = new InputManager(this, new KeyboardInputListener(), 
-                new[]
+            inputManager = new InputManager(this, keyboardListener = new KeyboardInputListener(), 
+                gamepadListeners = new GamepadInputListener[]
                 {
                     new GamepadInputListener(PlayerIndex.One), 
                     new GamepadInputListener(PlayerIndex.Two), 
@@ -163,7 +180,7 @@ namespace Neva.BeatEmUp
                 objectCreators.Add(new ObjectCreator(objectFiles[i]));
             }
 
-            stateManager.Change(new GameplayState());
+            stateManager.Change(new WorldMapState());
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load

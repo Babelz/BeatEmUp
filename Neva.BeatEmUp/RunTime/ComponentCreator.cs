@@ -21,7 +21,7 @@ namespace Neva.BeatEmUp.RunTime
             types = AppDomain.CurrentDomain.GetAssemblies()
                 .First(a => a.FullName.Contains("Neva"))
                 .GetTypes()
-                .Where(t => t.BaseType == typeof(GameObjectComponent))
+                .Where(t => t.BaseType == typeof(GameObjectComponent) || t.BaseType == typeof(RenderComponent))
                 .ToList();
         }
 
@@ -29,7 +29,7 @@ namespace Neva.BeatEmUp.RunTime
         {
         }
 
-        private object[] CreateArgumentsArray(GameObject owner, object[] args = null)
+        private object[] CreateArgumentArray(GameObject owner, object[] args = null)
         {
             object[] arguments = null;
 
@@ -56,13 +56,13 @@ namespace Neva.BeatEmUp.RunTime
 
         public T Create<T>(GameObject owner, object[] args = null) where T : GameObjectComponent
         {
-            args = CreateArgumentsArray(owner, args);
+            args = CreateArgumentArray(owner, args);
 
             return Activator.CreateInstance(typeof(T), args) as T;
         }
         public GameObjectComponent Create(Type type, GameObject owner, object[] args = null)
         {
-            args = CreateArgumentsArray(owner, args);
+            args = CreateArgumentArray(owner, args);
 
             return Activator.CreateInstance(type, args) as GameObjectComponent;
         }
