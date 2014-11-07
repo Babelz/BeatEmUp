@@ -42,7 +42,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            currentScene.Update(gameTime, owner.Game.View.Position);
+            currentScene.Update(gameTime);
 
             if (currentScene.Finished())
             {

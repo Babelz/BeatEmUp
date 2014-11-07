@@ -12,9 +12,13 @@ using System.Xml.Linq;
 
 namespace Neva.BeatEmUp.RunTime
 {
+    /// <summary>
+    /// Luokka joka lukee XML model taulukkoa ja luo sen perusteella peli objekteja.
+    /// </summary>
     internal sealed class ObjectCreator
     {
         #region Vars
+        // Modelit jotka on luettu modeli taulukosta.
         private readonly List<ObjectModel> models;
         #endregion
 
@@ -60,7 +64,7 @@ namespace Neva.BeatEmUp.RunTime
             return gameObject;
         }
 
-        private static void AddTags(ObjectModel model, GameObject gameObject)
+        private void AddTags(ObjectModel model, GameObject gameObject)
         {
             if (model.HasTags())
             {
@@ -70,7 +74,7 @@ namespace Neva.BeatEmUp.RunTime
                 }
             }
         }
-        private static void AddComponents(ObjectModel model, BeatEmUpGame game, GameObject gameObject)
+        private void AddComponents(ObjectModel model, BeatEmUpGame game, GameObject gameObject)
         {
             if (model.HasComponents())
             {
@@ -85,7 +89,7 @@ namespace Neva.BeatEmUp.RunTime
                 }
             }
         }
-        private static void AddBehaviours(ObjectModel model, GameObject gameObject)
+        private void AddBehaviours(ObjectModel model, GameObject gameObject)
         {
             if (model.HasBehaviours())
             {

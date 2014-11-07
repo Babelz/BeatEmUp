@@ -6,9 +6,13 @@ using System.Xml.Linq;
 
 namespace Neva.BeatEmUp.RunTime
 {
+    /// <summary>
+    /// Luokka joka lukee modelit XML model taulukosta.
+    /// </summary>
     internal sealed class ModelReader
     {
         #region Vars
+        // XML tiedoston koko nimi.
         private readonly string objectFilename;
         #endregion
 
@@ -17,6 +21,9 @@ namespace Neva.BeatEmUp.RunTime
             this.objectFilename = objectFilename;
         }
 
+        /// <summary>
+        /// Palauttaa joko parsitun tai default arvon.
+        /// </summary>
         private float TryParseFloat(string value)
         {
             float result = 0.0f;
@@ -30,6 +37,9 @@ namespace Neva.BeatEmUp.RunTime
 
             return result;
         }
+        /// <summary>
+        /// Palauttaa joko parsitun tai default arvon.
+        /// </summary>
         private bool TryParseBool(string value)
         {
             bool result = false;
@@ -43,6 +53,13 @@ namespace Neva.BeatEmUp.RunTime
 
             return result;
         }
+        /// <summary>
+        /// Yrittää lukea elementistä annetun attribuutin arvon. Jos
+        /// attribuuttia ei ole olemassa, palauttaa default arvon.
+        /// </summary>
+        /// <param name="xElement">Elementin nimi jossa attribuutin pitäisi olla.</param>
+        /// <param name="name">Attribuutin nimi.</param>
+        /// <returns>Attribuutin arvo tai tyhjä stringi.</returns>
         private string TryReadAttribute(XElement xElement, string name)
         {
             if (xElement.Attributes().FirstOrDefault(a => a.Name == name) != null)
@@ -52,7 +69,11 @@ namespace Neva.BeatEmUp.RunTime
 
             return string.Empty;
         }
-
+        /// <summary>
+        /// Parsii kaikki toiminta modelit.
+        /// </summary>
+        /// <param name="current">Tämän hetkinen model elementti.</param>
+        /// <returns>Kaikki modelista löydetyt toiminta modelit.</returns>
         private BehaviourModel[] ParseBehaviourModels(XElement current)
         {
             List<XElement> elements = current.Elements("Behaviour").ToList();
@@ -64,6 +85,8 @@ namespace Neva.BeatEmUp.RunTime
                 for (int i = 0; i < elements.Count; i++)
                 {
                     string name = TryReadAttribute(elements[i], "Name");
+
+                    // Tuleeko toiminta aloittaa heti sen luonnin jälkeen.
                     bool start = TryParseBool(TryReadAttribute(elements[i], "Start"));
 
                     models[i] = new BehaviourModel(name, start);
@@ -74,6 +97,12 @@ namespace Neva.BeatEmUp.RunTime
 
             return null;
         }
+        /// <summary>
+        /// Lukee annettujen argumenttien perusteella kaikki lapsi elementit 
+        /// current elementistä.
+        /// </summary>
+        /// <param name="elementsName">Elementtien nimi.</param>
+        /// <param name="attributeName">Attribuuttien nimi.</param>
         private string[] ReadChilds(XElement current, string elementsName, string attributeName)
         {
             List<XElement> elements = current.Elements(elementsName).ToList();
@@ -94,7 +123,9 @@ namespace Neva.BeatEmUp.RunTime
 
             return null;
         }
-
+        /// <summary>
+        /// Validoi avaimen. Jos avain on jo model listassa, heittää poikkeuksen.
+        /// </summary>
         private void ValidateKey(string key, List<ObjectModel> models)
         {
             if (string.IsNullOrEmpty(key))
@@ -106,7 +137,9 @@ namespace Neva.BeatEmUp.RunTime
                 throw new ArgumentException(string.Format("Creator already contains model with key ''{0}''", key));
             }
         }
-
+        /// <summary>
+        /// Validoi kaikki modelit.
+        /// </summary>
         private void ValidateModels(List<ObjectModel> models)
         {
             for (int i = 0; i < models.Count; i++)
@@ -116,6 +149,8 @@ namespace Neva.BeatEmUp.RunTime
                     continue;
                 }
 
+                // Katsotaan onko modelien childeillä olemassa modelit 
+                // modeli listassa.
                 for (int j = 0; j < models[i].ChildNames.Length; j++)
                 {
                     if (models.Find(m => string.Equals(m.Name, models[i].ChildNames[j], StringComparison.OrdinalIgnoreCase)) == null)
@@ -125,7 +160,9 @@ namespace Neva.BeatEmUp.RunTime
                 }
             }
         }
-
+        /// <summary>
+        /// Lukee kaikki modelit tiedostosta.
+        /// </summary>
         public List<ObjectModel> ReadModels()
         {
             XDocument file = XDocument.Load(objectFilename);
@@ -137,10 +174,12 @@ namespace Neva.BeatEmUp.RunTime
             {
                 XElement current = elements[i];
 
+                // Avaimen luku ja validointi.
                 string key = TryReadAttribute(current, "Key");
 
                 ValidateKey(key, models);
 
+                // Perusarvojen luku.
                 float x = TryParseFloat(TryReadAttribute(current, "X"));
                 float y = TryParseFloat(TryReadAttribute(current, "Y"));
 

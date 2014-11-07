@@ -40,15 +40,8 @@ namespace Neva.BeatEmUp.Maps
             aliveObjects = new List<GameObject>();
         }
 
-        public void Start()
+        private void AddSceneObjects()
         {
-            if (running)
-            {
-                return;
-            }
-
-            running = true;
-
             for (int i = 0; i < sceneObjects.Count; i++)
             {
                 
@@ -60,13 +53,44 @@ namespace Neva.BeatEmUp.Maps
                 game.AddGameObject(sceneObject);
             }
         }
+        private void AddNewMonsters(Wave wave)
+        {
+            List<GameObject> monsters = wave.Release(game);
+
+            monsters.ForEach(m => m.OnDestroy += (s, e) => { aliveObjects.Remove(m); });
+
+            aliveObjects.AddRange(monsters);
+        }
+        private void UpdateWave(Wave wave, GameTime gameTime)
+        {
+            wave.Update(gameTime);
+
+            if (wave.CanRelease())
+            {
+                AddNewMonsters(wave);
+
+                waves.Remove(wave);
+            }
+        }
+
+        public void Start()
+        {
+            if (running)
+            {
+                return;
+            }
+
+            running = true;
+
+            AddSceneObjects();
+        }
 
         public bool Finished()
         {
             return waves.Count == 0 && aliveObjects.Count == 0;
         }
 
-        public void Update(GameTime gameTime, Vector2 cameraPosition)
+        public void Update(GameTime gameTime)
         {
             if (!running)
             {
@@ -75,18 +99,7 @@ namespace Neva.BeatEmUp.Maps
 
             for (int i = 0; i < waves.Count; i++)
             {
-                waves[i].Update(gameTime);
-
-                if (waves[i].CanRelease())
-                {
-                    List<GameObject> monsters = waves[i].Release(game, cameraPosition);
-
-                    monsters.ForEach(m => m.OnDestroy += (s, e) => { aliveObjects.Remove(m); });
-
-                    aliveObjects.AddRange(monsters);
-
-                    waves.Remove(waves[i]);
-                }
+                UpdateWave(waves[i], gameTime);
             }
         }
     }

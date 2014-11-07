@@ -5,12 +5,9 @@ using System.Text;
 
 namespace Neva.BeatEmUp
 {
-    internal enum EffectTarget
-    {
-        BackgroundArea,
-        GameplayArea
-    }
-
+    /// <summary>
+    /// Mistä suunnasta allto lähtee liikkeelle.
+    /// </summary>
     public enum WaveDirection
     {
         Left,

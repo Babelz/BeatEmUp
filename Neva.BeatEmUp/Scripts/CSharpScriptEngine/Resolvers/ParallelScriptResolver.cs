@@ -29,8 +29,8 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         }
         #endregion
 
-        public ParallelScriptResolver(ScriptPathContainer scriptPathContainer, ScriptDepencyContainer scriptDepencyContainer, ScriptAssemblyContainer scriptAssemblyContainer, bool hideCompiledIfExists)
-            : base(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer, hideCompiledIfExists)
+        public ParallelScriptResolver(ScriptPathContainer scriptPathContainer, ScriptDepencyContainer scriptDepencyContainer, ScriptAssemblyContainer scriptAssemblyContainer)
+            : base(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer)
         {
             pendingResolves = new List<BaseParallelWorkItem>();
         }

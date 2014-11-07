@@ -11,23 +11,26 @@ using Neva.BeatEmUp.Collision.Narrowphase;
 
 namespace Neva.BeatEmUp
 {
-    public class World
+    public sealed class World
     {
+        #region Vars
         private readonly BeatEmUpGame game;
 
         private List<Body> colliders;
+        #endregion
 
+        #region Properties
         public IBroadphase Broadphase
         {
             get;
             private set;
         }
-
         public INarrowphase Narrowphase
         {
             get;
             private set;
         }
+        #endregion
 
         public World(BeatEmUpGame game, IBroadphase bp, INarrowphase np)
         {

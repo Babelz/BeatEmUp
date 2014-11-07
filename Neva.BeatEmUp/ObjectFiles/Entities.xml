@@ -14,5 +14,6 @@
 
   <Object Key="MapSelector" Name="Selector" Visible="true" Enabled="true">
     <Component Name="SpriteRenderer"/>
+    <Behaviour Name="SelectorBehaviour" Start="true"/>
   </Object>
 </Entities>
