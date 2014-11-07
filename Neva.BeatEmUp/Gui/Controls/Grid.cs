@@ -116,6 +116,7 @@ namespace Neva.BeatEmUp.Gui.Controls
         {
             return GetTotalOverwritePercent(columnSizeOverwrites);
         }
+
         private CellSize GetRowOverwrite(int row)
         {
             return rowSizeOverwrites.FirstOrDefault(c => c.Index == row);
@@ -124,6 +125,7 @@ namespace Neva.BeatEmUp.Gui.Controls
         {
             return columnSizeOverwrites.FirstOrDefault(c => c.Index == column);
         }
+
         // Palauttaa annetun rowin ja columin omaavan kontrolli listan.
         private List<Control> GetCellControlList(int row, int column)
         {
@@ -140,6 +142,7 @@ namespace Neva.BeatEmUp.Gui.Controls
 
             return cellControlList;
         }
+
         // Poistaa kontrollin solujen kontrolli listoista.
         private bool RemoveFromCellControlList(Control control)
         {
@@ -147,6 +150,7 @@ namespace Neva.BeatEmUp.Gui.Controls
 
             return cellControlList.Remove(control);
         }
+
         // Palauttaa solun joka sisältää annetun kontrollin.
         private GridCell GetContainingCell(Control control)
         {
@@ -163,6 +167,7 @@ namespace Neva.BeatEmUp.Gui.Controls
 
             return null;
         }
+
         // Päivittää solujen layoutin.
         private void UpdateCellLayout()
         {
@@ -180,6 +185,7 @@ namespace Neva.BeatEmUp.Gui.Controls
 
             positioning = Positioning.Relative;
         }
+
         // Päivittää solujen rakennetta.
         private void UpdateCellStructure()
         {
@@ -200,6 +206,7 @@ namespace Neva.BeatEmUp.Gui.Controls
             currentRows = cells.Length;
             currentColumns = cells.First().Length;
         }
+
         private void DownScaleGrid()
         {
             // Otetaan kaikki kontrollit talteen jotka eivät mahdu pienempään gridiin.
@@ -272,6 +279,7 @@ namespace Neva.BeatEmUp.Gui.Controls
 
             cells = newCells;
         }
+
         private void InitializeCells()
         {
             if (cells == null)
@@ -296,6 +304,7 @@ namespace Neva.BeatEmUp.Gui.Controls
                 }
             }
         }
+
         private void UpdateCellSizes()
         {
             float width = 0.0f, height = 0.0f;
