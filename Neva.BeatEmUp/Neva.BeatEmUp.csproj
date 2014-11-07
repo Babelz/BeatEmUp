@@ -48,6 +48,18 @@
     <Compile Include="Behaviours\MapNode.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\ChildManager.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Decorator.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Delegates.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Enums.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Exceptions.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Inverter.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Leaf.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Node.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\RepeatUntil.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Selector.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Sequence.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Succeeder.cs" />
     <Compile Include="GameObjects\Components\AI\FiniteStateMachine.cs" />
     <Compile Include="Behaviours\PlayerBehaviour.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -81,6 +93,7 @@
     <Compile Include="GameObjectContainer.cs" />
     <Compile Include="GameObjects\Args.cs" />
     <Compile Include="GameObjects\ComponentManager.cs" />
+    <Compile Include="GameObjects\Components\AI\SteeringBehaviors\SteeringComponent.cs" />
     <Compile Include="GameObjects\Components\ColliderRenderer.cs" />
     <Compile Include="GameObjects\Components\Exceptions.cs" />
     <Compile Include="GameObjects\Components\LineRenderer.cs" />

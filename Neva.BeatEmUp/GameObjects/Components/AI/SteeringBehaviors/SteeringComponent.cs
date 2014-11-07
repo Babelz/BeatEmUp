@@ -140,7 +140,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
         }
         #endregion
 
-        public virtual Vector2 OnUpdate(GameTime gameTime, GameObject owner)
+        public override Vector2 OnUpdate(GameTime gameTime, GameObject owner)
         {
             Vector2 desiredVelocity = Vector2.Normalize(target - owner.Position) * maxSpeed;
 
