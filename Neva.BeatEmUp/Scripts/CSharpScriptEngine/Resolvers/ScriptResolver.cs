@@ -40,8 +40,6 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         private readonly ScriptAssemblyContainer scriptAssemblyContainer;
         private readonly ScriptPathContainer scriptPathContainer;
         private readonly ScriptDepencyContainer scriptDepencyContainer;
-
-        private readonly bool hideCompiledIfExists;
         #endregion
 
         #region Properties
@@ -55,12 +53,11 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         }
         #endregion
 
-        public ScriptResolver(ScriptPathContainer scriptPathContainer, ScriptDepencyContainer scriptDepencyContainer, ScriptAssemblyContainer scriptAssemblyContainer, bool hideCompiledIfExists)
+        public ScriptResolver(ScriptPathContainer scriptPathContainer, ScriptDepencyContainer scriptDepencyContainer, ScriptAssemblyContainer scriptAssemblyContainer)
         {
             this.scriptPathContainer = scriptPathContainer;
             this.scriptDepencyContainer = scriptDepencyContainer;
             this.scriptAssemblyContainer = scriptAssemblyContainer;
-            this.hideCompiledIfExists = hideCompiledIfExists;
 
             LoggingMethod = LoggingMethod.None;
         }
@@ -110,7 +107,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         {
             ScriptBuilder scriptBuilder = resolverWorkItem.ScriptBuilder;
 
-            ScriptCompiler scriptCompiler = new ScriptCompiler(scriptDepencyContainer.ScriptDepencies, hideCompiledIfExists)
+            ScriptCompiler scriptCompiler = new ScriptCompiler(scriptDepencyContainer.ScriptDepencies)
             {
                 LoggingMethod = LoggingMethod
             };

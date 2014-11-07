@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Behaviours
 {
-    [ScriptAttribute(true)]
+    [ScriptAttribute(false)]
     public sealed class MapNode : Behaviour
     {
         #region Vars

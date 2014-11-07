@@ -30,7 +30,6 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         #endregion
 
         #region Vars
-        private readonly bool hideCompiledIfExists;
         // Taulukko kaikista depencyistä jotka user on antanut config tiedostossa.
         private readonly string[] scriptDepencies;
 
@@ -66,13 +65,12 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
                 .ToList();
         }
 
-        public ScriptCompiler(string[] scriptDepencies, bool hideCompiledIfExists)
-            : this(scriptDepencies, new CompilerErrorLogger(), hideCompiledIfExists)
+        public ScriptCompiler(string[] scriptDepencies)
+            : this(scriptDepencies, new CompilerErrorLogger())
         {
         }
-        public ScriptCompiler(string[] scriptDepencies, CompilerErrorLogger compilerErrorLogger, bool hideCompiledIfExists)
+        public ScriptCompiler(string[] scriptDepencies, CompilerErrorLogger compilerErrorLogger)
         {
-            this.hideCompiledIfExists = hideCompiledIfExists;
             this.scriptDepencies = scriptDepencies;
             this.compilerErrorLogger = compilerErrorLogger ?? new CompilerErrorLogger();
         }
@@ -114,7 +112,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
 
                     compilerResults = null;
                 }
-                else if (hideCompiledIfExists)
+                else
                 {
                     List<Type> scripts = compilerResults.CompiledAssembly
                         .GetTypes()
@@ -127,7 +125,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
                             .FirstOrDefault(a => a.GetType() == typeof(ScriptAttribute))
                             as ScriptAttribute;
 
-                        if (attribute != null && attribute.ReplaceWithExistingAssembly)
+                        if (attribute != null && !attribute.IsInternal)
                         {
                             string[] methods = scripts[i].GetMethods().Select<MethodInfo, string>(m => m.Name).ToArray();
                             string[] members = scripts[i].GetMembers().Select<MemberInfo, string>(m => m.Name).ToArray();

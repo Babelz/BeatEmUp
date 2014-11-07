@@ -53,6 +53,7 @@ namespace Neva.BeatEmUp
         private KeyboardInputListener keyboardListener;
 
         private bool paused;
+        private bool sortedDraw;
         #endregion
 
         #region Properties
@@ -89,6 +90,20 @@ namespace Neva.BeatEmUp
             get
             {
                 return gamepadListeners;
+            }
+        }
+        public bool Paused
+        {
+            get
+            {
+                return paused;
+            }
+        }
+        public bool SortedDraw
+        {
+            get
+            {
+                return sortedDraw;
             }
         }
         #endregion
@@ -245,18 +260,25 @@ namespace Neva.BeatEmUp
                     destroyedObjects.Add(gameObjects[i]);
                 }
             }
-            
-            gameObjects.Sort(SortGameObjects);
+
+            if (sortedDraw)
+            {
+                gameObjects.Sort(SortGameObjects);
+            }
         }
 
         private int SortGameObjects(GameObject gameObject, GameObject other)
         {
             if (gameObject == other) return 0;
-            Vector2 a = gameObject.Position ;
-            Vector2 b = other.Position ;
+            
+            Vector2 a = gameObject.Position;
+            Vector2 b = other.Position;
+            
             if (a == b) return 0;
+            
             if (a.Y - b.Y <= 0f)
                 return -1;
+            
             if (b.Y - a.Y <= 0f)
                 return 1;
 
@@ -272,7 +294,7 @@ namespace Neva.BeatEmUp
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-        /*        null,
+        /*      null,
                 null,
                 null,
                 null,
@@ -288,10 +310,25 @@ namespace Neva.BeatEmUp
             base.Draw(gameTime);
         }
 
+        public void EnableSortedDraw()
+        {
+            sortedDraw = true;
+        }
+        public void DisableSortedDraw()
+        {
+            sortedDraw = false;
+        }
+
+        /// <summary>
+        /// Aloittaa päivitysten estämisen.
+        /// </summary>
         public void Pause()
         {
             paused = true;
         }
+        /// <summary>
+        /// Lopettaa päivitysten estämisen.
+        /// </summary>
         public void Resume()
         {
             paused = false;

@@ -23,6 +23,8 @@ namespace Neva.BeatEmUp.GameStates
         private GameObject currentNode;
         private GameObject lastNode;
         private GameObject selector;
+
+        private bool hasMappings;
         #endregion
 
         public WorldMapState()
@@ -86,6 +88,8 @@ namespace Neva.BeatEmUp.GameStates
             if (currentNode != null)
             {
                 currentNode.FirstComponentOfType<SpriteRenderer>().Color = Color.Green;
+
+                selector.FirstBehaviourOfType<SelectorBehaviour>().Destination = currentNode.Position;
             }
         }
 
@@ -109,6 +113,8 @@ namespace Neva.BeatEmUp.GameStates
         {
             RemoveMappings();
 
+            Game.EnableSortedDraw();
+
             GameplayState gameplayState = new GameplayState(currentNode.FirstBehaviourOfType<MapNode>().MapName);
             GameStateManager.Change(gameplayState);
         }
@@ -128,9 +134,16 @@ namespace Neva.BeatEmUp.GameStates
             }
         }
 
-        private void InitMappings(BeatEmUpGame game)
+        private void InitianizeMappings()
         {
-            KeyboardInputListener keyboardListener = game.KeyboardListener;
+            if (hasMappings)
+            {
+                return;
+            }
+
+            hasMappings = true;
+
+            KeyboardInputListener keyboardListener = Game.KeyboardListener;
 
             keyboardListener.Map("Up", MoveUp, new KeyTrigger(Keys.W));
             keyboardListener.Map("Down", MoveDown, new KeyTrigger(Keys.S));
@@ -140,6 +153,13 @@ namespace Neva.BeatEmUp.GameStates
         }
         private void RemoveMappings()
         {
+            if (!hasMappings)
+            {
+                return;
+            }
+
+            hasMappings = false;
+
             KeyboardInputListener keyboardListener = Game.KeyboardListener;
 
             keyboardListener.RemoveMapping("Up");
@@ -148,9 +168,10 @@ namespace Neva.BeatEmUp.GameStates
             keyboardListener.RemoveMapping("Right");
             keyboardListener.RemoveMapping("Select");
         }
-        private GameObject CreateNode(BeatEmUpGame game, Vector2 position, GameObject parent, string mapName = "", bool canEnter = true)
+
+        private GameObject CreateNode(Vector2 position, GameObject parent, string mapName = "", bool canEnter = true)
         {
-            GameObject node = game.CreateGameObjectFromKey("MapNode");
+            GameObject node = Game.CreateGameObjectFromKey("MapNode");
             
             node.Position = position;
             node.AddBehaviour("MapNode", new object[] { mapName, canEnter });
@@ -162,29 +183,29 @@ namespace Neva.BeatEmUp.GameStates
 
             return node;
         }
-        private void InitNodes(BeatEmUpGame game)
+        private void InitializeNodes()
         {
             mapNodes = new List<GameObject>();
 
-            GameObject map1Node = CreateNode(game, new Vector2(25f), null, "City1.xml");
+            GameObject map1Node = CreateNode(new Vector2(25f), null, "City1.xml");
             mapNodes.Add(map1Node);
 
-            GameObject map2Node = CreateNode(game, new Vector2(300f, 200f), map1Node);
+            GameObject map2Node = CreateNode(new Vector2(300f, 200f), map1Node);
             mapNodes.Add(map2Node);
 
-            GameObject map3Node = CreateNode(game, new Vector2(600f, 200f), map2Node);
+            GameObject map3Node = CreateNode(new Vector2(600f, 200f), map2Node);
             mapNodes.Add(map3Node);
 
-            GameObject map4Node = CreateNode(game, new Vector2(600f, 400f), map3Node);
+            GameObject map4Node = CreateNode(new Vector2(600f, 400f), map3Node);
             mapNodes.Add(map4Node);
 
-            GameObject map5Node = CreateNode(game, new Vector2(300f, 400f), map4Node);
+            GameObject map5Node = CreateNode(new Vector2(300f, 400f), map4Node);
             mapNodes.Add(map5Node);
 
-            GameObject map6Node = CreateNode(game, new Vector2(400f, 500f), map5Node);
+            GameObject map6Node = CreateNode(new Vector2(400f, 500f), map5Node);
             mapNodes.Add(map6Node);
 
-            GameObject map7Node = CreateNode(game, new Vector2(1223f, 600f), map6Node);
+            GameObject map7Node = CreateNode(new Vector2(1223f, 600f), map6Node);
             mapNodes.Add(map7Node);
 
             mapNodes.ForEach(n =>
@@ -195,44 +216,31 @@ namespace Neva.BeatEmUp.GameStates
 
             currentNode = mapNodes[0];
 
-            selector = game.CreateGameObjectFromKey("MapSelector");
+            selector = Game.CreateGameObjectFromKey("MapSelector");
             selector.Position = currentNode.Position;
+            selector.FirstBehaviourOfType<SelectorBehaviour>().Destination = selector.Position;
         }
 
         public override void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager)
         {
-            InitMappings(game);
+            Game.DisableSortedDraw();
 
-            InitNodes(game);
+            InitianizeMappings();
+
+            InitializeNodes();
         }
-
+        
         public override void Update(GameTime gameTime)
         {
-            int pX = (int)selector.Position.X;
-            int pY = (int)selector.Position.Y;
-
-            int nX = (int)currentNode.Position.X;
-            int nY = (int)currentNode.Position.Y;
-
-            if (pX < nX)
+            if (selector.Position == currentNode.Position)
             {
-                selector.Position = new Vector2(selector.Position.X + 1f, selector.Position.Y);
+                InitianizeMappings();
             }
-            else if (pX > nX)
+            else
             {
-                selector.Position = new Vector2(selector.Position.X - 1f, selector.Position.Y);
-            }
-
-            if (pY < nY)
-            {
-                selector.Position = new Vector2(selector.Position.X, selector.Position.Y + 1f);
-            }
-            else if (pY > nY)
-            {
-                selector.Position = new Vector2(selector.Position.X, selector.Position.Y - 1f);
+                RemoveMappings();
             }
         }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
         }

@@ -25,10 +25,6 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
         private ParallelScriptResolver parallelScriptResolver;
 
         private string configurationFilePath;
-
-        // Tuleeko skripteistä löytyvät samat tyypit korvata tämän hetkisestä
-        // app domainista löytyvillä tyypeillä.
-        private bool hideCompiledIfExists;
         #endregion
 
         #region Properties
@@ -71,17 +67,6 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
                 return parallelScriptResolver.HasPendingResolves;
             }
         }
-        /// <summary>
-        /// Tuleeko skripteistä löytyvät samat tyypit korvata tämän hetkisestä
-        /// app domainista löytyvillä tyypeillä.
-        /// </summary>
-        public bool HideCompiledIfExists
-        {
-            get
-            {
-                return hideCompiledIfExists;
-            }
-        }
         #endregion
 
         public ScriptEngine(Game game, string configurationFilePath)
@@ -91,29 +76,10 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
             LoggingMethod = LoggingMethod.None;
         }
 
-        private void ReadSettings(XDocument configurationFile)
-        {
-            XElement root = configurationFile.Root;
-
-            XElement settingsElement = root.Element("Settings");
-
-            if (settingsElement != null)
-            {
-                XAttribute typeSetting = settingsElement.Attribute("HideCompiledIfExists");
-
-                if (typeSetting != null)
-                {
-                    hideCompiledIfExists = bool.Parse(typeSetting.Value);
-                }
-            }
-        }
-
         // Alustaa kaikki tarvittavat containerit.
         private void InitializeContainers()
         {
             XDocument configurationFile = XDocument.Load(configurationFilePath);
-
-            ReadSettings(configurationFile);
 
             scriptPathContainer = new ScriptPathContainer(configurationFile);
             scriptDepencyContainer = new ScriptDepencyContainer(configurationFile);
@@ -124,8 +90,8 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
         // Alustaa kaikki resolverit.
         private void InitializeResolvers()
         {
-            blockingScriptResolver = new BlockingScriptResolver(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer, hideCompiledIfExists);
-            parallelScriptResolver = new ParallelScriptResolver(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer, hideCompiledIfExists);
+            blockingScriptResolver = new BlockingScriptResolver(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer);
+            parallelScriptResolver = new ParallelScriptResolver(scriptPathContainer, scriptDepencyContainer, scriptAssemblyContainer);
         }
 
         /// <summary>
@@ -219,7 +185,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
             {
                 List<string> files = Directory.GetFiles(scriptPathContainer.ScriptPaths[i]).ToList();
 
-                ScriptCompiler compiler = new ScriptCompiler(scriptDepencyContainer.ScriptDepencies, hideCompiledIfExists);
+                ScriptCompiler compiler = new ScriptCompiler(scriptDepencyContainer.ScriptDepencies);
 
                 for (int j = 0; j < files.Count; j++)
                 {
