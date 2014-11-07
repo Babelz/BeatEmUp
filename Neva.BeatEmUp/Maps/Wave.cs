@@ -41,7 +41,7 @@ namespace Neva.BeatEmUp.Maps
             for (int i = 0; i < monsterCount; i++)
             {
                 GameObject monster = game.CreateGameObjectFromName(monsterName);
-                monster.Body.Shape.Size = new Vector2(32f, 32f);
+
                 monster.Game.World.CreateBody(monster.Body, CollisionGroup.Group2, CollisionGroup.All & ~CollisionGroup.Group1);
                 float y = random.Next(game.Window.ClientBounds.Height / 2, (int)(game.Window.ClientBounds.Height - monster.Size.Y));
 
