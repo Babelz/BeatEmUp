@@ -34,7 +34,8 @@ namespace Neva.BeatEmUp.Behaviours
             this.filename = filename;
 
             font = owner.Game.Content.Load<SpriteFont>("default");
-
+            // TODO test
+            owner.Size = new Vector2(0f);
             alpha = 255;
         }
 
@@ -125,7 +126,7 @@ namespace Neva.BeatEmUp.Behaviours
                     XElement objectElement = objectElements[j];
 
                     string name = objectElement.Attribute("Name").Value;
-
+                    
                     GameObject sceneObject = Owner.Game.CreateGameObjectFromName(name, false);
                     sceneObject.Position = new Vector2(sceneObject.Position.X + i * Owner.Game.Window.ClientBounds.Width,
                                                        sceneObject.Position.Y);

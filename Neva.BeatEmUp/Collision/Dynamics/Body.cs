@@ -23,7 +23,12 @@ namespace Neva.BeatEmUp.Collision.Dynamics
         /// Ei katsota broadphasella ollenkaan
         /// TODO: ei käytetä vielä
         /// </summary>
-        Ignore
+        Ignore,
+        /// <summary>
+        /// Tähän ei voi collidata mutta triggeröi eventit
+        /// Hyvä käyttää esim. powerupeissa
+        /// </summary>
+        Sensor
     }
 
     [Flags]
@@ -72,6 +77,7 @@ namespace Neva.BeatEmUp.Collision.Dynamics
 
         #region Vars
         private Transform transform;
+        
         #endregion
 
         #region Properties
@@ -79,6 +85,18 @@ namespace Neva.BeatEmUp.Collision.Dynamics
         public GameObject Owner
         {
             get; private set;
+        }
+
+        /// <summary>
+        /// TODO: kommentoi paremmin 
+        /// Tähän ei voi collidata mutta triggeröi eventit
+        /// </summary>
+        public bool IsSensor
+        {
+            get
+            {
+                return (CollisionFlags & CollisionFlags.Sensor) == CollisionFlags.Sensor;
+            }
         }
 
         /// <summary>

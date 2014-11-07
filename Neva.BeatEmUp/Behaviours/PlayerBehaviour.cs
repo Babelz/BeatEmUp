@@ -23,6 +23,7 @@ namespace Neva.BeatEmUp.Behaviours
         public PlayerBehaviour(GameObject owner) : base(owner)
         {
             owner.Body.Shape.Size = new Vector2(32.0f, 32.0f);
+            owner.Size = new Vector2(32f, 110f);
             //owner.Body.Rotation = MathHelper.ToRadians(45);
             owner.Game.World.CreateBody(owner.Body);
         }
@@ -105,7 +106,6 @@ namespace Neva.BeatEmUp.Behaviours
             {
                 spriter.ChangeAnimation("idle");
             }
-            Owner.Position += Owner.Body.Velocity;
         }
     }
 }

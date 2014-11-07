@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using Neva.BeatEmUp.Collision;
 using Neva.BeatEmUp.Collision.Broadphase;
 using Neva.BeatEmUp.Collision.Narrowphase;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine.Builders;
@@ -244,7 +245,24 @@ namespace Neva.BeatEmUp
                     destroyedObjects.Add(gameObjects[i]);
                 }
             }
+            
+            gameObjects.Sort(SortGameObjects);
         }
+
+        private int SortGameObjects(GameObject gameObject, GameObject other)
+        {
+            if (gameObject == other) return 0;
+            Vector2 a = gameObject.Position ;
+            Vector2 b = other.Position ;
+            if (a == b) return 0;
+            if (a.Y - b.Y <= 0f)
+                return -1;
+            if (b.Y - a.Y <= 0f)
+                return 1;
+
+            return 0;
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -252,7 +270,7 @@ namespace Neva.BeatEmUp
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
         /*        null,
                 null,

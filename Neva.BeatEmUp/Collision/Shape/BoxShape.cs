@@ -88,6 +88,7 @@ namespace Neva.BeatEmUp.Collision.Shape
 
         public override void ComputeAaab(ref Transform t, out AABB aabb)
         {
+#if !COLLISION_USE_CENTER_POINT
             Vector2 lower = SaNiMath.Multiply(ref t, Vertices.GetVertex(0));
             Vector2 upper = lower;
 
@@ -97,14 +98,22 @@ namespace Neva.BeatEmUp.Collision.Shape
                 lower = Vector2.Min(lower, v);
                 upper = Vector2.Max(upper, v);
             }
-
+            //TODO keskelle vai ylös?
             lower.X += HalfWidth;
             lower.Y += HalfHeight;
             upper.X += HalfWidth;
             upper.Y += HalfHeight;
             aabb.Lower = lower;
             aabb.Upper = upper;
-            
+#endif
+#if COLLISION_USE_CENTER_POINT
+            Vector2 halfWidth, halfHeight;
+            CalculateExtents(ref t, out halfWidth, out halfHeight);
+            Vector2 halfWidthOther, halfHeightOther;
+            CalculateOtherExtents(ref t, out halfWidthOther, out halfHeightOther);
+            aabb.Lower = Vector2.Min(halfWidth, halfWidthOther) + Vector2.Min(halfHeight, halfHeightOther) - t.Position;
+            aabb.Upper = Vector2.Max(halfWidth, halfWidthOther) + Vector2.Max(halfHeight, halfHeightOther) - t.Position; 
+#endif
         }
 
         public void Project(ref Transform tf, ref Vector2 axis, out Vector2 projection)
@@ -117,19 +126,6 @@ namespace Neva.BeatEmUp.Collision.Shape
 
             projection.X = Vector2.Dot(halfWidth, axis);
             projection.Y = Vector2.Dot( halfHeight, axis);
-           /* float min = Vector2.Dot(Vertices.GetVertex(0), axis);
-            float max = min;
-            float projected = 0;
-            for (int i = 1; i < Vertices.Count; i++)
-            {
-                projected = Vector2.Dot(Vertices.GetVertex(i), axis);
-                if (projected > max)
-                    max = projected;
-                if (projected < min)
-                    min = projected;
-            }
-            projection.X = min;
-            projection.Y = max;*/
         }
 
         public void CalculateOrientation(ref Transform tf, out Vector2 orientation)
@@ -145,6 +141,14 @@ namespace Neva.BeatEmUp.Collision.Shape
             halfHeight = new Vector2(0, HalfHeight);
             tf.TransformVector(ref halfWidth);
             tf.TransformVector(ref halfHeight);
+        }
+
+        public void CalculateOtherExtents(ref Transform transform, out Vector2 halfWidth, out Vector2 halfHeight)
+        {
+            halfWidth = new Vector2(-HalfWidth, 0);
+            halfHeight = new Vector2(0, -HalfHeight);
+            transform.TransformVector(ref halfWidth);
+            transform.TransformVector(ref halfHeight);
         }
 
         #endregion

@@ -40,14 +40,17 @@ namespace Neva.BeatEmUp.GameStates
             player = Game.CreateGameObjectFromKey("player");
 
             GameObject table = new GameObject(game);
+            table.Name = "Table";
             table.AddComponent(new SpriteRenderer(table)
             {
                Sprite = new Sprite(Game.Content.Load<Texture2D>("Assets\\Objects\\table"))
             });
             table.Size = table.FirstComponentOfType<SpriteRenderer>().Size;
 
-            table.Body = new Body(table, new BoxShape(table.Size.X, table.Size.Y, MathHelper.ToRadians(1f)), Vector2.Zero);
+            table.Body = new Body(table, new BoxShape(table.Size.X, table.Size.Y, 0f), Vector2.Zero);
             table.Position = new Vector2(400, 300);
+
+            table.AddComponent(new ColliderRenderer(table));
             table.FirstComponentOfType<SpriteRenderer>().Position = table.Position;
             table.Body.CollisionFlags = CollisionFlags.Solid;
          
