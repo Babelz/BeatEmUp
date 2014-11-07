@@ -191,7 +191,7 @@ namespace Neva.BeatEmUp
                 objectCreators.Add(new ObjectCreator(objectFiles[i]));
             }
 
-            stateManager.Change(new WorldMapState());
+            stateManager.Change(new GameplayState("City1.xml"));
         }
 
         /// <summary>

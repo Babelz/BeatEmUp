@@ -102,5 +102,10 @@ namespace Neva.BeatEmUp
             AABB aabb = collider.GetAABB();
             Broadphase.SetProxyAABB(collider.BroadphaseProxy, ref aabb);
         }
+
+        public List<BroadphaseProxy> QueryAABB(ref AABB aabb)
+        {
+            return Broadphase.QueryAABB(ref aabb);
+        }
     }
 }

@@ -97,6 +97,13 @@ namespace Neva.BeatEmUp.Collision.Broadphase
             proxies.Remove(proxy);
         }
 
+        public List<BroadphaseProxy> QueryAABB(ref AABB aabb)
+        {
+            List<Element<BroadphaseProxy>> affected = new List<Element<BroadphaseProxy>>();
+            quadTree.QueryAABB(ref aabb, ref affected);
+            return affected.Select(c => c.Value).ToList();
+        }
+
         #region Debug
 
 
@@ -104,6 +111,8 @@ namespace Neva.BeatEmUp.Collision.Broadphase
         {
             quadTree.Draw(sb);
         }
+
+
 
         #endregion
 

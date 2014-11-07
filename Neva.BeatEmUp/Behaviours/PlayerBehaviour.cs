@@ -52,9 +52,15 @@ namespace Neva.BeatEmUp.Behaviours
             Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
         }
 
-        private void Jump(InputEventArgs args)
+        private void Attack(InputEventArgs args)
         {
+            if (args.InputState != InputState.Released) return;
 
+            GameObject target = Owner.FirstComponentOfType<TargetingComponent>().Target;
+            // ei ole targettia
+            if (target == null) return;
+
+            Console.WriteLine("HITTING TARGET w/ NAME OF {0}!!", target.Name);
         }
 
         #region Util
@@ -89,7 +95,8 @@ namespace Neva.BeatEmUp.Behaviours
             keylistener.Map("Right", MoveRight, new KeyTrigger(Keys.D), new KeyTrigger(Keys.Right));
             keylistener.Map("Up", MoveUp, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
             keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
-            keylistener.Map("Jump", Jump, new KeyTrigger(Keys.Space));
+            keylistener.Map("Attack", Attack, new KeyTrigger(Keys.Space));
+            
 
             Owner.InitializeComponents();
             Owner.FirstComponentOfType<SpriterAnimationRenderer>().ChangeAnimation("idle");

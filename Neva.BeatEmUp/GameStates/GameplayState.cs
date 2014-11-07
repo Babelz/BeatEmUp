@@ -39,29 +39,33 @@ namespace Neva.BeatEmUp.GameStates
 
             player = Game.CreateGameObjectFromKey("player");
 
+
+            GameObject table = CreateTable();
+            table.Position = new Vector2(400, 300);
+            table.AddComponent(new ColliderRenderer(table));
+            table.FirstComponentOfType<SpriteRenderer>().Position = table.Position;
+            table.Body.CollisionFlags = CollisionFlags.Solid;
+            table.InitializeComponents();
+
+            
+            //game.AddGameObject(table);
+            //game.World.CreateBody(table.Body);
+
+            game.View.Zoom = 1.5f;
+        }
+
+        private GameObject CreateTable()
+        {
             GameObject table = new GameObject(game);
             table.Name = "Table";
             table.AddComponent(new SpriteRenderer(table)
             {
-               Sprite = new Sprite(Game.Content.Load<Texture2D>("Assets\\Objects\\table"))
+                Sprite = new Sprite(Game.Content.Load<Texture2D>("Assets\\Objects\\table"))
             });
             table.Size = table.FirstComponentOfType<SpriteRenderer>().Size;
 
             table.Body = new Body(table, new BoxShape(table.Size.X, table.Size.Y, 0f), Vector2.Zero);
-            table.Position = new Vector2(400, 300);
-
-            table.AddComponent(new ColliderRenderer(table));
-            table.FirstComponentOfType<SpriteRenderer>().Position = table.Position;
-            table.Body.CollisionFlags = CollisionFlags.Solid;
-         
-
-            table.InitializeComponents();
-            game.AddGameObject(table);
-            game.World.CreateBody(table.Body);
-
-                
-            
-            game.View.Zoom = 1.5f;
+            return table;
         }
 
         public override void Update(GameTime gameTime)

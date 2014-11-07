@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Neva.BeatEmUp.Collision.Dynamics;
 
 namespace Neva.BeatEmUp.Collision.Broadphase
 {
@@ -35,7 +36,7 @@ namespace Neva.BeatEmUp.Collision.Broadphase
         /// <summary>
         /// Kenen proxy tämä on, yleensä body
         /// </summary>
-        public object Client;
+        public Body Client;
         
 
         /// <summary>
@@ -48,12 +49,12 @@ namespace Neva.BeatEmUp.Collision.Broadphase
             return (CollisionGroup & other.CollisionFilterGroup) != CollisionGroup.None;
         }
 
-        public static BroadphaseProxy Create(object client)
+        public static BroadphaseProxy Create(Body client)
         {
             return Create(client, CollisionGroup.Group1, CollisionGroup.All);
         }
 
-        public static BroadphaseProxy Create(object client, CollisionGroup group, CollisionGroup mask)
+        public static BroadphaseProxy Create(Body client, CollisionGroup group, CollisionGroup mask)
         {
             BroadphaseProxy proxy = new BroadphaseProxy
             {

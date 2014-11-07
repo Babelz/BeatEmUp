@@ -21,5 +21,6 @@ namespace Neva.BeatEmUp.Collision.Broadphase
         // debug
         void Draw(SpriteBatch sb);
 
+        List<BroadphaseProxy> QueryAABB(ref AABB aabb);
     }
 }

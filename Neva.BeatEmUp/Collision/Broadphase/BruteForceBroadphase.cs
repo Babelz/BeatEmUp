@@ -83,6 +83,19 @@ namespace Neva.BeatEmUp.Collision.Broadphase
             proxies.Remove(proxy);
         }
 
+        public List<BroadphaseProxy> QueryAABB(ref AABB aabb )
+        {
+            var affected = new List<BroadphaseProxy>();
+            for (int i = 0; i < proxies.Count; i++)
+            {
+                if (proxies[i].AABB.Intersects(ref aabb))
+                {
+                    affected.Add(proxies[i]);
+                }
+            }
+            return affected;
+        }
+
         #region Debug
 
         public void Draw(SpriteBatch sb)
