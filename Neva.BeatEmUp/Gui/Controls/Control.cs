@@ -1015,12 +1015,6 @@ namespace Neva.BeatEmUp.Gui.Controls
                 eventHandler(e, sender);
             }
         }
-        protected virtual void OnControlAdded(GuiParentEventArgs e, object sender)
-        {
-        }
-        protected virtual void OnControlRemoved(GuiParentEventArgs e, object sender)
-        {
-        }
         protected virtual void OnEnabledChanged(GuiEventArgs e, object sender)
         {
             GuiEventHandler<GuiEventArgs> eventHandler = (GuiEventHandler<GuiEventArgs>)eventHandlers[EventEnabledChanged];

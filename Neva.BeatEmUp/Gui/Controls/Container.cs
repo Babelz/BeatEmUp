@@ -71,7 +71,7 @@ namespace Neva.BeatEmUp.Gui.Controls
         #endregion
 
         #region Event methods
-        protected override void OnControlAdded(GuiParentEventArgs e, object sender)
+        protected virtual void OnControlAdded(GuiParentEventArgs e, object sender)
         {
             GuiEventHandler<GuiParentEventArgs> eventHandler = (GuiEventHandler<GuiParentEventArgs>)eventHandlers[EventControlAdded];
 
@@ -79,10 +79,8 @@ namespace Neva.BeatEmUp.Gui.Controls
             {
                 eventHandler(e, sender);
             }
-
-            base.OnControlAdded(e, sender);
         }
-        protected override void OnControlRemoved(GuiParentEventArgs e, object sender)
+        protected virtual void OnControlRemoved(GuiParentEventArgs e, object sender)
         {
             GuiEventHandler<GuiParentEventArgs> eventHandler = (GuiEventHandler<GuiParentEventArgs>)eventHandlers[EventControlRemoved];
 
@@ -90,8 +88,6 @@ namespace Neva.BeatEmUp.Gui.Controls
             {
                 eventHandler(e, sender);
             }
-
-            base.OnControlRemoved(e, sender);
         }
         protected override void OnDisposed(GuiEventArgs e, object sender)
         {
