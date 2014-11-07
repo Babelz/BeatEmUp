@@ -46,13 +46,16 @@ namespace Neva.BeatEmUp.Collision.Narrowphase
 
                 if (result.IsColliding)
                 {
-                    // otetaanko responsea vastaan
-                    if ((result.Us.CollisionFlags & CollisionFlags.Response) != 0)
-                        result.Us.Position += result.Response;
-                    if ((result.Them.CollisionFlags & CollisionFlags.Response) != 0)
-                        result.Them.Position -= result.Response;
-                    
-                    // TODO Lauo eventit
+                    // onko jompikumpi sensori, jos on niin ei tarvitse työntää objecteja pois
+                    if (!result.Us.IsSensor && !result.Them.IsSensor)
+                    {
+                        // otetaanko responsea vastaan
+                        if ((result.Us.CollisionFlags & CollisionFlags.Response) != 0)
+                            result.Us.Position += result.Response;
+                        if ((result.Them.CollisionFlags & CollisionFlags.Response) != 0)
+                            result.Them.Position -= result.Response;
+                    }
+
                     if (bodyA.OnCollision != null)
                         bodyA.OnCollision(bodyA, bodyB);
                     if (bodyB.OnCollision != null)

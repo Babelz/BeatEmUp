@@ -22,8 +22,8 @@ namespace Neva.BeatEmUp.Collision.Narrowphase
 
 
             // TODO miten toi position saatais keskelle suoraan
-            Vector2 centerA = tfA.Position + new Vector2(boxA.HalfWidth, boxA.HalfHeight);
-            Vector2 centerB = tfB.Position + new Vector2(boxB.HalfWidth, boxB.HalfHeight);
+            Vector2 centerA = tfA.Position; //+ new Vector2(boxA.HalfWidth, boxA.HalfHeight);
+            Vector2 centerB = tfB.Position; //+ new Vector2(boxB.HalfWidth, boxB.HalfHeight);
 
             boxA.CalculateOrientation(ref tfA, out axesToCheck[0]);
             boxB.CalculateOrientation(ref tfB, out axesToCheck[1]);
