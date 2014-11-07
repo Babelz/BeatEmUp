@@ -8,6 +8,9 @@ using System.Text;
 
 namespace Neva.BeatEmUp.RunTime
 {
+    /// <summary>
+    /// Luokka jonka tehtävä on helpottaa komponenttien luontia.
+    /// </summary>
     internal sealed class ComponentCreator
     {
         #region Static vars

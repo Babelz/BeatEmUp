@@ -162,11 +162,8 @@ namespace Neva.BeatEmUp.GameStates
 
             return node;
         }
-
-        public override void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager)
+        private void InitNodes(BeatEmUpGame game)
         {
-            InitMappings(game);
-
             mapNodes = new List<GameObject>();
 
             GameObject map1Node = CreateNode(game, new Vector2(25f), null, "City1.xml");
@@ -190,8 +187,8 @@ namespace Neva.BeatEmUp.GameStates
             GameObject map7Node = CreateNode(game, new Vector2(1223f, 600f), map6Node);
             mapNodes.Add(map7Node);
 
-            mapNodes.ForEach(n => 
-            { 
+            mapNodes.ForEach(n =>
+            {
                 n.InitializeComponents();
                 n.StartBehaviours();
             });
@@ -200,6 +197,13 @@ namespace Neva.BeatEmUp.GameStates
 
             selector = game.CreateGameObjectFromKey("MapSelector");
             selector.Position = currentNode.Position;
+        }
+
+        public override void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager)
+        {
+            InitMappings(game);
+
+            InitNodes(game);
         }
 
         public override void Update(GameTime gameTime)

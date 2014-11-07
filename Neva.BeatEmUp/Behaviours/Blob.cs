@@ -11,6 +11,9 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Behaviours
 {
+    /// <summary>
+    /// Lima hirviön toiminto.
+    /// </summary>
     public sealed class Blob : Behaviour
     {
         #region Vars
@@ -23,6 +26,9 @@ namespace Neva.BeatEmUp.Behaviours
         {
         }
 
+        /// <summary>
+        /// Liikuttaa hirviötä annettua goalia kohti.
+        /// </summary>
         private void State_MoveTo()
         {
             if (Owner.Position.X < 400)

@@ -30,26 +30,11 @@ namespace Neva.BeatEmUp.Maps
             random = new Random();
         }
 
-        public void Update(GameTime gameTime)
+        private List<GameObject> CreateMonsters(BeatEmUpGame game)
         {
-            elapsed += gameTime.ElapsedGameTime.Milliseconds;
-        }
-
-        public bool CanRelease()
-        {
-            return elapsed > releaseTime;
-        }
-
-        public List<GameObject> Release(BeatEmUpGame game, Vector2 cameraPosition)
-        {
-            if (!CanRelease())
-            {
-                return null;
-            }
-
             List<GameObject> monsters = new List<GameObject>();
 
-            float x = direction == WaveDirection.Left ? x = cameraPosition.X - 100f : cameraPosition.X + game.Window.ClientBounds.Width + 100f;
+            float x = direction == WaveDirection.Left ? x = game.View.Position.X - 100f : game.View.Position.X + game.Window.ClientBounds.Width + 100f;
 
             for (int i = 0; i < monsterCount; i++)
             {
@@ -64,6 +49,26 @@ namespace Neva.BeatEmUp.Maps
             }
 
             return monsters;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            elapsed += gameTime.ElapsedGameTime.Milliseconds;
+        }
+
+        public bool CanRelease()
+        {
+            return elapsed > releaseTime;
+        }
+
+        public List<GameObject> Release(BeatEmUpGame game)
+        {
+            if (!CanRelease())
+            {
+                return null;
+            }
+
+            return CreateMonsters(game);
         }
     }
 }

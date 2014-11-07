@@ -11,23 +11,26 @@ using Neva.BeatEmUp.Collision.Narrowphase;
 
 namespace Neva.BeatEmUp
 {
-    public class World
+    public sealed class World
     {
+        #region Vars
         private readonly BeatEmUpGame game;
 
         private List<Body> colliders;
+        #endregion
 
+        #region Properties
         public IBroadphase Broadphase
         {
             get;
             private set;
         }
-
         public INarrowphase Narrowphase
         {
             get;
             private set;
         }
+        #endregion
 
         public World(BeatEmUpGame game, IBroadphase bp, INarrowphase np)
         {
@@ -44,6 +47,16 @@ namespace Neva.BeatEmUp
             Broadphase = bp;
             Narrowphase = np;
             colliders = new List<Body>(128);
+        }
+
+        /// <summary>
+        /// Päivittää GameObjectin bodyn BroadphaseProxyn AABB:n ajantasalle
+        /// </summary>
+        /// <param name="collider"></param>
+        private void UpdateAABB(Body collider)
+        {
+            AABB aabb = collider.GetAABB();
+            Broadphase.SetProxyAABB(collider.BroadphaseProxy, ref aabb);
         }
 
         /// <summary>
@@ -91,16 +104,6 @@ namespace Neva.BeatEmUp
             }
             Broadphase.CalculateCollisionPairs();
             Narrowphase.SolveCollisions(Broadphase.CollisionPairs);
-        }
-
-        /// <summary>
-        /// Päivittää GameObjectin bodyn BroadphaseProxyn AABB:n ajantasalle
-        /// </summary>
-        /// <param name="collider"></param>
-        private void UpdateAABB(Body collider)
-        {
-            AABB aabb = collider.GetAABB();
-            Broadphase.SetProxyAABB(collider.BroadphaseProxy, ref aabb);
         }
     }
 }
