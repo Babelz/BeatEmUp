@@ -47,7 +47,7 @@ namespace Neva.BeatEmUp.GameStates
             });
             table.Size = table.FirstComponentOfType<SpriteRenderer>().Size;
 
-            table.Body = new Body(table, new BoxShape(table.Size.X /2f, table.Size.Y /2f, 0f), Vector2.Zero);
+            table.Body = new Body(table, new BoxShape(table.Size.X, table.Size.Y, 0f), Vector2.Zero);
             table.Position = new Vector2(400, 300);
 
             table.AddComponent(new ColliderRenderer(table));

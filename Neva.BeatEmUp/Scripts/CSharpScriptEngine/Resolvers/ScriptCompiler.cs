@@ -16,7 +16,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
         private static readonly List<Type> scriptTypes;
         #endregion
 
-        #region Static props
+        #region Static properties
         private static List<Type> ScriptTypes
         {
             get
@@ -139,7 +139,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
 
                                 if (Array.TrueForAll(methods, m => myMethods.Contains(m)) && Array.TrueForAll(members, m => myMembers.Contains(m)))
                                 {
-                                    return new ScriptAssembly(scriptTypes[j], scriptName, fullname);
+                                    return new ScriptAssembly(ScriptTypes[j], scriptName, fullname);
                                 }
                             }
                         }
