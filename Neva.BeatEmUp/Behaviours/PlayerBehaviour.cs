@@ -86,8 +86,8 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            Owner.FirstComponentOfType<SpriterAnimationRenderer>().FilePath = "Animations\\player.scml";
-            Owner.FirstComponentOfType<SpriterAnimationRenderer>().Entity = "Player";
+            Owner.FirstComponentOfType<SpriterAnimationRenderer>().FilePath = "Animations\\crawler.scml";
+            Owner.FirstComponentOfType<SpriterAnimationRenderer>().Entity = "entity_000";
 
             InputManager inputManager = Owner.Game.Components.First(c => c as InputManager != null) as InputManager;
             KeyboardInputListener keylistener = inputManager.Listeners.Find(c => c as KeyboardInputListener != null) as KeyboardInputListener;
