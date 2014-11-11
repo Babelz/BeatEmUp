@@ -44,12 +44,14 @@ namespace Neva.BeatEmUp.Behaviours
         protected override void OnInitialize()
         {
             Owner.Size = new Vector2(32f, 32f);
+            Owner.Body.Shape.Size = new Vector2(32f, 32f);
+
+            Owner.AddComponent(new HealthComponent(Owner, 100f));
 
             fsm = new FiniteStateMachine(Owner);
             Owner.AddComponent(fsm);
 
             fsm.PushState(State_MoveTo);
-            fsm.Initialize();
 
             renderer = new SpriteRenderer(Owner);
             Owner.AddComponent(renderer);
@@ -60,7 +62,9 @@ namespace Neva.BeatEmUp.Behaviours
                 Color = Color.Green
             };
 
-            renderer.Initialize();
+
+
+            Owner.InitializeComponents();
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)

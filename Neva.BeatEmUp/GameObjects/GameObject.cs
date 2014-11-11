@@ -417,6 +417,8 @@ namespace Neva.BeatEmUp.GameObjects
             {
                 childs[i].Destroy();
             }
+
+            Game.World.RemoveBody(Body);
             
             OnDestroy = null;
         }

@@ -99,6 +99,7 @@
     <Compile Include="GameObjects\Components\AI\SteeringBehaviors\SteeringComponent.cs" />
     <Compile Include="GameObjects\Components\ColliderRenderer.cs" />
     <Compile Include="GameObjects\Components\Exceptions.cs" />
+    <Compile Include="GameObjects\Components\HealthComponent.cs" />
     <Compile Include="GameObjects\Components\LineRenderer.cs" />
     <Compile Include="GameObjects\Components\MapComponent.cs" />
     <Compile Include="GameObjects\Components\RenderComponent.cs" />

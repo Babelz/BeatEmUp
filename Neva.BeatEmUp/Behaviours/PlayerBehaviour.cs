@@ -60,7 +60,9 @@ namespace Neva.BeatEmUp.Behaviours
             // ei ole targettia
             if (target == null) return;
 
-            Console.WriteLine("HITTING TARGET w/ NAME OF {0}!!", target.Name);
+            // TODO siirrä johonkin komponenttiin kun on tarpeeksi abseja
+            target.FirstComponentOfType<HealthComponent>().TakeDamage(10f);
+            Console.WriteLine("HITTING TARGET w/ NAME OF {0} - {1} HP's left!!", target.Name, target.FirstComponentOfType<HealthComponent>().HealthPoints);
         }
 
         #region Util
@@ -98,9 +100,13 @@ namespace Neva.BeatEmUp.Behaviours
             keylistener.Map("Attack", Attack, new KeyTrigger(Keys.Space));
             
 
+            Owner.AddComponent(new HealthComponent(Owner, 100f));
+
             Owner.InitializeComponents();
             Owner.FirstComponentOfType<SpriterAnimationRenderer>().ChangeAnimation("idle");
             Owner.FirstComponentOfType<SpriterAnimationRenderer>().Scale = 0.4f; 
+
+            
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
