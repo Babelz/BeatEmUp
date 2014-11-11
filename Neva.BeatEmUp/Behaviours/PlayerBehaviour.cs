@@ -69,12 +69,12 @@ namespace Neva.BeatEmUp.Behaviours
 
         private void ChangeWalkAnimation(InputEventArgs args)
         {
-            if (args.InputState == InputState.Pressed)
+            /*if (args.InputState == InputState.Pressed)
             {
                 var spriter = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
                 if (spriter.CurrentAnimation.Name != "walk")
                     spriter.ChangeAnimation("walk");
-            }
+            }*/
         }
 
         #endregion
@@ -88,8 +88,10 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            Owner.FirstComponentOfType<SpriterAnimationRenderer>().FilePath = "Animations\\crawler.scml";
-            Owner.FirstComponentOfType<SpriterAnimationRenderer>().Entity = "entity_000";
+            SpriterAnimationRenderer spriterRenderer = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
+
+            spriterRenderer.FilePath = "Animations\\crawler.scml";
+            spriterRenderer.Entity = "entity_000";
 
             InputManager inputManager = Owner.Game.Components.First(c => c as InputManager != null) as InputManager;
             KeyboardInputListener keylistener = inputManager.Listeners.Find(c => c as KeyboardInputListener != null) as KeyboardInputListener;
@@ -103,21 +105,21 @@ namespace Neva.BeatEmUp.Behaviours
             Owner.AddComponent(new HealthComponent(Owner, 100f));
 
             Owner.InitializeComponents();
-            Owner.FirstComponentOfType<SpriterAnimationRenderer>().ChangeAnimation("idle");
-            Owner.FirstComponentOfType<SpriterAnimationRenderer>().Scale = 0.4f; 
 
-            
+            spriterRenderer.ChangeAnimation("NewAnimation");
+            spriterRenderer.Scale = 0.4f;
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            SpriterAnimationRenderer spriter = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
+            SpriterAnimationRenderer spriterRenderer = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
             //todo miten vittu
 
             Owner.Position += Owner.Body.Velocity;
-            if (spriter.CurrentAnimation.Name != "idle" && Owner.Body.Velocity == Vector2.Zero)
+
+            if (spriterRenderer.CurrentAnimation.Name != "NewAnimation" && Owner.Body.Velocity == Vector2.Zero)
             {
-                spriter.ChangeAnimation("idle");
+                spriterRenderer.ChangeAnimation("NewAnimation");
             }
         }
     }

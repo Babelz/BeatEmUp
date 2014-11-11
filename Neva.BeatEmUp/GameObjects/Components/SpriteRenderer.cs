@@ -114,7 +114,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
         public SpriteRenderer(GameObject owner, Sprite sprite)
             : base(owner, false)
         {
-            FollowOwner = true;
         }
 
         protected override void OnFollowOwner()

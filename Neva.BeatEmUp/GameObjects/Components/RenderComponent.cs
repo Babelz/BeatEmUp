@@ -81,7 +81,9 @@ namespace Neva.BeatEmUp.GameObjects.Components
                 offset.Y = value;
             }
         }
-
+        /// <summary>
+        /// Seuraako komponentti käyttäjää. Default arvo on true.
+        /// </summary>
         public bool FollowOwner
         {
             get
@@ -98,6 +100,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         public RenderComponent(GameObject owner, bool isUnique)
             : base(owner, isUnique)
         {
+            followOwner = true;
         }
 
         protected virtual void OnPositionXChanged(float newX)

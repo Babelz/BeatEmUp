@@ -59,8 +59,11 @@ namespace Neva.BeatEmUp.Behaviours
         {
             XDocument file = OpenFile();
 
-            SpriteRenderer top = new SpriteRenderer(Owner);
-            top.Name = "TopRenderer";
+            SpriteRenderer top = new SpriteRenderer(Owner)
+            {
+                FollowOwner = false,
+                Name = "TopRenderer"
+            };
 
             Texture2D texture = Owner.Game.Content.Load<Texture2D>(file.Root.Attribute("Top").Value);
             Sprite topSprite = new Sprite(texture)
@@ -71,16 +74,18 @@ namespace Neva.BeatEmUp.Behaviours
 
             top.Sprite = topSprite;
 
-            SpriteRenderer bottom = new SpriteRenderer(Owner);
-            bottom.Name = "BottomRenderer";
+            SpriteRenderer bottom = new SpriteRenderer(Owner)
+            {
+                FollowOwner = false,
+                Name = "BottomRenderer"
+            };
 
             texture = Owner.Game.Content.Load<Texture2D>(file.Root.Attribute("Bottom").Value);
-
             Sprite bottomSprite = new Sprite(texture)
             {
                 Size = new Vector2(Owner.Game.Window.ClientBounds.Width, Owner.Game.Window.ClientBounds.Height / 2),
-                Color = Color.Gray,
-                Position = new Vector2(0.0f, Owner.Game.Window.ClientBounds.Height / 2)
+                Color = Color.White,
+                Position = new Vector2(0.0f, topSprite.Size.Y)
             };
 
             bottom.Sprite = bottomSprite;

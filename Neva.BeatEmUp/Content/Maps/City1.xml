@@ -1,4 +1,4 @@
-﻿<Map Top="taustatemp" Bottom="blank">
+﻿<Map Top="taustatemp" Bottom="road">
   <Scene>
     <Waves>
       <Wave Monster="Blob" ReleaseTime="0" Count="5" Direction="Right"/>

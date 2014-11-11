@@ -527,6 +527,9 @@
     <Content Include="Content\neva.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\road.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\taustatemp.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
