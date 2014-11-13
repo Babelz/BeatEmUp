@@ -46,13 +46,13 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
 
             background.Sprite = new Sprite(game.Content.Load<Texture2D>("taustatemp"));
             background.SizeBehaviour = Gui.SizeBehaviour.OverwriteBoth;
-            background.Size = new Vector2(125f);
+            background.Size = new Vector2(100f);
             background.Position = new Vector2(-10f, -10f);
 
             background.DisableFocusing();
 
             root = new Canvas(game);
-
+            root.Size = new Vector2(100f);
             root.Add(background);
 
             grid = new Grid(game)

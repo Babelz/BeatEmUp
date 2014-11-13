@@ -123,7 +123,7 @@ namespace Neva.BeatEmUp
             IsMouseVisible = true;
 
             graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferHeight = 720;   
         }
 
         #region Event handlers

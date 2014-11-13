@@ -14,14 +14,13 @@ namespace Neva.BeatEmUp.Behaviours
     /// <summary>
     /// Lima hirviön toiminto.
     /// </summary>
-    public sealed class Blob : Behaviour
+    public sealed class Crawler : Behaviour
     {
         #region Vars
         private FiniteStateMachine fsm;
-        private SpriteRenderer renderer;
         #endregion
 
-        public Blob(GameObject owner)
+        public Crawler(GameObject owner)
             : base(owner)
         {
         }
@@ -46,30 +45,26 @@ namespace Neva.BeatEmUp.Behaviours
             Owner.Size = new Vector2(32f, 32f);
             Owner.Body.Shape.Size = new Vector2(32f, 32f);
 
-            Owner.AddComponent(new HealthComponent(Owner, 100f));
-
+            // Initialize fsm.
             fsm = new FiniteStateMachine(Owner);
-            Owner.AddComponent(fsm);
-
             fsm.PushState(State_MoveTo);
 
-            renderer = new SpriteRenderer(Owner);
-            Owner.AddComponent(renderer);
+            SpriterAnimationRenderer spriterRenderer = new SpriterAnimationRenderer(Owner);
+            spriterRenderer.FilePath = "Animations\\crawler.scml";
+            spriterRenderer.Entity = "entity_000";
 
-            renderer.Sprite = new Sprite(Owner.Game.Content.Load<Texture2D>("blank"))
-            {
-                Size = new Vector2(32f, 32f),
-                Color = Color.Green
-            };
-
-
+            Owner.AddComponent(new HealthComponent(Owner, 100f));
+            Owner.AddComponent(spriterRenderer);
+            Owner.AddComponent(fsm);
 
             Owner.InitializeComponents();
+
+            spriterRenderer.ChangeAnimation("NewAnimation");
+            spriterRenderer.Scale = 0.2f;
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            renderer.Position = Owner.Position;
         }
     }
 }

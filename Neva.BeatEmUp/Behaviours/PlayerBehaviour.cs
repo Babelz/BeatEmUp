@@ -24,7 +24,7 @@ namespace Neva.BeatEmUp.Behaviours
         {
             owner.Body.Shape.Size = new Vector2(32.0f, 32.0f);
             owner.Size = new Vector2(32f, 110f);
-            //owner.Body.Rotation = MathHelper.ToRadians(45);
+
             owner.Game.World.CreateBody(owner.Body);
         }
 
@@ -57,8 +57,12 @@ namespace Neva.BeatEmUp.Behaviours
             if (args.InputState != InputState.Released) return;
 
             GameObject target = Owner.FirstComponentOfType<TargetingComponent>().Target;
+
             // ei ole targettia
-            if (target == null) return;
+            if (target == null)
+            {
+                return;
+            }
 
             // TODO siirrä johonkin komponenttiin kun on tarpeeksi abseja
             target.FirstComponentOfType<HealthComponent>().TakeDamage(10f);
@@ -69,12 +73,15 @@ namespace Neva.BeatEmUp.Behaviours
 
         private void ChangeWalkAnimation(InputEventArgs args)
         {
-            /*if (args.InputState == InputState.Pressed)
+            if (args.InputState == InputState.Pressed)
             {
                 var spriter = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
+
                 if (spriter.CurrentAnimation.Name != "walk")
+                {
                     spriter.ChangeAnimation("walk");
-            }*/
+                }
+            }
         }
 
         #endregion
@@ -89,9 +96,8 @@ namespace Neva.BeatEmUp.Behaviours
         protected override void OnInitialize()
         {
             SpriterAnimationRenderer spriterRenderer = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
-
-            spriterRenderer.FilePath = "Animations\\crawler.scml";
-            spriterRenderer.Entity = "entity_000";
+            spriterRenderer.FilePath = "Animations\\player.scml";
+            spriterRenderer.Entity = "Player";
 
             InputManager inputManager = Owner.Game.Components.First(c => c as InputManager != null) as InputManager;
             KeyboardInputListener keylistener = inputManager.Listeners.Find(c => c as KeyboardInputListener != null) as KeyboardInputListener;
@@ -106,7 +112,7 @@ namespace Neva.BeatEmUp.Behaviours
 
             Owner.InitializeComponents();
 
-            spriterRenderer.ChangeAnimation("NewAnimation");
+            spriterRenderer.ChangeAnimation("idle");
             spriterRenderer.Scale = 0.4f;
         }
 
@@ -117,9 +123,9 @@ namespace Neva.BeatEmUp.Behaviours
 
             Owner.Position += Owner.Body.Velocity;
 
-            if (spriterRenderer.CurrentAnimation.Name != "NewAnimation" && Owner.Body.Velocity == Vector2.Zero)
+            if (spriterRenderer.CurrentAnimation.Name != "idle" && Owner.Body.Velocity == Vector2.Zero)
             {
-                spriterRenderer.ChangeAnimation("NewAnimation");
+                spriterRenderer.ChangeAnimation("idle");
             }
         }
     }

@@ -42,6 +42,11 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
+            if (owner.Body.BroadphaseProxy == null)
+            {
+                return new ComponentUpdateResults(this, false);
+            }
+
             // halutaan että jalat collidaa
             animator.Location = owner.Position + new Vector2(
                 owner.Body.BroadphaseProxy.AABB.Width / 2,

@@ -900,7 +900,37 @@ namespace Neva.BeatEmUp.Gui.Controls
             controlRenderTarget = new ControlRenderTarget(game, this);
 
             drawOrder = 0;
+
+            game.Window.ClientSizeChanged += Window_ClientSizeChanged;
         }
+
+        #region Event handlers
+        /// <summary>
+        /// Eventti root kontrolleille (kontrollit jotka eivät omaa parenttia). 
+        /// Jos kontrolli saa parentin, eventti poistetaan.
+        /// </summary>
+        private void Window_ClientSizeChanged(object sender, EventArgs e)
+        {
+            if (parent == null)
+            {
+                Vector2 oldSize = size;
+
+                switch (sizeValueType)
+                {
+                    case SizeValueType.Fixed:
+                        Size = new Vector2(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
+
+                        UpdateLayout(new GuiLayoutEventArgs(oldSize, size, Area));
+                        break;
+                    case SizeValueType.Percents:
+                        Size = new Vector2(Size.X, Size.Y);
+
+                        UpdateLayout(new GuiLayoutEventArgs(oldSize, size, Area));
+                        break;
+                }
+            }
+        }
+        #endregion
 
         #region Event methods
 
@@ -1388,6 +1418,10 @@ namespace Neva.BeatEmUp.Gui.Controls
             {
                 throw new InvalidGuiOperationException("Control already has a parent, release it before setting new parent.");
             }
+            
+            // Koska kontrolli saa parentin, ei oteta ruudusta enään kokoa vaan
+            // saadusta parentista.
+            game.Window.ClientSizeChanged -= Window_ClientSizeChanged;
 
             parent = control;
 
@@ -1401,6 +1435,10 @@ namespace Neva.BeatEmUp.Gui.Controls
             {
                 throw new InvalidGuiOperationException("Control dosent have a parent to release.");
             }
+
+            // Koska kontrolli menettää parentin, sen tulee laskea kokonsa
+            // ikkunan koosta.
+            game.Window.ClientSizeChanged += Window_ClientSizeChanged;
 
             positioning = Positioning.Absolute;
             parent = null;
@@ -1632,6 +1670,9 @@ namespace Neva.BeatEmUp.Gui.Controls
             {
                 return;
             }
+
+            // Poistetaan ikkunasta event handleri ettei jäädä roikkumaan.
+            game.Window.ClientSizeChanged -= Window_ClientSizeChanged;
 
             OnDisposed(GuiEventArgs.Empty, this);
 

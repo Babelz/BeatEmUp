@@ -11,6 +11,7 @@
     <RootNamespace>Neva.BeatEmUp</RootNamespace>
     <AssemblyName>Neva.BeatEmUp</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>0c607ebc</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -39,7 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BeatEmUpGame.cs" />
-    <Compile Include="Behaviours\Blob.cs">
+    <Compile Include="Behaviours\Crawler.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Behaviours\MapBehaviour.cs">
@@ -547,6 +548,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\CSharpScriptEngine\csharpscriptengine_README.txt" />
+    <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Animations\head\Thumbs.db">
@@ -567,6 +569,7 @@
     <None Include="Content\default.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="scripteng.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -575,6 +578,13 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets" Condition="Exists('packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

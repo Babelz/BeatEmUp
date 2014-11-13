@@ -34,7 +34,6 @@ namespace Neva.BeatEmUp.Behaviours
             this.filename = filename;
 
             font = owner.Game.Content.Load<SpriteFont>("default");
-            // TODO test
             owner.Size = new Vector2(0f);
             alpha = 255;
         }

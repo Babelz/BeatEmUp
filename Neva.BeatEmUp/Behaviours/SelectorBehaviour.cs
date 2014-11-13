@@ -49,6 +49,7 @@ namespace Neva.BeatEmUp.Behaviours
         {
             SpriteRenderer renderer = Owner.FirstComponentOfType<SpriteRenderer>();
             renderer.FollowOwner = true;
+
             renderer.Sprite = new Sprite(Owner.Game.Content.Load<Texture2D>("blank"))
             {
                 Size = new Vector2(32f),
