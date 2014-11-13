@@ -24,6 +24,15 @@ namespace Neva.BeatEmUp.GameObjects.Components
             }
             set
             {
+                if (position.X != value.X)
+                {
+                    OnPositionXChanged(value.X);
+                }
+                if (position.Y != value.Y)
+                {
+                    OnPositionYChanged(value.Y);
+                }
+
                 position = value;
             }
         }

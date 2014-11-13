@@ -42,6 +42,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
             {
                 owner.Destroy();
             }
+
             return new ComponentUpdateResults(this, true);
         }
 

@@ -96,10 +96,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
         }
         public Sprite Sprite
         {
-            get
-            {
-                return sprite;
-            }
             set
             {
                 sprite = value;
@@ -116,6 +112,14 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
         }
 
+        protected override void OnPositionXChanged(float newX)
+        {
+            sprite.X = newX;
+        }
+        protected override void OnPositionYChanged(float newY)
+        {
+            sprite.Y = newY;
+        }
         protected override void OnFollowOwner()
         {
             sprite.Position = Position;

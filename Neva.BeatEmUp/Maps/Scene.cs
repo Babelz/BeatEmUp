@@ -16,6 +16,9 @@ namespace Neva.BeatEmUp.Maps
         private readonly List<GameObject> aliveObjects;
         private readonly Random random;
 
+        private readonly string topAssetName;
+        private readonly string bottomAssetName;
+
         private bool running;
         #endregion
 
@@ -27,13 +30,29 @@ namespace Neva.BeatEmUp.Maps
                 return running;
             }
         }
+        public string TopAssetName
+        {
+            get
+            {
+                return topAssetName;
+            }
+        }
+        public string BottomAssetName
+        {
+            get
+            {
+                return bottomAssetName;
+            }
+        }
         #endregion
 
-        public Scene(BeatEmUpGame game, List<Wave> waves, List<GameObject> sceneObjects)
+        public Scene(BeatEmUpGame game, List<Wave> waves, List<GameObject> sceneObjects, string topAssetName, string bottomAssetName)
         {
             this.game = game;
             this.waves = waves;
             this.sceneObjects = sceneObjects;
+            this.topAssetName = topAssetName;
+            this.bottomAssetName = bottomAssetName;
 
             random = new Random();
 

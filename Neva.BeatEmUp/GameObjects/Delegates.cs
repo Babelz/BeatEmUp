@@ -6,5 +6,5 @@ using System.Text;
 namespace Neva.BeatEmUp.GameObjects
 {
     public delegate void GameObjectEventHandler<T>(object sender, T e) where T : GameObjectEventArgs;
-    public delegate void GameObjectComponentEventHandler(object sender, GameObjectComponentEventArgs e);
+    public delegate void GameObjectComponentEventHandler<T>(object sender, T e) where T : GameObjectComponentEventArgs;
 }

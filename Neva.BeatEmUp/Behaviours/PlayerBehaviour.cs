@@ -17,6 +17,7 @@ namespace Neva.BeatEmUp.Behaviours
     public sealed class PlayerBehaviour : Behaviour
     {
         #region Vars
+        private SpriterAnimationRenderer spriterRenderer;
         private float speed = 2.5f;
         #endregion
 
@@ -54,7 +55,10 @@ namespace Neva.BeatEmUp.Behaviours
 
         private void Attack(InputEventArgs args)
         {
-            if (args.InputState != InputState.Released) return;
+            if (args.InputState != InputState.Released)
+            {
+                return;
+            }
 
             GameObject target = Owner.FirstComponentOfType<TargetingComponent>().Target;
 
@@ -66,6 +70,7 @@ namespace Neva.BeatEmUp.Behaviours
 
             // TODO siirrä johonkin komponenttiin kun on tarpeeksi abseja
             target.FirstComponentOfType<HealthComponent>().TakeDamage(10f);
+
             Console.WriteLine("HITTING TARGET w/ NAME OF {0} - {1} HP's left!!", target.Name, target.FirstComponentOfType<HealthComponent>().HealthPoints);
         }
 
@@ -95,18 +100,16 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            SpriterAnimationRenderer spriterRenderer = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
+            spriterRenderer = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
             spriterRenderer.FilePath = "Animations\\player.scml";
             spriterRenderer.Entity = "Player";
 
-            InputManager inputManager = Owner.Game.Components.First(c => c as InputManager != null) as InputManager;
-            KeyboardInputListener keylistener = inputManager.Listeners.Find(c => c as KeyboardInputListener != null) as KeyboardInputListener;
+            KeyboardInputListener keylistener = Owner.Game.KeyboardListener;
             keylistener.Map("Left", MoveLeft, new KeyTrigger(Keys.A), new KeyTrigger(Keys.Left));
             keylistener.Map("Right", MoveRight, new KeyTrigger(Keys.D), new KeyTrigger(Keys.Right));
             keylistener.Map("Up", MoveUp, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
             keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
             keylistener.Map("Attack", Attack, new KeyTrigger(Keys.Space));
-            
 
             Owner.AddComponent(new HealthComponent(Owner, 100f));
 
@@ -118,9 +121,6 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            SpriterAnimationRenderer spriterRenderer = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
-            //todo miten vittu
-
             Owner.Position += Owner.Body.Velocity;
 
             if (spriterRenderer.CurrentAnimation.Name != "idle" && Owner.Body.Velocity == Vector2.Zero)

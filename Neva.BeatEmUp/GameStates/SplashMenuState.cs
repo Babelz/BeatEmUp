@@ -18,8 +18,6 @@ namespace Neva.BeatEmUp.GameStates
 
         private GamepadInputListener gamepadListenenr;
         private KeyboardInputListener keyboardListener;
-        private GameStateManager gameStateManager;
-        private Rectangle rect;
 
         private Texture2D current;
         private int alpha;
@@ -53,20 +51,20 @@ namespace Neva.BeatEmUp.GameStates
 
         public override void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager)
         {
-            this.gameStateManager = gameStateManager;
-
             keyboardListener = game.KeyboardListener;
 
-            gamepadListenenr = game.GamepadListeners.First(l => l.IsConnected);
+            gamepadListenenr = game.GamepadListeners.FirstOrDefault(l => l.IsConnected);
 
-            keyboardListener.Map("Skip", Skip, new KeyTrigger(Keys.Enter));
             if (gamepadListenenr != null)
             {
-                gamepadListenenr.Map("Skip", Skip, new ButtonTrigger(Buttons.A));
-                gamepadListenenr.OnControlConnected += gamepadListenenr_OnControlConnected;
-            }
+                keyboardListener.Map("Skip", Skip, new KeyTrigger(Keys.Enter));
 
-            rect = new Rectangle(0, 0, game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
+                if (gamepadListenenr != null)
+                {
+                    gamepadListenenr.Map("Skip", Skip, new ButtonTrigger(Buttons.A));
+                    gamepadListenenr.OnControlConnected += gamepadListenenr_OnControlConnected;
+                }
+            }
 
             textures.Add(game.Content.Load<Texture2D>("team"));
             textures.Add(game.Content.Load<Texture2D>("neva"));
@@ -103,11 +101,14 @@ namespace Neva.BeatEmUp.GameStates
 
                 if (current == null || skip)
                 {
-                    gameStateManager.Change(new MainMenuState());
+                    GameStateManager.Change(new MainMenuState());
 
                     keyboardListener.RemoveMapping("Skip");
+
                     if (gamepadListenenr != null)
+                    {
                         gamepadListenenr.RemoveMapping("Skip");
+                    }
                 }
             }
         }
@@ -115,9 +116,11 @@ namespace Neva.BeatEmUp.GameStates
         {
             Color color = new Color(Color.Black, alpha);
 
-            spriteBatch.Draw(current, rect, Color.White);
+            Rectangle renderArea = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height);
 
-            spriteBatch.FillRectangle(rect, color, 0.0f);
+            spriteBatch.Draw(current, renderArea, Color.White);
+
+            spriteBatch.FillRectangle(renderArea, color, 0.0f);
         }
     }
 }

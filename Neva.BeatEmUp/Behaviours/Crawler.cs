@@ -17,12 +17,13 @@ namespace Neva.BeatEmUp.Behaviours
     public sealed class Crawler : Behaviour
     {
         #region Vars
-        private FiniteStateMachine fsm;
+        private readonly FiniteStateMachine fsm;
         #endregion
 
         public Crawler(GameObject owner)
             : base(owner)
         {
+            fsm = new FiniteStateMachine(owner);
         }
 
         /// <summary>
@@ -46,9 +47,9 @@ namespace Neva.BeatEmUp.Behaviours
             Owner.Body.Shape.Size = new Vector2(32f, 32f);
 
             // Initialize fsm.
-            fsm = new FiniteStateMachine(Owner);
             fsm.PushState(State_MoveTo);
 
+            // Initialize spriter renderer.
             SpriterAnimationRenderer spriterRenderer = new SpriterAnimationRenderer(Owner);
             spriterRenderer.FilePath = "Animations\\crawler.scml";
             spriterRenderer.Entity = "entity_000";

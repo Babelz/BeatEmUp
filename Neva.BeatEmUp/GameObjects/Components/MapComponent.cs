@@ -20,8 +20,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
         #endregion
 
         #region Events
-        public event GameObjectComponentEventHandler SceneFinished;
-        public event GameObjectComponentEventHandler MapFinished;
+        public event GameObjectComponentEventHandler<MapComponentEventArgs> SceneFinished;
+        public event GameObjectComponentEventHandler<MapComponentEventArgs> MapFinished;
         #endregion
 
         public MapComponent(GameObject owner, List<Scene> scenes)
@@ -31,6 +31,15 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             SceneFinished += delegate { };
             MapFinished += delegate { };
+        }
+        
+        private bool Finished()
+        {
+            return scenes.IndexOf(currentScene) + 1 == scenes.Count;
+        }
+        private Scene NextScene()
+        {
+            return scenes[scenes.IndexOf(currentScene) + 1];
         }
 
         protected override void OnInitialize()
@@ -46,9 +55,9 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             if (currentScene.Finished())
             {
-                if (!calledSceneFinished)
+                if (!calledSceneFinished && !Finished())
                 {
-                    SceneFinished(this, new GameObjectComponentEventArgs());
+                    SceneFinished(this, new MapComponentEventArgs(currentScene, NextScene()));
 
                     calledSceneFinished = true;
                 }
@@ -57,23 +66,28 @@ namespace Neva.BeatEmUp.GameObjects.Components
             return new ComponentUpdateResults(this, true);
         }
         
-        public void ChangeScene()
+        /// <summary>
+        /// Aloittaa seuraavan scenen päivittämisen jos sellainen on olemassa.
+        /// Palauttaa booleanin siitä saatiinko uusi scene nykyisen tilalle.
+        /// </summary>
+        /// <returns>Palauttaa truen jos saatiin uusi scene ja falsen jos scenejä ei ole jäljellä (kartta on suoritettu).</returns>
+        public bool ChangeScene()
         {
-            if (scenes.IndexOf(currentScene) + 1 == scenes.Count)
+            if (Finished() && !calledMapFinished)
             {
-                if (!calledMapFinished)
-                {
-                    MapFinished(this, new GameObjectComponentEventArgs());
+                MapFinished(this, new MapComponentEventArgs(currentScene, null));
 
-                    calledMapFinished = true;
+                calledMapFinished = true;
 
-                    return;
-                }
+                // Return, kartta on suoritettu.
+                return false;
             }
 
-            currentScene = scenes[scenes.IndexOf(currentScene) + 1];
-            
+            currentScene = NextScene();
+
             calledSceneFinished = false;
+
+            return true;
         }
     }
 }

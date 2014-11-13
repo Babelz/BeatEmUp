@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameObjects.Components
 {
-    public sealed class LineRenderer : GameObjectComponent
+    public sealed class LineRenderer : RenderComponent
     {
         #region Vars
         private float angle;
@@ -77,22 +77,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
             lineHeight = 25f;
         }
 
-        private bool CanRender()
-        {
-            return texture != null;
-        }
-
-        protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
-        {
-            if (texture != null)
-            {
-                return new ComponentUpdateResults(this, true);
-            }
-            else
-            {
-                return new ComponentUpdateResults(this, false);
-            }
-        }
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
             if (texture != null)

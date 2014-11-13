@@ -207,7 +207,7 @@ namespace Neva.BeatEmUp
             }
 
             //stateManager.Change(new GameplayState("City1.xml"));
-            stateManager.Change(new MainMenuState());
+            stateManager.Change(new WorldMapState());
         }
 
         /// <summary>

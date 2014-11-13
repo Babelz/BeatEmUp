@@ -39,11 +39,25 @@ namespace Neva.BeatEmUp.Behaviours
         }
 
         #region Event handlers
-        private void mapComponent_SceneFinished(object sender, GameObjectComponentEventArgs e)
+        private void mapComponent_SceneFinished(object sender, MapComponentEventArgs e)
         {
             goal = new Vector2(goal.X + Owner.Game.Window.ClientBounds.Width, goal.Y);
+
+            MapComponent mapComponent = Owner.FirstComponentOfType<MapComponent>();
+
+            // Scenet loppuivat, kartta on suoritettu.
+            if (e.Next == null && !mapComponent.ChangeScene())
+            {
+                return;
+            }
+
+            SpriteRenderer nextTop = CreateRenderer("NextTop", e.Next.TopAssetName);
+            nextTop.Position = new Vector2(goal.X, 0.0f);
+
+            SpriteRenderer nextBottom = CreateRenderer("NextBottom", e.Next.BottomAssetName);
+            nextBottom.Position = new Vector2(goal.X, nextTop.Size.Y);
         }
-        private void mapComponent_MapFinished(object sender, GameObjectComponentEventArgs e)
+        private void mapComponent_MapFinished(object sender, MapComponentEventArgs e)
         {
             // TODO: näytä menu vai?
         }
@@ -53,41 +67,37 @@ namespace Neva.BeatEmUp.Behaviours
         {
             return XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + "Content\\Maps\\" + filename);
         }
-
-        private void InitializeTextureRenderers()
+        
+        private SpriteRenderer CreateRenderer(string name, string textureName)
         {
-            XDocument file = OpenFile();
-
-            SpriteRenderer top = new SpriteRenderer(Owner)
+            SpriteRenderer renderer = new SpriteRenderer(Owner)
             {
                 FollowOwner = false,
-                Name = "TopRenderer"
+                Name = name
             };
 
-            Texture2D texture = Owner.Game.Content.Load<Texture2D>(file.Root.Attribute("Top").Value);
-            Sprite topSprite = new Sprite(texture)
-            {
-                Size = new Vector2(Owner.Game.Window.ClientBounds.Width, Owner.Game.Window.ClientBounds.Height / 2),
-                Color = Color.White
-            };
+            Texture2D texture = Owner.Game.Content.Load<Texture2D>(textureName);
 
-            top.Sprite = topSprite;
-
-            SpriteRenderer bottom = new SpriteRenderer(Owner)
-            {
-                FollowOwner = false,
-                Name = "BottomRenderer"
-            };
-
-            texture = Owner.Game.Content.Load<Texture2D>(file.Root.Attribute("Bottom").Value);
-            Sprite bottomSprite = new Sprite(texture)
+            Sprite sprite = new Sprite(texture)
             {
                 Size = new Vector2(Owner.Game.Window.ClientBounds.Width, Owner.Game.Window.ClientBounds.Height / 2),
                 Color = Color.White,
-                Position = new Vector2(0.0f, topSprite.Size.Y)
             };
 
-            bottom.Sprite = bottomSprite;
+            renderer.Sprite = sprite;
+
+            return renderer;
+        }
+        private void InitializeSpriteRenderers()
+        {
+            XDocument file = OpenFile();
+
+            // Yläosan renderöijän alustus.
+            SpriteRenderer top = CreateRenderer("TopRenderer", file.Root.Attribute("Top").Value);
+
+            // Alaosan renderöijän alustus.
+            SpriteRenderer bottom = CreateRenderer("BottomRenderer", file.Root.Attribute("Bottom").Value);
+            bottom.Position = new Vector2(0.0f, top.Size.Y);
 
             Owner.AddComponent(bottom);
             Owner.AddComponent(top);
@@ -103,13 +113,19 @@ namespace Neva.BeatEmUp.Behaviours
 
             List<XElement> sceneElements = file.Root.Elements("Scene").ToList();
 
+            // Parsitaan jokainen scene läpi.
             for (int i = 0; i < sceneElements.Count; i++)
             {
+                // Haetaan ylä ja ala osien tekstuurien nimet.
+                string topName = sceneElements[i].Attribute("Top").Value;
+                string bottomName = sceneElements[i].Attribute("Bottom").Value;
+
                 List<XElement> waveElements = sceneElements[i].Element("Waves").Elements("Wave").ToList();
                 List<XElement> objectElements = sceneElements[i].Element("Objects").Elements("Object").ToList();
 
                 List<Wave> waves = new List<Wave>();
 
+                // Parsitaan kaikki wavet.
                 for (int j = 0; j < waveElements.Count; j++)
                 {
                     XElement waveElement = waveElements[j];
@@ -125,6 +141,7 @@ namespace Neva.BeatEmUp.Behaviours
 
                 List<GameObject> objects = new List<GameObject>();
 
+                // Parsitaan kaikki scene objectit.
                 for (int j = 0; j < objectElements.Count; j++)
                 {
                     XElement objectElement = objectElements[j];
@@ -138,7 +155,7 @@ namespace Neva.BeatEmUp.Behaviours
                     objects.Add(sceneObject);
                 }
 
-                scenes.Add(new Scene(Owner.Game, waves, objects));
+                scenes.Add(new Scene(Owner.Game, waves, objects, topName, bottomName));
             }
 
             return scenes;
@@ -155,12 +172,9 @@ namespace Neva.BeatEmUp.Behaviours
 
             MapComponent mapComponent = new MapComponent(Owner, scenes);
 
-            mapComponent.MapFinished += mapComponent_MapFinished;
-            mapComponent.SceneFinished += mapComponent_SceneFinished;
-
             Owner.AddComponent(mapComponent);
 
-            InitializeTextureRenderers();
+            InitializeSpriteRenderers();
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -171,7 +185,13 @@ namespace Neva.BeatEmUp.Behaviours
 
                 if (elapsed > FADEIN_TIME)
                 {
-                    Owner.FirstComponentOfType<MapComponent>().Initialize();
+                    MapComponent mapComponent = Owner.FirstComponentOfType<MapComponent>();
+
+                    mapComponent.Initialize();
+
+                    // Aloitetaan komponentin eventtien kuuntelu.
+                    mapComponent.MapFinished += mapComponent_MapFinished;
+                    mapComponent.SceneFinished += mapComponent_SceneFinished;
                 }
             }
         }
