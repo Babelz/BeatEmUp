@@ -22,7 +22,7 @@ namespace Neva.BeatEmUp.GameObjects
         }
     }
 
-    public class MapComponentEventArgs : GameObjectEventArgs
+    public class MapComponentEventArgs : GameObjectComponentEventArgs
     {
         #region Vars
         private readonly Scene next;

@@ -9,7 +9,58 @@ namespace Neva.BeatEmUp.GameObjects.Components
 {
     public abstract class GameObjectComponent
     {
+        #region Private qued action struct
+        private struct QuedAction
+        {
+            #region Vars
+            private readonly string name;
+            private readonly Func<bool> condition;
+            private readonly Action action;
+            #endregion
+
+            #region Properties
+            public string Name
+            {
+                get
+                {
+                    return name;
+                }
+            }
+            #endregion
+
+            public QuedAction(string name, Func<bool> condition, Action action)
+            {
+                if (string.IsNullOrEmpty(name))
+                {
+                    throw new ArgumentNullException("name");
+                }
+                if (condition == null)
+                {
+                    throw new ArgumentNullException("condition");
+                }
+                if (action == null)
+                {
+                    throw new ArgumentNullException("action");
+                }
+
+                this.name = name;
+                this.condition = condition;
+                this.action = action;
+            }
+
+            public bool ShouldBeExecuted()
+            {
+                return condition();
+            }
+            public void Execute()
+            {
+                action();
+            }
+        }
+        #endregion
+
         #region Vars
+        private readonly Dictionary<string, QuedAction> pendingActions;
         private readonly bool isUnique;
 
         private int updateOrder;
@@ -92,6 +143,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
             visible = true;
 
             name = this.GetType().Name;
+
+            pendingActions = new Dictionary<string, QuedAction>();
         }
 
         protected virtual ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -190,6 +243,35 @@ namespace Neva.BeatEmUp.GameObjects.Components
             OnHide();
         }
 
+        /// <summary>
+        /// Lisää uuden actionin komponentille joka suoritetaan heti kun conditionaali palauttaa truen.
+        /// </summary>
+        /// <param name="condition">Conditionaali jonka pitää palauttaa true että toiminto suoritetaan.</param>
+        /// <param name="action">Toiminto joka suoritetaan kun conditionaali palauttaa truen.</param>
+        /// <param name="name">Actionin nimi.</param>
+        public void QueAction(string name, Func<bool> condition, Action action)
+        {
+            if (pendingActions.ContainsKey(name))
+            {
+                throw GameObjectComponentException.MethodException("QueAction", "pending actions already contain action with given name.", this);
+            }
+
+            pendingActions.Add(name, new QuedAction(name, condition, action));
+        }
+        /// <summary>
+        /// Poistaa jonossa olevan actionin.
+        /// </summary>
+        /// <param name="name">Actionin nimi.</param>
+        /// <returns>Poistettiinko action.</returns>
+        public bool RemoveQuedAction(string name)
+        {
+            return pendingActions.Remove(name);
+        }
+        public bool ContainsQuedAction(string name)
+        {
+            return pendingActions.ContainsKey(name);
+        }
+
         public ComponentUpdateResults Update(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
             if (skipUpdate || !initialized)
@@ -202,6 +284,18 @@ namespace Neva.BeatEmUp.GameObjects.Components
             if (!enabled)
             {
                 return ComponentUpdateResults.Empty;
+            }
+
+            for (int i = 0; i < pendingActions.Count; i++)
+            {
+                QuedAction quedAction = pendingActions.ElementAt(i).Value;
+
+                if (quedAction.ShouldBeExecuted())
+                {
+                    quedAction.Execute();
+
+                    pendingActions.Remove(quedAction.Name);
+                }
             }
 
             return OnUpdate(gameTime, results);

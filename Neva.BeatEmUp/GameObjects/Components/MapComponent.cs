@@ -39,6 +39,11 @@ namespace Neva.BeatEmUp.GameObjects.Components
         }
         private Scene NextScene()
         {
+            if (Finished())
+            {
+                return null;
+            }
+
             return scenes[scenes.IndexOf(currentScene) + 1];
         }
 
@@ -55,7 +60,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             if (currentScene.Finished())
             {
-                if (!calledSceneFinished && !Finished())
+                if (!calledSceneFinished)
                 {
                     SceneFinished(this, new MapComponentEventArgs(currentScene, NextScene()));
 

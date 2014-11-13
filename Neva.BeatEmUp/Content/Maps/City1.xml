@@ -1,7 +1,17 @@
 ﻿<Map Top="taustatemp" Bottom="road">
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
-      <Wave Monster="Blob" ReleaseTime="0" Count="5" Direction="Right"/>
+      <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
+    </Waves>
+
+    <Objects>
+      <Object Name="Blob"/>
+    </Objects>
+  </Scene>
+
+  <Scene Top="taustatemp" Bottom="road">
+    <Waves>
+      <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
     </Waves>
 
     <Objects>

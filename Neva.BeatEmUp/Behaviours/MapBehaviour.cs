@@ -22,7 +22,7 @@ namespace Neva.BeatEmUp.Behaviours
         private readonly SpriteFont font;
         private readonly string filename;
 
-        private Vector2 goal;
+        private float goal;
 
         private int alpha;
         private int elapsed;
@@ -41,7 +41,7 @@ namespace Neva.BeatEmUp.Behaviours
         #region Event handlers
         private void mapComponent_SceneFinished(object sender, MapComponentEventArgs e)
         {
-            goal = new Vector2(goal.X + Owner.Game.Window.ClientBounds.Width, goal.Y);
+            goal += Owner.Game.Window.ClientBounds.Width;
 
             MapComponent mapComponent = Owner.FirstComponentOfType<MapComponent>();
 
@@ -51,15 +51,42 @@ namespace Neva.BeatEmUp.Behaviours
                 return;
             }
 
+            Console.WriteLine("Scene finished");
+
             SpriteRenderer nextTop = CreateRenderer("NextTop", e.Next.TopAssetName);
-            nextTop.Position = new Vector2(goal.X, 0.0f);
+            nextTop.Position = new Vector2(goal, 0.0f);
 
             SpriteRenderer nextBottom = CreateRenderer("NextBottom", e.Next.BottomAssetName);
-            nextBottom.Position = new Vector2(goal.X, nextTop.Size.Y);
+            nextBottom.Position = new Vector2(goal, nextTop.Size.Y);
+
+            GoalDetector goalDetector = new GoalDetector(Owner, nextTop.Position);
+            
+            goalDetector.AtGoal += goalDetector_AtGoal;
+
+            // TODO: debug.
+            TextRenderer arrowRenderer = new TextRenderer(Owner);
         }
         private void mapComponent_MapFinished(object sender, MapComponentEventArgs e)
         {
-            // TODO: näytä menu vai?
+            Console.WriteLine("Map finished");
+        }
+        private void goalDetector_AtGoal(object sender, GameObjectComponentEventArgs e)
+        {
+            GoalDetector goalDetector = Owner.FirstComponentOfType<GoalDetector>();
+            goalDetector.AtGoal -= goalDetector_AtGoal;
+
+            SpriteRenderer currentTop = Owner.FindComponent<SpriteRenderer>(r => r.Name == "TopRenderer");
+            SpriteRenderer nextTop = Owner.FindComponent<SpriteRenderer>(r => r.Name == "NextTop");
+
+            SpriteRenderer currentBottom = Owner.FindComponent<SpriteRenderer>(r => r.Name == "BottomRenderer");
+            SpriteRenderer nextBottom = Owner.FindComponent<SpriteRenderer>(r => r.Name == "NextBottom");
+
+            Owner.RemoveComponent(goalDetector);
+            Owner.RemoveComponent(currentTop);
+            Owner.RemoveComponent(currentBottom);
+
+            nextTop.Name = currentTop.Name;
+            nextBottom.Name = currentBottom.Name;
         }
         #endregion
 

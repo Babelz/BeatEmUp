@@ -112,12 +112,24 @@ namespace Neva.BeatEmUp.GameObjects.Components
             followOwner = true;
         }
 
+        /// <summary>
+        /// Kutsutaan kun x:n arvo muuttuu. Position ja offset lisätään
+        /// OnUpdate metodissa.
+        /// </summary>
         protected virtual void OnPositionXChanged(float newX)
         {
         }
+        /// <summary>
+        /// Kutsutaan kun y:n arvo muuttuu. Position ja offset lisätään
+        /// OnUpdate metodissa.
+        /// </summary>
         protected virtual void OnPositionYChanged(float newY)
         {
         }
+        /// <summary>
+        /// Kutsutaan kun omistajaa seurataan. Position ja offset lisätään
+        /// OnUpdate metodissa.
+        /// </summary>
         protected virtual void OnFollowOwner()
         {
         }
