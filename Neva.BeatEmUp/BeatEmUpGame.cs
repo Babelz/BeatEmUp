@@ -293,13 +293,13 @@ namespace Neva.BeatEmUp
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-        /*      null,
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
                 null,
                 null,
                 null,
-                camera.Transformation);*/
+                null,
+                camera.Transformation);
 
             for (int i = 0; i < gameObjects.Count; i++)
             {

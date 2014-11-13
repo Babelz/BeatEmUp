@@ -244,11 +244,12 @@ namespace Neva.BeatEmUp.GameObjects.Components
         }
 
         /// <summary>
-        /// Lisää uuden actionin komponentille joka suoritetaan heti kun conditionaali palauttaa truen.
+        /// Lisää uuden toiminnon komponentille joka suoritetaan heti kun conditionaali palauttaa truen.
+        /// Toiminto poistetaan heti kun se on suoritettu.
         /// </summary>
         /// <param name="condition">Conditionaali jonka pitää palauttaa true että toiminto suoritetaan.</param>
         /// <param name="action">Toiminto joka suoritetaan kun conditionaali palauttaa truen.</param>
-        /// <param name="name">Actionin nimi.</param>
+        /// <param name="name">Toiminnon nimi.</param>
         public void QueAction(string name, Func<bool> condition, Action action)
         {
             if (pendingActions.ContainsKey(name))
@@ -259,10 +260,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
             pendingActions.Add(name, new QuedAction(name, condition, action));
         }
         /// <summary>
-        /// Poistaa jonossa olevan actionin.
+        /// Poistaa jonossa olevan toiminto.
         /// </summary>
-        /// <param name="name">Actionin nimi.</param>
-        /// <returns>Poistettiinko action.</returns>
+        /// <param name="name">Toiminnon nimi.</param>
+        /// <returns>Poistettiinko toiminto.</returns>
         public bool RemoveQuedAction(string name)
         {
             return pendingActions.Remove(name);

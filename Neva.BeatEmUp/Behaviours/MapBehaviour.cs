@@ -26,6 +26,8 @@ namespace Neva.BeatEmUp.Behaviours
 
         private int alpha;
         private int elapsed;
+
+        private bool lockCamera;
         #endregion
 
         public MapBehaviour(GameObject owner, string filename)
@@ -46,7 +48,7 @@ namespace Neva.BeatEmUp.Behaviours
             MapComponent mapComponent = Owner.FirstComponentOfType<MapComponent>();
 
             // Scenet loppuivat, kartta on suoritettu.
-            if (e.Next == null && !mapComponent.ChangeScene())
+            if (!mapComponent.ChangeScene())
             {
                 return;
             }
@@ -59,12 +61,31 @@ namespace Neva.BeatEmUp.Behaviours
             SpriteRenderer nextBottom = CreateRenderer("NextBottom", e.Next.BottomAssetName);
             nextBottom.Position = new Vector2(goal, nextTop.Size.Y);
 
-            GoalDetector goalDetector = new GoalDetector(Owner, nextTop.Position);
+            GoalDetector goalDetector = new GoalDetector(Owner, new Vector2(goal / 2, 0.0f));
             
             goalDetector.AtGoal += goalDetector_AtGoal;
 
             // TODO: debug.
-            TextRenderer arrowRenderer = new TextRenderer(Owner);
+            TextRenderer arrowRenderer = new TextRenderer(Owner)
+            {
+                Font = Owner.Game.Content.Load<SpriteFont>("default"),
+                Text = "GO HERE U MOFO =>",
+                ScaleX = 0.25f,
+                ScaleY = 0.25f,
+                Y = 150f,
+                X = nextTop.X - 200f,
+                FollowOwner = false
+            };
+
+            Owner.AddComponent(nextTop);
+            Owner.AddComponent(nextBottom);
+            Owner.AddComponent(goalDetector);
+            Owner.AddComponent(goalDetector);
+            Owner.AddComponent(arrowRenderer);
+
+            Owner.InitializeComponents();
+
+            lockCamera = false;
         }
         private void mapComponent_MapFinished(object sender, MapComponentEventArgs e)
         {
@@ -81,12 +102,21 @@ namespace Neva.BeatEmUp.Behaviours
             SpriteRenderer currentBottom = Owner.FindComponent<SpriteRenderer>(r => r.Name == "BottomRenderer");
             SpriteRenderer nextBottom = Owner.FindComponent<SpriteRenderer>(r => r.Name == "NextBottom");
 
+            TextRenderer arrowRenderer = Owner.FirstComponentOfType<TextRenderer>();
+
             Owner.RemoveComponent(goalDetector);
             Owner.RemoveComponent(currentTop);
             Owner.RemoveComponent(currentBottom);
+            Owner.RemoveComponent(arrowRenderer);
 
             nextTop.Name = currentTop.Name;
             nextBottom.Name = currentBottom.Name;
+
+            Console.WriteLine("at goal");
+
+            Owner.FirstComponentOfType<MapComponent>().StartNextScene();
+
+            lockCamera = true;
         }
         #endregion
 
@@ -115,6 +145,9 @@ namespace Neva.BeatEmUp.Behaviours
 
             return renderer;
         }
+        /// <summary>
+        /// Alustaa default renderöijät.
+        /// </summary>
         private void InitializeSpriteRenderers()
         {
             XDocument file = OpenFile();
@@ -132,6 +165,25 @@ namespace Neva.BeatEmUp.Behaviours
             bottom.Initialize();
             top.Initialize();
         }
+        private void UpdateCamera()
+        {
+            if (lockCamera)
+            {
+                return;
+            }
+            else
+            {
+                GameObject player = Owner.Game.FindGameObject(o => o.Position.X < goal && o.Name == "Player");
+
+                if (player == null)
+                {
+                    return;
+                }
+                
+                Owner.FirstComponentOfType<GoalDetector>().SetPosition(Owner.Game.View.Position);
+            }
+        }
+
         private List<Scene> BuildScenes()
         {
             List<Scene> scenes = new List<Scene>();
@@ -221,6 +273,8 @@ namespace Neva.BeatEmUp.Behaviours
                     mapComponent.SceneFinished += mapComponent_SceneFinished;
                 }
             }
+
+            UpdateCamera();
         }
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
@@ -247,7 +301,7 @@ namespace Neva.BeatEmUp.Behaviours
 
                 Vector2 size = font.MeasureString(displayString);
                 Vector2 position = new Vector2(Owner.Game.Window.ClientBounds.Width / 2 - size.X / 2,
-                                             Owner.Game.Window.ClientBounds.Height / 2 - size.Y / 2);
+                                               Owner.Game.Window.ClientBounds.Height / 2 - size.Y / 2);
 
                 spriteBatch.DrawString(font, displayString, position, Color.Red);
             }

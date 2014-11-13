@@ -109,6 +109,7 @@
     <Compile Include="GameObjects\Components\SpriterAnimationRenderer.cs" />
     <Compile Include="GameObjects\Components\SpriteRenderer.cs" />
     <Compile Include="GameObjects\Components\TargetingComponent.cs" />
+    <Compile Include="GameObjects\Components\TextRenderer.cs" />
     <Compile Include="GameObjects\Delegates.cs" />
     <Compile Include="GameObjects\Results.cs" />
     <Compile Include="GameObjects\GameObject.cs" />

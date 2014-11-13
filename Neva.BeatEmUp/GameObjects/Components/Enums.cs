@@ -17,4 +17,22 @@ namespace Neva.BeatEmUp.GameObjects.Components
         /// </summary>
         RoundToInts
     }
+
+    public enum Conditional
+    {
+        /// <summary>
+        /// Sijainnin tule olla suurempi kuin goali.
+        /// </summary>
+        Bigger,
+
+        /// <summary>
+        /// Sijainnin tulee olla pienempi kuin goali.
+        /// </summary>
+        Smaller,
+
+        /// <summary>
+        /// Sijainnin tulee olla sama kuin goalin.
+        /// </summary>
+        Equal
+    }
 }

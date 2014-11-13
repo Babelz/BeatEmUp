@@ -89,6 +89,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
             {
                 return rotation;
             }
+            set
+            {
+                rotation = value;
+            }
         }
         public float Width
         {
@@ -109,7 +113,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
         public TextRenderer(GameObject owner)
             : base(owner, false)
         {
-
+            scale = Vector2.One;
+            color = Color.Red;
         }
 
         private void CalculateSize()

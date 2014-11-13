@@ -51,7 +51,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             currentScene = scenes[0];
 
-            currentScene.Start();
+            StartNextScene();
         }
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -93,6 +93,14 @@ namespace Neva.BeatEmUp.GameObjects.Components
             calledSceneFinished = false;
 
             return true;
+        }
+
+        public void StartNextScene()
+        {
+            if (!currentScene.Running)
+            {
+                currentScene.Start();
+            }
         }
     }
 }
