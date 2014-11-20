@@ -52,13 +52,16 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            LineRenderer renderer = Owner.FirstComponentOfType<LineRenderer>();
-
-            if (Owner.ChildsCount > 0)
+            /*for (int i = 0; i < Owner.ChildsCount; i++)
             {
-                renderer.Texture = Owner.Game.Content.Load<Texture2D>("blank");
-                renderer.Destination = Owner.ChildAtIndex(0).Position;
-                renderer.Color = Color.Red;
+                LineRenderer renderer = new LineRenderer(Owner)
+                {
+                    Texture = Owner.Game.Content.Load<Texture2D>("blank"),
+                    Destination = Owner.ChildAtIndex(i).Position,
+                    Color = Color.Red
+                };
+
+                Owner.AddComponent(renderer);
             }
 
             SpriteRenderer spriteRenderer = Owner.FirstComponentOfType<SpriteRenderer>();
@@ -68,6 +71,8 @@ namespace Neva.BeatEmUp.Behaviours
             spriteRenderer.Position = Owner.Position;
 
             Owner.Size = new Vector2(32f);
+
+            Owner.InitializeComponents();*/
         }
     }
 }

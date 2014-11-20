@@ -51,6 +51,7 @@ namespace Neva.BeatEmUp
 
         private GamepadInputListener[] gamepadListeners;
         private KeyboardInputListener keyboardListener;
+        private MouseListener mouseListener;
 
         private bool paused;
         private bool sortedDraw;
@@ -90,6 +91,13 @@ namespace Neva.BeatEmUp
             get
             {
                 return gamepadListeners;
+            }
+        }
+        public MouseListener MouseListener
+        {
+            get
+            {
+                return mouseListener;
             }
         }
         public bool Paused
@@ -169,7 +177,7 @@ namespace Neva.BeatEmUp
                     new GamepadInputListener(PlayerIndex.Three), 
                     new GamepadInputListener(PlayerIndex.Four)
                 }, 
-                null);
+                mouseListener = new MouseListener());
             
             scriptEngine = new ScriptEngine(this, "scripteng.cfg")
             {
@@ -207,7 +215,7 @@ namespace Neva.BeatEmUp
             }
 
             //stateManager.Change(new GameplayState("City1.xml"));
-            stateManager.Change(new WorldMapState());
+            stateManager.Change(new SplashMenuState());
         }
 
         /// <summary>

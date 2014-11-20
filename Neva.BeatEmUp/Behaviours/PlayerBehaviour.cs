@@ -69,7 +69,15 @@ namespace Neva.BeatEmUp.Behaviours
             }
 
             // TODO siirrä johonkin komponenttiin kun on tarpeeksi abseja
-            target.FirstComponentOfType<HealthComponent>().TakeDamage(10f);
+            HealthComponent healthComponent = target.FirstComponentOfType<HealthComponent>();
+
+            // Targettia vastaan ei voi hyökätä.
+            if (healthComponent == null)
+            {
+                return;
+            }
+
+            healthComponent.TakeDamage(10f);
 
             Console.WriteLine("HITTING TARGET w/ NAME OF {0} - {1} HP's left!!", target.Name, target.FirstComponentOfType<HealthComponent>().HealthPoints);
         }

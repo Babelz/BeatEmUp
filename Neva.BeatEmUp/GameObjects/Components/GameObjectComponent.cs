@@ -273,6 +273,11 @@ namespace Neva.BeatEmUp.GameObjects.Components
             return pendingActions.ContainsKey(name);
         }
 
+        public bool OwnsThis(GameObject gameObject)
+        {
+            return ReferenceEquals(gameObject, owner);
+        }
+
         public ComponentUpdateResults Update(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
             if (skipUpdate || !initialized)

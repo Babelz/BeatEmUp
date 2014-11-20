@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Collision.Shape
 {
-    internal class BoxShape : ConvexShape
+    public class BoxShape : ConvexShape
     {
         #region Vars
         private Vector2 size;

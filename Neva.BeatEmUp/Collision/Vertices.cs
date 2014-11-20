@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Collision
 {
-    internal class Vertices
+    public class Vertices
     {
         #region Vars
 

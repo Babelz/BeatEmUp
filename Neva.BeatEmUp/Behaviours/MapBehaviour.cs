@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Neva.BeatEmUp.Collision.Dynamics;
+using Neva.BeatEmUp.Collision.Shape;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
 using Neva.BeatEmUp.Maps;
@@ -12,6 +14,7 @@ using System.Xml.Linq;
 
 namespace Neva.BeatEmUp.Behaviours
 {
+    [ScriptAttribute(false)]
     public sealed class MapBehaviour : Behaviour
     {
         #region Constants
@@ -27,7 +30,17 @@ namespace Neva.BeatEmUp.Behaviours
         private int alpha;
         private int elapsed;
 
-        private bool lockCamera;
+        private Rectangle area;
+        #endregion
+
+        #region Properties
+        public Rectangle Area
+        {
+            get
+            {
+                return area;
+            }
+        }
         #endregion
 
         public MapBehaviour(GameObject owner, string filename)
@@ -48,22 +61,46 @@ namespace Neva.BeatEmUp.Behaviours
             MapComponent mapComponent = Owner.FirstComponentOfType<MapComponent>();
 
             // Scenet loppuivat, kartta on suoritettu.
-            if (!mapComponent.ChangeScene())
+            if (!mapComponent.TryToChangeScene())
             {
                 return;
             }
 
             Console.WriteLine("Scene finished");
 
+            // Uusien renderöijien alustus.
             SpriteRenderer nextTop = CreateRenderer("NextTop", e.Next.TopAssetName);
             nextTop.Position = new Vector2(goal, 0.0f);
 
             SpriteRenderer nextBottom = CreateRenderer("NextBottom", e.Next.BottomAssetName);
             nextBottom.Position = new Vector2(goal, nextTop.Size.Y);
 
-            GoalDetector goalDetector = new GoalDetector(Owner, new Vector2(goal / 2, 0.0f));
+            // Uusien seinien alustus.
+            GameObject upper = CreateWall("NextUpperWall", new Vector2(nextBottom.Position.X, nextBottom.Position.Y + 70f), new Vector2(nextBottom.Size.X, 8f));
+            GameObject lower = CreateWall("NextLowerWall", new Vector2(nextBottom.Position.X, nextBottom.Position.Y + nextBottom.Size.Y), new Vector2(nextBottom.Size.X, 8f));
+            GameObject left = CreateWall("NextLeftWall", new Vector2(nextBottom.Position.X - 8f, nextBottom.Position.Y), new Vector2(8f, nextBottom.Size.Y));
+            GameObject right = CreateWall("NextRightWall", new Vector2(nextBottom.Position.X + nextBottom.Size.X, nextBottom.Position.Y), new Vector2(8f, nextBottom.Size.Y));
+
+            // Tuhotaan vasen seinä jotta päästään liikkumaan.
+            GameObject currentRight = Owner.Game.FindGameObject(g => g.Name == "RightWall");
+            Owner.Game.World.RemoveBody(currentRight.Body);
+            currentRight.Disable();
+
+            // Disabloidaan lefti jotta päästään kävelemään läpi.
+            Owner.Game.World.RemoveBody(left.Body);
+            left.Disable();
             
+#if DEBUG
+            currentRight.Hide();
+            left.Hide();
+#endif
+            GameObject player = Owner.Game.FindGameObject(g => g.Name == "Player");
+            GoalDetector goalDetector = new GoalDetector(player, new Vector2(goal + Owner.Game.Window.ClientBounds.Width * 0.5f, 0.0f));
+
+            player.AddComponent(goalDetector);
+
             goalDetector.AtGoal += goalDetector_AtGoal;
+            goalDetector.Initialize();
 
             // TODO: debug.
             TextRenderer arrowRenderer = new TextRenderer(Owner)
@@ -79,44 +116,81 @@ namespace Neva.BeatEmUp.Behaviours
 
             Owner.AddComponent(nextTop);
             Owner.AddComponent(nextBottom);
-            Owner.AddComponent(goalDetector);
-            Owner.AddComponent(goalDetector);
             Owner.AddComponent(arrowRenderer);
 
             Owner.InitializeComponents();
 
-            lockCamera = false;
+            area = new Rectangle(area.X, area.Y, area.Width * 2, area.Height);
         }
         private void mapComponent_MapFinished(object sender, MapComponentEventArgs e)
         {
             Console.WriteLine("Map finished");
+
+            GameObject player = Owner.Game.FindGameObject(p => p.Name == "Player");
         }
         private void goalDetector_AtGoal(object sender, GameObjectComponentEventArgs e)
         {
-            GoalDetector goalDetector = Owner.FirstComponentOfType<GoalDetector>();
+            GameObject player = Owner.Game.FindGameObject(g => g.Name == "Player");
+            
+            GoalDetector goalDetector = player.FirstComponentOfType<GoalDetector>();
+
+            player.RemoveComponent(goalDetector);
+
             goalDetector.AtGoal -= goalDetector_AtGoal;
 
+            // Swapataan renderöijät.
             SpriteRenderer currentTop = Owner.FindComponent<SpriteRenderer>(r => r.Name == "TopRenderer");
             SpriteRenderer nextTop = Owner.FindComponent<SpriteRenderer>(r => r.Name == "NextTop");
 
             SpriteRenderer currentBottom = Owner.FindComponent<SpriteRenderer>(r => r.Name == "BottomRenderer");
             SpriteRenderer nextBottom = Owner.FindComponent<SpriteRenderer>(r => r.Name == "NextBottom");
 
+            // Swapataan nimet.
+            nextTop.Name = currentTop.Name;
+            nextBottom.Name = currentBottom.Name;
+
             TextRenderer arrowRenderer = Owner.FirstComponentOfType<TextRenderer>();
 
-            Owner.RemoveComponent(goalDetector);
+            // Poistetaan vanhat renderöijät ja nuolen piirtäjä.
             Owner.RemoveComponent(currentTop);
             Owner.RemoveComponent(currentBottom);
             Owner.RemoveComponent(arrowRenderer);
 
-            nextTop.Name = currentTop.Name;
-            nextBottom.Name = currentBottom.Name;
+            // Swapataan seinät.
+            GameObject upper = Owner.Game.FindGameObject(g => g.Name == "UpperWall");
+            GameObject lower = Owner.Game.FindGameObject(g => g.Name == "LowerWall");
+            GameObject left = Owner.Game.FindGameObject(g => g.Name == "LeftWall");
+            GameObject right = Owner.Game.FindGameObject(g => g.Name == "RightWall");
+
+            // Tuhotaan vanhat seinät.
+            upper.Destroy();
+            lower.Destroy();
+            left.Destroy();
+            right.Destroy();
+
+            GameObject nextUpper = Owner.Game.FindGameObject(g => g.Name == "NextUpperWall");
+            GameObject nextLower = Owner.Game.FindGameObject(g => g.Name == "NextLowerWall");
+            GameObject nextLeft = Owner.Game.FindGameObject(g => g.Name == "NextLeftWall");
+            GameObject nextRight = Owner.Game.FindGameObject(g => g.Name == "NextRightWall");
+
+            // Swapataan nimet.
+            nextUpper.Name = upper.Name;
+            nextLower.Name = lower.Name;
+            nextLeft.Name = left.Name;
+            nextRight.Name = right.Name;
+
+            Owner.Game.World.CreateBody(nextLeft.Body);
+            nextLeft.Enable();
+
+#if DEBUG
+            nextLeft.Show();
+#endif
 
             Console.WriteLine("at goal");
 
             Owner.FirstComponentOfType<MapComponent>().StartNextScene();
 
-            lockCamera = true;
+            area = new Rectangle(area.Width / 2, area.Y, area.Width / 2, area.Height);
         }
         #endregion
 
@@ -124,7 +198,45 @@ namespace Neva.BeatEmUp.Behaviours
         {
             return XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + "Content\\Maps\\" + filename);
         }
-        
+
+        private GameObject CreateWall(string name, Vector2 position, Vector2 size)
+        {
+            GameObject wall = new GameObject(Owner.Game);
+
+            wall.Position = position;
+
+            wall.Body.Shape.Size = size;
+            
+            wall.Name = name;
+
+            Owner.Game.World.CreateBody(wall.Body);
+            wall.Body.CollisionFlags = CollisionFlags.Solid;
+
+#if DEBUG
+            ColliderRenderer renderer = new ColliderRenderer(wall);
+
+            wall.AddComponent(renderer);
+
+            renderer.Initialize();
+#endif
+
+            Owner.Game.AddGameObject(wall);
+            Owner.Game.AddBody(wall.Body);
+
+            return wall;
+        }
+        private void CreateWalls()
+        {
+            SpriteRenderer bottomRenderer = Owner.FindComponent<SpriteRenderer>(r => r.Name == "BottomRenderer");
+
+            GameObject upper = CreateWall("UpperWall", new Vector2(bottomRenderer.Position.X, bottomRenderer.Position.Y + 70f), new Vector2(bottomRenderer.Size.X, 8f));
+
+            GameObject lower = CreateWall("LowerWall", new Vector2(bottomRenderer.Position.X, bottomRenderer.Position.Y + bottomRenderer.Size.Y), new Vector2(bottomRenderer.Size.X, 8f));
+
+            GameObject left = CreateWall("LeftWall", new Vector2(bottomRenderer.Position.X - 8f, bottomRenderer.Position.Y), new Vector2(8f, bottomRenderer.Size.Y));
+
+            GameObject right = CreateWall("RightWall", new Vector2(bottomRenderer.Position.X + bottomRenderer.Size.X, bottomRenderer.Position.Y), new Vector2(8f, bottomRenderer.Size.Y));
+        }
         private SpriteRenderer CreateRenderer(string name, string textureName)
         {
             SpriteRenderer renderer = new SpriteRenderer(Owner)
@@ -137,7 +249,7 @@ namespace Neva.BeatEmUp.Behaviours
 
             Sprite sprite = new Sprite(texture)
             {
-                Size = new Vector2(Owner.Game.Window.ClientBounds.Width, Owner.Game.Window.ClientBounds.Height / 2),
+                Scale = Vector2.One,
                 Color = Color.White,
             };
 
@@ -164,24 +276,8 @@ namespace Neva.BeatEmUp.Behaviours
 
             bottom.Initialize();
             top.Initialize();
-        }
-        private void UpdateCamera()
-        {
-            if (lockCamera)
-            {
-                return;
-            }
-            else
-            {
-                GameObject player = Owner.Game.FindGameObject(o => o.Position.X < goal && o.Name == "Player");
 
-                if (player == null)
-                {
-                    return;
-                }
-                
-                Owner.FirstComponentOfType<GoalDetector>().SetPosition(Owner.Game.View.Position);
-            }
+            area = new Rectangle(0, 0, (int)top.Size.X, (int)(top.Size.Y + bottom.Size.Y));
         }
 
         private List<Scene> BuildScenes()
@@ -254,6 +350,8 @@ namespace Neva.BeatEmUp.Behaviours
             Owner.AddComponent(mapComponent);
 
             InitializeSpriteRenderers();
+
+            CreateWalls();
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -273,8 +371,6 @@ namespace Neva.BeatEmUp.Behaviours
                     mapComponent.SceneFinished += mapComponent_SceneFinished;
                 }
             }
-
-            UpdateCamera();
         }
         protected override void OnDraw(SpriteBatch spriteBatch)
         {

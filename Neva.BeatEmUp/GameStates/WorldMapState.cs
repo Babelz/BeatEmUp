@@ -15,6 +15,9 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameStates
 {
+    /// <summary>
+    /// TODO: tee niin että pelaaja liikkuu reittiä pitkin.
+    /// </summary>
     internal sealed class WorldMapState : GameState
     {
         #region Vars
@@ -80,15 +83,8 @@ namespace Neva.BeatEmUp.GameStates
         }
         private void HandleNodeSwitch()
         {
-            if (lastNode != null)
-            {
-                lastNode.FirstComponentOfType<SpriteRenderer>().Color = Color.White;
-            }
-
             if (currentNode != null)
             {
-                currentNode.FirstComponentOfType<SpriteRenderer>().Color = Color.Green;
-
                 selector.FirstBehaviourOfType<SelectorBehaviour>().Destination = currentNode.Position;
             }
         }
@@ -169,9 +165,23 @@ namespace Neva.BeatEmUp.GameStates
             keyboardListener.RemoveMapping("Select");
         }
 
+        private void CreateBackground()
+        {
+            GameObject background = new GameObject(Game);
+            
+            SpriteRenderer renderer = new SpriteRenderer(background);
+            renderer.Sprite = new Sprite(Game.Content.Load<Texture2D>("worldmap"));
+
+            background.AddComponent(renderer);
+
+            background.InitializeComponents();
+
+            Game.AddGameObject(background);
+        }
+
         private GameObject CreateNode(Vector2 position, GameObject parent, string mapName = "", bool canEnter = true)
         {
-            GameObject node = Game.CreateGameObjectFromKey("MapNode");
+            GameObject node = new GameObject(Game);
             
             node.Position = position;
             node.AddBehaviour("MapNode", new object[] { mapName, canEnter });
@@ -190,23 +200,21 @@ namespace Neva.BeatEmUp.GameStates
             GameObject map1Node = CreateNode(new Vector2(25f), null, "City1.xml");
             mapNodes.Add(map1Node);
 
-            GameObject map2Node = CreateNode(new Vector2(300f, 200f), map1Node);
+            GameObject map2Node = CreateNode(new Vector2(302f, 219f), map1Node);
             mapNodes.Add(map2Node);
 
-            GameObject map3Node = CreateNode(new Vector2(600f, 200f), map2Node);
+            GameObject map3Node = CreateNode(new Vector2(586f, 267f), map2Node);
             mapNodes.Add(map3Node);
 
-            GameObject map4Node = CreateNode(new Vector2(600f, 400f), map3Node);
+            GameObject map4Node = CreateNode(new Vector2(302f, 409f), map3Node);
             mapNodes.Add(map4Node);
+            map4Node.AddChild(map2Node);
 
-            GameObject map5Node = CreateNode(new Vector2(300f, 400f), map4Node);
+            GameObject map5Node = CreateNode(new Vector2(633f, 599f), map4Node);
             mapNodes.Add(map5Node);
 
-            GameObject map6Node = CreateNode(new Vector2(400f, 500f), map5Node);
+            GameObject map6Node = CreateNode(new Vector2(1115f, 358f), map5Node);
             mapNodes.Add(map6Node);
-
-            GameObject map7Node = CreateNode(new Vector2(1223f, 600f), map6Node);
-            mapNodes.Add(map7Node);
 
             mapNodes.ForEach(n =>
             {
@@ -226,6 +234,8 @@ namespace Neva.BeatEmUp.GameStates
             Game.DisableSortedDraw();
 
             InitianizeMappings();
+
+            CreateBackground(); 
 
             InitializeNodes();
         }

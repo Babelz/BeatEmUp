@@ -104,8 +104,6 @@ namespace BrashMonkeySpriter.Content {
 
                     #endregion
                     #region Timeline
-
-                    int vittu = 0;
                     // ------------------ timeline -----------------------------
                     foreach (var xTimeline in xAnimation.Elements("timeline"))
                     {

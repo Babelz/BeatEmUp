@@ -25,5 +25,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             return new GameObjectComponentException(string.Format("Component {0} threw an exception at method {1}{2}", thrower.GetType().Name, methodName, message));
         }
+
+        public static GameObjectComponentException OwnerException(GameObjectComponent component)
+        {
+            return new GameObjectComponentException(string.Format("Component {0} is owned by another object.", component.GetType().Name));
+        }
     }
 }

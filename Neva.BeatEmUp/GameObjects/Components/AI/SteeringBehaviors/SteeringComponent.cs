@@ -9,14 +9,13 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
     public sealed class SteeringComponent : GameObjectComponent
     {
         #region Vars
-        private readonly GameObject owner;
         private readonly Dictionary<string, SteeringBehavior> behaviors;
         #endregion
 
         public SteeringComponent(GameObject owner)
             : base(owner, true)
         {
-            this.owner = owner;
+            behaviors = new Dictionary<string, SteeringBehavior>();
         }
 
         public void AddBehavior(SteeringBehavior behavior, string key)

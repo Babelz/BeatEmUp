@@ -159,8 +159,7 @@ namespace Neva.BeatEmUp.GameObjects
             this.game = game;
 
             behaviours = new TypeSortedContainer<Behaviour>();
-            componentManager = new ComponentManager();
-            
+            componentManager = new ComponentManager(this);
             tags = new TagContainer();
 
             string stateName = game.CurrentGameState == null ? "" : game.CurrentGameState.Name;

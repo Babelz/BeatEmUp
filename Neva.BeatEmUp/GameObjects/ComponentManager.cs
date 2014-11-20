@@ -11,6 +11,8 @@ namespace Neva.BeatEmUp.GameObjects
     internal sealed class ComponentManager
     {
         #region Vars
+        private readonly GameObject owner;
+
         private TypeSortedContainer<GameObjectComponent> components;
 
         private List<GameObjectComponent> sortedDrawableComponents;
@@ -36,10 +38,20 @@ namespace Neva.BeatEmUp.GameObjects
         }
         #endregion
 
-        public ComponentManager()
+        public ComponentManager(GameObject owner)
         {
+            this.owner = owner;
+
             components = new TypeSortedContainer<GameObjectComponent>();
             sortedDrawableComponents = new List<GameObjectComponent>();
+        }
+
+        private void ValidateComponent(GameObjectComponent component)
+        {
+            if (!component.OwnsThis(owner))
+            {
+                throw GameObjectComponentException.OwnerException(component);
+            }
         }
 
         public void AddComponent(GameObjectComponent component)
@@ -51,6 +63,8 @@ namespace Neva.BeatEmUp.GameObjects
                     throw new ArgumentException("Cant add another unique component.");
                 }
             }
+
+            ValidateComponent(component);
 
             components.Add(component);
 

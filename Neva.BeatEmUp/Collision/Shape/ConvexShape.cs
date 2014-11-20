@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Collision.Shape
 {
-    internal abstract class ConvexShape : IShape
+    public abstract class ConvexShape : IShape
     {
         #region Properties
         public Vertices Vertices

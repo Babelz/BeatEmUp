@@ -4,20 +4,24 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameStates.Transitions;
 
 namespace Neva.BeatEmUp.GameStates
 {
     public sealed class GameStateManager : DrawableGameComponent
     {
         #region Vars
-
         private readonly List<GameState> states;
-        private GameState current, previous;
         private readonly BeatEmUpGame game;
+
+        private GameState current;
+        private GameState previous;
+        private GameState next;
+
+        private TransitionPlayer transitionPlayer;
         #endregion
 
         #region Properties
-
         public SpriteBatch SpriteBatch
         {
             get;
@@ -30,7 +34,6 @@ namespace Neva.BeatEmUp.GameStates
                 return current;
             }
         }
-
         #endregion
 
         #region Events
@@ -40,8 +43,8 @@ namespace Neva.BeatEmUp.GameStates
 
         #region Ctor
 
-        public GameStateManager(BeatEmUpGame game) : 
-            base(game)
+        public GameStateManager(BeatEmUpGame game) 
+            : base(game)
         {
             this.game = game;
             states = new List<GameState>();
@@ -81,7 +84,7 @@ namespace Neva.BeatEmUp.GameStates
             states.RemoveAt(states.Count - 1);
         }
 
-        public void Change(GameState gameState)
+        public void Change(GameState nextState, TransitionPlayer transitionPlayer = null)
         {
             if (current != null)
             {
@@ -90,30 +93,72 @@ namespace Neva.BeatEmUp.GameStates
 
             GameStateChanging(this, new GameStateChangingEventArgs(current, previous));
 
-            previous = current;
-            current = gameState;
+            next = nextState;
+            next.Initialize(game, this);
 
+            // Otetaan transition huomioon. Skipataan swap ja 
+            // annetaan transitionille kontrolli statejen vaihdosta.
+            if (transitionPlayer != null)
+            {
+                this.transitionPlayer = transitionPlayer;
+
+                next = nextState;
+
+                transitionPlayer.Current = current;
+                transitionPlayer.Next = next;
+
+                transitionPlayer.Start();
+
+                return;
+            }
+
+            // Ei transitionia, swapataan statet suoraan.
+            SwapState();
+        }
+
+        /// <summary>
+        /// Swappaa statet. 
+        /// </summary>
+        private void SwapState()
+        {
+            previous = current;
+            current = next;
+           
             if (current != null)
             {
                 current.OnActivate();
             }
 
             if (states.Count == 0)
-                states.Add(gameState);
+            {
+                states.Add(next);
+            }
             else
             {
-                states[states.Count - 1] = gameState;
+                states[states.Count - 1] = next;
             }
 
             GameStateChanged(this, new GameStateChangingEventArgs(current, null));
-
-            gameState.Initialize(game, this);
         }
 
         public override void Update(GameTime gameTime)
         {
             if (current == null)
             {
+                return;
+            }
+
+            if (transitionPlayer != null)
+            {
+                transitionPlayer.Update(gameTime);
+
+                if (transitionPlayer.IsFininshed)
+                {
+                    transitionPlayer = null;
+
+                    SwapState();
+                }
+
                 return;
             }
 
@@ -132,7 +177,21 @@ namespace Neva.BeatEmUp.GameStates
 
             SpriteBatch.Begin();
 
-            current.Draw(SpriteBatch);
+            if (transitionPlayer != null)
+            {
+                transitionPlayer.Draw(SpriteBatch);
+
+                if (transitionPlayer.IsFininshed)
+                {
+                    transitionPlayer = null;
+
+                    SwapState();
+                }
+            }
+            else
+            {
+                current.Draw(SpriteBatch);
+            }
 
             SpriteBatch.End();
         }

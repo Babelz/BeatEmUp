@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameStates.Transitions;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Neva.BeatEmUp.Input;
@@ -101,7 +102,11 @@ namespace Neva.BeatEmUp.GameStates
 
                 if (current == null || skip)
                 {
-                    GameStateManager.Change(new MainMenuState());
+                    TransitionPlayer transitionPlayer = new TransitionPlayer();
+                    transitionPlayer.AddTransition(new Fade(Color.Black, Game.Content.Load<Texture2D>("blank"), Game.Window.ClientBounds, FadeType.In, 3));
+                    transitionPlayer.AddTransition(new Fade(Color.Black, Game.Content.Load<Texture2D>("blank"), Game.Window.ClientBounds, FadeType.Out, 3));
+                    
+                    GameStateManager.Change(new MainMenuState(), transitionPlayer);
 
                     keyboardListener.RemoveMapping("Skip");
 

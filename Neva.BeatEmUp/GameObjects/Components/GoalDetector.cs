@@ -14,7 +14,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         private Func<float, float, float, float, bool> conditionalFunc;
         
-        private Vector2 position;
         private Vector2 goal;
 
         private bool calledAtGoal;
@@ -83,8 +82,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         private void RoundToInts(ref float mX, ref float mY, ref float gX, ref float gY)
         {
-            mX = (int)position.X;
-            mY = (int)position.Y;
+            mX = (int)owner.Position.X;
+            mY = (int)owner.Position.Y;
 
             gX = (int)goal.X;
             gY = (int)goal.Y;
@@ -105,8 +104,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
         }
         private bool ExecuteConditional()
         {
-            float mX = position.X;
-            float mY = position.Y;
+            float mX = owner.Position.X;
+            float mY = owner.Position.Y;
 
             float gX = goal.X;
             float gY = goal.Y;
@@ -130,16 +129,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
             }
 
             return new ComponentUpdateResults(this, true);
-        }
-
-        public void SetPosition(Vector2 position)
-        {
-            this.position = position;
-        }
-        public void MoveBy(float x, float y)
-        {
-            position.X += x;
-            position.Y += y;
         }
 
         public void Reset(Vector2 newGoal)

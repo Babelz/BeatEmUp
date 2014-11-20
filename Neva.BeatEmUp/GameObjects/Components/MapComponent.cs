@@ -76,7 +76,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         /// Palauttaa booleanin siitä saatiinko uusi scene nykyisen tilalle.
         /// </summary>
         /// <returns>Palauttaa truen jos saatiin uusi scene ja falsen jos scenejä ei ole jäljellä (kartta on suoritettu).</returns>
-        public bool ChangeScene()
+        public bool TryToChangeScene()
         {
             if (Finished() && !calledMapFinished)
             {
@@ -90,8 +90,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             currentScene = NextScene();
 
-            calledSceneFinished = false;
-
             return true;
         }
 
@@ -100,6 +98,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
             if (!currentScene.Running)
             {
                 currentScene.Start();
+
+                calledSceneFinished = false;
             }
         }
     }

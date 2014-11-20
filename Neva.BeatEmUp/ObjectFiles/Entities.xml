@@ -6,11 +6,6 @@
     <Component Name="ColliderRenderer" />
     <Component Name="TargetingComponent" />
   </Object>
-  
-  <Object Key="MapNode" Name="Node" Visible="true" Enabled="true">
-    <Component Name="LineRenderer"/>
-    <Component Name="SpriteRenderer"/>
-  </Object>
 
   <Object Key="MapSelector" Name="Selector" Visible="true" Enabled="true">
     <Component Name="SpriteRenderer"/>

@@ -19,6 +19,7 @@ namespace Neva.BeatEmUp.GameStates
 
         private BeatEmUpGame game;
         private GameObject player;
+        private MapBehaviour mapBehaviour;
         #endregion
 
         public GameplayState(string mapName)
@@ -31,28 +32,14 @@ namespace Neva.BeatEmUp.GameStates
             this.game = game;
 
             GameObject map = new GameObject(game);
-
             map.AddBehaviour("MapBehaviour", new object[] { mapName });
-
+            mapBehaviour = map.FirstBehaviourOfType<MapBehaviour>();
             map.StartBehaviours();
 
             game.AddGameObject(map);
 
             player = Game.CreateGameObjectFromKey("player");
-
-
-            GameObject table = CreateTable();
-            table.Position = new Vector2(400, 300);
-            table.AddComponent(new ColliderRenderer(table));
-            table.FirstComponentOfType<SpriteRenderer>().Position = table.Position;
-            table.Body.CollisionFlags = CollisionFlags.Solid;
-            table.InitializeComponents();
-
-            
-            //game.AddGameObject(table);
-            //game.World.CreateBody(table.Body);
-
-            game.View.Zoom = 1.5f;
+            player.Position = new Vector2(200f, 600f);
         }
 
         private GameObject CreateTable()
@@ -74,7 +61,12 @@ namespace Neva.BeatEmUp.GameStates
 
         public override void Update(GameTime gameTime)
         {
-            game.View.Position = new Vector2(player.Position.X - game.View.Area.Width / game.View.Zoom, player.Position.Y - game.View.Area.Height / game.View.Zoom);
+            Vector2 newViewPosition = new Vector2();
+
+            newViewPosition.X = MathHelper.Clamp(player.Position.X - game.Window.ClientBounds.Width / 2, 0, game.Window.ClientBounds.Width);
+            newViewPosition.Y = MathHelper.Clamp(player.Position.Y - game.Window.ClientBounds.Height / 2, 0, game.Window.ClientBounds.Height);
+
+            game.View.Position = newViewPosition;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
