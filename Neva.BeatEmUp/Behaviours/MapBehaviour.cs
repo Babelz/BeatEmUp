@@ -181,6 +181,10 @@ namespace Neva.BeatEmUp.Behaviours
             nextLeft.Name = left.Name;
             nextRight.Name = right.Name;
 
+            // Poistetaan text renderöijä.
+            TextRenderer textRenderer = Owner.FirstComponentOfType<TextRenderer>();
+            Owner.RemoveComponent(textRenderer);
+
             Owner.Game.World.CreateBody(nextLeft.Body);
             nextLeft.Enable();
 

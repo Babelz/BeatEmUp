@@ -79,9 +79,8 @@ namespace Neva.BeatEmUp.GameObjects
         {
             if (components.Contains(component))
             {
-                components.Contains(component);
-
                 sortedDrawableComponents.Remove(component);
+                components.Remove(component);
 
                 return true;
             }

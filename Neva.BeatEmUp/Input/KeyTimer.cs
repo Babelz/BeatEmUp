@@ -33,7 +33,7 @@ namespace Neva.BeatEmUp.Input
             // down niin aikaa lisätään
             foreach (var downMapping in buffer.DownMappings)
             {
-
+                if (!holdTimes.ContainsKey(downMapping.Value.MappingName)) continue;
                 holdTimes[downMapping.Value.MappingName] += gameTime.ElapsedGameTime.Milliseconds;
             }
 
