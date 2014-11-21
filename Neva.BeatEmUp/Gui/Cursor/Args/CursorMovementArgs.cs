@@ -7,7 +7,7 @@ using Neva.BeatEmUp.Gui.Controls;
 
 namespace Neva.BeatEmUp.Gui.Cursor.Args
 {
-    internal sealed class CursorMovementArgs
+    public sealed class CursorMovementArgs
     {
         #region Vars
         private readonly Control currentInFocus;

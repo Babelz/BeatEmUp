@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui.Controls.Components
 {
-    internal sealed class Margin
+    public sealed class Margin
     {
         #region Properties
         public float Left

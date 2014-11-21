@@ -33,6 +33,7 @@ namespace Neva.BeatEmUp
     public class BeatEmUpGame : Game
     {
         #region Vars
+        private readonly Dictionary<IGameComponent, int> hiddenComponents;
         private readonly List<ObjectCreator> objectCreators;
         private readonly ComponentCreator componentCreator;
 
@@ -58,11 +59,18 @@ namespace Neva.BeatEmUp
         #endregion
 
         #region Properties
-        public GameState CurrentGameState
+        public WindowManager WindowManager
         {
             get
             {
-                return stateManager.Current;
+                return windowManager;
+            }
+        }
+        public GameStateManager StateManager
+        {
+            get
+            {
+                return stateManager;
             }
         }
         public Camera View
@@ -131,7 +139,9 @@ namespace Neva.BeatEmUp
             IsMouseVisible = true;
 
             graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;   
+            graphics.PreferredBackBufferHeight = 720;
+
+            hiddenComponents = new Dictionary<IGameComponent, int>();
         }
 
         #region Event handlers
@@ -214,8 +224,8 @@ namespace Neva.BeatEmUp
                 objectCreators.Add(new ObjectCreator(objectFiles[i]));
             }
 
-            //stateManager.Change(new GameplayState("City1.xml"));
-            stateManager.Change(new SplashMenuState());
+            //stateManager.(new GameplayState("City1.xml"));
+            stateManager.ChangeState(new SplashMenuState());
         }
 
         /// <summary>
@@ -300,7 +310,15 @@ namespace Neva.BeatEmUp
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            for (int i = 0; i < hiddenComponents.Count; i++)
+            {
+                IGameComponent component = hiddenComponents.Keys.ElementAt(i);
+                hiddenComponents[component]--;
+
+                Components.Remove(component);
+            }
+
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
                 null,
@@ -317,6 +335,20 @@ namespace Neva.BeatEmUp
             spriteBatch.End();
 
             base.Draw(gameTime);
+
+            stateManager.PostDraw();
+
+            for (int i = 0; i < hiddenComponents.Count; i++)
+            {
+                IGameComponent component = hiddenComponents.Keys.ElementAt(i);
+
+                Components.Add(component);
+
+                if (hiddenComponents[component] == 0)
+                {
+                    hiddenComponents.Remove(component);
+                }
+            }
         }
 
         public void EnableSortedDraw()
@@ -397,17 +429,6 @@ namespace Neva.BeatEmUp
         public GameObject FindGameObject(Predicate<GameObject> predicate)
         {
             return gameObjects.Find(c => predicate(c));
-        }
-
-        public void AddBody(Body body)
-        {
-        }
-        public void RemoveBody(Body body)
-        {
-        }
-        public bool ContainsBody(Body body)
-        {
-            return false;
         }
 
         /// <summary>
@@ -512,6 +533,26 @@ namespace Neva.BeatEmUp
         public GameObjectComponent CreateComponent(string name, GameObject owner)
         {
             return componentCreator.Create(name, owner);
+        }
+
+        /// <summary>
+        /// Skippaa annetun määrän piirtoja halutulta komponentilta.
+        /// </summary>
+        /// <param name="component">Komponentti jonka tulee skipata drawit.</param>
+        /// <param name="times">Montako framea tulee skipata.</param>
+        public void SkipDrawCallsFor(IGameComponent component, int frames)
+        {
+            if (Components.Contains(component))
+            {
+                if (hiddenComponents.ContainsKey(component))
+                {
+                    // TODO: log warning.
+
+                    return;
+                }
+
+                hiddenComponents.Add(component, frames);
+            }
         }
     }
 }

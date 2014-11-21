@@ -7,10 +7,10 @@ using Neva.BeatEmUp.Gui.Controls.Renderers;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal sealed class SpriteBox : Control
+    public sealed class SpriteBox : Control
     {
         #region Event keys
-        private static readonly object EventSpriteChanged = new object();
+        private static readonly object EventSprited = new object();
         #endregion
 
         #region Vars
@@ -28,7 +28,7 @@ namespace Neva.BeatEmUp.Gui.Controls
             {
                 if (sprite != value)
                 {
-                    OnSpriteChanged(new GuiLayoutEventArgs(), this);
+                    OnSprited(new GuiLayoutEventArgs(), this);
 
                     sprite = value;
                 }
@@ -37,15 +37,15 @@ namespace Neva.BeatEmUp.Gui.Controls
         #endregion
 
         #region Events
-        public event GuiEventHandler<GuiLayoutEventArgs> SpriteChanged
+        public event GuiEventHandler<GuiLayoutEventArgs> Sprited
         {
             add
             {
-                eventHandlers.AddHandler(EventSpriteChanged, value);
+                eventHandlers.AddHandler(EventSprited, value);
             }
             remove
             {
-                eventHandlers.RemoveHandler(EventSpriteChanged, value);
+                eventHandlers.RemoveHandler(EventSprited, value);
             }
         }
         #endregion
@@ -57,9 +57,9 @@ namespace Neva.BeatEmUp.Gui.Controls
         }
 
         #region Event methods
-        private void OnSpriteChanged(GuiLayoutEventArgs e, object sender)
+        private void OnSprited(GuiLayoutEventArgs e, object sender)
         {
-            GuiEventHandler<GuiLayoutEventArgs> eventHandler = (GuiEventHandler<GuiLayoutEventArgs>)eventHandlers[EventSpriteChanged];
+            GuiEventHandler<GuiLayoutEventArgs> eventHandler = (GuiEventHandler<GuiLayoutEventArgs>)eventHandlers[EventSprited];
 
             if (eventHandler != null)
             {

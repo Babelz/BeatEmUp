@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Cursor.Components
 {
-    internal sealed class IndexCursorBehaviour : CursorBehaviour
+    public sealed class IndexCursorBehaviour : CursorBehaviour
     {
         public IndexCursorBehaviour(Window owner, Vector2 cursorPosition, Vector2 cursorSize)
             : base(owner, cursorPosition, cursorSize)

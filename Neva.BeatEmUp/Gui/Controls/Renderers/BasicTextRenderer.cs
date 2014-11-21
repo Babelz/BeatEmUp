@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal sealed class BasicTextRenderer : Renderer<Label>
+    public sealed class BasicTextRenderer : Renderer<Label>
     {
         public BasicTextRenderer(Label owner)
             : base(owner)

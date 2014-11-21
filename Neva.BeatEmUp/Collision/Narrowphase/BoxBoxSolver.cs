@@ -8,7 +8,7 @@ using Neva.BeatEmUp.Collision.Shape;
 
 namespace Neva.BeatEmUp.Collision.Narrowphase
 {
-    internal class BoxBoxSolver : ICollisionSolver
+    public class BoxBoxSolver : ICollisionSolver
     {
         // boxilla voi olla vaan 4
         private Vector2[] axesToCheck = new Vector2[4];

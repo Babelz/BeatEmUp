@@ -10,7 +10,7 @@ using Neva.BeatEmUp.Gui.Cursor.Args;
 
 namespace Neva.BeatEmUp.Gui
 {
-    internal class GuiEventArgs : EventArgs
+    public class GuiEventArgs : EventArgs
     {
         new public static readonly GuiEventArgs Empty;
 
@@ -25,7 +25,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiGamePadInputEventArgs : GuiEventArgs
+    public sealed class GuiGamePadInputEventArgs : GuiEventArgs
     {
         #region Properties
         public Buttons[] PressedButtons
@@ -42,7 +42,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiKeyboardInputEventArgs : GuiEventArgs
+    public sealed class GuiKeyboardInputEventArgs : GuiEventArgs
     {
         #region Properties
         public Keys[] PressedKeys
@@ -58,7 +58,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiCursorInputEventArgs : GuiEventArgs
+    public sealed class GuiCursorInputEventArgs : GuiEventArgs
     {
         #region Properties
         public MouseButtons[] PressedButtons
@@ -75,7 +75,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiCursorMovementEventArgs : GuiEventArgs
+    public sealed class GuiCursorMovementEventArgs : GuiEventArgs
     {
         #region Properties
         public CursorMovementArgs CursorMovementArgs
@@ -92,7 +92,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiLayoutEventArgs : GuiEventArgs
+    public sealed class GuiLayoutEventArgs : GuiEventArgs
     {
         new public static readonly GuiLayoutEventArgs Empty;
 
@@ -152,7 +152,7 @@ namespace Neva.BeatEmUp.Gui
             get;
             private set;
         }
-        public bool ParentChanged
+        public bool Parentd
         {
             get;
             private set;
@@ -189,10 +189,10 @@ namespace Neva.BeatEmUp.Gui
             OldPosition = position;
             NewPosition = newPosition;
         }
-        public GuiLayoutEventArgs(Control control, bool parentChanged = false)
+        public GuiLayoutEventArgs(Control control, bool parentd = false)
         {
             Control = control;
-            ParentChanged = parentChanged;
+            Parentd = parentd;
         }
         public GuiLayoutEventArgs(GuiContentEventArgs guiContentEventArgs)
         {
@@ -204,7 +204,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiParentEventArgs : GuiEventArgs
+    public sealed class GuiParentEventArgs : GuiEventArgs
     {
         #region Properties
         public Control NextParent
@@ -237,7 +237,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuControlDisplayEventArgs : GuiEventArgs
+    public sealed class GuControlDisplayEventArgs : GuiEventArgs
     {
         new public static readonly GuControlDisplayEventArgs Empty;
 
@@ -252,7 +252,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiFocusEventArgs : GuiEventArgs
+    public sealed class GuiFocusEventArgs : GuiEventArgs
     {
         new public static readonly GuiFocusEventArgs Empty;
 
@@ -285,7 +285,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiContentEventArgs : GuiEventArgs
+    public sealed class GuiContentEventArgs : GuiEventArgs
     {
         new public static readonly GuiContentEventArgs Empty;
 
@@ -325,7 +325,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiButtonEventArgs : GuiEventArgs
+    public sealed class GuiButtonEventArgs : GuiEventArgs
     {
         #region Properties
         public bool Pressed
@@ -359,7 +359,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiScrollEventArgs : GuiEventArgs
+    public sealed class GuiScrollEventArgs : GuiEventArgs
     {
         #region Properties
         public int Value
@@ -387,7 +387,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal class GuiComponentEventArgs : GuiEventArgs
+    public class GuiComponentEventArgs : GuiEventArgs
     {
         public GuiComponentEventArgs()
             : base()
@@ -395,7 +395,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiChildComponentEventArgs : GuiComponentEventArgs
+    public sealed class GuiChildComponentEventArgs : GuiComponentEventArgs
     {
         #region Properties
         public Control Child
@@ -412,7 +412,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal class GuiWindowManagerEventArgs : GuiEventArgs
+    public class GuiWindowManagerEventArgs : GuiEventArgs
     {
         public GuiWindowManagerEventArgs()
             : base()
@@ -420,7 +420,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal sealed class GuiWindowChangingEventArgs : GuiWindowManagerEventArgs
+    public sealed class GuiWindowChangingEventArgs : GuiWindowManagerEventArgs
     {
         #region Properties
         public Window Current

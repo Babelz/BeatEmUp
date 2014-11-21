@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal sealed class BasicScrollThumbRenderer : Renderer<ScrollThumb>
+    public sealed class BasicScrollThumbRenderer : Renderer<ScrollThumb>
     {       
         #region Vars
         private readonly Texture2D temp;

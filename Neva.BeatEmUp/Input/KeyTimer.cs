@@ -7,7 +7,7 @@ using Neva.BeatEmUp.Input.Buffer;
 
 namespace Neva.BeatEmUp.Input
 {
-    internal sealed class KeyTimer
+    public sealed class KeyTimer
     {
         private Dictionary<string, int> holdTimes;
         private Queue<Action> pendingActions = new Queue<Action>();

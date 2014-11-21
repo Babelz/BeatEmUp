@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Collision
 {
-    internal struct FRectangle
+    public struct FRectangle
     {
         public float X;
         public float Y;

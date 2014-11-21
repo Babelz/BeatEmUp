@@ -8,25 +8,29 @@ using GameStates.Transitions;
 
 namespace Neva.BeatEmUp.GameStates
 {
+    /// <summary>
+    /// TODO: syöpä.
+    /// </summary>
     public sealed class GameStateManager : DrawableGameComponent
     {
         #region Vars
-        private readonly List<GameState> states;
+        private readonly SpriteBatch spriteBatch;
         private readonly BeatEmUpGame game;
 
+        private TransitionPlayer transitionPlayer;
+
         private GameState current;
-        private GameState previous;
         private GameState next;
 
-        private TransitionPlayer transitionPlayer;
+        private bool waitingForUserSwap;
+        #endregion
+
+        #region Events
+        public event GameStateEventHandler<GameStateChangingEventArgs> GameStateChanging;
+        public event GameStateEventHandler<GameStateChangingEventArgs> GameStateChanged;
         #endregion
 
         #region Properties
-        public SpriteBatch SpriteBatch
-        {
-            get;
-            private set;
-        }
         public GameState Current
         {
             get
@@ -36,118 +40,93 @@ namespace Neva.BeatEmUp.GameStates
         }
         #endregion
 
-        #region Events
-        public event GameStateEventHandler<GameStateChangingEventArgs> GameStateChanging;
-        public event GameStateEventHandler<GameStateChangingEventArgs> GameStateChanged;
-        #endregion
-
-        #region Ctor
-
-        public GameStateManager(BeatEmUpGame game) 
+        public GameStateManager(BeatEmUpGame game)
             : base(game)
         {
             this.game = game;
-            states = new List<GameState>();
+
+            spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
             GameStateChanging += delegate { };
             GameStateChanged += delegate { };
         }
 
-        #endregion
-
-        #region Methods
-
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            SpriteBatch = new SpriteBatch(Game.GraphicsDevice);
-        }
-
-        public void Push(GameState gameState)
-        {
-            if (states.Count != 0) previous = states[states.Count - 1];
-            current = gameState;
-
-            states.Add(gameState);
-            gameState.Initialize(game, this);
-        }
-
-        public void Pop()
-        {
-            if (states.Count == 0) return;
-            current = previous;
-            previous = states[states.Count - 1];
-            states.RemoveAt(states.Count - 1);
-        }
-
-        public void Change(GameState nextState, TransitionPlayer transitionPlayer = null)
+        public void SwapStates()
         {
             if (current != null)
             {
                 current.OnDeactivate();
             }
 
-            GameStateChanging(this, new GameStateChangingEventArgs(current, previous));
+            next.OnActivate();
 
-            next = nextState;
-            next.Initialize(game, this);
-
-            // Otetaan transition huomioon. Skipataan swap ja 
-            // annetaan transitionille kontrolli statejen vaihdosta.
-            if (transitionPlayer != null)
-            {
-                this.transitionPlayer = transitionPlayer;
-
-                next = nextState;
-
-                transitionPlayer.Current = current;
-                transitionPlayer.Next = next;
-
-                transitionPlayer.Start();
-
-                return;
-            }
-
-            // Ei transitionia, swapataan statet suoraan.
-            SwapState();
-        }
-
-        /// <summary>
-        /// Swappaa statet. 
-        /// </summary>
-        private void SwapState()
-        {
-            previous = current;
             current = next;
-           
-            if (current != null)
-            {
-                current.OnActivate();
-            }
-
-            if (states.Count == 0)
-            {
-                states.Add(next);
-            }
-            else
-            {
-                states[states.Count - 1] = next;
-            }
+            next = null;
 
             GameStateChanged(this, new GameStateChangingEventArgs(current, null));
         }
 
-        public override void Update(GameTime gameTime)
+        /*public void BeginStateChange(GameState next, TransitionPlayer transitionPlayer)
         {
-            if (current == null)
+            if (next == null)
             {
-                return;
+                throw new ArgumentNullException("next");
             }
 
+            GameStateChanging(this, new GameStateChangingEventArgs(current, next));
+
+            this.next = next;
+
+            this.transitionPlayer = transitionPlayer;
+            
+            transitionPlayer.Next = next;
+            transitionPlayer.Current = current;
+            
+            transitionPlayer.Start();
+
+            waitingForUserSwap = true;
+        }*/
+
+        public void ChangeState(GameState next)
+        {
+            if (next == null)
+            {
+                throw new ArgumentNullException("next");
+            }
+
+            GameStateChanging(this, new GameStateChangingEventArgs(current, next));
+
+            if (current != null)
+            {
+                current.OnDeactivate();
+            }
+
+            current = next;
+
+            current.OnActivate();
+
+            current = next;
+            current.Initialize(game, this);
+
+            GameStateChanged(this, new GameStateChangingEventArgs(current, null));
+
+            // TODO: transitionit kusee, vittu mitä paskaa.
+
+            /*if (transitionPlayer != null)
+            {
+                this.transitionPlayer = transitionPlayer;
+
+                transitionPlayer.Next = next;
+                transitionPlayer.Current = current;
+
+                transitionPlayer.Start();
+
+                return;
+            }*/
+        }
+
+        public override void Update(GameTime gameTime)
+        {
             if (transitionPlayer != null)
             {
                 transitionPlayer.Update(gameTime);
@@ -156,46 +135,59 @@ namespace Neva.BeatEmUp.GameStates
                 {
                     transitionPlayer = null;
 
-                    SwapState();
+                    if (!waitingForUserSwap)
+                    {
+                        SwapStates();
+                    }
                 }
 
                 return;
             }
 
-            for (int i = states.Count - 1; i >= 0; i--)
+            if (current != null)
             {
-                states[i].Update(gameTime);
+                current.Update(gameTime);
             }
         }
-
         public override void Draw(GameTime gameTime)
         {
-            if (current == null)
+            if (transitionPlayer != null)
             {
                 return;
             }
 
-            SpriteBatch.Begin();
+            if (current != null)
+            {
+                spriteBatch.Begin();
 
+                current.Draw(spriteBatch);
+
+                spriteBatch.End();
+            }
+
+            base.Draw(gameTime);
+        }
+
+        public void PostDraw()
+        {
             if (transitionPlayer != null)
             {
-                transitionPlayer.Draw(SpriteBatch);
+                spriteBatch.Begin();
 
+                transitionPlayer.Draw(spriteBatch);
+
+                spriteBatch.End();
+               
                 if (transitionPlayer.IsFininshed)
                 {
                     transitionPlayer = null;
-
-                    SwapState();
+                    
+                    if (!waitingForUserSwap)
+                    {
+                        SwapStates();
+                    }
                 }
             }
-            else
-            {
-                current.Draw(SpriteBatch);
-            }
-
-            SpriteBatch.End();
         }
-
-        #endregion
     }
 }

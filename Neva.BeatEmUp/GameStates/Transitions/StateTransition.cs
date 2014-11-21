@@ -40,7 +40,7 @@ namespace GameStates.Transitions
         {
             set
             {
-                if (currentGameState != null)
+                if (currentGameState == null)
                 {
                     currentGameState = value;
                 }
@@ -54,7 +54,7 @@ namespace GameStates.Transitions
         {
             set
             {
-                if (nextGameState != null)
+                if (nextGameState == null)
                 {
                     nextGameState = value;
                 }
@@ -68,7 +68,7 @@ namespace GameStates.Transitions
         {
             set
             {
-                if (lastTransition != null)
+                if (lastTransition == null)
                 {
                     lastTransition = value;
                 }
@@ -82,9 +82,9 @@ namespace GameStates.Transitions
         {
             set
             {
-                if (nextTransition != null)
+                if (nextTransition == null)
                 {
-                    lastTransition = value;
+                    nextTransition = value;
                 }
             }
             protected get

@@ -8,7 +8,7 @@ using Neva.BeatEmUp.Gui.Controls.Components;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal sealed class BasicRadioButtonRenderer : Renderer<RadioButton>
+    public sealed class BasicRadioButtonRenderer : Renderer<RadioButton>
     {
         #region Vars
         private readonly ColorBox checkMarker;
@@ -27,11 +27,11 @@ namespace Neva.BeatEmUp.Gui.Controls.Renderers
 
             UpdateCheckMarkerVisibility();
 
-            owner.CheckedChanged += new GuiEventHandler<GuiEventArgs>(owner_CheckedChanged);
+            owner.Checkedd += new GuiEventHandler<GuiEventArgs>(owner_Checkedd);
         }
 
         #region Event handlers
-        private void owner_CheckedChanged(GuiEventArgs e, object sender)
+        private void owner_Checkedd(GuiEventArgs e, object sender)
         {
             UpdateCheckMarkerVisibility();
         }

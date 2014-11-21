@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Pathfinding.AStart
 {
-    internal sealed class AStarNode : INode
+    public sealed class AStarNode : INode
     {
         #region Vars
         private readonly Point size;

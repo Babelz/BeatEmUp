@@ -8,7 +8,7 @@ using Neva.BeatEmUp.Input.Trigger;
 
 namespace Neva.BeatEmUp.Input.Buffer
 {
-    internal sealed class KeyboardInputBuffer : InputBuffer
+    public sealed class KeyboardInputBuffer : InputBuffer
     {
         #region Vars
         private readonly KeyboardInputListener listener;

@@ -11,7 +11,7 @@ namespace Neva.BeatEmUp.RunTime
     /// <summary>
     /// Luokka jonka tehtävä on helpottaa komponenttien luontia.
     /// </summary>
-    internal sealed class ComponentCreator
+    public sealed class ComponentCreator
     {
         #region Static vars
         private static readonly object padLock = new object();

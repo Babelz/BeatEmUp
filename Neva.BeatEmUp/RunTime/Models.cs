@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.RunTime
 {
-    internal sealed class ObjectModel
+    public sealed class ObjectModel
     {
         #region Vars
         private readonly string key;
@@ -150,7 +150,7 @@ namespace Neva.BeatEmUp.RunTime
         }
     }
 
-    internal sealed class BehaviourModel
+    public sealed class BehaviourModel
     {
         #region Vars
         private readonly string name;

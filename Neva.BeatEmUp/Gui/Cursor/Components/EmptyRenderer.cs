@@ -10,7 +10,7 @@ namespace Neva.BeatEmUp.Gui.Cursor.Components
     /// <summary>
     /// Renderöijä joka ei piirrä mitään.
     /// </summary>
-    internal sealed class EmptyRenderer : CursorRenderer
+    public sealed class EmptyRenderer : CursorRenderer
     {
         public EmptyRenderer()
             : base()

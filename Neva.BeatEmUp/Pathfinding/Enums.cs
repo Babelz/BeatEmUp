@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Pathfinding
 {
-    internal enum NodeType
+    public enum NodeType
     {
         Walkable,
         Unwalkable

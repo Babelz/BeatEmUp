@@ -9,7 +9,7 @@ namespace Neva.BeatEmUp.RunTime
     /// <summary>
     /// Luokka joka lukee modelit XML model taulukosta.
     /// </summary>
-    internal sealed class ModelReader
+    public sealed class ModelReader
     {
         #region Vars
         // XML tiedoston koko nimi.

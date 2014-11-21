@@ -8,7 +8,7 @@ namespace Neva.BeatEmUp.Gui.Controls
     /// <summary>
     /// Perus container. Childien asettelu on relatiivinen.
     /// </summary>
-    internal sealed class Panel : Container
+    public sealed class Panel : Container
     {
         public Panel(Microsoft.Xna.Framework.Game game)
             : base(game)

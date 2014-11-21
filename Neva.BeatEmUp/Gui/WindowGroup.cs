@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui
 {
-    internal sealed class WindowGroup
+    public sealed class WindowGroup
     {
         #region Vars
         private readonly Dictionary<string, Window> windows;

@@ -25,6 +25,11 @@ namespace Neva.BeatEmUp.GameStates
             get;
             private set;
         }
+        public bool Initialized
+        {
+            get;
+            private set;
+        }
         #endregion
 
         public GameState(string name)
@@ -43,11 +48,21 @@ namespace Neva.BeatEmUp.GameStates
         {
         }
 
+        protected abstract void OnInitialize();
+
         public void Initialize(BeatEmUpGame game, GameStateManager gameStateManager)
         {
+            if (Initialized)
+            {
+                return;
+            }
+
             Game = game;
             GameStateManager = gameStateManager;
-            OnInitialize(game, gameStateManager);
+
+            OnInitialize();
+
+            Initialized = true;
         }
 
         public virtual void OnActivate()
@@ -56,8 +71,6 @@ namespace Neva.BeatEmUp.GameStates
         public virtual void OnDeactivate()
         {
         }
-
-        public abstract void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager);
 
         public abstract void Update(GameTime gameTime);
 

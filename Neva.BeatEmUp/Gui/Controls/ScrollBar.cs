@@ -9,11 +9,11 @@ using Neva.BeatEmUp.Gui.Controls.Components;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal sealed class ScrollBar : Control, IContainer
+    public sealed class ScrollBar : Control, IContainer
     {
         #region Event keys
-        private readonly object EventScrollValueChanged = new object();
-        private readonly object EventMaxValueChanged = new object();
+        private readonly object EventScrollValued = new object();
+        private readonly object EventMaxValued = new object();
         #endregion
 
         #region Vars
@@ -105,7 +105,7 @@ namespace Neva.BeatEmUp.Gui.Controls
                     int oldValue = maxValue;
                     maxValue = value;
 
-                    OnMaxValueChanged(new GuiScrollEventArgs(maxValue, oldValue), this);
+                    OnMaxValued(new GuiScrollEventArgs(maxValue, oldValue), this);
                 }
             }
         }
@@ -193,29 +193,29 @@ namespace Neva.BeatEmUp.Gui.Controls
         /// <summary>
         /// Laukaistaan kun scroll value muuttuu.
         /// </summary>
-        public event GuiEventHandler<GuiScrollEventArgs> ScrollValueChanged
+        public event GuiEventHandler<GuiScrollEventArgs> ScrollValued
         {
             add
             {
-                eventHandlers.AddHandler(EventScrollValueChanged, value);
+                eventHandlers.AddHandler(EventScrollValued, value);
             }
             remove
             {
-                eventHandlers.RemoveHandler(EventScrollValueChanged, value);
+                eventHandlers.RemoveHandler(EventScrollValued, value);
             }
         }
         /// <summary>
         /// Laukaistaan ku max value muuttuu.
         /// </summary>
-        public event GuiEventHandler<GuiScrollEventArgs> MaxValueChanged
+        public event GuiEventHandler<GuiScrollEventArgs> MaxValued
         {
             add
             {
-                eventHandlers.AddHandler(EventMaxValueChanged, value);
+                eventHandlers.AddHandler(EventMaxValued, value);
             }
             remove
             {
-                eventHandlers.RemoveHandler(EventMaxValueChanged, value);
+                eventHandlers.RemoveHandler(EventMaxValued, value);
             }
         }
         /// <summary>
@@ -433,7 +433,7 @@ namespace Neva.BeatEmUp.Gui.Controls
                 {
                     value = newValue;
 
-                    OnScrollValueChanged(new GuiScrollEventArgs(value, oldValue), this);
+                    OnScrollValued(new GuiScrollEventArgs(value, oldValue), this);
                 }
             }
         }
@@ -450,18 +450,18 @@ namespace Neva.BeatEmUp.Gui.Controls
         #endregion
 
         #region Event methods
-        private void OnScrollValueChanged(GuiScrollEventArgs e, object sender)
+        private void OnScrollValued(GuiScrollEventArgs e, object sender)
         {
-            GuiEventHandler<GuiScrollEventArgs> eventHandler = (GuiEventHandler<GuiScrollEventArgs>)eventHandlers[EventScrollValueChanged];
+            GuiEventHandler<GuiScrollEventArgs> eventHandler = (GuiEventHandler<GuiScrollEventArgs>)eventHandlers[EventScrollValued];
 
             if (eventHandler != null)
             {
                 eventHandler(e, sender);
             }
         }
-        private void OnMaxValueChanged(GuiScrollEventArgs e, object sender)
+        private void OnMaxValued(GuiScrollEventArgs e, object sender)
         {
-            GuiEventHandler<GuiScrollEventArgs> eventHandler = (GuiEventHandler<GuiScrollEventArgs>)eventHandlers[EventMaxValueChanged];
+            GuiEventHandler<GuiScrollEventArgs> eventHandler = (GuiEventHandler<GuiScrollEventArgs>)eventHandlers[EventMaxValued];
 
             if (eventHandler != null)
             {

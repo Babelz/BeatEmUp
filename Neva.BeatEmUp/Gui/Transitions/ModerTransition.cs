@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Neva.BeatEmUp.Gui.Transitions
 {
-    internal sealed class ModernTransition : Transition
+    public sealed class ModernTransition : Transition
     {
         #region Constants
         private const float VELOCITY_MODIFIER = 1f;

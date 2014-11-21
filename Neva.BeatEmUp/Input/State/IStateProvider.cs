@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Input.State
 {
-    internal interface IStateProvider
+    public interface IStateProvider
     {
         /// <summary>
         /// Päivittää statea

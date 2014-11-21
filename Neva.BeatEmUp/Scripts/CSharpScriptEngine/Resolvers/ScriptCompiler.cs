@@ -125,7 +125,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
                             .FirstOrDefault(a => a.GetType() == typeof(ScriptAttribute))
                             as ScriptAttribute;
 
-                        if (attribute != null && !attribute.IsInternal)
+                        if (attribute != null && !attribute.Ispublic)
                         {
                             string[] methods = scripts[i].GetMethods().Select<MethodInfo, string>(m => m.Name).ToArray();
                             string[] members = scripts[i].GetMembers().Select<MemberInfo, string>(m => m.Name).ToArray();

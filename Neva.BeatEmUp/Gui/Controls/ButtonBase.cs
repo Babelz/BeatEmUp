@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal abstract class ButtonBase : ContentControl
+    public abstract class ButtonBase : ContentControl
     {
         #region Constants
         protected const int MILLIS_FROM_PRESS_TO_DOWN = 500;

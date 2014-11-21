@@ -10,7 +10,7 @@ using Neva.BeatEmUp.Input.Trigger;
 
 namespace Neva.BeatEmUp.Input.Buffer
 {
-    internal class MouseInputBuffer : InputBuffer
+    public class MouseInputBuffer : InputBuffer
     {
         private readonly Func<MouseState, ButtonState>[] funcs = new Func<MouseState, ButtonState>[5];
 

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal abstract class Renderer<T> : IRenderer where T : Control
+    public abstract class Renderer<T> : IRenderer where T : Control
     {
         #region Vars
         private bool disposed;

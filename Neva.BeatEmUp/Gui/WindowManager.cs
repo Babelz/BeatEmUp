@@ -12,7 +12,7 @@ using Neva.BeatEmUp.Gui.Transitions;
 
 namespace Neva.BeatEmUp.Gui
 {
-    internal sealed class WindowManager : DrawableGameComponent
+    public sealed class WindowManager : DrawableGameComponent
     {
         #region Vars
         private readonly WindowGroup windowGroup;
@@ -96,7 +96,7 @@ namespace Neva.BeatEmUp.Gui
             }
         }
 
-        private void InternalChange(Window window)
+        private void ChangeWindow(Window window)
         {
             GuiWindowChangingEventArgs e = new GuiWindowChangingEventArgs(topmost, window);
 
@@ -211,7 +211,7 @@ namespace Neva.BeatEmUp.Gui
             {
                 this.transition = transition;
 
-                InternalChange(window);
+                ChangeWindow(window);
             }
         }
         public void MoveToFront(Window window, Transition transition = null)
@@ -220,7 +220,7 @@ namespace Neva.BeatEmUp.Gui
             {
                 this.transition = transition;
 
-                InternalChange(window);
+                ChangeWindow(window);
             }
         }
 
@@ -266,8 +266,7 @@ namespace Neva.BeatEmUp.Gui
         }
         public override void Draw(GameTime gameTime)
         {
-            if (!visible || spriteBatch == null || 
-               (transition == null && topmost == null))
+            if (!visible || spriteBatch == null || (transition == null && topmost == null))
             {
                 return;
             }

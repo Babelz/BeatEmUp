@@ -125,7 +125,7 @@ namespace BrashMonkeyContentPipelineExtension {
 
 
         /// <summary>
-        /// Internal helper class keeps track of a sprite while it is being arranged.
+        /// public helper class keeps track of a sprite while it is being arranged.
         /// </summary>
         class ArrangedSprite {
             public int Index;

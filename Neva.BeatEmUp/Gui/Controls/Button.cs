@@ -8,7 +8,7 @@ using Neva.BeatEmUp.Gui.Controls.Renderers;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal sealed class Button : ButtonBase
+    public sealed class Button : ButtonBase
     {
         #region Vars
         private readonly Label label;
@@ -73,15 +73,15 @@ namespace Neva.BeatEmUp.Gui.Controls
         #endregion
 
         #region Events
-        public event GuiEventHandler<GuiLayoutEventArgs> FontChanged
+        public event GuiEventHandler<GuiLayoutEventArgs> Fontd
         {
             add
             {
-                label.FontChanged += value;
+                label.Fontd += value;
             }
             remove
             {
-                label.FontChanged -= value;
+                label.Fontd -= value;
             }
         }
         #endregion

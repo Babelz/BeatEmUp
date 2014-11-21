@@ -75,11 +75,6 @@ namespace Neva.BeatEmUp.GameObjects
             }
             set
             {
-                if (game.ContainsBody(body))
-                {
-                    game.RemoveBody(body);
-                }
-
                 body = value;
             }
         }
@@ -162,7 +157,7 @@ namespace Neva.BeatEmUp.GameObjects
             componentManager = new ComponentManager(this);
             tags = new TagContainer();
 
-            string stateName = game.CurrentGameState == null ? "" : game.CurrentGameState.Name;
+            string stateName = game.StateManager.Current == null ? "" : game.StateManager.Current.Name;
             tags.AddTag(stateName);
 
             OnDestroy += delegate { };

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal sealed class ColorRenderer : Renderer<Control>
+    public sealed class ColorRenderer : Renderer<Control>
     {
         #region Vars
         private readonly Texture2D temp;

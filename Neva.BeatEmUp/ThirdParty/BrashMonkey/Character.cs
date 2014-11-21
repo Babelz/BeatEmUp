@@ -152,10 +152,10 @@ namespace BrashMonkeySpriter
             m_tx = p_model.Textures;
             m_rect = p_model.Rectangles;
 
-            ChangeAnimation(0);
+            Animation(0);
         }
 
-        public void ChangeAnimation(String p_name)
+        public void Animation(String p_name)
         {
             m_current = m_entity[p_name];
             m_renderList = new List<RenderMatrix>(m_current.MainLine[0].Body.Count);
@@ -163,7 +163,7 @@ namespace BrashMonkeySpriter
             m_elapsedTime = 0;
         }
 
-        public void ChangeAnimation(int p_index)
+        public void Animation(int p_index)
         {
             m_current = m_entity[p_index];
             m_renderList = new List<RenderMatrix>(m_current.MainLine[0].Body.Count);

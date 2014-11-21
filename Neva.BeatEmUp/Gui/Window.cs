@@ -14,7 +14,7 @@ namespace Neva.BeatEmUp.Gui
     /// <summary>
     /// Pohja kaikille käyttöliittymille. 
     /// </summary>
-    internal abstract class Window : ContentControl
+    public abstract class Window : ContentControl
     {
         #region Vars
         private bool initialized;

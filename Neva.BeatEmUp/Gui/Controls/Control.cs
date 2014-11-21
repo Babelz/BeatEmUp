@@ -12,7 +12,7 @@ using Neva.BeatEmUp.Gui.Cursor.Args;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal abstract class Control : IDisposable
+    public abstract class Control : IDisposable
     {
         #region Event keys
         private static readonly object EventKeyboardInput = new object();
@@ -31,7 +31,7 @@ namespace Neva.BeatEmUp.Gui.Controls
         private static readonly object EventLostFocus = new object();
         private static readonly object EventFocusableChanged = new object();
 
-        private static readonly object EventSizeChanged = new object();
+        private static readonly object EventSizedChanged = new object();
         private static readonly object EventPositionChanged = new object();
         private static readonly object EventParentChanged = new object();
         private static readonly object EventEnabledChanged = new object();
@@ -794,11 +794,11 @@ namespace Neva.BeatEmUp.Gui.Controls
         {
             add
             {
-                eventHandlers.AddHandler(EventSizeChanged, value);
+                eventHandlers.AddHandler(EventSizedChanged, value);
             }
             remove
             {
-                eventHandlers.RemoveHandler(EventSizeChanged, value);
+                eventHandlers.RemoveHandler(EventSizedChanged, value);
             }
         }
         public event GuiEventHandler<GuiLayoutEventArgs> PositionChanged
@@ -1083,7 +1083,7 @@ namespace Neva.BeatEmUp.Gui.Controls
         }
         protected virtual void OnSizeChanged(GuiLayoutEventArgs e, object sender)
         {
-            GuiEventHandler<GuiLayoutEventArgs> eventHandler = (GuiEventHandler<GuiLayoutEventArgs>)eventHandlers[EventSizeChanged];
+            GuiEventHandler<GuiLayoutEventArgs> eventHandler = (GuiEventHandler<GuiLayoutEventArgs>)eventHandlers[EventSizedChanged];
 
             if (eventHandler != null)
             {

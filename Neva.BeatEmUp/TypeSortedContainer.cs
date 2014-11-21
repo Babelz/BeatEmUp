@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp
 {
-    internal class TypeSortedContainer<T> where T : class
+    public class TypeSortedContainer<T> where T : class
     {
         #region Vars
         private readonly Dictionary<Type, List<T>> itemLists;

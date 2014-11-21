@@ -6,7 +6,7 @@ using Neva.BeatEmUp.GameObjects;
 
 namespace Neva.BeatEmUp
 {
-    internal sealed class GameObjectContainer : SafeTypeSortedContainer<GameObject>
+    public sealed class GameObjectContainer : SafeTypeSortedContainer<GameObject>
     {
         #region Vars
         private readonly GameObjectContainer backgroundObjects;

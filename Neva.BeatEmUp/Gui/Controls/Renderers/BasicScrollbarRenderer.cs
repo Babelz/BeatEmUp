@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal class BasicScrollbarRenderer : Renderer<ScrollBar>
+    public class BasicScrollbarRenderer : Renderer<ScrollBar>
     {
         #region Vars
         private readonly Texture2D temp;

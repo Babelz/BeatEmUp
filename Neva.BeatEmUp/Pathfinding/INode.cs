@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Pathfinding
 {
-    internal interface INode
+    public interface INode
     {
         #region Properties
         Point Position

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal sealed class DisortSpriteRenderer : Renderer<SpriteBox>
+    public sealed class DisortSpriteRenderer : Renderer<SpriteBox>
     {
         #region Vars
         private readonly float maxDisortX;

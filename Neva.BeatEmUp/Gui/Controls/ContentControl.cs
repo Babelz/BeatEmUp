@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal abstract class ContentControl : Control
+    public abstract class ContentControl : Control
     {
         #region Event keys
-        private static readonly object EventContentChanged = new object();
+        private static readonly object EventContentd = new object();
         #endregion
 
         #region Vars
@@ -51,23 +51,23 @@ namespace Neva.BeatEmUp.Gui.Controls
         #endregion
 
         #region Events
-        public event GuiEventHandler<GuiContentEventArgs> ContentChanged
+        public event GuiEventHandler<GuiContentEventArgs> Contentd
         {
             add
             {
-                eventHandlers.AddHandler(EventContentChanged, value);
+                eventHandlers.AddHandler(EventContentd, value);
             }
             remove
             {
-                eventHandlers.RemoveHandler(EventContentChanged, value);
+                eventHandlers.RemoveHandler(EventContentd, value);
             }
         }
         #endregion
 
         #region Event methods
-        protected virtual void OnContentChanged(GuiContentEventArgs e, object sender)
+        protected virtual void OnContentd(GuiContentEventArgs e, object sender)
         {
-            GuiEventHandler<GuiContentEventArgs> eventHandler = (GuiEventHandler<GuiContentEventArgs>)eventHandlers[EventContentChanged];
+            GuiEventHandler<GuiContentEventArgs> eventHandler = (GuiEventHandler<GuiContentEventArgs>)eventHandlers[EventContentd];
 
             if (eventHandler != null)
             {
@@ -189,7 +189,7 @@ namespace Neva.BeatEmUp.Gui.Controls
             }
 
             GuiContentEventArgs guiContentEventArgs = new GuiContentEventArgs(this.content, content);
-            OnContentChanged(guiContentEventArgs, this);
+            OnContentd(guiContentEventArgs, this);
 
             this.content = content;
 
@@ -214,7 +214,7 @@ namespace Neva.BeatEmUp.Gui.Controls
                 throw new InvalidGuiOperationException("Control has not content to release.");
             }
 
-            OnContentChanged(GuiContentEventArgs.Empty, this);
+            OnContentd(GuiContentEventArgs.Empty, this);
 
             if (contentControl != null)
             {

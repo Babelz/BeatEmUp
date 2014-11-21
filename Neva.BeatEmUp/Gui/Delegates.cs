@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui
 {
-    internal delegate void GuiEventHandler<T>(T e, object sender) where T : GuiEventArgs;
-    internal delegate void GuiComponentEventHandler<T>(T e, object sender) where T : GuiComponentEventArgs;
-    internal delegate void GuiWindowManagerEventHandler<T>(T e, object sender) where T : GuiWindowManagerEventArgs;
+    public delegate void GuiEventHandler<T>(T e, object sender) where T : GuiEventArgs;
+    public delegate void GuiComponentEventHandler<T>(T e, object sender) where T : GuiComponentEventArgs;
+    public delegate void GuiWindowManagerEventHandler<T>(T e, object sender) where T : GuiWindowManagerEventArgs;
 }

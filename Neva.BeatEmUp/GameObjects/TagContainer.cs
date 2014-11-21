@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameObjects
 {
-    internal sealed class TagContainer
+    public sealed class TagContainer
     {
         #region Vars
         private readonly HashSet<string> tags;

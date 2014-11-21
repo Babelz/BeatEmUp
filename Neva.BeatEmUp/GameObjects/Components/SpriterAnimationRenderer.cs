@@ -113,9 +113,9 @@ namespace Neva.BeatEmUp.GameObjects.Components
             animator.Draw(spriteBatch);
         }
 
-        public void ChangeAnimation(string name)
+        public void Animation(string name)
         {
-            animator.ChangeAnimation(name);
+            animator.Animation(name);
         }
     }
 }

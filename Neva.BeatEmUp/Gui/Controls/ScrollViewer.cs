@@ -10,10 +10,10 @@ using System.IO;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal sealed class ScrollViewer : ContentControl, IContainer
+    public sealed class ScrollViewer : ContentControl, IContainer
     {
         #region Event keys
-        private readonly object EventViewChanged = new object();
+        private readonly object EventViewd = new object();
         private readonly object EventViewMoved = new object();
         #endregion
 
@@ -98,7 +98,7 @@ namespace Neva.BeatEmUp.Gui.Controls
         #region Event methods
         private void OnViewChanged(GuiLayoutEventArgs e, object sender)
         {
-            GuiEventHandler<GuiLayoutEventArgs> eventHanlder = (GuiEventHandler<GuiLayoutEventArgs>)eventHandlers[EventViewChanged];
+            GuiEventHandler<GuiLayoutEventArgs> eventHanlder = (GuiEventHandler<GuiLayoutEventArgs>)eventHandlers[EventViewd];
 
             if (eventHanlder != null)
             {

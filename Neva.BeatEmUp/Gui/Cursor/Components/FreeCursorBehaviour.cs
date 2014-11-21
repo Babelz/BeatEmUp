@@ -9,7 +9,7 @@ using Neva.BeatEmUp.Gui.Cursor.Args;
 
 namespace Neva.BeatEmUp.Gui.Cursor.Components
 {
-    internal class FreeCursorBehaviour : CursorBehaviour
+    public class FreeCursorBehaviour : CursorBehaviour
     {
         public FreeCursorBehaviour(Window owner, Vector2 cursorPosition, Vector2 cursorSize)
             : base(owner, cursorPosition, cursorSize)

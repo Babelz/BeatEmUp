@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui.Controls.Components
 {
-    internal sealed class Padding
+    public sealed class Padding
     {
         #region Properties
         public float Left

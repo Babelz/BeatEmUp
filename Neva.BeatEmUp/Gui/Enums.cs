@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui
 {
-    internal enum InputSource
+    public enum InputSource
     {
         Gamepad,
         Mouse,
         Keyboard
     }
 
-    internal enum SizeValueType
+    public enum SizeValueType
     {
         /// <summary>
         /// Koko tulee asettaa pikseleinä.
@@ -27,7 +27,7 @@ namespace Neva.BeatEmUp.Gui
     /// <summary>
     /// Kontrollin asettelu horisontaalisesti (X)
     /// </summary>
-    internal enum Horizontal
+    public enum Horizontal
     {
         /// <summary>
         /// Asettelu vasemmalta.
@@ -50,7 +50,7 @@ namespace Neva.BeatEmUp.Gui
     /// <summary>
     /// Kontrollin asettelu vertikaalisesti (Y)
     /// </summary>
-    internal enum Vertical
+    public enum Vertical
     {
         /// <summary>
         /// Asettelu ylhäältä alas.
@@ -73,7 +73,7 @@ namespace Neva.BeatEmUp.Gui
     /// <summary>
     /// Kontrollin sijainnin tyyppi.
     /// </summary>
-    internal enum Positioning
+    public enum Positioning
     {
         /// <summary>
         /// Absoluuttinen, sijanti voidaan määritellä itse.
@@ -89,7 +89,7 @@ namespace Neva.BeatEmUp.Gui
     /// Voiko kontrollin kokoa muokata jos sijainnin määrittely
     /// on relatiivinen.
     /// </summary>
-    internal enum SizeBehaviour
+    public enum SizeBehaviour
     {
         /// <summary>
         /// Leveys voidaan ylikirjoitetaan.
@@ -109,13 +109,13 @@ namespace Neva.BeatEmUp.Gui
         NoOverwrites 
     }
 
-    internal enum ScrollbarType
+    public enum ScrollbarType
     {
         Horizontal,
         Vertical
     }
 
-    internal enum MouseButtons
+    public enum MouseButtons
     {
         LeftButton = 0,
         RightButton,
@@ -124,7 +124,7 @@ namespace Neva.BeatEmUp.Gui
         XButton2
     }
 
-    internal enum Direction
+    public enum Direction
     {
         Left,
         Right,

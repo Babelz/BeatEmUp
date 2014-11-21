@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal sealed class ScrollThumb : Control
+    public sealed class ScrollThumb : Control
     {
         #region Vars
         private readonly ScrollbarType type;
@@ -24,11 +24,11 @@ namespace Neva.BeatEmUp.Gui.Controls
 
             renderer = new BasicScrollThumbRenderer(game, this);
 
-            ParentChanged += new GuiEventHandler<GuiParentEventArgs>(ScrollThumb_ParentChanged);
+            ParentChanged += new GuiEventHandler<GuiParentEventArgs>(ScrollThumb_Parentd);
         }
 
         #region Event handlers
-        private void ScrollThumb_ParentChanged(GuiParentEventArgs e, object sender)
+        private void ScrollThumb_Parentd(GuiParentEventArgs e, object sender)
         {
             ScrollBar scrollbar = Parent as ScrollBar;
 
@@ -37,15 +37,15 @@ namespace Neva.BeatEmUp.Gui.Controls
                 return;
             }
 
-            scrollbar.ScrollValueChanged += new GuiEventHandler<GuiScrollEventArgs>(scrollbar_ScrollValueChanged);
-            scrollbar.MaxValueChanged += new GuiEventHandler<GuiScrollEventArgs>(scrollbar_MaxValueChanged);
+            scrollbar.ScrollValued += new GuiEventHandler<GuiScrollEventArgs>(scrollbar_ScrollValued);
+            scrollbar.MaxValued += new GuiEventHandler<GuiScrollEventArgs>(scrollbar_MaxValued);
         }
-        private void scrollbar_MaxValueChanged(GuiScrollEventArgs e, object sender)
+        private void scrollbar_MaxValued(GuiScrollEventArgs e, object sender)
         {
             CalculateStep(e.Value);
             CalculateSize();
         }
-        private void scrollbar_ScrollValueChanged(GuiScrollEventArgs e, object sender)
+        private void scrollbar_ScrollValued(GuiScrollEventArgs e, object sender)
         {
             CalculatePosition(e.Value);
             CalculateSize();

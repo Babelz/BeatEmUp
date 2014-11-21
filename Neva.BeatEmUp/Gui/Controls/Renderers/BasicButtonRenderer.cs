@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal sealed class BasicButtonRenderer : Renderer<Button>
+    public sealed class BasicButtonRenderer : Renderer<Button>
     {
         #region Vars
         private Texture2D texture;

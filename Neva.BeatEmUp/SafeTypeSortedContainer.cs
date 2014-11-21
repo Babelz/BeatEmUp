@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp
 {
-    internal class SafeTypeSortedContainer<T> : TypeSortedContainer<T> where T : class
+    public class SafeTypeSortedContainer<T> : TypeSortedContainer<T> where T : class
     {
         #region Vars
         private readonly List<T> safeAddQue;

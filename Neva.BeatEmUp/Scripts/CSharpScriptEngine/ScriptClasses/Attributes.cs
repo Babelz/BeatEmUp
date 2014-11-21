@@ -8,7 +8,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
     public class ScriptAttribute : Attribute
     {
         #region Vars
-        private readonly bool isInternal;
+        private readonly bool ispublic;
         #endregion
 
         #region Properties
@@ -18,19 +18,19 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
         /// olemassa olevaksi tyypiksi. Hidastaa kääntämis prosessia joten
         /// on suositeltavaa että tätä flägiä käytetään vain kun on tarve.
         /// </summary>
-        public bool IsInternal
+        public bool Ispublic
         {
             get
             {
-                return isInternal;
+                return ispublic;
             }
         }
         #endregion
 
-        public ScriptAttribute(bool isInternal)
+        public ScriptAttribute(bool ispublic)
             : base()
         {
-            this.isInternal = isInternal;
+            this.ispublic = ispublic;
         }
     }
 }

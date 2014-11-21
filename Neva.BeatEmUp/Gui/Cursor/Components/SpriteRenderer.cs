@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Neva.BeatEmUp.Gui.Cursor.Components
 {
-    internal sealed class SpriteRenderer : CursorRenderer
+    public sealed class SpriteRenderer : CursorRenderer
     {
         #region Vars
         private readonly Sprite sprite;

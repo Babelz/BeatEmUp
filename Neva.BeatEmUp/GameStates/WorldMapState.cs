@@ -18,7 +18,7 @@ namespace Neva.BeatEmUp.GameStates
     /// <summary>
     /// TODO: tee niin että pelaaja liikkuu reittiä pitkin.
     /// </summary>
-    internal sealed class WorldMapState : GameState
+    public sealed class WorldMapState : GameState
     {
         #region Vars
         private List<GameObject> mapNodes;
@@ -112,7 +112,7 @@ namespace Neva.BeatEmUp.GameStates
             Game.EnableSortedDraw();
 
             GameplayState gameplayState = new GameplayState(currentNode.FirstBehaviourOfType<MapNode>().MapName);
-            GameStateManager.Change(gameplayState);
+            GameStateManager.ChangeState(gameplayState);
         }
 
         private void HandleMovement(InputEventArgs args, Predicate<GameObject> predicate)
@@ -229,7 +229,7 @@ namespace Neva.BeatEmUp.GameStates
             selector.FirstBehaviourOfType<SelectorBehaviour>().Destination = selector.Position;
         }
 
-        public override void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager)
+        protected override void OnInitialize()
         {
             Game.DisableSortedDraw();
 

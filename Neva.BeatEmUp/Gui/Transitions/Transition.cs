@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Neva.BeatEmUp.Gui.Transitions
 {
-    internal abstract class Transition
+    public abstract class Transition
     {
         #region Vars
         private Window current;

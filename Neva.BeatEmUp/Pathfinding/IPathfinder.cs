@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Pathfinding
 {
-    internal interface IPathfinder<T> where T : INode
+    public interface IPathfinder<T> where T : INode
     {
         #region Properties
         bool SkipCorners

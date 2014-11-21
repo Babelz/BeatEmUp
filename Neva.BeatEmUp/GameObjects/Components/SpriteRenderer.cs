@@ -112,11 +112,11 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
         }
 
-        protected override void OnPositionXChanged(float newX)
+        protected override void OnPositionXd(float newX)
         {
             sprite.X = newX;
         }
-        protected override void OnPositionYChanged(float newY)
+        protected override void OnPositionYd(float newY)
         {
             sprite.Y = newY;
         }

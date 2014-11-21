@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui
 {
-    internal struct FRectangle
+    public struct FRectangle
     {
         #region Vars
         private readonly float x;
@@ -144,7 +144,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal struct Brush
+    public struct Brush
     {
         #region Vars
         private readonly Color foreground;
@@ -221,7 +221,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal struct Alignment
+    public struct Alignment
     {
         #region Vars
         private Horizontal horizontal;

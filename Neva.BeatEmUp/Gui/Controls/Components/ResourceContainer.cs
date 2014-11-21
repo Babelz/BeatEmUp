@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui.Controls.Components
 {
-    internal sealed class ResourceContainer 
+    public sealed class ResourceContainer 
     {
         #region Vars
         private readonly Dictionary<string, object> states;

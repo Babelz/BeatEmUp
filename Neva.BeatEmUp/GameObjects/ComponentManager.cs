@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameObjects
 {
-    internal sealed class ComponentManager
+    public sealed class ComponentManager
     {
         #region Vars
         private readonly GameObject owner;

@@ -56,12 +56,14 @@ namespace Neva.BeatEmUp.Behaviours
         #region Event handlers
         private void mapComponent_SceneFinished(object sender, MapComponentEventArgs e)
         {
-            goal += Owner.Game.Window.ClientBounds.Width;
+            SpriteRenderer currentTop = Owner.FindComponent<SpriteRenderer>(r => r.Name == "TopRenderer");
+
+            goal += currentTop.Size.X;
 
             MapComponent mapComponent = Owner.FirstComponentOfType<MapComponent>();
 
             // Scenet loppuivat, kartta on suoritettu.
-            if (!mapComponent.TryToChangeScene())
+            if (!mapComponent.TryToScene())
             {
                 return;
             }
@@ -95,7 +97,7 @@ namespace Neva.BeatEmUp.Behaviours
             left.Hide();
 #endif
             GameObject player = Owner.Game.FindGameObject(g => g.Name == "Player");
-            GoalDetector goalDetector = new GoalDetector(player, new Vector2(goal + Owner.Game.Window.ClientBounds.Width * 0.5f, 0.0f));
+            GoalDetector goalDetector = new GoalDetector(player, new Vector2(goal + currentTop.Size.X * 0.5f, 0.0f));
 
             player.AddComponent(goalDetector);
 
@@ -120,7 +122,7 @@ namespace Neva.BeatEmUp.Behaviours
 
             Owner.InitializeComponents();
 
-            area = new Rectangle(area.X, area.Y, area.Width * 2, area.Height);
+            area = new Rectangle(area.X, area.Y, area.Width + (int)goal, area.Height);
         }
         private void mapComponent_MapFinished(object sender, MapComponentEventArgs e)
         {
@@ -221,7 +223,7 @@ namespace Neva.BeatEmUp.Behaviours
 #endif
 
             Owner.Game.AddGameObject(wall);
-            Owner.Game.AddBody(wall.Body);
+            Owner.Game.World.CreateBody(wall.Body);
 
             return wall;
         }

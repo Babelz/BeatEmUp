@@ -7,7 +7,7 @@ using Neva.BeatEmUp.GameObjects;
 
 namespace Neva.BeatEmUp.Collision.Narrowphase
 {
-    internal class SeparatingAxisTheorem : INarrowphase
+    public class SeparatingAxisTheorem : INarrowphase
     {
         private readonly List<ICollisionSolver> solvers;
 

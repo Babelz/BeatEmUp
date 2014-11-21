@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Pathfinding.AStart
 {
-    internal sealed class AStarGrid : NodeGrid<AStarNode>
+    public sealed class AStarGrid : NodeGrid<AStarNode>
     {
         public AStarGrid(Point position, Point nodeSize, Point gridSize)
             : base(position, nodeSize, gridSize)

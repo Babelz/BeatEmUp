@@ -11,7 +11,7 @@ using Neva.BeatEmUp.Gui.Controls;
 
 namespace Neva.BeatEmUp.Gui.Cursor
 {
-    internal sealed class GuiCursor
+    public sealed class GuiCursor
     {
         #region Vars
         private readonly CursorBehaviour behaviour;

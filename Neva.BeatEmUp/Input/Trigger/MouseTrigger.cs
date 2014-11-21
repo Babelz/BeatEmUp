@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Input.Trigger
 {
-    internal class MouseTrigger : ITrigger
+    public class MouseTrigger : ITrigger
     {
         private readonly MouseButtons button;
 

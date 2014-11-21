@@ -9,7 +9,7 @@ namespace Neva.BeatEmUp.Gui.Controls
     /// Rajapinta kontrollille joka voi omistaa muita kontrolleja.
     /// Jos childeille halutaan antaa focus, tulee tämä rajapinta periä.
     /// </summary>
-    internal interface IContainer
+    public interface IContainer
     {
         IEnumerable<Control> Childs();
     }

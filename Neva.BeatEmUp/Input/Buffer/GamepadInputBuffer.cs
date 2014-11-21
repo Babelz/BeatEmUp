@@ -8,7 +8,7 @@ using Neva.BeatEmUp.Input.Trigger;
 
 namespace Neva.BeatEmUp.Input.Buffer
 {
-    internal sealed class GamepadInputBuffer : InputBuffer
+    public sealed class GamepadInputBuffer : InputBuffer
     {
 
         #region Vars

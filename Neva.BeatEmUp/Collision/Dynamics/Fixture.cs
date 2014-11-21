@@ -10,7 +10,7 @@ namespace Neva.BeatEmUp.Collision.Dynamics
     /// Yhdistää bodyn ja shapen
     /// TODO: Tähän vaihdetaan joskus
     /// </summary>
-    internal class Fixture
+    public class Fixture
     {
         #region Vars
 

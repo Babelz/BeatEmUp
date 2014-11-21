@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls.Components
 {
-    internal sealed class ControlRenderTarget : IDisposable
+    public sealed class ControlRenderTarget : IDisposable
     {
         #region Vars
         private readonly Microsoft.Xna.Framework.Game game;
@@ -33,13 +33,13 @@ namespace Neva.BeatEmUp.Gui.Controls.Components
             this.game = game;
             this.owner = owner;
 
-            owner.SizeChanged += new GuiEventHandler<GuiLayoutEventArgs>(owner_SizeChanged);
+            owner.SizeChanged += new GuiEventHandler<GuiLayoutEventArgs>(owner_Sized);
 
             UpdateTarget();
         }
 
         #region Event handlers
-        private void owner_SizeChanged(GuiLayoutEventArgs e, object sender)
+        private void owner_Sized(GuiLayoutEventArgs e, object sender)
         {
             UpdateTarget();
         }
@@ -94,7 +94,7 @@ namespace Neva.BeatEmUp.Gui.Controls.Components
                     target.Dispose();
                 }
 
-                owner.SizeChanged -= owner_SizeChanged;
+                owner.SizeChanged -= owner_Sized;
                 GC.SuppressFinalize(this);
 
                 disposed = true;

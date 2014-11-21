@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui.Controls.Components
 {
-    internal sealed class ChildCollection
+    public sealed class ChildCollection
     {
         #region Vars
         private readonly List<Control> childs;

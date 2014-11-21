@@ -8,10 +8,10 @@ using Neva.BeatEmUp.Gui.Controls.Renderers;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal class Label : Control
+    public class Label : Control
     {
         #region Event keys
-        private static readonly object EventFontChanged = new object();
+        private static readonly object EventFontd = new object();
         #endregion
 
         #region Vars
@@ -31,7 +31,7 @@ namespace Neva.BeatEmUp.Gui.Controls
                 {
                     font = value;
 
-                    OnFontChanged(GuiLayoutEventArgs.Empty, this);
+                    OnFontd(GuiLayoutEventArgs.Empty, this);
                 }
             }
         }
@@ -45,15 +45,15 @@ namespace Neva.BeatEmUp.Gui.Controls
         #endregion
 
         #region Events
-        public event GuiEventHandler<GuiLayoutEventArgs> FontChanged
+        public event GuiEventHandler<GuiLayoutEventArgs> Fontd
         {
             add
             {
-                eventHandlers.AddHandler(EventFontChanged, value);
+                eventHandlers.AddHandler(EventFontd, value);
             }
             remove
             {
-                eventHandlers.RemoveHandler(EventFontChanged, value);
+                eventHandlers.RemoveHandler(EventFontd, value);
             }
         }
         #endregion
@@ -67,9 +67,9 @@ namespace Neva.BeatEmUp.Gui.Controls
         }
 
         #region Event methods
-        protected virtual void OnFontChanged(GuiLayoutEventArgs e, object sender)
+        protected virtual void OnFontd(GuiLayoutEventArgs e, object sender)
         {
-            GuiEventHandler<GuiLayoutEventArgs> eventHandler = (GuiEventHandler<GuiLayoutEventArgs>)eventHandlers[EventFontChanged];
+            GuiEventHandler<GuiLayoutEventArgs> eventHandler = (GuiEventHandler<GuiLayoutEventArgs>)eventHandlers[EventFontd];
 
             if (eventHandler != null)
             {

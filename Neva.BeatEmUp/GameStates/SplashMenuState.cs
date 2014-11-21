@@ -50,11 +50,11 @@ namespace Neva.BeatEmUp.GameStates
             skip = true;
         }
 
-        public override void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager)
+        protected override void OnInitialize()
         {
-            keyboardListener = game.KeyboardListener;
+            keyboardListener = Game.KeyboardListener;
 
-            gamepadListenenr = game.GamepadListeners.FirstOrDefault(l => l.IsConnected);
+            gamepadListenenr = Game.GamepadListeners.FirstOrDefault(l => l.IsConnected);
 
             if (gamepadListenenr != null)
             {
@@ -67,9 +67,9 @@ namespace Neva.BeatEmUp.GameStates
                 }
             }
 
-            textures.Add(game.Content.Load<Texture2D>("team"));
-            textures.Add(game.Content.Load<Texture2D>("neva"));
-            textures.Add(game.Content.Load<Texture2D>("game"));
+            textures.Add(Game.Content.Load<Texture2D>("team"));
+            textures.Add(Game.Content.Load<Texture2D>("neva"));
+            textures.Add(Game.Content.Load<Texture2D>("game"));
 
             alpha = 255;
 
@@ -102,11 +102,7 @@ namespace Neva.BeatEmUp.GameStates
 
                 if (current == null || skip)
                 {
-                    TransitionPlayer transitionPlayer = new TransitionPlayer();
-                    transitionPlayer.AddTransition(new Fade(Color.Black, Game.Content.Load<Texture2D>("blank"), Game.Window.ClientBounds, FadeType.In, 3));
-                    transitionPlayer.AddTransition(new Fade(Color.Black, Game.Content.Load<Texture2D>("blank"), Game.Window.ClientBounds, FadeType.Out, 3));
-                    
-                    GameStateManager.Change(new MainMenuState(), transitionPlayer);
+                    GameStateManager.ChangeState(new MainMenuState());
 
                     keyboardListener.RemoveMapping("Skip");
 

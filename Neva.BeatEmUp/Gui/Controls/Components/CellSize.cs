@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui.Controls.Components
 {
-    internal sealed class CellSize
+    public sealed class CellSize
     {
         #region Vars
         private readonly int index;

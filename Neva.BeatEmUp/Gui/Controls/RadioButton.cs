@@ -6,10 +6,10 @@ using Neva.BeatEmUp.Gui.Controls.Renderers;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal sealed class RadioButton : ButtonBase
+    public sealed class RadioButton : ButtonBase
     {
         #region Event keys
-        private static readonly object EventCheckedChanged = new object();
+        private static readonly object EventCheckedd = new object();
         #endregion
 
         #region Vars
@@ -27,15 +27,15 @@ namespace Neva.BeatEmUp.Gui.Controls
         #endregion
 
         #region Events
-        public event GuiEventHandler<GuiEventArgs> CheckedChanged
+        public event GuiEventHandler<GuiEventArgs> Checkedd
         {
             add
             {
-                eventHandlers.AddHandler(EventCheckedChanged, value);
+                eventHandlers.AddHandler(EventCheckedd, value);
             }
             remove
             {
-                eventHandlers.RemoveHandler(EventCheckedChanged, value);
+                eventHandlers.RemoveHandler(EventCheckedd, value);
             }
         }
         #endregion
@@ -47,9 +47,9 @@ namespace Neva.BeatEmUp.Gui.Controls
         }
 
         #region Event methods
-        private void OnCheckedChanged(GuiEventArgs e, object sender)
+        private void OnCheckedd(GuiEventArgs e, object sender)
         {
-            GuiEventHandler<GuiEventArgs> eventHandler = (GuiEventHandler<GuiEventArgs>)eventHandlers[EventCheckedChanged];
+            GuiEventHandler<GuiEventArgs> eventHandler = (GuiEventHandler<GuiEventArgs>)eventHandlers[EventCheckedd];
 
             if (eventHandler != null)
             {
@@ -66,7 +66,7 @@ namespace Neva.BeatEmUp.Gui.Controls
         {
             checkedValue = !checkedValue;
 
-            OnCheckedChanged(GuiEventArgs.Empty, this);
+            OnCheckedd(GuiEventArgs.Empty, this);
         }
     }
 }

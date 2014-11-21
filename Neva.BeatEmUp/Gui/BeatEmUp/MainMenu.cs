@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameStates.Transitions;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.GameStates;
 using Neva.BeatEmUp.Gui.Controls;
@@ -10,7 +11,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui.BeatEmUp
 {
-    internal sealed class MainMenu : Window
+    public sealed class MainMenu : Window
     {
         #region Vars
         private SpriteBox background;
@@ -37,7 +38,7 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             SpriteFont font = game.Content.Load<SpriteFont>("default");
 
             background = new SpriteBox(game);
-            
+
             background.Renderer = new DisortSpriteRenderer(background,
                 minX: -10.0f,
                 maxX: 10.0f,
@@ -151,25 +152,23 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             }
         }
 
-       private void start_ButtonPressed(GuiButtonEventArgs e, object sender)
+        private void start_ButtonPressed(GuiButtonEventArgs e, object sender)
         {
-            GameStateManager gameStateManager = game.Components.First(c => c.GetType() == typeof(GameStateManager))
-                as GameStateManager;
+            BeatEmUpGame game = this.game as BeatEmUpGame;
 
-            gameStateManager.Change(new WorldMapState());
+            GameStateManager gameStateManager = game.StateManager;
 
-            WindowManager windowMananger = game.Components.First(c => c.GetType() == typeof(WindowManager))
-                as WindowManager;
+            gameStateManager.ChangeState(new WorldMapState());
 
-            windowMananger.RemoveWindow("Main");
+            game.WindowManager.RemoveWindow("Main");
         }
 
-       void start_MouseButtonDown(GuiCursorInputEventArgs e, object sender)
-       {
-           if (e.PressedButtons.Contains(MouseButtons.LeftButton))
-           {
-               start.Press();
-           }
-       }
+        void start_MouseButtonDown(GuiCursorInputEventArgs e, object sender)
+        {
+            if (e.PressedButtons.Contains(MouseButtons.LeftButton))
+            {
+                start.Press();
+            }
+        }
     }
 }

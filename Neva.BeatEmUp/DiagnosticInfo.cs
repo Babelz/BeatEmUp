@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp
 {
-    internal class DiagnosticInfo
+    public class DiagnosticInfo
     {
         public string Description { get; set; }
 

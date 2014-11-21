@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Cursor.Args
 {
-    internal sealed class CursorInputArgs
+    public sealed class CursorInputArgs
     {
         #region Statics
         private static readonly Buttons[] allGamePadButtons;

@@ -32,23 +32,23 @@ namespace Neva.BeatEmUp.Behaviours
         #region Input maps
         private void MoveLeft(InputEventArgs args)
         {
-            ChangeWalkAnimation(args);
+            WalkAnimation(args);
             Owner.FirstComponentOfType<SpriterAnimationRenderer>().FlipX = true;
             Owner.Body.Velocity = new Vector2(VelocityFunc(-speed, args), Owner.Body.Velocity.Y);
         }
         private void MoveDown(InputEventArgs args)
         {
-            ChangeWalkAnimation(args);
+            WalkAnimation(args);
             Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(speed, args));
         }
         private void MoveUp(InputEventArgs args)
         {
-            ChangeWalkAnimation(args);
+            WalkAnimation(args);
             Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(-speed, args));
         }
         private void MoveRight(InputEventArgs args)
         {
-            ChangeWalkAnimation(args);
+            WalkAnimation(args);
             Owner.FirstComponentOfType<SpriterAnimationRenderer>().FlipX = false;
             Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
         }
@@ -84,7 +84,7 @@ namespace Neva.BeatEmUp.Behaviours
 
         #region Util
 
-        private void ChangeWalkAnimation(InputEventArgs args)
+        private void WalkAnimation(InputEventArgs args)
         {
             if (args.InputState == InputState.Pressed)
             {
@@ -92,7 +92,7 @@ namespace Neva.BeatEmUp.Behaviours
 
                 if (spriter.CurrentAnimation.Name != "walk")
                 {
-                    spriter.ChangeAnimation("walk");
+                    spriter.Animation("walk");
                 }
             }
         }
@@ -123,7 +123,7 @@ namespace Neva.BeatEmUp.Behaviours
 
             Owner.InitializeComponents();
 
-            spriterRenderer.ChangeAnimation("idle");
+            spriterRenderer.Animation("idle");
             spriterRenderer.Scale = 0.4f;
         }
 
@@ -133,7 +133,7 @@ namespace Neva.BeatEmUp.Behaviours
 
             if (spriterRenderer.CurrentAnimation.Name != "idle" && Owner.Body.Velocity == Vector2.Zero)
             {
-                spriterRenderer.ChangeAnimation("idle");
+                spriterRenderer.Animation("idle");
             }
         }
     }

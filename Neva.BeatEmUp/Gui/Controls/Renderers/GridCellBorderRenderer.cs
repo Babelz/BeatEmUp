@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal sealed class GridCellBorderRenderer : Renderer<GridCell>
+    public sealed class GridCellBorderRenderer : Renderer<GridCell>
     {       
         #region Vars
         private readonly Texture2D temp;

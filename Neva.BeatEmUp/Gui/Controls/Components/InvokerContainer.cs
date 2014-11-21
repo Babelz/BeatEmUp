@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls.Components
 {
-    internal sealed class InvokerContainer
+    public sealed class InvokerContainer
     {
         #region Vars
         private readonly List<Tuple<string, Func<GameTime, bool>>> funcs;

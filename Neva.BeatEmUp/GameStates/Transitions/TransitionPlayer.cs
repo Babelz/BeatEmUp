@@ -22,12 +22,16 @@ namespace GameStates.Transitions
         private bool running;
         #endregion
 
+        #region Events
+        public event TransitionPlayerEventHandler TransitionFininshed;
+        #endregion
+
         #region Properties
         public GameState Current
         {
             set
             {
-                if (currentGameState != null)
+                if (currentGameState == null)
                 {
                     currentGameState = value;
                 }
@@ -37,7 +41,7 @@ namespace GameStates.Transitions
         {
             set
             {
-                if (nextGameState != null)
+                if (nextGameState == null)
                 {
                     nextGameState = value;
                 }
@@ -62,29 +66,36 @@ namespace GameStates.Transitions
         public TransitionPlayer()
         {
             transitions = new List<StateTransition>();
+
+            TransitionFininshed += delegate { };
         }
 
         private bool PlayingLastTransition()
         {
-            return transitions.IndexOf(currentTransition) + 1 > transitions.Count;
+            return transitions.IndexOf(currentTransition) + 1 >= transitions.Count;
         }
         private StateTransition GetNextTransition()
         {
             int index = transitions.IndexOf(currentTransition);
 
-            if (currentTransition != null && !PlayingLastTransition())
+            if (currentTransition != null && PlayingLastTransition())
             {
                 isFininshed = true;
 
                 return null;
             }
 
+            TransitionFininshed(this, new TransitionPlayerEventArgs(currentTransition));
+
             StateTransition next = transitions[index + 1];
             next.LastTransition = currentTransition;
 
             if (!PlayingLastTransition())
             {
-                next.NextTransition = transitions[index + 2];
+                if (index + 2 < transitions.Count)
+                {
+                    next.NextTransition = transitions[index + 2];
+                }
             }
 
             next.Start();
@@ -125,6 +136,8 @@ namespace GameStates.Transitions
             {
                 currentTransition.NextTransition = transitions[1];
             }
+
+            currentTransition.Start();
         }
         public void Stop()
         {

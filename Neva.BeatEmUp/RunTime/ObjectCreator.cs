@@ -15,7 +15,7 @@ namespace Neva.BeatEmUp.RunTime
     /// <summary>
     /// Luokka joka lukee XML model taulukkoa ja luo sen perusteella peli objekteja.
     /// </summary>
-    internal sealed class ObjectCreator
+    public sealed class ObjectCreator
     {
         #region Vars
         // Modelit jotka on luettu modeli taulukosta.

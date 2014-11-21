@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Collision
 {
-    internal static class SaNiMath
+    public static class SaNiMath
     {
         // rotate
         public static Vector2 Multiply(ref Rotation r, ref Vector2 v)

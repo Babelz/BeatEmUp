@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal interface IRenderer : IDisposable
+    public interface IRenderer : IDisposable
     {
         #region Properties
         bool Disposed

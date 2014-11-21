@@ -17,7 +17,7 @@ namespace BrashMonkeyContentPipelineExtension {
     /// 
     /// This should be part of a Content Pipeline Extension Library project.
     /// 
-    /// TODO: change the ContentImporter attribute to specify the correct file
+    /// TODO:  the ContentImporter attribute to specify the correct file
     /// extension, display name, and default processor for this importer.
     /// </summary>
     public class SpriterImporter {

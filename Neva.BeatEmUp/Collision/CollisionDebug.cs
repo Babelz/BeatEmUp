@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Collision
 {
-    internal class CollisionDebug
+    public class CollisionDebug
     {
         public static int BroadphaseDetections = 0;
         

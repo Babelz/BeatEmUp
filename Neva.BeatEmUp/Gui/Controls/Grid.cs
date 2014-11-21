@@ -7,7 +7,7 @@ using Neva.BeatEmUp.Gui.Controls.Components;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal sealed class Grid : Container
+    public sealed class Grid : Container
     {
         #region Vars
         // Kontrollit joita ei voi lisätä gridiin koska solut puuttuvat.
@@ -430,7 +430,7 @@ namespace Neva.BeatEmUp.Gui.Controls
         /// sen indeksi voidaan vaihtaa.
         /// </summary>
         /// <param name="control">Kontrolli jonka indeksi halutaan asettaa.</param>>
-        public void ChangeCell(Control control, int row, int column)
+        public void Cell(Control control, int row, int column)
         {
             List<Control> cellControlList = GetCellControlList(row, column);
             GridCell gridCell = cells[row][column];
@@ -452,7 +452,7 @@ namespace Neva.BeatEmUp.Gui.Controls
             }
             else
             {
-                throw new InvalidGuiOperationException("Control must be added before its index can be changed.");
+                throw new InvalidGuiOperationException("Control must be added before its index can be d.");
             }
         }
         /// <summary>

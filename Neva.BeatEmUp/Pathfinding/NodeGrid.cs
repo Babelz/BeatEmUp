@@ -11,7 +11,7 @@ namespace Neva.BeatEmUp.Pathfinding
     /// Simppeli ja abstrakti implementaatio gridistä.
     /// </summary>
     /// <typeparam name="T">Noden tyyppi.</typeparam>
-    internal abstract class NodeGrid<T> : INodeGrid<T> where T : INode
+    public abstract class NodeGrid<T> : INodeGrid<T> where T : INode
     {
         #region Vars
         private readonly Point nodeSize;

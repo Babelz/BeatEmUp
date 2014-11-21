@@ -60,7 +60,7 @@ namespace Neva.BeatEmUp.Behaviours
 
             Owner.InitializeComponents();
 
-            spriterRenderer.ChangeAnimation("NewAnimation");
+            spriterRenderer.Animation("NewAnimation");
             spriterRenderer.Scale = 0.2f;
         }
 

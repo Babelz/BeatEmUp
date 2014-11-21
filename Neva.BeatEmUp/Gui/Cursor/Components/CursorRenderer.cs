@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Neva.BeatEmUp.Gui.Cursor.Components
 {
-    internal abstract class CursorRenderer
+    public abstract class CursorRenderer
     {
         public CursorRenderer()
         {

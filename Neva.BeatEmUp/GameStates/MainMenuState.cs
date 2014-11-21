@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameStates
 {
-    internal sealed class MainMenuState : GameState
+    public sealed class MainMenuState : GameState
     {
         #region Vars
         private WindowManager windowMananger;
@@ -20,12 +20,11 @@ namespace Neva.BeatEmUp.GameStates
         {
         }
 
-        public override void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager)
+        protected override void OnInitialize()
         {
-            windowMananger = game.Components.First(c => c.GetType() == typeof(WindowManager))
-                as WindowManager;
+            windowMananger = Game.WindowManager;
 
-            windowMananger.AddWindow("Main", new MainMenu(game));
+            windowMananger.AddWindow("Main", new MainMenu(Game));
             windowMananger.MoveToFront("Main");
         }
 

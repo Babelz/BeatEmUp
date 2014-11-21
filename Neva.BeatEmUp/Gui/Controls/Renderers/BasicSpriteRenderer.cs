@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Gui.Controls.Renderers
 {
-    internal sealed class BasicSpriteRenderer : Renderer<SpriteBox>
+    public sealed class BasicSpriteRenderer : Renderer<SpriteBox>
     {
         public BasicSpriteRenderer(SpriteBox owner)
             : base(owner)

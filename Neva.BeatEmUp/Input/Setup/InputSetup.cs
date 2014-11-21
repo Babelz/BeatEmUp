@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Input.Setup
 {
-    internal class InputSetup
+    public class InputSetup
     {
         public bool Enabled
         {

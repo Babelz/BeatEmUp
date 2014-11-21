@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Pathfinding.AStart
 {
-    internal sealed class AStarPathfinder : IPathfinder<AStarNode>
+    public sealed class AStarPathfinder : IPathfinder<AStarNode>
     {
         #region Vars
         private INodeGrid<AStarNode> grid;
@@ -33,7 +33,7 @@ namespace Neva.BeatEmUp.Pathfinding.AStart
         {
         }
 
-        private List<Point> InternalFindPath(ref bool foundPath)
+        private List<Point> publicFindPath(ref bool foundPath)
         {
             if (grid != null)
             {
@@ -185,11 +185,11 @@ namespace Neva.BeatEmUp.Pathfinding.AStart
         }
         public List<Point> FindPath(ref bool foundPath)
         {
-            return InternalFindPath(ref foundPath);
+            return publicFindPath(ref foundPath);
         }
         public List<Point> FindPath()
         {
-            return InternalFindPath(ref foundPath);
+            return publicFindPath(ref foundPath);
         }
     }
 }

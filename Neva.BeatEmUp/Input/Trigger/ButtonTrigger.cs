@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Neva.BeatEmUp.Input.Trigger
 {
-    internal sealed class ButtonTrigger : ITrigger
+    public sealed class ButtonTrigger : ITrigger
     {
         private readonly Buttons button;
 

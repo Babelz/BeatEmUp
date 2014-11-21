@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Neva.BeatEmUp
 {
-    internal static class StructHelpers
+    public static class StructHelpers
     {
         public static Vector2 SizeFromPercents(Vector2 parentSize, Vector2 percents) 
         {

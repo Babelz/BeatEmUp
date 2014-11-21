@@ -110,6 +110,8 @@
     <Compile Include="GameStates\GameStateManager.cs" />
     <Compile Include="GameStates\MainMenuState.cs" />
     <Compile Include="GameStates\SplashMenuState.cs" />
+    <Compile Include="GameStates\Transitions\Args.cs" />
+    <Compile Include="GameStates\Transitions\Delegates.cs" />
     <Compile Include="GameStates\Transitions\Enums.cs" />
     <Compile Include="GameStates\Transitions\Fade.cs" />
     <Compile Include="GameStates\Transitions\StateTransition.cs" />

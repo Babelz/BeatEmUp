@@ -7,7 +7,7 @@ using Neva.BeatEmUp.Collision.Dynamics;
 
 namespace Neva.BeatEmUp.Collision.Broadphase
 {
-    internal class BruteForceBroadphase : IBroadphase
+    public class BruteForceBroadphase : IBroadphase
     {
         #region Vars
 

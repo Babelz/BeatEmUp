@@ -9,7 +9,7 @@ using Neva.BeatEmUp.GameObjects;
 namespace Neva.BeatEmUp.Collision.Broadphase
 {
     [System.Obsolete("Ei toimi oikein, mitä vittua taas")]
-    internal class QuadTreeBroadphase : IBroadphase
+    public class QuadTreeBroadphase : IBroadphase
     {
         #region Vars
 

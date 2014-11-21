@@ -7,7 +7,7 @@ using Neva.BeatEmUp.Gui.Controls.Components;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal abstract class Container : Control, IContainer
+    public abstract class Container : Control, IContainer
     {
         #region Event keys
         private static readonly object EventControlRemoved = new object();

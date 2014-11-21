@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.Pathfinding
 {
-    internal interface INodeGrid<T> where T : INode
+    public interface INodeGrid<T> where T : INode
     {
         #region Vars
         Point NodeSize

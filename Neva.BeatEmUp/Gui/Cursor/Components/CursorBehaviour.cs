@@ -8,7 +8,7 @@ using Neva.BeatEmUp.Gui.Controls;
 
 namespace Neva.BeatEmUp.Gui.Cursor.Components
 {
-    internal abstract class CursorBehaviour
+    public abstract class CursorBehaviour
     {
         #region Vars
         protected readonly Window owner;

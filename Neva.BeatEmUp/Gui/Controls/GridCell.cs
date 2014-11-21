@@ -8,10 +8,10 @@ using Neva.BeatEmUp.Gui.Controls.Renderers;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal sealed class GridCell : Container
+    public sealed class GridCell : Container
     {
         #region Event keys
-        private static readonly object EventGridIndexChanged = new object();
+        private static readonly object EventGridIndexd = new object();
         #endregion
 
         #region Vars
@@ -33,7 +33,7 @@ namespace Neva.BeatEmUp.Gui.Controls
                 {
                     column = value;
 
-                    OnGridIndexChanged(GuiLayoutEventArgs.Empty, this);
+                    OnGridIndexd(GuiLayoutEventArgs.Empty, this);
 
                     UpdateLayout(GuiLayoutEventArgs.Empty);
                 }
@@ -51,7 +51,7 @@ namespace Neva.BeatEmUp.Gui.Controls
                 {
                     row = value;
 
-                    OnGridIndexChanged(GuiLayoutEventArgs.Empty, this);
+                    OnGridIndexd(GuiLayoutEventArgs.Empty, this);
 
                     UpdateLayout(GuiLayoutEventArgs.Empty);
                 }
@@ -71,15 +71,15 @@ namespace Neva.BeatEmUp.Gui.Controls
         #endregion
 
         #region Events
-        public event GuiEventHandler<GuiLayoutEventArgs> GridIndexChanged
+        public event GuiEventHandler<GuiLayoutEventArgs> GridIndexd
         {
             add
             {
-                eventHandlers.AddHandler(EventGridIndexChanged, value);
+                eventHandlers.AddHandler(EventGridIndexd, value);
             }
             remove
             {
-                eventHandlers.RemoveHandler(EventGridIndexChanged, value);
+                eventHandlers.RemoveHandler(EventGridIndexd, value);
             }
         }
         #endregion
@@ -96,9 +96,9 @@ namespace Neva.BeatEmUp.Gui.Controls
         }
 
         #region Event methods
-        private void OnGridIndexChanged(GuiLayoutEventArgs e, object sender)
+        private void OnGridIndexd(GuiLayoutEventArgs e, object sender)
         {
-            GuiEventHandler<GuiLayoutEventArgs> eventHandler = (GuiEventHandler<GuiLayoutEventArgs>)eventHandlers[EventGridIndexChanged];
+            GuiEventHandler<GuiLayoutEventArgs> eventHandler = (GuiEventHandler<GuiLayoutEventArgs>)eventHandlers[EventGridIndexd];
 
             if (eventHandler != null)
             {

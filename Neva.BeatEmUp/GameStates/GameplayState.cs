@@ -12,12 +12,11 @@ using Neva.BeatEmUp.Behaviours;
 
 namespace Neva.BeatEmUp.GameStates
 {
-    internal class GameplayState : GameState
+    public class GameplayState : GameState
     {
         #region Vars
         private readonly string mapName;
 
-        private BeatEmUpGame game;
         private GameObject player;
         private MapBehaviour mapBehaviour;
         #endregion
@@ -27,16 +26,14 @@ namespace Neva.BeatEmUp.GameStates
             this.mapName = mapName;    
         }
 
-        public override void OnInitialize(BeatEmUpGame game, GameStateManager gameStateManager)
+        protected override void OnInitialize()
         {
-            this.game = game;
-
-            GameObject map = new GameObject(game);
+            GameObject map = new GameObject(Game);
             map.AddBehaviour("MapBehaviour", new object[] { mapName });
             mapBehaviour = map.FirstBehaviourOfType<MapBehaviour>();
             map.StartBehaviours();
 
-            game.AddGameObject(map);
+            Game.AddGameObject(map);
 
             player = Game.CreateGameObjectFromKey("player");
             player.Position = new Vector2(200f, 600f);
@@ -44,7 +41,7 @@ namespace Neva.BeatEmUp.GameStates
 
         private GameObject CreateTable()
         {
-            GameObject table = new GameObject(game);
+            GameObject table = new GameObject(Game);
             table.Name = "Table";
 
             table.AddComponent(new SpriteRenderer(table)
@@ -63,10 +60,10 @@ namespace Neva.BeatEmUp.GameStates
         {
             Vector2 newViewPosition = new Vector2();
 
-            newViewPosition.X = MathHelper.Clamp(player.Position.X - game.Window.ClientBounds.Width / 2, 0, game.Window.ClientBounds.Width);
-            newViewPosition.Y = MathHelper.Clamp(player.Position.Y - game.Window.ClientBounds.Height / 2, 0, game.Window.ClientBounds.Height);
+            newViewPosition.X = MathHelper.Clamp(player.Position.X - Game.Window.ClientBounds.Width / 2, 0, mapBehaviour.Area.Width + mapBehaviour.Area.X);
+            newViewPosition.Y = MathHelper.Clamp(player.Position.Y - Game.Window.ClientBounds.Height / 2, 0, mapBehaviour.Area.Height + mapBehaviour.Area.Y);
 
-            game.View.Position = newViewPosition;
+            Game.View.Position = newViewPosition;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

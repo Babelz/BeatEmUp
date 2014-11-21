@@ -7,7 +7,7 @@ using Neva.BeatEmUp.Gui.Controls.Renderers;
 
 namespace Neva.BeatEmUp.Gui.Controls
 {
-    internal sealed class ColorBox : Control
+    public sealed class ColorBox : Control
     {
         public ColorBox(Microsoft.Xna.Framework.Game game)
             : base(game)

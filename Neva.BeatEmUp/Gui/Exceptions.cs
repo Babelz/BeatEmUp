@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui
 {
-    internal class GuiException : Exception
+    public class GuiException : Exception
     {
         public GuiException(string message)
             : base(message)
@@ -17,7 +17,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal class InvalidGuiOperationException : GuiException
+    public class InvalidGuiOperationException : GuiException
     {
         public InvalidGuiOperationException(string message)
             : base(message)
@@ -25,7 +25,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal class UnsupportedGuiOperationException : GuiException
+    public class UnsupportedGuiOperationException : GuiException
     {
         public UnsupportedGuiOperationException(string message)
             : base(message)
@@ -33,7 +33,7 @@ namespace Neva.BeatEmUp.Gui
         }
     }
 
-    internal class WindowManagerException : InvalidGuiOperationException
+    public class WindowManagerException : InvalidGuiOperationException
     {
         #region Vars
         private readonly Window window;

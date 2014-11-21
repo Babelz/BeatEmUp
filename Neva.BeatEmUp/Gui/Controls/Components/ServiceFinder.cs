@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.Gui.Controls.Components
 {
-    internal sealed class ServiceFinder
+    public sealed class ServiceFinder
     {
         #region Vars
         private readonly Microsoft.Xna.Framework.Game game;

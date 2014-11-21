@@ -9,7 +9,7 @@ using Neva.BeatEmUp.Collision.Dynamics;
 
 namespace Neva.BeatEmUp.Collision
 {
-    internal interface ICollidable
+    public interface ICollidable
     {
         Body Body
         {
