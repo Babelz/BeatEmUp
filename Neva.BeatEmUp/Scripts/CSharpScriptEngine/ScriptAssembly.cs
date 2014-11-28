@@ -143,7 +143,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine
         {
             if (assembly == null)
             {
-                if (!string.Equals(name, type.Name))
+                if (!string.Equals(name, ScriptName))
                 {
                     throw new ArgumentException("Invalid name, assembly does not contain script named " + name + ".");
                 }

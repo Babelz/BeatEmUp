@@ -22,7 +22,7 @@ namespace GameStates.Transitions
         #endregion
 
         #region Events
-
+        public event StateTransitionEventHandler StateFininshed;
         #endregion
 
         #region Properties
@@ -123,6 +123,11 @@ namespace GameStates.Transitions
             }
 
             isFininshed = true;
+
+            if (StateFininshed != null)
+            {
+                StateFininshed(this, new StateTransitionEventArgs(this));
+            }
 
             OnFininshed();
         }

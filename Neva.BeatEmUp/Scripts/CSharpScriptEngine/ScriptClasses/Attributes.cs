@@ -18,7 +18,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
         /// olemassa olevaksi tyypiksi. Hidastaa kääntämis prosessia joten
         /// on suositeltavaa että tätä flägiä käytetään vain kun on tarve.
         /// </summary>
-        public bool Ispublic
+        public bool IsHidden
         {
             get
             {
@@ -27,10 +27,10 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
         }
         #endregion
 
-        public ScriptAttribute(bool ispublic)
+        public ScriptAttribute(bool isHidden)
             : base()
         {
-            this.ispublic = ispublic;
+            this.ispublic = isHidden;
         }
     }
 }

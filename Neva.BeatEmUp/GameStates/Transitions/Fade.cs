@@ -15,7 +15,6 @@ namespace GameStates.Transitions
         private readonly FadeType fadeType;
         private readonly int fadeStep;
         private readonly int timeStep;
-        private readonly bool drawLastState;
 
         private Color color;
 
@@ -23,21 +22,16 @@ namespace GameStates.Transitions
         private int elapsed;
         #endregion
 
-        public Fade(Color color, Texture2D texture, Rectangle area, FadeType fadeType, int fadeStep, int timeStep, bool drawLastState = false)
+        public Fade(Color color, Texture2D texture, Rectangle area, FadeType fadeType, int fadeStep, int timeStep, int alpha = 255)
         {
             this.texture = texture;
             this.area = area;
             this.fadeType = fadeType;
             this.fadeStep = fadeStep;
             this.timeStep = timeStep;
-            this.drawLastState = drawLastState;
+            this.alpha = alpha;
 
-            if (fadeType == FadeType.In)
-            {
-                alpha = 255;
-            }
-
-            color = new Color(color, alpha);
+            this.color = new Color(color, alpha);
         }
 
         private InvalidOperationException UnsupportedFadeType()
@@ -93,18 +87,6 @@ namespace GameStates.Transitions
         }
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
-            switch (fadeType)
-            {
-                case FadeType.Out:
-                    CurrentGameState.Draw(spriteBatch);
-                    break;
-                case FadeType.In:
-                    NextGameState.Draw(spriteBatch);
-                    break;
-                default:
-                    throw UnsupportedFadeType();
-            }
-
             spriteBatch.Draw(texture, area, color);
         }
     }

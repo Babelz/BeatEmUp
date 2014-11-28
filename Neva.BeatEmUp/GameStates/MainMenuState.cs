@@ -12,7 +12,7 @@ namespace Neva.BeatEmUp.GameStates
     public sealed class MainMenuState : GameState
     {
         #region Vars
-        private WindowManager windowMananger;
+        private WindowManager windowManager;
         #endregion
 
         public MainMenuState()
@@ -22,10 +22,15 @@ namespace Neva.BeatEmUp.GameStates
 
         protected override void OnInitialize()
         {
-            windowMananger = Game.WindowManager;
+            windowManager = Game.WindowManager;
 
-            windowMananger.AddWindow("Main", new MainMenu(Game));
-            windowMananger.MoveToFront("Main");
+            windowManager.AddWindow("Main", new MainMenu(Game));
+            windowManager.MoveToFront("Main");
+        }
+
+        public override void OnDeactivate()
+        {
+            windowManager.RemoveWindow("Main");
         }
 
         public override void Update(GameTime gameTime)

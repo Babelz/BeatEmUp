@@ -27,7 +27,6 @@ namespace Neva.BeatEmUp.Behaviours
 
         private float goal;
 
-        private int alpha;
         private int elapsed;
 
         private Rectangle area;
@@ -50,7 +49,6 @@ namespace Neva.BeatEmUp.Behaviours
 
             font = owner.Game.Content.Load<SpriteFont>("default");
             owner.Size = new Vector2(0f);
-            alpha = 255;
         }
 
         #region Event handlers
@@ -394,12 +392,6 @@ namespace Neva.BeatEmUp.Behaviours
                 {
                     displayString = current == 0 ? "1" : (current).ToString();
                 }
-
-                alpha--;
-
-                Color color = new Color(Color.Black, alpha);
-
-                spriteBatch.FillRectangle(new Rectangle(0, 0, Owner.Game.Window.ClientBounds.Width, Owner.Game.Window.ClientBounds.Height), color, 0.0f);
 
                 Vector2 size = font.MeasureString(displayString);
                 Vector2 position = new Vector2(Owner.Game.Window.ClientBounds.Width / 2 - size.X / 2,

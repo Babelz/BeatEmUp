@@ -125,7 +125,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
                             .FirstOrDefault(a => a.GetType() == typeof(ScriptAttribute))
                             as ScriptAttribute;
 
-                        if (attribute != null && !attribute.Ispublic)
+                        if (attribute != null && !attribute.IsHidden)
                         {
                             string[] methods = scripts[i].GetMethods().Select<MethodInfo, string>(m => m.Name).ToArray();
                             string[] members = scripts[i].GetMembers().Select<MemberInfo, string>(m => m.Name).ToArray();
@@ -137,7 +137,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.Resolvers
 
                                 if (Array.TrueForAll(methods, m => myMethods.Contains(m)) && Array.TrueForAll(members, m => myMembers.Contains(m)))
                                 {
-                                    return new ScriptAssembly(ScriptTypes[j], scriptName, fullname);
+                                    return new ScriptAssembly(ScriptTypes.Find(t => t.Name == scriptName), scriptName, fullname);
                                 }
                             }
                         }

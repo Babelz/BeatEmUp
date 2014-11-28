@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameStates.Transitions;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Neva.BeatEmUp.Behaviours;
@@ -91,28 +92,65 @@ namespace Neva.BeatEmUp.GameStates
 
         private void MoveUp(InputEventArgs args)
         {
-            HandleMovement(args, c => c.Position.Y < currentNode.Position.Y);
+            if (args.InputState == InputState.Pressed)
+            {
+                HandleMovement(args, c => c.Position.Y < currentNode.Position.Y);
+            }
         }
         private void MoveDown(InputEventArgs args)
         {
-            HandleMovement(args, c => c.Position.Y > currentNode.Position.Y);
+            if (args.InputState == InputState.Pressed)
+            {
+                HandleMovement(args, c => c.Position.Y > currentNode.Position.Y);
+            }
         }
         private void MoveLeft(InputEventArgs args)
         {
-            HandleMovement(args, c => c.Position.X < currentNode.Position.X);
+            if (args.InputState == InputState.Pressed)
+            {
+                HandleMovement(args, c => c.Position.X < currentNode.Position.X);
+            }
         }
         private void MoveRight(InputEventArgs args)
         {
-            HandleMovement(args, c => c.Position.X > currentNode.Position.X);
+            if (args.InputState == InputState.Pressed)
+            {
+                HandleMovement(args, c => c.Position.X > currentNode.Position.X);
+            }
         }
         private void Select(InputEventArgs args)
         {
-            RemoveMappings();
+            if (args.InputState == InputState.Pressed)
+            {
+                RemoveMappings();
 
-            Game.EnableSortedDraw();
+                GameStateManager gameStateManager = Game.StateManager;
 
-            GameplayState gameplayState = new GameplayState(currentNode.FirstBehaviourOfType<MapNode>().MapName);
-            GameStateManager.ChangeState(gameplayState);
+                // Alustetaan transition.
+                Texture2D blank = Game.Content.Load<Texture2D>("blank");
+
+                Fade fadeIn = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.In, 1, 10, 255);
+                Fade fadeOut = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.Out, 10, 10, 0);
+
+                fadeOut.StateFininshed += (s, a) =>
+                {
+                    gameStateManager.SwapStates();
+                };
+                fadeIn.StateFininshed += (s, a) =>
+                {
+                    Game.EnableSortedDraw();
+                };
+
+                // Alustetaan player.
+                TransitionPlayer player = new TransitionPlayer();
+                player.AddTransition(fadeOut);
+                player.AddTransition(fadeIn);
+
+                GameplayState gameplayState = new GameplayState(currentNode.FirstBehaviourOfType<MapNode>().MapName);
+                GameStateManager.ChangeState(gameplayState, player);
+
+                selector = null;
+            }
         }
 
         private void HandleMovement(InputEventArgs args, Predicate<GameObject> predicate)
@@ -241,6 +279,11 @@ namespace Neva.BeatEmUp.GameStates
         
         public override void Update(GameTime gameTime)
         {
+            if (selector == null)
+            {
+                return;
+            }
+
             if (selector.Position == currentNode.Position)
             {
                 InitianizeMappings();

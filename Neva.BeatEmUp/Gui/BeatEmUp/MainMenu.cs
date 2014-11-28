@@ -91,7 +91,8 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
                 VerticalAlingment = Vertical.Center,
                 HorizontalAlingment = Horizontal.Left,
                 Brush = new Gui.Brush(Color.Transparent),
-                TextSize = new Vector2(15f, 55f),
+                TextSize = new Vector2(55f, 45f),
+                Size = new Vector2(25f, 100f),
                 TextHorizontalAlingment = Horizontal.Left
             };
 
@@ -107,7 +108,8 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
                 VerticalAlingment = Vertical.Center,
                 HorizontalAlingment = Horizontal.Left,
                 Brush = new Gui.Brush(Color.Transparent),
-                TextSize = new Vector2(25f, 55f),
+                TextSize = new Vector2(55f, 45f),
+                Size = new Vector2(25f, 100f),
                 TextHorizontalAlingment = Horizontal.Left
             };
 
@@ -123,7 +125,8 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
                 VerticalAlingment = Vertical.Center,
                 HorizontalAlingment = Horizontal.Left,
                 Brush = new Gui.Brush(Color.Transparent),
-                TextSize = new Vector2(15f, 55f),
+                TextSize = new Vector2(45f, 45f),
+                Size = new Vector2(25f, 100f),
                 TextHorizontalAlingment = Horizontal.Left
             };
 
@@ -170,9 +173,23 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
 
             GameStateManager gameStateManager = game.StateManager;
 
-            gameStateManager.ChangeState(new WorldMapState());
+            // Alustetaan transition.
+            Texture2D blank = game.Content.Load<Texture2D>("blank");
 
-            game.WindowManager.RemoveWindow("Main");
+            Fade fadeIn = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.In, 10, 10, 255);
+            Fade fadeOut = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.Out, 10, 10, 0);
+
+            fadeOut.StateFininshed += (s, a) => 
+                {
+                    gameStateManager.SwapStates();
+                };
+
+            // Alustetaan player.
+            TransitionPlayer player = new TransitionPlayer();
+            player.AddTransition(fadeOut);
+            player.AddTransition(fadeIn);
+
+            gameStateManager.ChangeState(new WorldMapState(), player);
         }
 
         void start_MouseButtonDown(GuiCursorInputEventArgs e, object sender)

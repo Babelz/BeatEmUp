@@ -63,23 +63,16 @@ namespace Neva.BeatEmUp.GameStates
                 if (gamepadListenenr != null)
                 {
                     gamepadListenenr.Map("Skip", Skip, new ButtonTrigger(Buttons.A));
-                    gamepadListenenr.OnControlConnected += gamepadListenenr_OnControlConnected;
                 }
             }
 
             textures.Add(Game.Content.Load<Texture2D>("team"));
-            textures.Add(Game.Content.Load<Texture2D>("neva"));
             textures.Add(Game.Content.Load<Texture2D>("game"));
 
             alpha = 255;
 
             current = textures.First();
             textures.Remove(current);
-        }
-
-        void gamepadListenenr_OnControlConnected(object sender)
-        {
-            throw new NotImplementedException();
         }
 
         public override void Update(GameTime gameTime)
@@ -102,7 +95,25 @@ namespace Neva.BeatEmUp.GameStates
 
                 if (current == null || skip)
                 {
-                    GameStateManager.ChangeState(new MainMenuState());
+                    GameStateManager gameStateManager = Game.StateManager;
+
+                    // Alustetaan transition.
+                    Texture2D blank = Game.Content.Load<Texture2D>("blank");
+
+                    Fade fadeIn = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.In, 10, 10, alpha);
+                    Fade fadeOut = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.Out, 10, 10, 255);
+
+                    fadeOut.StateFininshed += (s, a) =>
+                    {
+                        gameStateManager.SwapStates();
+                    };
+
+                    // Alustetaan player.
+                    TransitionPlayer player = new TransitionPlayer();
+                    player.AddTransition(fadeOut);
+                    player.AddTransition(fadeIn);
+
+                    GameStateManager.ChangeState(new MainMenuState(), player);
 
                     keyboardListener.RemoveMapping("Skip");
 
@@ -115,6 +126,11 @@ namespace Neva.BeatEmUp.GameStates
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (current == null)
+            {
+                return;
+            }
+
             Color color = new Color(Color.Black, alpha);
 
             Rectangle renderArea = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height);

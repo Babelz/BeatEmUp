@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameStates.Transitions;
+using Neva.BeatEmUp.GameObjects;
 
 namespace Neva.BeatEmUp.GameStates
 {
@@ -29,11 +30,24 @@ namespace Neva.BeatEmUp.GameStates
         #endregion
 
         #region Properties
-        public GameState Current
+        /// <summary>
+        /// Palauttaa aktiivisen game staten nimen. Jos ollaan transitionissa,
+        /// palauttaa seuraavan nimen.
+        /// </summary>
+        public string CurrentName
         {
             get
             {
-                return current;
+                if (next != null)
+                {
+                    return next.Name;
+                }
+                else if (current != null)
+                {
+                    return current.Name;
+                }
+
+                return string.Empty;
             }
         }
         #endregion
@@ -51,11 +65,20 @@ namespace Neva.BeatEmUp.GameStates
 
         public void SwapStates()
         {
+            if (next == null)
+            {
+                // TODO: log warning. Turha kutsu.
+
+                return;
+            }
             if (current != null)
             {
                 current.OnDeactivate();
             }
 
+            GameStateChanging(this, new GameStateChangingEventArgs(current, next));
+
+            next.Initialize(game, this);
             next.OnActivate();
 
             current = next;
@@ -76,7 +99,7 @@ namespace Neva.BeatEmUp.GameStates
             }
 
             this.next = next;
-            
+
             // Aloitetaan transition ja hypätään pois.
             if (transitionPlayer != null)
             {
@@ -100,17 +123,32 @@ namespace Neva.BeatEmUp.GameStates
             {
                 current.Update(gameTime);
             }
+
+            if (transitionPlayer != null)
+            {
+                transitionPlayer.Update(gameTime);
+
+                if (transitionPlayer.IsFininshed)
+                {
+                    transitionPlayer = null;
+                }
+            }
         }
         public override void Draw(GameTime gameTime)
         {
+            spriteBatch.Begin();
+
             if (current != null)
             {
-                spriteBatch.Begin();
-
                 current.Draw(spriteBatch);
-
-                spriteBatch.End();
             }
+
+            if (transitionPlayer != null)
+            {
+                transitionPlayer.Draw(spriteBatch);
+            }
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

@@ -73,7 +73,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         protected override void OnInitialize()
         {
-
             if (string.IsNullOrEmpty(Entity))
             {
                 throw new ArgumentException("Entity", "Entity cannot be null or empty!");

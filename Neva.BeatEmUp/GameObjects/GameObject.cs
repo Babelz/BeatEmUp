@@ -179,7 +179,7 @@ namespace Neva.BeatEmUp.GameObjects
             componentManager = new ComponentManager(this);
             tags = new TagContainer();
 
-            string stateName = game.StateManager.Current == null ? "" : game.StateManager.Current.Name;
+            string stateName = game.StateManager.CurrentName;
             tags.AddTag(stateName);
 
             OnDestroy += delegate { };

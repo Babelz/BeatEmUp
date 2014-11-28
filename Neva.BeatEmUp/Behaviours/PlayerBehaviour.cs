@@ -14,6 +14,7 @@ using Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses;
 
 namespace Neva.BeatEmUp.Behaviours
 {
+    [ScriptAttribute(false)]
     public sealed class PlayerBehaviour : Behaviour
     {
         #region Vars
@@ -111,6 +112,8 @@ namespace Neva.BeatEmUp.Behaviours
             spriterRenderer = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
             spriterRenderer.FilePath = "Animations\\player.scml";
             spriterRenderer.Entity = "Player";
+
+            Console.WriteLine("init");
 
             KeyboardInputListener keylistener = Owner.Game.KeyboardListener;
             keylistener.Map("Left", MoveLeft, new KeyTrigger(Keys.A), new KeyTrigger(Keys.Left));

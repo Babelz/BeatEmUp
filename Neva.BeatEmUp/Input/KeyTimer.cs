@@ -49,7 +49,12 @@ namespace Neva.BeatEmUp.Input
 
         public int GetHoldTime(string mappingName)
         {
-            return holdTimes[mappingName];
+            if (holdTimes.ContainsKey(mappingName))
+            {
+                return holdTimes[mappingName];
+            }
+
+            return 0;
         }
     }
 }
