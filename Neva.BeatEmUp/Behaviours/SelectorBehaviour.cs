@@ -56,6 +56,8 @@ namespace Neva.BeatEmUp.Behaviours
                 Color = Color.Pink
             };
 
+            renderer.Origin = new Vector2(-12f, 8f);
+
             Owner.InitializeComponents();
         }
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)

@@ -27,4 +27,26 @@ namespace GameStates.Transitions
             this.finishedTransition = finishedTransition;
         }
     }
+
+    public class StateTransitionEventArgs : EventArgs
+    {
+        #region Vars
+        private readonly StateTransition sender;
+        #endregion
+
+        #region Properties
+        public StateTransition Sender
+        {
+            get
+            {
+                return sender;
+            }
+        }
+        #endregion
+
+        public StateTransitionEventArgs(StateTransition sender)
+        {
+            this.sender = sender;
+        }
+    }
 }

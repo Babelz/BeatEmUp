@@ -40,15 +40,15 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             background = new SpriteBox(game);
 
             background.Renderer = new DisortSpriteRenderer(background,
-                minX: -10.0f,
-                maxX: 10.0f,
-                minY: -10.0f,
-                maxY: 10.0f);
+                minX: -5.0f,
+                maxX: 5.0f,
+                minY: -5.0f,
+                maxY: 5.0f);
 
             background.Sprite = new Sprite(game.Content.Load<Texture2D>("taustatemp"));
             background.SizeBehaviour = Gui.SizeBehaviour.OverwriteBoth;
-            background.Size = new Vector2(100f);
-            background.Position = new Vector2(-10f, -10f);
+            background.Size = new Vector2(105f);
+            background.Position = new Vector2(-5f, -5f);
 
             background.DisableFocusing();
 
@@ -58,10 +58,17 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
 
             grid = new Grid(game)
             {
-                Rows = 5,
-                Columns = 3,
-                //DrawBorders = true
+                Rows = 6,
+                Columns = 4
             };
+
+            grid.SetRowHeight(0, 25f);
+            grid.SetRowHeight(1, 25f);
+            grid.SetRowHeight(2, 10f);
+            grid.SetRowHeight(3, 10f);
+            grid.SetRowHeight(4, 10f);
+
+            grid.SetColumnWidth(0, 5f);
 
             root.Add(grid);
 
@@ -69,7 +76,9 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             {
                 Font = font,
                 Text = "Massacre simulator 3000",
-                Brush = new Brush(Color.White, Color.White, Color.White)
+                Brush = new Brush(Color.White),
+                SizeBehaviour = SizeBehaviour.OverwriteBoth,
+                Size = new Vector2(100f, 55f)
             };
 
             start = new Button(game)
@@ -80,9 +89,10 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
                 Font = font,
                 SizeBehaviour = Gui.SizeBehaviour.OverwriteBoth,
                 VerticalAlingment = Vertical.Center,
-                HorizontalAlingment = Horizontal.Center,
+                HorizontalAlingment = Horizontal.Left,
                 Brush = new Gui.Brush(Color.Transparent),
-                TextSize = new Vector2(45f, 55f)
+                TextSize = new Vector2(15f, 55f),
+                TextHorizontalAlingment = Horizontal.Left
             };
 
             start.MouseButtonDown += start_MouseButtonDown;
@@ -95,9 +105,10 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
                 Font = font,
                 SizeBehaviour = Gui.SizeBehaviour.OverwriteBoth,
                 VerticalAlingment = Vertical.Center,
-                HorizontalAlingment = Horizontal.Center,
+                HorizontalAlingment = Horizontal.Left,
                 Brush = new Gui.Brush(Color.Transparent),
-                TextSize = new Vector2(50f)
+                TextSize = new Vector2(25f, 55f),
+                TextHorizontalAlingment = Horizontal.Left
             };
 
             options.MouseButtonDown += options_MouseButtonDown;
@@ -110,9 +121,10 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
                 Font = font,
                 SizeBehaviour = Gui.SizeBehaviour.OverwriteBoth,
                 VerticalAlingment = Vertical.Center,
-                HorizontalAlingment = Horizontal.Center,
+                HorizontalAlingment = Horizontal.Left,
                 Brush = new Gui.Brush(Color.Transparent),
-                TextSize = new Vector2(45f, 55f)
+                TextSize = new Vector2(15f, 55f),
+                TextHorizontalAlingment = Horizontal.Left
             };
 
             exit.MouseButtonDown += exit_MouseButtonDown;

@@ -21,8 +21,6 @@ namespace Neva.BeatEmUp.GameStates
 
         private GameState current;
         private GameState next;
-
-        private bool waitingForUserSwap;
         #endregion
 
         #region Events
@@ -66,84 +64,38 @@ namespace Neva.BeatEmUp.GameStates
             GameStateChanged(this, new GameStateChangingEventArgs(current, null));
         }
 
-        /*public void BeginStateChange(GameState next, TransitionPlayer transitionPlayer)
-        {
-            if (next == null)
-            {
-                throw new ArgumentNullException("next");
-            }
-
-            GameStateChanging(this, new GameStateChangingEventArgs(current, next));
-
-            this.next = next;
-
-            this.transitionPlayer = transitionPlayer;
-            
-            transitionPlayer.Next = next;
-            transitionPlayer.Current = current;
-            
-            transitionPlayer.Start();
-
-            waitingForUserSwap = true;
-        }*/
-
         public void ChangeState(GameState next)
         {
+            ChangeState(next, null);
+        }
+        public void ChangeState(GameState next, TransitionPlayer transitionPlayer)
+        {
             if (next == null)
             {
                 throw new ArgumentNullException("next");
             }
 
-            GameStateChanging(this, new GameStateChangingEventArgs(current, next));
-
-            if (current != null)
-            {
-                current.OnDeactivate();
-            }
-
-            current = next;
-
-            current.OnActivate();
-
-            current = next;
-            current.Initialize(game, this);
-
-            GameStateChanged(this, new GameStateChangingEventArgs(current, null));
-
-            // TODO: transitionit kusee, vittu mitä paskaa.
-
-            /*if (transitionPlayer != null)
+            this.next = next;
+            
+            // Aloitetaan transition ja hypätään pois.
+            if (transitionPlayer != null)
             {
                 this.transitionPlayer = transitionPlayer;
 
                 transitionPlayer.Next = next;
                 transitionPlayer.Current = current;
-
+                
                 transitionPlayer.Start();
-
-                return;
-            }*/
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            if (transitionPlayer != null)
-            {
-                transitionPlayer.Update(gameTime);
-
-                if (transitionPlayer.IsFininshed)
-                {
-                    transitionPlayer = null;
-
-                    if (!waitingForUserSwap)
-                    {
-                        SwapStates();
-                    }
-                }
 
                 return;
             }
 
+            // Swapatana statet suoraan.
+            SwapStates();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
             if (current != null)
             {
                 current.Update(gameTime);
@@ -151,11 +103,6 @@ namespace Neva.BeatEmUp.GameStates
         }
         public override void Draw(GameTime gameTime)
         {
-            if (transitionPlayer != null)
-            {
-                return;
-            }
-
             if (current != null)
             {
                 spriteBatch.Begin();
@@ -166,28 +113,6 @@ namespace Neva.BeatEmUp.GameStates
             }
 
             base.Draw(gameTime);
-        }
-
-        public void PostDraw()
-        {
-            if (transitionPlayer != null)
-            {
-                spriteBatch.Begin();
-
-                transitionPlayer.Draw(spriteBatch);
-
-                spriteBatch.End();
-               
-                if (transitionPlayer.IsFininshed)
-                {
-                    transitionPlayer = null;
-                    
-                    if (!waitingForUserSwap)
-                    {
-                        SwapStates();
-                    }
-                }
-            }
         }
     }
 }

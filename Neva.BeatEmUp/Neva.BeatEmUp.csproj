@@ -89,6 +89,7 @@
     <Compile Include="GameObjects\Components\ColliderRenderer.cs" />
     <Compile Include="GameObjects\Components\Enums.cs" />
     <Compile Include="GameObjects\Components\Exceptions.cs" />
+    <Compile Include="GameObjects\Components\FloatingSpriteRenderer.cs" />
     <Compile Include="GameObjects\Components\GoalDetector.cs" />
     <Compile Include="GameObjects\Components\HealthComponent.cs" />
     <Compile Include="GameObjects\Components\LineRenderer.cs" />
@@ -519,10 +520,16 @@
     <Content Include="Content\game.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\greennode.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Maps\City1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\neva.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\rednode.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\road.jpg">
@@ -535,6 +542,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\worldmap.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\worldmapbase.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

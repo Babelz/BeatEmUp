@@ -70,6 +70,28 @@ namespace Neva.BeatEmUp.Gui.Controls
                 label.Size = value;
             }
         }
+        public Horizontal TextHorizontalAlingment
+        {
+            get
+            {
+                return label.HorizontalAlingment;
+            }
+            set
+            {
+                label.HorizontalAlingment = value;
+            }
+        }
+        public Vertical TextHorizontalVertical
+        {
+            get
+            {
+                return label.VerticalAlingment;
+            }
+            set
+            {
+                label.VerticalAlingment = value;
+            }
+        }
         #endregion
 
         #region Events

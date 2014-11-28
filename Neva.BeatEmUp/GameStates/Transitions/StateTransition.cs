@@ -21,6 +21,10 @@ namespace GameStates.Transitions
         private StateTransition nextTransition;
         #endregion
 
+        #region Events
+
+        #endregion
+
         #region Properties
         public bool IsFininshed
         {

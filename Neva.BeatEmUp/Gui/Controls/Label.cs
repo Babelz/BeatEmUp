@@ -42,6 +42,13 @@ namespace Neva.BeatEmUp.Gui.Controls
                 return !string.IsNullOrEmpty(Text);
             }
         }
+        public Vector2 TextSize
+        {
+            get
+            {
+                return font.MeasureString(Text);
+            }
+        }
         #endregion
 
         #region Events

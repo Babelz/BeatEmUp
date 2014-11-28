@@ -122,10 +122,10 @@ namespace GameStates.Transitions
                 return;
             }
 
-            for (int i = 0; i < transitions.Count; i++)
+            foreach (StateTransition transition in transitions)
             {
-                transitions[i].NextGameState = nextGameState;
-                transitions[i].CurrentGameState = currentGameState;
+                transition.NextGameState = nextGameState;
+                transition.CurrentGameState = currentGameState;
             }
 
             running = true;

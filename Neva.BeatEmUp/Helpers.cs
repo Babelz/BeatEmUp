@@ -66,5 +66,10 @@ namespace Neva.BeatEmUp
         {
             return new Vector2((float)texture.Width, (float)texture.Height);
         }
+
+        public static Vector2 TextSizeToPercents(Vector2 wantedSizeInPixels, Vector2 textSizeInPixels)
+        {
+            return new Vector2(wantedSizeInPixels.X / 100f * textSizeInPixels.X, wantedSizeInPixels.Y / 100f * textSizeInPixels.Y);
+        }
     }
 }

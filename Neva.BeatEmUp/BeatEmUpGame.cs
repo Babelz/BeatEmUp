@@ -40,6 +40,8 @@ namespace Neva.BeatEmUp
         private readonly List<GameObject> gameObjects;
         private readonly List<GameObject> destroyedObjects;
 
+        private readonly Random random;
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
@@ -122,6 +124,13 @@ namespace Neva.BeatEmUp
                 return sortedDraw;
             }
         }
+        public Random Random
+        {
+            get
+            {
+                return random;
+            }
+        }
         #endregion
 
         public BeatEmUpGame()
@@ -142,6 +151,8 @@ namespace Neva.BeatEmUp
             graphics.PreferredBackBufferHeight = 720;
 
             hiddenComponents = new Dictionary<IGameComponent, int>();
+
+            random = new Random();
         }
 
         #region Event handlers
@@ -194,9 +205,16 @@ namespace Neva.BeatEmUp
                 LoggingMethod = LoggingMethod.Console
             };
 
-            windowManager = new WindowManager(this);
+            windowManager = new WindowManager(this)
+            {
+                DrawOrder = 0
+            };
 
-            stateManager = new GameStateManager(this);
+            stateManager = new GameStateManager(this)
+            {
+                DrawOrder = 1
+            };
+
             stateManager.GameStateChanging += stateManager_GameStateChanging;
 
             world = new World(this, new BruteForceBroadphase(), new SeparatingAxisTheorem());
@@ -225,7 +243,7 @@ namespace Neva.BeatEmUp
             }
 
             //stateManager.(new GameplayState("City1.xml"));
-            stateManager.ChangeState(new SplashMenuState());
+            stateManager.ChangeState(new WorldMapState());
         }
 
         /// <summary>
@@ -335,8 +353,6 @@ namespace Neva.BeatEmUp
             spriteBatch.End();
 
             base.Draw(gameTime);
-
-            stateManager.PostDraw();
 
             for (int i = 0; i < hiddenComponents.Count; i++)
             {

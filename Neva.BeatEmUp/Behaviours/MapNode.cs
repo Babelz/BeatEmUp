@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameObjects.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
@@ -52,27 +53,31 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            /*for (int i = 0; i < Owner.ChildsCount; i++)
+            for (int i = 0; i < Owner.ChildsCount; i++)
             {
                 LineRenderer renderer = new LineRenderer(Owner)
                 {
                     Texture = Owner.Game.Content.Load<Texture2D>("blank"),
                     Destination = Owner.ChildAtIndex(i).Position,
-                    Color = Color.Red
+                    Color = new Color(Color.Gray, 125),
+                    DrawOrder = 0
                 };
 
                 Owner.AddComponent(renderer);
             }
 
-            SpriteRenderer spriteRenderer = Owner.FirstComponentOfType<SpriteRenderer>();
 
-            spriteRenderer.Sprite = new Sprite(Owner.Game.Content.Load<Texture2D>("blank"));
-            spriteRenderer.Size = new Vector2(32f);
+            FloatingSpriteRenderer spriteRenderer = new FloatingSpriteRenderer(Owner, Owner.Position.Y - Owner.Game.Random.Next(5, 15), Owner.Position.Y + Owner.Game.Random.Next(5, 15));
+            spriteRenderer.FollowOwner = false;
+            spriteRenderer.Sprite = new Sprite(Owner.Game.Content.Load<Texture2D>("greennode"));
             spriteRenderer.Position = Owner.Position;
+            spriteRenderer.DrawOrder = 1;
 
-            Owner.Size = new Vector2(32f);
+            Owner.Size = spriteRenderer.Size;
 
-            Owner.InitializeComponents();*/
+            Owner.AddComponent(spriteRenderer);
+
+            Owner.InitializeComponents();
         }
     }
 }

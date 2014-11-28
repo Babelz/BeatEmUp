@@ -170,7 +170,7 @@ namespace Neva.BeatEmUp.GameStates
             GameObject background = new GameObject(Game);
             
             SpriteRenderer renderer = new SpriteRenderer(background);
-            renderer.Sprite = new Sprite(Game.Content.Load<Texture2D>("worldmap"));
+            renderer.Sprite = new Sprite(Game.Content.Load<Texture2D>("worldmapbase"));
 
             background.AddComponent(renderer);
 
@@ -208,7 +208,6 @@ namespace Neva.BeatEmUp.GameStates
 
             GameObject map4Node = CreateNode(new Vector2(302f, 409f), map3Node);
             mapNodes.Add(map4Node);
-            map4Node.AddChild(map2Node);
 
             GameObject map5Node = CreateNode(new Vector2(633f, 599f), map4Node);
             mapNodes.Add(map5Node);
@@ -218,15 +217,15 @@ namespace Neva.BeatEmUp.GameStates
 
             mapNodes.ForEach(n =>
             {
-                n.InitializeComponents();
                 n.StartBehaviours();
+                Game.AddGameObject(n);
             });
 
-            currentNode = mapNodes[0];
-
             selector = Game.CreateGameObjectFromKey("MapSelector");
-            selector.Position = currentNode.Position;
+            selector.Position = map1Node.Position;
             selector.FirstBehaviourOfType<SelectorBehaviour>().Destination = selector.Position;
+
+            currentNode = map1Node;
         }
 
         protected override void OnInitialize()

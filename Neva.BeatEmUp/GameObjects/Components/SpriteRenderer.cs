@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameObjects.Components
 {
-    public sealed class SpriteRenderer : RenderComponent
+    public class SpriteRenderer : RenderComponent
     {
         #region Vars
         private Sprite sprite;
@@ -112,16 +112,31 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
         }
 
-        protected override void OnPositionXd(float newX)
+        protected override void OnPositionXChanged(float newX)
         {
+            if (sprite == null)
+            {
+                return;
+            }
+
             sprite.X = newX;
         }
-        protected override void OnPositionYd(float newY)
+        protected override void OnPositionYChanged(float newY)
         {
+            if (sprite == null)
+            {
+                return;
+            }
+
             sprite.Y = newY;
         }
         protected override void OnFollowOwner()
         {
+            if (sprite == null)
+            {
+                return;
+            }
+
             sprite.Position = Position;
         }
 

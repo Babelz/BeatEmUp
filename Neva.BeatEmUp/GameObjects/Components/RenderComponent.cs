@@ -26,11 +26,11 @@ namespace Neva.BeatEmUp.GameObjects.Components
             {
                 if (position.X != value.X)
                 {
-                    OnPositionXd(value.X);
+                    OnPositionXChanged(value.X);
                 }
                 if (position.Y != value.Y)
                 {
-                    OnPositionYd(value.Y);
+                    OnPositionYChanged(value.Y);
                 }
 
                 position = value;
@@ -48,7 +48,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
                 {
                     position.X = value;
 
-                    OnPositionXd(value);
+                    OnPositionXChanged(value);
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
                 {
                     position.Y = value;
 
-                    OnPositionYd(value);
+                    OnPositionYChanged(value);
                 }
             }
         }
@@ -116,14 +116,14 @@ namespace Neva.BeatEmUp.GameObjects.Components
         /// Kutsutaan kun x:n arvo muuttuu. Position ja offset lisätään
         /// OnUpdate metodissa.
         /// </summary>
-        protected virtual void OnPositionXd(float newX)
+        protected virtual void OnPositionXChanged(float newX)
         {
         }
         /// <summary>
         /// Kutsutaan kun y:n arvo muuttuu. Position ja offset lisätään
         /// OnUpdate metodissa.
         /// </summary>
-        protected virtual void OnPositionYd(float newY)
+        protected virtual void OnPositionYChanged(float newY)
         {
         }
         /// <summary>

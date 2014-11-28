@@ -147,6 +147,28 @@ namespace Neva.BeatEmUp.GameObjects
                 name = value;
             }
         }
+        public float X
+        {
+            get
+            {
+                return Position.X;
+            }
+            set
+            {
+                body.Position = new Vector2(value, Position.Y);
+            }
+        }
+        public float Y
+        {
+            get
+            {
+                return Position.Y;
+            }
+            set
+            {
+                body.Position = new Vector2(Position.X, value);
+            }
+        }
         #endregion
 
         public GameObject(BeatEmUpGame game)
