@@ -60,13 +60,35 @@ namespace Neva.BeatEmUp.Behaviours
 
         private void Attack(InputEventArgs args)
         {
-            if (args.InputState != InputState.Released)
+            if (args.InputState != InputState.Pressed)
             {
                 return;
             }
 
-            GameObject target = Owner.FirstComponentOfType<TargetingComponent>().Target;
+            if (spriterComponent.CurrentAnimation.Name == "Attack") return;
 
+            spriterComponent.OnAnimationFinished += spriterComponent_OnAnimationFinished;
+            spriterComponent.ChangeAnimation("Attack");
+
+        }
+
+        #region Event Callbacks
+        void spriterComponent_OnAnimationChanged(SaNi.Spriter.Data.SpriterAnimation old, SaNi.Spriter.Data.SpriterAnimation newAnim)
+        {
+            // attack keskeytettiin, niin tyhennetään callback jottai ei lyödä seuraavaa vihua vitullisilla callbackeilla
+            if (old.Name == "Attack")
+            {
+                spriterComponent.OnAnimationFinished -= spriterComponent_OnAnimationFinished;
+            }
+        }
+
+        void spriterComponent_OnAnimationFinished(SaNi.Spriter.Data.SpriterAnimation animation)
+        {
+            spriterComponent.OnAnimationFinished -= spriterComponent_OnAnimationFinished;
+            if (animation.Name != "Attack") return;
+
+            GameObject target = Owner.FirstComponentOfType<TargetingComponent>().Target;
+            spriterComponent.ChangeAnimation("Idle");
             // ei ole targettia
             if (target == null)
             {
@@ -85,7 +107,10 @@ namespace Neva.BeatEmUp.Behaviours
             healthComponent.TakeDamage(10f);
 
             Console.WriteLine("HITTING TARGET w/ NAME OF {0} - {1} HP's left!!", target.Name, target.FirstComponentOfType<HealthComponent>().HealthPoints);
+
         }
+
+        #endregion
 
         #region Util
 
@@ -128,6 +153,8 @@ namespace Neva.BeatEmUp.Behaviours
 
             spriterComponent.ChangeAnimation("Idle");
             spriterComponent.Scale = 0.4f;
+
+            spriterComponent.OnAnimationChanged += spriterComponent_OnAnimationChanged;
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -136,7 +163,8 @@ namespace Neva.BeatEmUp.Behaviours
                                  Owner.Position.Y + Owner.Body.BroadphaseProxy.AABB.Height);
             Owner.Position += Owner.Body.Velocity;
 
-            if (spriterComponent.CurrentAnimation.Name != "Idle" && Owner.Body.Velocity == Vector2.Zero)
+            // TODO voisko tehdä järkevämmin?
+            if (spriterComponent.CurrentAnimation.Name != "Idle" && spriterComponent.CurrentAnimation.Name != "Attack" && Owner.Body.Velocity == Vector2.Zero)
             {
                 spriterComponent.ChangeAnimation("Idle");
             }

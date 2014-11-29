@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,71 @@ namespace GameObjects.Components
 
 
         private Vector2 position;
+
+
+        #region Events
+
+        public event MainlineKeyChangedEventHandler OnMainlineKeyChanged
+        {
+            add
+            {
+                player.OnMainlineKeyChanged += value;
+            }
+            remove
+            {
+                player.OnMainlineKeyChanged -= value;
+            }
+        }
+
+        public event PlayerProcessEventHandler OnPreProcess
+        {
+            add
+            {
+                player.OnPreProcess += value;
+            }
+            remove
+            {
+                player.OnPreProcess -= value;
+            }
+        }
+
+        public event PlayerProcessEventHandler OnPostProcess
+        {
+            add
+            {
+                player.OnPostProcess += value;
+            }
+            remove
+            {
+                player.OnPostProcess -= value;
+            }
+        }
+
+        public event AnimationChangedEventHandler OnAnimationChanged
+        {
+            add
+            {
+                player.OnAnimationChanged += value;
+            }
+            remove
+            {
+                player.OnAnimationChanged -= value;
+            }
+        }
+
+        public event AnimationFinishedEventHandler OnAnimationFinished
+        {
+            add
+            {
+                player.OnAnimationFinished += value;
+            }
+            remove
+            {
+                player.OnAnimationFinished -= value;
+            }
+        }
+
+        #endregion
 
         #region Properties
 
