@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameObjects.Components;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Neva.BeatEmUp.Collision;
 using Neva.BeatEmUp.GameObjects;
@@ -18,7 +20,7 @@ namespace Neva.BeatEmUp.Behaviours
     public sealed class PlayerBehaviour : Behaviour
     {
         #region Vars
-        private SpriterAnimationRenderer spriterRenderer;
+        private SpriterComponent<Texture2D> spriterComponent;
         private float speed = 2.5f;
         #endregion
 
@@ -28,13 +30,15 @@ namespace Neva.BeatEmUp.Behaviours
             owner.Size = new Vector2(32f, 110f);
 
             owner.Game.World.CreateBody(owner.Body);
+            spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\Player\Player");
+            owner.AddComponent(spriterComponent);
         }
 
         #region Input maps
         private void MoveLeft(InputEventArgs args)
         {
             WalkAnimation(args);
-            Owner.FirstComponentOfType<SpriterAnimationRenderer>().FlipX = true;
+            spriterComponent.FlipX = true;
             Owner.Body.Velocity = new Vector2(VelocityFunc(-speed, args), Owner.Body.Velocity.Y);
         }
         private void MoveDown(InputEventArgs args)
@@ -50,7 +54,7 @@ namespace Neva.BeatEmUp.Behaviours
         private void MoveRight(InputEventArgs args)
         {
             WalkAnimation(args);
-            Owner.FirstComponentOfType<SpriterAnimationRenderer>().FlipX = false;
+            spriterComponent.FlipX = false;
             Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
         }
 
@@ -89,11 +93,11 @@ namespace Neva.BeatEmUp.Behaviours
         {
             if (args.InputState == InputState.Pressed)
             {
-                var spriter = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
+                var spriter = Owner.FirstComponentOfType<SpriterComponent<Texture2D>>();
 
-                if (spriter.CurrentAnimation.Name != "walk")
+                if (spriter.CurrentAnimation.Name != "Walk")
                 {
-                    spriter.Animation("walk");
+                    spriter.ChangeAnimation("Walk");
                 }
             }
         }
@@ -109,10 +113,6 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            spriterRenderer = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
-            spriterRenderer.FilePath = "Animations\\player.scml";
-            spriterRenderer.Entity = "Player";
-
             Console.WriteLine("init");
 
             KeyboardInputListener keylistener = Owner.Game.KeyboardListener;
@@ -126,17 +126,19 @@ namespace Neva.BeatEmUp.Behaviours
 
             Owner.InitializeComponents();
 
-            spriterRenderer.Animation("idle");
-            spriterRenderer.Scale = 0.4f;
+            spriterComponent.ChangeAnimation("Idle");
+            spriterComponent.Scale = 0.4f;
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
+            spriterComponent.Position = new Vector2(Owner.Position.X + Owner.Body.BroadphaseProxy.AABB.Width / 2f,
+                                 Owner.Position.Y + Owner.Body.BroadphaseProxy.AABB.Height);
             Owner.Position += Owner.Body.Velocity;
 
-            if (spriterRenderer.CurrentAnimation.Name != "idle" && Owner.Body.Velocity == Vector2.Zero)
+            if (spriterComponent.CurrentAnimation.Name != "Idle" && Owner.Body.Velocity == Vector2.Zero)
             {
-                spriterRenderer.Animation("idle");
+                spriterComponent.ChangeAnimation("Idle");
             }
         }
     }
