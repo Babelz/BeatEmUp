@@ -65,7 +65,11 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            spriterComponent.Position = Owner.Position;
+            // TODO miten tän sais?
+            if (Owner.Body.BroadphaseProxy == null) return;
+
+            spriterComponent.Position = new Vector2(Owner.Position.X + Owner.Body.BroadphaseProxy.AABB.Width / 2f,
+                                 Owner.Position.Y + Owner.Body.BroadphaseProxy.AABB.Height);
         }
     }
 }

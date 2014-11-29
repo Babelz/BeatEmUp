@@ -55,6 +55,7 @@ namespace GameObjects.Components
             set
             {
                 position = value;
+                player.SetPosition(position.X, position.Y);
             }
         }
 
@@ -105,7 +106,6 @@ namespace GameObjects.Components
         private void Init(string file)
         {
             data = owner.Game.Content.Load<SpriterData>(file);
-            var type = typeof(SpriterLoader<T>);
             object[] args = { owner.Game, data };
             Type to = lookup[typeof(T)];
             loader = Activator.CreateInstance(to, args) as SpriterLoader<T>;
@@ -143,7 +143,6 @@ namespace GameObjects.Components
 
         protected override ComponentUpdateResults OnUpdate(GameTime gt, IEnumerable<ComponentUpdateResults> results)
         {
-            player.SetPosition(position.X, position.Y);
             player.Update();
             return new ComponentUpdateResults(this, true);
         }
