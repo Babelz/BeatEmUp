@@ -92,6 +92,7 @@
     <Compile Include="GameObjects\Components\ColliderRenderer.cs" />
     <Compile Include="GameObjects\Components\Enums.cs" />
     <Compile Include="GameObjects\Components\Exceptions.cs" />
+    <Compile Include="GameObjects\Components\FacingComponent.cs" />
     <Compile Include="GameObjects\Components\FloatingSpriteRenderer.cs" />
     <Compile Include="GameObjects\Components\GoalDetector.cs" />
     <Compile Include="GameObjects\Components\HealthComponent.cs" />

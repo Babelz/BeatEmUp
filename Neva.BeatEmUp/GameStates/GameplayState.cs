@@ -59,8 +59,8 @@ namespace Neva.BeatEmUp.GameStates
         {
             Vector2 newViewPosition = new Vector2();
 
-            newViewPosition.X = MathHelper.Clamp(player.Position.X - Game.Window.ClientBounds.Width / 2, 0, mapBehaviour.Area.Width + mapBehaviour.Area.X);
-            newViewPosition.Y = MathHelper.Clamp(player.Position.Y - Game.Window.ClientBounds.Height / 2, 0, mapBehaviour.Area.Height + mapBehaviour.Area.Y);
+            newViewPosition.X = MathHelper.Clamp(player.Position.X - Game.Window.ClientBounds.Width / 2f, 0, mapBehaviour.Area.Width + mapBehaviour.Area.X);
+            newViewPosition.Y = MathHelper.Clamp(player.Position.Y - Game.Window.ClientBounds.Height / 2f, 0, mapBehaviour.Area.Height + mapBehaviour.Area.Y);
 
             Game.View.Position = newViewPosition;
         }
