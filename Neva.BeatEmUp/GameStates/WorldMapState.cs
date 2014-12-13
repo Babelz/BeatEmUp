@@ -136,6 +136,7 @@ namespace Neva.BeatEmUp.GameStates
                 {
                     gameStateManager.SwapStates();
                 };
+
                 fadeIn.StateFininshed += (s, a) =>
                 {
                     Game.EnableSortedDraw();
