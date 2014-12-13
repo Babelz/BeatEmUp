@@ -158,7 +158,13 @@ namespace Neva.BeatEmUp
         #region Event handlers
         private void stateManager_GameStateChanging(object sender, GameStateChangingEventArgs e)
         {
-            gameObjects.RemoveAll(o => o.ContainsTag(e.Current.Name));
+            List<GameObject> toRemove = gameObjects.Where(o => o.ContainsTag(e.Current.Name)).ToList();
+            foreach (var gameObject in toRemove)
+            {
+                world.RemoveBody(gameObject.Body);
+                gameObjects.Remove(gameObject);
+            }
+            
         }
 
 
@@ -168,7 +174,20 @@ namespace Neva.BeatEmUp
             {
                 o.Disable();
                 o.Hide();
+                // TODO pitäs bodyt saada pois
                 //world.RemoveBody(o.Body);
+            }
+        }
+
+        private void stateManager_OnGameStatePopping(object sender, GameStateChangingEventArgs e)
+        {
+            // TODO bodyt takasin jos push poistaa
+            // poisto
+            stateManager_GameStateChanging(sender, e);
+            foreach (GameObject o in gameObjects.Where(o => o.ContainsTag(e.Next.Name)))
+            {
+                o.Show();
+                o.Enable();
             }
         }
 
@@ -229,6 +248,7 @@ namespace Neva.BeatEmUp
 
             stateManager.GameStateChanging += stateManager_GameStateChanging;
             stateManager.OnGameStatePushing += stateManager_OnGameStatePushing;
+            stateManager.OnGameStatePopping += stateManager_OnGameStatePopping;
 
             world = new World(this, new BruteForceBroadphase(), new SeparatingAxisTheorem());
 

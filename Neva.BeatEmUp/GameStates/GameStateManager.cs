@@ -31,6 +31,7 @@ namespace Neva.BeatEmUp.GameStates
         public event GameStateEventHandler<GameStateChangingEventArgs> OnGameStatePushing;
         public event GameStateEventHandler<GameStateChangingEventArgs> OnGameStatePushed;
         public event GameStateEventHandler<GameStateChangingEventArgs> OnGameStatePopped;
+        public event GameStateEventHandler<GameStateChangingEventArgs> OnGameStatePopping;
         #endregion
 
         #region Properties
@@ -76,6 +77,7 @@ namespace Neva.BeatEmUp.GameStates
             OnGameStatePopped += delegate { };
             OnGameStatePushing += delegate { };
             OnGameStatePushed += delegate { };
+            OnGameStatePopping += delegate {  };
         }
 
         public void SwapStates()
@@ -179,12 +181,45 @@ namespace Neva.BeatEmUp.GameStates
         public void PopState(TransitionPlayer player)
         {
             // TODO eventit jne
-            if (previous != null)
+            if (previous == null) return;
+
+            if (player != null)
             {
-                ChangeState(previous, player);
-                previous = null;
+                transitionPlayer = player;
+                transitionPlayer.Current = current;
+                transitionPlayer.Next = previous;
+                transitionPlayer.Start();
+                return;
+            }
+
+            PopStates();
+
+        }
+
+        public void PopStates()
+        {
+            if (previous == null)
+            {
+
+                throw new ArgumentException("There isn't previous state to swap to");
+            }
+
+            if (current == null)
+            {
+                throw new ArgumentException("There isn't state active!");
             }
             
+            current.OnDeactivate();
+            
+
+            OnGameStatePopping(this, new GameStateChangingEventArgs(current, previous));
+
+            current.OnActivate();
+
+            current = previous;
+            previous = null;
+            OnGameStatePopped(this, new GameStateChangingEventArgs(current, null));
+
         }
 
         public override void Update(GameTime gameTime)

@@ -36,7 +36,6 @@ namespace Neva.BeatEmUp.GameStates
             Game.AddGameObject(map);
 
             player = Game.CreateGameObjectFromKey("player");
-            player.Position = new Vector2(200f, 600f);
         }
 
         private GameObject CreateTable()
@@ -69,6 +68,21 @@ namespace Neva.BeatEmUp.GameStates
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.FillRectangle(new Rectangle(400, 0, 10, 50), Color.Red, 0f);
+        }
+
+        private Vector2 lastPosition = new Vector2(200f, 600f);
+
+        public override void OnActivate()
+        {
+            GameObject player = Game.FindGameObject(o => o.Name == "Player");
+            if (player == null) return;
+
+            player.Position = lastPosition;
+        }
+        // testing
+        public override void OnDeactivate()
+        {
+            lastPosition = Game.FindGameObject(o => o.Name == "Player").Position;
         }
     }
 }

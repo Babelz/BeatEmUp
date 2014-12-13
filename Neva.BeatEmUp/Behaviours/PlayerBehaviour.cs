@@ -165,7 +165,7 @@ namespace Neva.BeatEmUp.Behaviours
                         Owner.Game.StateManager.PushStates();
                     
                     Owner.Game.StateManager.PushState(new ShopState(Owner.Game.StateManager.Current), p);
-                    
+                    keylistener.RemoveMapping("Enter Shop");
                 }
             }, Keys.Enter);
 
