@@ -23,7 +23,7 @@ namespace Neva.BeatEmUp.Behaviours
 
         #region Vars
         private readonly SpriteFont font;
-        private readonly string filename;
+        private readonly MapBuilder builder;
 
         private float goal;
 
@@ -45,7 +45,7 @@ namespace Neva.BeatEmUp.Behaviours
         public MapBehaviour(GameObject owner, string filename)
             : base(owner)
         {
-            this.filename = filename;
+            builder = new MapBuilder(filename);
 
             font = owner.Game.Content.Load<SpriteFont>("default");
             owner.Size = new Vector2(0f);
@@ -198,11 +198,6 @@ namespace Neva.BeatEmUp.Behaviours
         }
         #endregion
 
-        private XDocument OpenFile()
-        {
-            return XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + "Content\\Maps\\" + filename);
-        }
-
         private GameObject CreateWall(string name, Vector2 position, Vector2 size)
         {
             GameObject wall = new GameObject(Owner.Game);
@@ -266,7 +261,7 @@ namespace Neva.BeatEmUp.Behaviours
         /// </summary>
         private void InitializeSpriteRenderers()
         {
-            XDocument file = OpenFile();
+            XDocument file = builder.OpenFile();
 
             // Yläosan renderöijän alustus.
             SpriteRenderer top = CreateRenderer("TopRenderer", file.Root.Attribute("Top").Value);
@@ -284,70 +279,9 @@ namespace Neva.BeatEmUp.Behaviours
             area = new Rectangle(0, 0, (int)top.Size.X, (int)(top.Size.Y + bottom.Size.Y));
         }
 
-        private List<Scene> BuildScenes()
-        {
-            List<Scene> scenes = new List<Scene>();
-
-            XDocument file = OpenFile();
-
-            List<XElement> sceneElements = file.Root.Elements("Scene").ToList();
-
-            // Parsitaan jokainen scene läpi.
-            for (int i = 0; i < sceneElements.Count; i++)
-            {
-                // Haetaan ylä ja ala osien tekstuurien nimet.
-                string topName = sceneElements[i].Attribute("Top").Value;
-                string bottomName = sceneElements[i].Attribute("Bottom").Value;
-
-                List<XElement> waveElements = sceneElements[i].Element("Waves").Elements("Wave").ToList();
-                List<XElement> objectElements = sceneElements[i].Element("Objects").Elements("Object").ToList();
-
-                List<Wave> waves = new List<Wave>();
-
-                // Parsitaan kaikki wavet.
-                for (int j = 0; j < waveElements.Count; j++)
-                {
-                    XElement waveElement = waveElements[j];
-
-                    int releaseTime = int.Parse(waveElement.Attribute("ReleaseTime").Value);
-                    int monsterCount = int.Parse(waveElement.Attribute("Count").Value);
-                    string monsterName = waveElement.Attribute("Monster").Value;
-
-                    WaveDirection direction = (WaveDirection)Enum.Parse(typeof(WaveDirection), waveElement.Attribute("Direction").Value);
-
-                    waves.Add(new Wave(releaseTime, monsterCount, monsterName, direction));
-                }
-
-                List<GameObject> objects = new List<GameObject>();
-
-                // Parsitaan kaikki scene objectit.
-                for (int j = 0; j < objectElements.Count; j++)
-                {
-                    XElement objectElement = objectElements[j];
-
-                    string name = objectElement.Attribute("Name").Value;
-                    
-                    GameObject sceneObject = Owner.Game.CreateGameObjectFromName(name, false);
-                    sceneObject.Position = new Vector2(sceneObject.Position.X + i * Owner.Game.Window.ClientBounds.Width,
-                                                       sceneObject.Position.Y);
-
-                    objects.Add(sceneObject);
-                }
-
-                scenes.Add(new Scene(Owner.Game, waves, objects, topName, bottomName));
-            }
-
-            return scenes;
-        }
-
         protected override void OnInitialize()
         {
-            if (string.IsNullOrEmpty(filename))
-            {
-                throw new ArgumentNullException("filename");
-            }
-
-            List<Scene> scenes = BuildScenes();
+            List<Scene> scenes = builder.BuildScenes(Owner);
 
             MapComponent mapComponent = new MapComponent(Owner, scenes);
 

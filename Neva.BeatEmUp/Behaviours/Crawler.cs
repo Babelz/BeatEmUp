@@ -27,7 +27,6 @@ namespace Neva.BeatEmUp.Behaviours
         {
             fsm = new FiniteStateMachine(owner);
             spriterComponent = new SpriterComponent<Texture2D>(owner, @"Animations\Crawler\crawler");
-            //owner.AddComponent(spriterComponent);
         }
 
         /// <summary>

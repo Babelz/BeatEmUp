@@ -124,17 +124,17 @@ namespace Neva.BeatEmUp.RunTime
             return null;
         }
         /// <summary>
-        /// Validoi avaimen. Jos avain on jo model listassa, heittää poikkeuksen.
+        /// Validoi nimen. Jos nimi on jo model listassa, heittää poikkeuksen.
         /// </summary>
-        private void ValidateKey(string key, List<ObjectModel> models)
+        private void ValidateName(string name, List<ObjectModel> models)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(name))
             {
-                throw new ArgumentNullException("Key");
+                throw new ArgumentNullException("name");
             }
-            if (models.Find(m => string.Equals(key, m.Key, StringComparison.OrdinalIgnoreCase)) != null)
+            if (models.Find(m => string.Equals(name, m.Name, StringComparison.OrdinalIgnoreCase)) != null)
             {
-                throw new ArgumentException(string.Format("Creator already contains model with key ''{0}''", key));
+                throw new ArgumentException(string.Format("Creator already contains model with name ''{0}''", name));
             }
         }
         /// <summary>
@@ -177,7 +177,7 @@ namespace Neva.BeatEmUp.RunTime
                 // Avaimen luku ja validointi.
                 string key = TryReadAttribute(current, "Key");
 
-                ValidateKey(key, models);
+                ValidateName(key, models);
 
                 // Perusarvojen luku.
                 float x = TryParseFloat(TryReadAttribute(current, "X"));
