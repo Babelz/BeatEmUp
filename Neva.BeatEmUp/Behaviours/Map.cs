@@ -15,7 +15,7 @@ using System.Xml.Linq;
 namespace Neva.BeatEmUp.Behaviours
 {
     [ScriptAttribute(false)]
-    public sealed class MapBehaviour : Behaviour
+    public sealed class Map : Behaviour
     {
         #region Constants
         private const int FADEIN_TIME = 5000;
@@ -42,7 +42,7 @@ namespace Neva.BeatEmUp.Behaviours
         }
         #endregion
 
-        public MapBehaviour(GameObject owner, string filename)
+        public Map(GameObject owner, string filename)
             : base(owner)
         {
             builder = new MapBuilder(filename);

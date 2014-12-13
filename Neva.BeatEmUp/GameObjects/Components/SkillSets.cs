@@ -28,7 +28,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
                     return false;
                 });
 
-            Skill bloodFury = new Skill("bloodFury", 2500, () =>
+            Skill bloodFury = new Skill("blood fury", 2500, () =>
                 {
                     if (targetingComponent.HasTarget)
                     {

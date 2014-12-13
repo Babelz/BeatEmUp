@@ -19,14 +19,15 @@ using Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses;
 namespace Neva.BeatEmUp.Behaviours
 {
     [ScriptAttribute(false)]
-    public sealed class PlayerBehaviour : Behaviour
+    public sealed class Player : Behaviour
     {
         #region Vars
         private SpriterComponent<Texture2D> spriterComponent;
         private float speed = 2.5f;
         #endregion
 
-        public PlayerBehaviour(GameObject owner) : base(owner)
+        public Player(GameObject owner) 
+            : base(owner)
         {
             owner.Body.Shape.Size = new Vector2(32.0f, 32.0f);
             owner.Size = new Vector2(32f, 110f);
@@ -71,7 +72,7 @@ namespace Neva.BeatEmUp.Behaviours
 
             spriterComponent.OnAnimationFinished += spriterComponent_OnAnimationFinished;
             spriterComponent.ChangeAnimation("Attack");
-
+            spriterComponent.SetTime(400);
         }
 
         #region Event Callbacks
@@ -137,17 +138,16 @@ namespace Neva.BeatEmUp.Behaviours
         {
             return args.InputState == InputState.Released ? 0f : src;
         }
-
-        protected override void OnInitialize()
+        private void InitializeMappings()
         {
-            Console.WriteLine("init");
-
             KeyboardInputListener keylistener = Owner.Game.KeyboardListener;
+
             keylistener.Map("Left", MoveLeft, new KeyTrigger(Keys.A), new KeyTrigger(Keys.Left));
             keylistener.Map("Right", MoveRight, new KeyTrigger(Keys.D), new KeyTrigger(Keys.Right));
             keylistener.Map("Up", MoveUp, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
             keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
             keylistener.Map("Attack", Attack, new KeyTrigger(Keys.Space));
+
             keylistener.Map("Enter Shop", args =>
             {
                 if (args.InputState == InputState.Released)
@@ -157,19 +157,31 @@ namespace Neva.BeatEmUp.Behaviours
 
                     Fade fadeIn = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.In, 1, 10, 255);
                     Fade fadeOut = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.Out, 10, 10, 0);
+
                     TransitionPlayer p = new TransitionPlayer();
+
                     p.AddTransition(fadeOut);
                     p.AddTransition(fadeIn);
 
-                    fadeOut.StateFininshed += (sender, eventArgs) => 
-                        Owner.Game.StateManager.PushStates();
-                    
+                    fadeOut.StateFininshed += (sender, eventArgs) => Owner.Game.StateManager.PushStates();
+
                     Owner.Game.StateManager.PushState(new ShopState(Owner.Game.StateManager.Current), p);
-                    
+
                 }
             }, Keys.Enter);
+        }
 
-            Owner.AddComponent(new HealthComponent(Owner, 100f));
+        protected override void OnInitialize()
+        {
+            InitializeMappings();
+
+            StatSet statSet = StatSets.CreateWarriorStatSet(Owner);
+            HealthComponent healthComponent = new HealthComponent(Owner, statSet);
+            WeaponComponent weaponComponent = new WeaponComponent(Owner, Weapons.CreateSlicerClaymore());
+
+            Owner.AddComponent(statSet);
+            Owner.AddComponent(healthComponent);
+            Owner.AddComponent(weaponComponent);
 
             Owner.InitializeComponents();
 
@@ -182,7 +194,7 @@ namespace Neva.BeatEmUp.Behaviours
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
             spriterComponent.Position = new Vector2(Owner.Position.X + Owner.Body.BroadphaseProxy.AABB.Width / 2f,
-                                 Owner.Position.Y + Owner.Body.BroadphaseProxy.AABB.Height);
+                                                    Owner.Position.Y + Owner.Body.BroadphaseProxy.AABB.Height);
             Owner.Position += Owner.Body.Velocity;
 
             // TODO voisko tehdä järkevämmin?

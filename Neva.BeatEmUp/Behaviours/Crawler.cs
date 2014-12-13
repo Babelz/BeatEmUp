@@ -52,7 +52,13 @@ namespace Neva.BeatEmUp.Behaviours
             // Initialize fsm.
             fsm.PushState(State_MoveTo);
 
-            Owner.AddComponent(new HealthComponent(Owner, 100f));
+            StatSet statSet = StatSets.CreateCrawlerStatSet(Owner);
+            HealthComponent healthComponent = new HealthComponent(Owner, statSet);
+            WeaponComponent weaponComponent = new WeaponComponent(Owner, Weapons.CreateClaws());
+
+            Owner.AddComponent(statSet);
+            Owner.AddComponent(healthComponent);
+            Owner.AddComponent(weaponComponent);
             Owner.AddComponent(spriterComponent);
             Owner.AddComponent(fsm);
 

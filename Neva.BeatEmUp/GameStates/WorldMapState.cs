@@ -86,7 +86,7 @@ namespace Neva.BeatEmUp.GameStates
         {
             if (currentNode != null)
             {
-                selector.FirstBehaviourOfType<SelectorBehaviour>().Destination = currentNode.Position;
+                selector.FirstBehaviourOfType<Selector>().Destination = currentNode.Position;
             }
         }
 
@@ -262,7 +262,7 @@ namespace Neva.BeatEmUp.GameStates
 
             selector = Game.CreateGameObjectFromKey("MapSelector");
             selector.Position = map1Node.Position;
-            selector.FirstBehaviourOfType<SelectorBehaviour>().Destination = selector.Position;
+            selector.FirstBehaviourOfType<Selector>().Destination = selector.Position;
 
             currentNode = map1Node;
         }
