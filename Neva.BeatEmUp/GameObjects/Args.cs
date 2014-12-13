@@ -1,4 +1,5 @@
-﻿using Neva.BeatEmUp.Maps;
+﻿using Neva.BeatEmUp.GameObjects.Components;
+using Neva.BeatEmUp.Maps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,55 @@ namespace Neva.BeatEmUp.GameObjects
 
     public class GameObjectComponentEventArgs : EventArgs
     {
-        public GameObjectComponentEventArgs()
+        #region Vars
+        protected readonly GameObjectComponent component;
+        #endregion
+
+        public GameObjectComponentEventArgs(GameObjectComponent component)
             : base()
+        {
+            this.component = component;
+        }
+        public GameObjectComponentEventArgs()
+            : this(null)
         {
         }
     }
+    public sealed class ComponentAddedEventArgs : GameObjectComponentEventArgs
+    {
+        #region Properties
+        public GameObjectComponent AddedComponent
+        {
+            get
+            {
+                return component;
+            }
+        }
+        #endregion
+
+        public ComponentAddedEventArgs(GameObjectComponent addedComponent)
+            : base(addedComponent)
+        {
+        }
+    }
+    public sealed class ComponentRemovedEventArgs : GameObjectComponentEventArgs
+    {
+        #region Properties
+        public GameObjectComponent RemovedComponent
+        {
+            get
+            {
+                return component;
+            }
+        }
+        #endregion
+
+        public ComponentRemovedEventArgs(GameObjectComponent removedComponent)
+            : base(removedComponent)
+        {
+        }
+    }
+
 
     public class MapComponentEventArgs : GameObjectComponentEventArgs
     {
@@ -47,6 +92,7 @@ namespace Neva.BeatEmUp.GameObjects
         #endregion
 
         public MapComponentEventArgs(Scene current, Scene next)
+            : base(null)
         {
             this.current = current;
             this.next = next;

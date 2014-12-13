@@ -42,6 +42,29 @@ namespace Neva.BeatEmUp.GameObjects
         public event GameObjectEventHandler<GameObjectEventArgs> OnEnable;
         public event GameObjectEventHandler<GameObjectEventArgs> OnShow;
         public event GameObjectEventHandler<GameObjectEventArgs> OnHide;
+
+        public event GameObjectComponentEventHandler<ComponentAddedEventArgs> ComponentAdded
+        {
+            add
+            {
+                componentManager.ComponentAdded += value;
+            }
+            remove
+            {
+                componentManager.ComponentAdded -= value;
+            }
+        }
+        public event GameObjectComponentEventHandler<ComponentRemovedEventArgs> ComponentRemoved
+        {
+            add
+            {
+                componentManager.ComponentRemoved += value;
+            }
+            remove
+            {
+                componentManager.ComponentRemoved -= value;
+            }
+        }
         #endregion
 
         #region Properties

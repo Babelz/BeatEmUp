@@ -28,6 +28,11 @@ namespace Neva.BeatEmUp.GameObjects
         }
         #endregion
 
+        #region Events
+        public event GameObjectComponentEventHandler<ComponentAddedEventArgs> ComponentAdded;
+        public event GameObjectComponentEventHandler<ComponentRemovedEventArgs> ComponentRemoved;
+        #endregion
+
         #region Properties
         public int ComponentsCount
         {
@@ -44,6 +49,9 @@ namespace Neva.BeatEmUp.GameObjects
 
             components = new TypeSortedContainer<GameObjectComponent>();
             sortedDrawableComponents = new List<GameObjectComponent>();
+
+            ComponentAdded += delegate { };
+            ComponentRemoved += delegate { };
         }
 
         private void ValidateComponent(GameObjectComponent component)
@@ -68,6 +76,8 @@ namespace Neva.BeatEmUp.GameObjects
 
             components.Add(component);
 
+            ComponentAdded(this, new ComponentAddedEventArgs(component));
+
             components.OrderAllItemsListBy(c => c.UpdateOrder);
 
             sortedDrawableComponents = components
@@ -81,6 +91,8 @@ namespace Neva.BeatEmUp.GameObjects
             {
                 sortedDrawableComponents.Remove(component);
                 components.Remove(component);
+
+                ComponentRemoved(this, new ComponentRemovedEventArgs(component));
 
                 return true;
             }

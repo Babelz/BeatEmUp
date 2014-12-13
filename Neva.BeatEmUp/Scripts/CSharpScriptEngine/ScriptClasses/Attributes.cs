@@ -8,7 +8,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
     public class ScriptAttribute : Attribute
     {
         #region Vars
-        private readonly bool ispublic;
+        private readonly bool isHidden;
         #endregion
 
         #region Properties
@@ -22,7 +22,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
         {
             get
             {
-                return ispublic;
+                return isHidden;
             }
         }
         #endregion
@@ -30,7 +30,7 @@ namespace Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses
         public ScriptAttribute(bool isHidden)
             : base()
         {
-            this.ispublic = isHidden;
+            this.isHidden = isHidden;
         }
     }
 }

@@ -11,8 +11,11 @@ namespace Neva.BeatEmUp.GameObjects.Components
 {
     public class TargetingComponent : GameObjectComponent
     {
+        #region Vars
         private AABB queryRegion;
         private GameObject target;
+        #endregion
+
         #region Properties
 
         public GameObject Target
@@ -22,6 +25,13 @@ namespace Neva.BeatEmUp.GameObjects.Components
                 return target;
             }
         }
+        public bool HasTarget
+        {
+            get
+            {
+                return target != null;
+            }
+        }
 
         #endregion
 
@@ -29,8 +39,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             
         }
-
-        
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
