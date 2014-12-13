@@ -20,6 +20,7 @@ namespace Neva.BeatEmUp.GameStates
 
         private TransitionPlayer transitionPlayer;
 
+        private GameState previous;
         private GameState current;
         private GameState next;
         #endregion
@@ -27,6 +28,9 @@ namespace Neva.BeatEmUp.GameStates
         #region Events
         public event GameStateEventHandler<GameStateChangingEventArgs> GameStateChanging;
         public event GameStateEventHandler<GameStateChangingEventArgs> GameStateChanged;
+        public event GameStateEventHandler<GameStateChangingEventArgs> OnGameStatePushing;
+        public event GameStateEventHandler<GameStateChangingEventArgs> OnGameStatePushed;
+        public event GameStateEventHandler<GameStateChangingEventArgs> OnGameStatePopped;
         #endregion
 
         #region Properties
@@ -50,6 +54,14 @@ namespace Neva.BeatEmUp.GameStates
                 return string.Empty;
             }
         }
+
+        public GameState Current
+        {
+            get
+            {
+                return current;
+            }
+        }
         #endregion
 
         public GameStateManager(BeatEmUpGame game)
@@ -61,6 +73,9 @@ namespace Neva.BeatEmUp.GameStates
 
             GameStateChanging += delegate { };
             GameStateChanged += delegate { };
+            OnGameStatePopped += delegate { };
+            OnGameStatePushing += delegate { };
+            OnGameStatePushed += delegate { };
         }
 
         public void SwapStates()
@@ -115,6 +130,61 @@ namespace Neva.BeatEmUp.GameStates
 
             // Swapatana statet suoraan.
             SwapStates();
+        }
+
+        public void PushState(GameState next, TransitionPlayer tp)
+        {
+            if (next == null)
+            {
+                throw new ArgumentNullException("next");
+            }
+
+            this.next = next;
+            if (tp != null)
+            {
+                this.transitionPlayer = tp;
+                transitionPlayer.Next = next;
+                transitionPlayer.Current = current;
+                transitionPlayer.Start();
+                return;
+            }
+            PushStates();
+        }
+
+        public void PushStates()
+        {
+            if (next == null)
+            {
+                // TODO: log warning. Turha kutsu.
+
+                return;
+            }
+            if (current != null)
+            {
+                current.OnDeactivate();
+            }
+
+            OnGameStatePushing(this, new GameStateChangingEventArgs(current, next));
+
+            next.Initialize(game, this);
+            next.OnActivate();
+
+            previous = current;
+            current = next;
+            next = null;
+
+            OnGameStatePushed(this, new GameStateChangingEventArgs(current, previous));
+        }
+
+        public void PopState(TransitionPlayer player)
+        {
+            // TODO eventit jne
+            if (previous != null)
+            {
+                ChangeState(previous, player);
+                previous = null;
+            }
+            
         }
 
         public override void Update(GameTime gameTime)

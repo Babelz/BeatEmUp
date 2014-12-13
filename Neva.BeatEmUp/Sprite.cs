@@ -17,6 +17,8 @@ namespace Neva.BeatEmUp
         private Vector2 origin;
         private Color color;
         private float rotation;
+        private Rectangle? source;
+
         #endregion
 
         #region Properties
@@ -139,24 +141,31 @@ namespace Neva.BeatEmUp
         #endregion
 
         public Sprite(Texture2D texture)
-            : this(texture, Vector2.Zero, new Vector2(1f, 1f), Vector2.Zero, Color.White, 0.0f, SpriteEffects.None)
+            : this(texture, Vector2.Zero, new Vector2(1f, 1f), null,Vector2.Zero, Color.White, 0.0f, SpriteEffects.None)
         {
         }
         public Sprite(Texture2D texture, Vector2 position)
-            : this(texture, position, new Vector2(1f, 1f), Vector2.Zero, Color.White, 0.0f, SpriteEffects.None)
+            : this(texture, position, new Vector2(1f, 1f), null, Vector2.Zero, Color.White, 0.0f, SpriteEffects.None)
         {
         }
         public Sprite(Texture2D texture, Vector2 position, Vector2 scale)
-            : this(texture, position, scale, Vector2.Zero, Color.White, 0.0f, SpriteEffects.None)
+            : this(texture, position, scale, null,Vector2.Zero, Color.White, 0.0f, SpriteEffects.None)
         {
         }
-        private Sprite(Texture2D texture, Vector2 position, Vector2 scale, Vector2 origin, Color color, float rotation, SpriteEffects effects)
+
+        public Sprite(Texture2D tex, Vector2 pos, Vector2 scale, Rectangle? src) 
+            : this(tex, pos, scale, src, Vector2.Zero, Color.White, 0f, SpriteEffects.None)
+        {
+            
+        }
+
+        private Sprite(Texture2D texture, Vector2 position, Vector2 scale, Rectangle? src, Vector2 origin, Color color, float rotation, SpriteEffects effects)
         {
             if (texture == null)
             {
                 throw new ArgumentNullException("texture");
             }
-
+            this.source = src;
             this.texture = texture;
             this.position = position;
             this.scale = scale;
@@ -168,7 +177,7 @@ namespace Neva.BeatEmUp
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, effect, 0.0f);
+            spriteBatch.Draw(texture, position, source, color, rotation, origin, scale, effect, 0.0f);
         }
     }
 }

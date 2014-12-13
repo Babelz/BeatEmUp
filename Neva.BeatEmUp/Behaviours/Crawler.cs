@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameObjects.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
@@ -18,12 +19,15 @@ namespace Neva.BeatEmUp.Behaviours
     {
         #region Vars
         private readonly FiniteStateMachine fsm;
+        private readonly SpriterComponent<Texture2D> spriterComponent; 
         #endregion
 
         public Crawler(GameObject owner)
             : base(owner)
         {
             fsm = new FiniteStateMachine(owner);
+            spriterComponent = new SpriterComponent<Texture2D>(owner, @"Animations\Crawler\crawler");
+            //owner.AddComponent(spriterComponent);
         }
 
         /// <summary>
@@ -44,28 +48,29 @@ namespace Neva.BeatEmUp.Behaviours
         protected override void OnInitialize()
         {
             Owner.Size = new Vector2(32f, 32f);
-            Owner.Body.Shape.Size = new Vector2(32f, 32f);
+            Owner.Body.Shape.Size = new Vector2(128f, 32f);
 
             // Initialize fsm.
             fsm.PushState(State_MoveTo);
 
-            // Initialize spriter renderer.
-            SpriterAnimationRenderer spriterRenderer = new SpriterAnimationRenderer(Owner);
-            spriterRenderer.FilePath = "Animations\\crawler.scml";
-            spriterRenderer.Entity = "entity_000";
-
             Owner.AddComponent(new HealthComponent(Owner, 100f));
-            Owner.AddComponent(spriterRenderer);
+            Owner.AddComponent(spriterComponent);
             Owner.AddComponent(fsm);
 
             Owner.InitializeComponents();
 
-            spriterRenderer.Animation("NewAnimation");
-            spriterRenderer.Scale = 0.2f;
+            spriterComponent.ChangeAnimation("NewAnimation");
+            spriterComponent.Scale = 0.2f;
+            
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
+            // TODO miten tän sais?
+            if (Owner.Body.BroadphaseProxy == null) return;
+
+            spriterComponent.Position = new Vector2(Owner.Position.X + Owner.Body.BroadphaseProxy.AABB.Width / 2f,
+                                 Owner.Position.Y + Owner.Body.BroadphaseProxy.AABB.Height);
         }
     }
 }

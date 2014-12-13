@@ -48,486 +48,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animations\arms\forarm_throw_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>forarm_throw_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\forearm_hit_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>forearm_hit_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\forearm_jump_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>forearm_jump_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_arm_idle.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_arm_idle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_arm_idle_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_arm_idle_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_arm_slide_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_arm_slide_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_arm_throw_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_arm_throw_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_arm_walk.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_arm_walk</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_forarm_idle_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_forarm_idle_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_forarm_idle_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_forarm_idle_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_forarm_jump_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_forarm_jump_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_forarm_side_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_forarm_side_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_forarm_under_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_forarm_under_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\p_forarm_walk_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_forarm_walk_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\arms\throw_blur_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>throw_blur_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\feet\p_foot_hit_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_foot_hit_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\feet\p_foot_hot_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_foot_hot_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\feet\p_foot_idle_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_foot_idle_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\feet\p_foot_jump_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_foot_jump_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\feet\p_foot_walk_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_foot_walk_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\feet\p_foot_walk_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_foot_walk_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_a_edge.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_a_edge</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_b.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_b</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_c.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_c</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_edge_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_edge_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_float_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_float_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_hang_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_hang_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_hang_1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_hang_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_hang_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_hang_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_hit_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_hit_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_hit_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_hit_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_idle_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_idle_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_jump_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_jump_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_jump_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_jump_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_prepunch_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_prepunch_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_prepunch_x.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_prepunch_x</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_punch_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_punch_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_push_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_push_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_push_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_push_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_slide_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_slide_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\hands\p_hand_throw_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_hand_throw_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_blink_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_blink_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_blink_1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_blink_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_concern.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_concern</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_concern_blink_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_concern_blink_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_concern_blink_1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_concern_blink_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_die.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_die</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_front.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_front</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_hurt.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_hurt</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_idle.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_idle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_idle_blink_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_idle_blink_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_idle_blink_1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_idle_blink_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_push.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_push</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_turn_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_turn_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\head\p_head_walk.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_head_walk</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\keho.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>keho</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\legs\p_leg_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_leg_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\legs\p_leg_idle_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_leg_idle_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\legs\p_leg_walk_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_leg_walk_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\legs\p_pelvis_die.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_pelvis_die</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\legs\p_pelvis_idle.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_pelvis_idle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\legs\p_pelvis_walk.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_pelvis_walk</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\legs\p_thigh_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_thigh_a</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\legs\p_thigh_idle_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_thigh_idle_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\legs\p_thigh_walk_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_thigh_walk_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\oikeajalkareisi.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>oikeajalkareisi</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\oikeajalkasääri.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>oikeajalkasääri</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\oikeakäsi.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>oikeakäsi</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\torso\p_torso_front.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_torso_front</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\torso\p_torso_idle.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_torso_idle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\torso\p_torso_jump.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_torso_jump</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\torso\p_torso_punch_0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_torso_punch_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\torso\p_torso_walk.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>p_torso_walk</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\vasenjalkapohje.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>vasenjalkapohje</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\vasenjalkasääri.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>vasenjalkasääri</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\VasenKäsiVarsi.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>VasenKäsiVarsi</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Vasenolka.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>Vasenolka</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Assets\Objects\table.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>table</Name>
@@ -551,6 +71,21 @@
       <Name>greennode</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\GenericZombie.scml">
+      <Name>GenericZombie</Name>
+      <Importer>SpriterImporter</Importer>
+      <Processor>SpriterProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Player.scml">
+      <Name>Player</Name>
+      <Importer>SpriterImporter</Importer>
+      <Processor>SpriterProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Crawler\crawler.scml">
+      <Name>crawler</Name>
+      <Importer>SpriterImporter</Importer>
+      <Processor>SpriterProcessor</Processor>
     </Compile>
     <None Include="Maps\City1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -602,18 +137,211 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Animations\crawler.scml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>crawler</Name>
-    </None>
-    <None Include="Animations\player.scml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>player</Name>
-    </None>
     <None Include="default.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>default</Name>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SaNi.Spriter.Pipeline\SaNi.Spriter.Pipeline.csproj">
+      <Project>{ed095d93-8c2b-4118-8f35-48c580038350}</Project>
+      <Name>SaNi.Spriter.Pipeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SaNi.TextureAtlas.Pipeline\SaNi.TextureAtlas.Pipeline.csproj">
+      <Project>{dd7e47f3-858d-4504-b937-d179169dd8a0}</Project>
+      <Name>SaNi.TextureAtlas.Pipeline</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\GenericZombie\Head.png">
+      <Name>Head</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\Keho.png">
+      <Name>Keho</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\Oikeajalka.png">
+      <Name>Oikeajalka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\Oikeakasivarsi.png">
+      <Name>Oikeakasivarsi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\Oikeaolkapaa.png">
+      <Name>Oikeaolkapaa</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\Oikeareisi.png">
+      <Name>Oikeareisi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\OikeareisiBonus.png">
+      <Name>OikeareisiBonus</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\VasenJalka.png">
+      <Name>VasenJalka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\VasenKasivarsi.png">
+      <Name>VasenKasivarsi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\VasenOlka.png">
+      <Name>VasenOlka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\VasenReisi.png">
+      <Name>VasenReisi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\GenericZombie\VasenReisiBONUS.png">
+      <Name>VasenReisiBONUS</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Head.png">
+      <Name>Head</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\HeadMoving.png">
+      <Name>HeadMoving</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Keho.png">
+      <Name>Keho</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\KehoMoving.png">
+      <Name>KehoMoving</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Miekka.png">
+      <Name>Miekka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaJalka.png">
+      <Name>OikeaJalka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaJalkamoving.png">
+      <Name>OikeaJalkamoving</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Oikeakasivarsi.png">
+      <Name>Oikeakasivarsi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaOlkapaa.png">
+      <Name>OikeaOlkapaa</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaReisi.png">
+      <Name>OikeaReisi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaReisiMoving.png">
+      <Name>OikeaReisiMoving</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Vasenjalka.png">
+      <Name>Vasenjalka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Vasenkasivarsi.png">
+      <Name>Vasenkasivarsi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Vasenolkapaa.png">
+      <Name>Vasenolkapaa</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenReisi.png">
+      <Name>VasenReisi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\Crawler\keho.png">
+      <Name>keho</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Crawler\oikeajalkareisi.png">
+      <Name>oikeajalkareisi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Crawler\oikeajalkasaari.png">
+      <Name>oikeajalkasaari</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Crawler\oikeakasi.png">
+      <Name>oikeakasi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Crawler\vasenjalkapohje.png">
+      <Name>vasenjalkapohje</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Crawler\vasenjalkasaari.png">
+      <Name>vasenjalkasaari</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Crawler\VasenKasiVarsi.png">
+      <Name>VasenKasiVarsi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Crawler\Vasenolka.png">
+      <Name>Vasenolka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Shop1\data.atlas">
+      <Name>data</Name>
+      <Importer>AtlasImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="Assets\Shop1\shop1.png">
+      <Name>shop1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--

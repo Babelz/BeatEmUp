@@ -110,6 +110,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         public SpriteRenderer(GameObject owner, Sprite sprite)
             : base(owner, false)
         {
+            this.sprite = sprite;
         }
 
         protected override void OnPositionXChanged(float newX)

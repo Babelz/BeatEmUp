@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameObjects.Components;
+using GameStates;
+using GameStates.Transitions;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Neva.BeatEmUp.Collision;
 using Neva.BeatEmUp.GameObjects;
@@ -18,7 +22,7 @@ namespace Neva.BeatEmUp.Behaviours
     public sealed class PlayerBehaviour : Behaviour
     {
         #region Vars
-        private SpriterAnimationRenderer spriterRenderer;
+        private SpriterComponent<Texture2D> spriterComponent;
         private float speed = 2.5f;
         #endregion
 
@@ -28,13 +32,15 @@ namespace Neva.BeatEmUp.Behaviours
             owner.Size = new Vector2(32f, 110f);
 
             owner.Game.World.CreateBody(owner.Body);
+            spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\Player\Player");
+            owner.AddComponent(spriterComponent);
         }
 
         #region Input maps
         private void MoveLeft(InputEventArgs args)
         {
             WalkAnimation(args);
-            Owner.FirstComponentOfType<SpriterAnimationRenderer>().FlipX = true;
+            spriterComponent.FlipX = true;
             Owner.Body.Velocity = new Vector2(VelocityFunc(-speed, args), Owner.Body.Velocity.Y);
         }
         private void MoveDown(InputEventArgs args)
@@ -50,19 +56,41 @@ namespace Neva.BeatEmUp.Behaviours
         private void MoveRight(InputEventArgs args)
         {
             WalkAnimation(args);
-            Owner.FirstComponentOfType<SpriterAnimationRenderer>().FlipX = false;
+            spriterComponent.FlipX = false;
             Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
         }
 
         private void Attack(InputEventArgs args)
         {
-            if (args.InputState != InputState.Released)
+            if (args.InputState != InputState.Pressed)
             {
                 return;
             }
 
-            GameObject target = Owner.FirstComponentOfType<TargetingComponent>().Target;
+            if (spriterComponent.CurrentAnimation.Name == "Attack") return;
 
+            spriterComponent.OnAnimationFinished += spriterComponent_OnAnimationFinished;
+            spriterComponent.ChangeAnimation("Attack");
+
+        }
+
+        #region Event Callbacks
+        void spriterComponent_OnAnimationChanged(SaNi.Spriter.Data.SpriterAnimation old, SaNi.Spriter.Data.SpriterAnimation newAnim)
+        {
+            // attack keskeytettiin, niin tyhennetään callback jottai ei lyödä seuraavaa vihua vitullisilla callbackeilla
+            if (old.Name == "Attack")
+            {
+                spriterComponent.OnAnimationFinished -= spriterComponent_OnAnimationFinished;
+            }
+        }
+
+        void spriterComponent_OnAnimationFinished(SaNi.Spriter.Data.SpriterAnimation animation)
+        {
+            spriterComponent.OnAnimationFinished -= spriterComponent_OnAnimationFinished;
+            if (animation.Name != "Attack") return;
+
+            GameObject target = Owner.FirstComponentOfType<TargetingComponent>().Target;
+            spriterComponent.ChangeAnimation("Idle");
             // ei ole targettia
             if (target == null)
             {
@@ -81,7 +109,10 @@ namespace Neva.BeatEmUp.Behaviours
             healthComponent.TakeDamage(10f);
 
             Console.WriteLine("HITTING TARGET w/ NAME OF {0} - {1} HP's left!!", target.Name, target.FirstComponentOfType<HealthComponent>().HealthPoints);
+
         }
+
+        #endregion
 
         #region Util
 
@@ -89,11 +120,11 @@ namespace Neva.BeatEmUp.Behaviours
         {
             if (args.InputState == InputState.Pressed)
             {
-                var spriter = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
+                var spriter = Owner.FirstComponentOfType<SpriterComponent<Texture2D>>();
 
-                if (spriter.CurrentAnimation.Name != "walk")
+                if (spriter.CurrentAnimation.Name != "Walk")
                 {
-                    spriter.Animation("walk");
+                    spriter.ChangeAnimation("Walk");
                 }
             }
         }
@@ -109,10 +140,6 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            spriterRenderer = Owner.FirstComponentOfType<SpriterAnimationRenderer>();
-            spriterRenderer.FilePath = "Animations\\player.scml";
-            spriterRenderer.Entity = "Player";
-
             Console.WriteLine("init");
 
             KeyboardInputListener keylistener = Owner.Game.KeyboardListener;
@@ -121,22 +148,47 @@ namespace Neva.BeatEmUp.Behaviours
             keylistener.Map("Up", MoveUp, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
             keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
             keylistener.Map("Attack", Attack, new KeyTrigger(Keys.Space));
+            keylistener.Map("Enter Shop", args =>
+            {
+                if (args.InputState == InputState.Released)
+                {
+                    // Alustetaan transition.
+                    Texture2D blank = Owner.Game.Content.Load<Texture2D>("blank");
+
+                    Fade fadeIn = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.In, 1, 10, 255);
+                    Fade fadeOut = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.Out, 10, 10, 0);
+                    TransitionPlayer p = new TransitionPlayer();
+                    p.AddTransition(fadeOut);
+                    p.AddTransition(fadeIn);
+
+                    fadeOut.StateFininshed += (sender, eventArgs) => 
+                        Owner.Game.StateManager.PushStates();
+                    
+                    Owner.Game.StateManager.PushState(new ShopState(Owner.Game.StateManager.Current), p);
+                    
+                }
+            }, Keys.Enter);
 
             Owner.AddComponent(new HealthComponent(Owner, 100f));
 
             Owner.InitializeComponents();
 
-            spriterRenderer.Animation("idle");
-            spriterRenderer.Scale = 0.4f;
+            spriterComponent.ChangeAnimation("Idle");
+            spriterComponent.Scale = 0.4f;
+
+            spriterComponent.OnAnimationChanged += spriterComponent_OnAnimationChanged;
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
+            spriterComponent.Position = new Vector2(Owner.Position.X + Owner.Body.BroadphaseProxy.AABB.Width / 2f,
+                                 Owner.Position.Y + Owner.Body.BroadphaseProxy.AABB.Height);
             Owner.Position += Owner.Body.Velocity;
 
-            if (spriterRenderer.CurrentAnimation.Name != "idle" && Owner.Body.Velocity == Vector2.Zero)
+            // TODO voisko tehdä järkevämmin?
+            if (spriterComponent.CurrentAnimation.Name != "Idle" && spriterComponent.CurrentAnimation.Name != "Attack" && Owner.Body.Velocity == Vector2.Zero)
             {
-                spriterRenderer.Animation("idle");
+                spriterComponent.ChangeAnimation("Idle");
             }
         }
     }

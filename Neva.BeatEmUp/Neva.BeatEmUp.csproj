@@ -40,6 +40,9 @@
     <Compile Include="Behaviours\SelectorBehaviour.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Behaviours\ShopBehaviour.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="GameObjects\Components\AI\BehaviorTree\ChildManager.cs" />
     <Compile Include="GameObjects\Components\AI\BehaviorTree\Decorator.cs" />
     <Compile Include="GameObjects\Components\AI\BehaviorTree\Delegates.cs" />
@@ -95,7 +98,8 @@
     <Compile Include="GameObjects\Components\LineRenderer.cs" />
     <Compile Include="GameObjects\Components\MapComponent.cs" />
     <Compile Include="GameObjects\Components\RenderComponent.cs" />
-    <Compile Include="GameObjects\Components\SpriterAnimationRenderer.cs" />
+    <Compile Include="GameObjects\Components\Shop\ShopRenderer.cs" />
+    <Compile Include="GameObjects\Components\SpriterComponent.cs" />
     <Compile Include="GameObjects\Components\SpriteRenderer.cs" />
     <Compile Include="GameObjects\Components\TargetingComponent.cs" />
     <Compile Include="GameObjects\Components\TextRenderer.cs" />
@@ -110,6 +114,7 @@
     <Compile Include="GameStates\GameState.cs" />
     <Compile Include="GameStates\GameStateManager.cs" />
     <Compile Include="GameStates\MainMenuState.cs" />
+    <Compile Include="GameStates\ShopState.cs" />
     <Compile Include="GameStates\SplashMenuState.cs" />
     <Compile Include="GameStates\Transitions\Args.cs" />
     <Compile Include="GameStates\Transitions\Delegates.cs" />
@@ -245,20 +250,6 @@
     <Compile Include="SafeTypeSortedContainer.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="SpriteBatchExtensions.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Character.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Pipeline\SpritePacker.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Pipeline\SpriterImporter.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Pipeline\SpriterProcessor.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Pipeline\SpriterReader.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Pipeline\SpriterShadow.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Pipeline\Utils.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Spriter\Animation.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Spriter\Bone.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Spriter\Entity.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Spriter\Mainline.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Spriter\Reference.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Spriter\Timeline.cs" />
-    <Compile Include="ThirdParty\BrashMonkey\Spriter\Types.cs" />
     <Compile Include="TypeSortedContainer.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
@@ -274,6 +265,7 @@
     <Content Include="Icon.ico" />
     <Content Include="ObjectFiles\Entities.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="ObjectFiles\Maps.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -290,12 +282,19 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
-    <None Include="ThirdParty\BrashMonkey\LICENSE" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SaNi.Spriter\SaNi.Spriter.csproj">
+      <Project>{10e6b926-4da7-4342-a740-e39dfd69a513}</Project>
+      <Name>SaNi.Spriter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BeatEmUpContent\BeatEmUpContent\BeatEmUpContent.csproj">
       <Project>{f86f728e-b158-42e3-bac7-de58863e9b36}</Project>
       <Name>BeatEmUpContent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaNi.TextureAtlas\SaNi.TextureAtlas.csproj">
+      <Project>{c7854646-71fc-441f-ba0a-1a4dcb2db684}</Project>
+      <Name>SaNi.TextureAtlas</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
