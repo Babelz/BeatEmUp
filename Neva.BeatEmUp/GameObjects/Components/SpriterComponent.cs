@@ -15,7 +15,7 @@ using SaNi.Spriter.Renderer;
 
 namespace GameObjects.Components
 {
-    public class SpriterComponent<T> : GameObjectComponent
+    public class SpriterComponent<T> : RenderComponent
     {
         
         // TODO HAXXXX
@@ -207,9 +207,15 @@ namespace GameObjects.Components
             player.SetEntity(data.GetEntity(name));
         }
 
+        public void SetTime(int value)
+        {
+            player.SetTime(value);
+        }
+
         protected override ComponentUpdateResults OnUpdate(GameTime gt, IEnumerable<ComponentUpdateResults> results)
         {
             player.Update();
+
             return new ComponentUpdateResults(this, true);
         }
 

@@ -7,41 +7,51 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameObjects
 {
-    internal sealed class WeaponComponent : GameObjectComponent
+    public struct Weapon
+    {
+        public readonly string Name;
+        public readonly float MinDamage;
+        public readonly float MaxDamage;
+        public readonly int SwingTime;
+        public readonly string AssetName;
+        public readonly float Dps;
+
+        public Weapon(string name, float minDamage, float maxDamage, int swingTime, string assetName)
+        {
+            Name = name;
+            MinDamage = minDamage;
+            MaxDamage = maxDamage;
+            SwingTime = swingTime;
+            AssetName = assetName;
+
+            Dps = (MinDamage + MaxDamage / 2.0f) / (swingTime / 1000f);
+        }
+    }
+
+    public sealed class WeaponComponent : GameObjectComponent
     {
         #region Static vars
         private static readonly Random random;
         #endregion
 
         #region Vars
-        private readonly string assetName;
-
-        private readonly float minDamage;
-        private readonly float maxDamage;
-        private readonly int normalSwingTimer;
-        private readonly float normalFSwingTimer;
-
         private readonly float dps;
 
+        private float normalFSwingTimer;
         private int currentSwingTime;
+
+        private Weapon weapon;
 
         private int elapsed;
         private bool cooldown;
         #endregion
 
         #region Properties
-        public float Dps
+        public Weapon Weapon
         {
             get
             {
-                return (minDamage + maxDamage / 2.0f) / normalFSwingTimer;
-            }
-        }
-        public string AssetName
-        {
-            get
-            {
-                return assetName;
+                return weapon;
             }
         }
         public bool CanSwing
@@ -60,17 +70,14 @@ namespace Neva.BeatEmUp.GameObjects
 
         // TODO: tarvii vielä proc setin.
 
-        public WeaponComponent(GameObject owner, string assetName, float minDamage, float maxDamage, int swingTimer)
+        public WeaponComponent(GameObject owner, Weapon weapon)
             : base(owner, false)
         {
-            this.assetName = assetName;
-            this.minDamage = minDamage;
-            this.maxDamage = maxDamage;
-            this.normalSwingTimer = swingTimer;
+            this.weapon = weapon;
 
-            normalFSwingTimer = swingTimer / 1000f;
+            normalFSwingTimer = weapon.SwingTime / 1000f;
 
-            currentSwingTime = swingTimer;
+            currentSwingTime = weapon.SwingTime;
         }
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -79,7 +86,7 @@ namespace Neva.BeatEmUp.GameObjects
             {
                 elapsed += gameTime.ElapsedGameTime.Milliseconds;
 
-                if (elapsed > normalSwingTimer)
+                if (elapsed > weapon.SwingTime)
                 {
                     cooldown = false;
                     elapsed = 0;
@@ -89,16 +96,31 @@ namespace Neva.BeatEmUp.GameObjects
             return new ComponentUpdateResults(this, true);
         }
 
+        public void IncreaseSwingTime(int value)
+        {
+            currentSwingTime += value;
+        }
         public void ReduceSwingTime(int value)
         {
             currentSwingTime -= value;
         }
         public void NormalizeSwingTime()
         {
-            currentSwingTime = normalSwingTimer;        
+            currentSwingTime = weapon.SwingTime;        
         }
 
-        public float GenerateAttack(float minBaseDamage, float maxBaseDamage, float attackPower, float crit)
+        public Weapon SwapWeapon(Weapon newWeapon)
+        {
+            Weapon current = weapon;
+            weapon = newWeapon;
+
+            normalFSwingTimer = weapon.SwingTime / 1000f;
+            currentSwingTime =weapon.SwingTime;
+
+            return current;
+        }
+
+        public float GenerateAttack(float minBaseDamage, float maxBaseDamage, float attackPower, float crit, ref bool isCrit)
         {
             if (!CanSwing)
             {
@@ -109,9 +131,9 @@ namespace Neva.BeatEmUp.GameObjects
 
             float apMod = attackPower / 3.5f;
 
-            bool isCrit = 0.0f + (random.NextDouble() * (100f - 0.0f)) <= crit;
+            isCrit = 0.0f + (random.NextDouble() * (100f - 0.0f)) <= crit;
 
-            float damage = (float)(maxDamage + minBaseDamage + apMod + (random.NextDouble() * (maxDamage + maxBaseDamage + apMod- minDamage + minDamage + apMod)));
+            float damage = (float)(weapon.MaxDamage + minBaseDamage + apMod + (random.NextDouble() * (weapon.MaxDamage + maxBaseDamage + apMod - weapon.MinDamage + weapon.MinDamage + apMod)));
 
             return isCrit ? damage * 1.5f : damage;
         }

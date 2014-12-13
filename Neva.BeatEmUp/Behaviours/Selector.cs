@@ -11,7 +11,7 @@ using System.Text;
 namespace Neva.BeatEmUp.Behaviours
 {
     [ScriptAttribute(false)]
-    public sealed class SelectorBehaviour : Behaviour
+    public sealed class Selector : Behaviour
     {
         #region Vars
         private Vector2 destination;
@@ -31,7 +31,7 @@ namespace Neva.BeatEmUp.Behaviours
         }
         #endregion
 
-        public SelectorBehaviour(GameObject owner)
+        public Selector(GameObject owner)
             : base(owner)
         {
         }

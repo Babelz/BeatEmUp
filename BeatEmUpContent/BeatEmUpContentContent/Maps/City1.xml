@@ -1,61 +1,61 @@
 ﻿<Map Top="taustatemp" Bottom="road">
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
-      <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
+      <Wave Monster="Crawler" ReleaseTime="0" Count="1" Direction="Right"/>
     </Waves>
 
     <Objects>
-      <Object Name="Blob"/>
+      <Object Name="Crawler"/>
     </Objects>
   </Scene>
 
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
-      <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
+      <Wave Monster="Crawler" ReleaseTime="0" Count="1" Direction="Right"/>
     </Waves>
 
     <Objects>
-      <Object Name="Blob"/>
+      <Object Name="Crawler"/>
     </Objects>
   </Scene>
 
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
-      <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
+      <Wave Monster="Crawler" ReleaseTime="0" Count="1" Direction="Right"/>
     </Waves>
 
     <Objects>
-      <Object Name="Blob"/>
+      <Object Name="Crawler"/>
     </Objects>
   </Scene>
 
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
-      <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
+      <Wave Monster="Crawler" ReleaseTime="0" Count="1" Direction="Right"/>
     </Waves>
 
     <Objects>
-      <Object Name="Blob"/>
+      <Object Name="Crawler"/>
     </Objects>
   </Scene>
 
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
-      <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
+      <Wave Monster="Crawler" ReleaseTime="0" Count="1" Direction="Right"/>
     </Waves>
 
     <Objects>
-      <Object Name="Blob"/>
+      <Object Name="Crawler"/>
     </Objects>
   </Scene>
 
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
-      <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
+      <Wave Monster="Crawler" ReleaseTime="0" Count="1" Direction="Right"/>
     </Waves>
 
     <Objects>
-      <Object Name="Blob"/>
+      <Object Name="Crawler"/>
     </Objects>
   </Scene>
 </Map>

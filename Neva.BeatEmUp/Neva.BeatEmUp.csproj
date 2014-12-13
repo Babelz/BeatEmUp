@@ -34,13 +34,16 @@
     <Compile Include="Behaviours\Crawler.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviours\MapBehaviour.cs">
+    <Compile Include="Behaviours\Map.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Behaviours\MapNode.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviours\SelectorBehaviour.cs">
+    <Compile Include="Behaviours\Player.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Behaviours\Selector.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Behaviours\ShopBehaviour.cs">
@@ -59,9 +62,6 @@
     <Compile Include="GameObjects\Components\AI\BehaviorTree\Sequence.cs" />
     <Compile Include="GameObjects\Components\AI\BehaviorTree\Succeeder.cs" />
     <Compile Include="GameObjects\Components\AI\FiniteStateMachine.cs" />
-    <Compile Include="Behaviours\PlayerBehaviour.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Camera.cs" />
     <Compile Include="Collision\Broadphase\BroadphaseProxy.cs" />
     <Compile Include="Collision\Broadphase\BruteForceBroadphase.cs" />
@@ -112,6 +112,7 @@
     <Compile Include="GameObjects\Components\StatSets.cs" />
     <Compile Include="GameObjects\Components\TargetingComponent.cs" />
     <Compile Include="GameObjects\Components\TextRenderer.cs" />
+    <Compile Include="GameObjects\Components\Weapons.cs" />
     <Compile Include="GameObjects\Delegates.cs" />
     <Compile Include="GameObjects\Results.cs" />
     <Compile Include="GameObjects\GameObject.cs" />

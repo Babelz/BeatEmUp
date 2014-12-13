@@ -11,7 +11,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             // 1250 hp
             float stamina = 125f;
-            // 35 mana
+            // 350 mana
             float intelligence = 35f;
             // 450 attack power
             float strength = 45f;
@@ -25,7 +25,18 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         public static StatSet CreateCrawlerStatSet(GameObject crawler)
         {
-            return null;
+            // 450 hp
+            float stamina = 45f;
+            // 150 mana
+            float intelligence = 15f;
+            // 125 attack power
+            float strength = 12.5f;
+            // 10% crit
+            float critPercent = 10f;
+
+            StatSet statSet = new StatSet(crawler, stamina, intelligence, strength, critPercent);
+
+            return statSet;
         }
     }
 }

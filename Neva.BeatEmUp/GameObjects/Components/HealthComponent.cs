@@ -8,17 +8,20 @@ namespace Neva.BeatEmUp.GameObjects.Components
 {
     public class HealthComponent : GameObjectComponent
     {
-
         #region Vars
+        private readonly StatSet statSet;
 
+        private float currentHealth;
         #endregion
 
         #region Properties
 
         public float HealthPoints
         {
-            get;
-            private set;
+            get
+            {
+                return statSet.GetMaxHealth();
+            }
         }
 
         public bool IsAlive
@@ -31,9 +34,12 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         #endregion
 
-        public HealthComponent(GameObject owner, float maxHp) : base(owner, false)
+        public HealthComponent(GameObject owner, StatSet statSet) 
+            : base(owner, false)
         {
-            HealthPoints = maxHp;
+            this.statSet = statSet;
+
+            currentHealth = statSet.GetMaxHealth(); 
         }
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -48,7 +54,13 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         public void TakeDamage(float amount)
         {
-            HealthPoints -= amount;
+            currentHealth -= amount;
+        }
+        public void Heal(float amount)
+        {
+            currentHealth += amount;
+
+            currentHealth = currentHealth > statSet.GetMaxHealth() ? statSet.GetMaxHealth() : currentHealth;
         }
     }
 }
