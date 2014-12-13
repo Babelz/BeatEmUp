@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameObjects.Components;
+using GameStates;
+using GameStates.Transitions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -146,6 +148,26 @@ namespace Neva.BeatEmUp.Behaviours
             keylistener.Map("Up", MoveUp, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
             keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
             keylistener.Map("Attack", Attack, new KeyTrigger(Keys.Space));
+            keylistener.Map("Enter Shop", args =>
+            {
+                if (args.InputState == InputState.Released)
+                {
+                    // Alustetaan transition.
+                    Texture2D blank = Owner.Game.Content.Load<Texture2D>("blank");
+
+                    Fade fadeIn = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.In, 1, 10, 255);
+                    Fade fadeOut = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.Out, 10, 10, 0);
+                    TransitionPlayer p = new TransitionPlayer();
+                    p.AddTransition(fadeOut);
+                    p.AddTransition(fadeIn);
+
+                    fadeOut.StateFininshed += (sender, eventArgs) => 
+                        Owner.Game.StateManager.PushStates();
+                    
+                    Owner.Game.StateManager.PushState(new ShopState(Owner.Game.StateManager.Current), p);
+                    
+                }
+            }, Keys.Enter);
 
             Owner.AddComponent(new HealthComponent(Owner, 100f));
 

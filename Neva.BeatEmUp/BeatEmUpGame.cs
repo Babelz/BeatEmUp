@@ -160,6 +160,18 @@ namespace Neva.BeatEmUp
         {
             gameObjects.RemoveAll(o => o.ContainsTag(e.Current.Name));
         }
+
+
+        void stateManager_OnGameStatePushing(object sender, GameStateChangingEventArgs e)
+        {
+            foreach (GameObject o in gameObjects.Where(o => o.ContainsTag(e.Current.Name)))
+            {
+                o.Disable();
+                o.Hide();
+                //world.RemoveBody(o.Body);
+            }
+        }
+
         #endregion
 
         private ObjectCreator FindCreator(string key = "", string name = "")
@@ -216,6 +228,7 @@ namespace Neva.BeatEmUp
             };
 
             stateManager.GameStateChanging += stateManager_GameStateChanging;
+            stateManager.OnGameStatePushing += stateManager_OnGameStatePushing;
 
             world = new World(this, new BruteForceBroadphase(), new SeparatingAxisTheorem());
 
@@ -243,7 +256,7 @@ namespace Neva.BeatEmUp
             }
 
             //stateManager.(new GameplayState("City1.xml"));
-            stateManager.ChangeState(new MainMenuState());
+            stateManager.ChangeState(new WorldMapState());
         }
 
         /// <summary>
@@ -286,8 +299,6 @@ namespace Neva.BeatEmUp
 
             destroyedObjects.Clear();
 
-            world.Step(gameTime);
-
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update(gameTime);
@@ -297,6 +308,8 @@ namespace Neva.BeatEmUp
                     destroyedObjects.Add(gameObjects[i]);
                 }
             }
+
+            world.Step(gameTime);
 
             if (sortedDraw)
             {

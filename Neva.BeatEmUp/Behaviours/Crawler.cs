@@ -48,7 +48,7 @@ namespace Neva.BeatEmUp.Behaviours
         protected override void OnInitialize()
         {
             Owner.Size = new Vector2(32f, 32f);
-            Owner.Body.Shape.Size = new Vector2(32f, 32f);
+            Owner.Body.Shape.Size = new Vector2(128f, 32f);
 
             // Initialize fsm.
             fsm.PushState(State_MoveTo);
@@ -61,6 +61,7 @@ namespace Neva.BeatEmUp.Behaviours
 
             spriterComponent.ChangeAnimation("NewAnimation");
             spriterComponent.Scale = 0.2f;
+            
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)

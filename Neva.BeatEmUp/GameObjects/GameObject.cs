@@ -406,7 +406,7 @@ namespace Neva.BeatEmUp.GameObjects
             {
                 componentManager[i].Initialize();
             }
-        }
+        } 
         /// <summary>
         /// Käynnistää kaikki toiminnot.
         /// </summary>

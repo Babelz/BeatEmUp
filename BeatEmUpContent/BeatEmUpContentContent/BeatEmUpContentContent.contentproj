@@ -147,6 +147,10 @@
       <Project>{ed095d93-8c2b-4118-8f35-48c580038350}</Project>
       <Name>SaNi.Spriter.Pipeline</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\SaNi.TextureAtlas.Pipeline\SaNi.TextureAtlas.Pipeline.csproj">
+      <Project>{dd7e47f3-858d-4504-b937-d179169dd8a0}</Project>
+      <Name>SaNi.TextureAtlas.Pipeline</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animations\GenericZombie\Head.png">
@@ -323,6 +327,18 @@
     </Compile>
     <Compile Include="Animations\Crawler\Vasenolka.png">
       <Name>Vasenolka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Shop1\data.atlas">
+      <Name>data</Name>
+      <Importer>AtlasImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="Assets\Shop1\shop1.png">
+      <Name>shop1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

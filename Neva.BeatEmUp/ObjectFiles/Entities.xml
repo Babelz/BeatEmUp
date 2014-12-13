@@ -10,4 +10,8 @@
     <Component Name="SpriteRenderer"/>
     <Behaviour Name="SelectorBehaviour" Start="true"/>
   </Object>
+  <!-- Numero nimessä kuvaa monta itemiä mahtuu -->
+  <Object Key="Shop1" Name="Shop1" Visible="true" Enable="true">
+    <Behaviour Name="ShopBehaviour" Start="true" />
+  </Object>
 </Entities>
