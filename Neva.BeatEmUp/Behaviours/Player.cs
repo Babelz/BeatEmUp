@@ -32,7 +32,7 @@ namespace Neva.BeatEmUp.Behaviours
             owner.Body.Shape.Size = new Vector2(32.0f, 32.0f);
             owner.Size = new Vector2(32f, 110f);
 
-            owner.Game.World.CreateBody(owner.Body);
+            owner.Game.World.CreateBody(owner.Body, CollisionSettings.PlayerCollisionGroup);
             spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\Player\Player");
             owner.AddComponent(spriterComponent);
         }

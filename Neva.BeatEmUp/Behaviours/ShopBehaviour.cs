@@ -49,7 +49,7 @@ namespace Behaviours
             top.Body.BodyType = BodyType.Static;
             top.Body.CollisionFlags = CollisionFlags.Solid;
             top.AddComponent(new ColliderRenderer(top));
-            Owner.Game.World.CreateBody(top.Body);
+            Owner.Game.World.CreateBody(top.Body, CollisionSettings.ObstacleCollisionGroup);
 
             Sprite sprite = new Sprite(Atlas.Texture, top.Position, Vector2.One, rectangle);
             top.AddComponent(new SpriteRenderer(top, sprite));
@@ -61,7 +61,7 @@ namespace Behaviours
             bottom.Position = new Vector2(top.Position.X, top.Size.Y);
             bottom.Body.BodyType = BodyType.Static;
             bottom.AddComponent(new ColliderRenderer(bottom));
-            Owner.Game.World.CreateBody(bottom.Body, CollisionGroup.Group16);
+            Owner.Game.World.CreateBody(bottom.Body, CollisionSettings.ShopCollisionGroup);
 
             sprite = new Sprite(Atlas.Texture, bottom.Position, Vector2.One, rectangle);
             bottom.AddComponent(new SpriteRenderer(bottom, sprite));
@@ -73,23 +73,23 @@ namespace Behaviours
             // TODO vittuko ei osaa 
             GameObject box = CreateBox(120f, bottom.Y, 70f, 75f);
             Owner.Game.AddGameObject(box);
-            Owner.Game.World.CreateBody(box.Body);
+            Owner.Game.World.CreateBody(box.Body, CollisionSettings.ObstacleCollisionGroup);
 
             GameObject boxlower = CreateBox(box.X, box.Y + box.Size.Y + 1, box.Size.X/2f, 20f);
             Owner.Game.AddGameObject(boxlower);
-            Owner.Game.World.CreateBody(boxlower.Body);
+            Owner.Game.World.CreateBody(boxlower.Body, CollisionSettings.ObstacleCollisionGroup);
 
             GameObject boxRight = CreateBox(box.X + box.Size.X + 1, box.Y, 40f, 50f);
             Owner.Game.AddGameObject(boxRight);
-            Owner.Game.World.CreateBody(boxRight.Body);
+            Owner.Game.World.CreateBody(boxRight.Body, CollisionSettings.ObstacleCollisionGroup);
 
             GameObject boxRightRight = CreateBox(boxRight.X + boxRight.Size.X + 1, boxRight.Y, 40f, 35f);
             Owner.Game.AddGameObject(boxRightRight);
-            Owner.Game.World.CreateBody(boxRightRight.Body);
+            Owner.Game.World.CreateBody(boxRightRight.Body, CollisionSettings.ObstacleCollisionGroup);
 
             GameObject boxRightRightRight = CreateBox(boxRightRight.X + boxRightRight.Size.X + 1, boxRight.Y, 40f, 15f);
             Owner.Game.AddGameObject(boxRightRightRight);
-            Owner.Game.World.CreateBody(boxRightRightRight.Body);
+            Owner.Game.World.CreateBody(boxRightRightRight.Body, CollisionSettings.ObstacleCollisionGroup);
             // kolmio on ~200 pikseliä leveä ylhäältä ja noin 140 pikseliä korkea 90 asteen kulman kohdalta
             // joten tehdään korkeudesta 140 - 32 niin pelaaja menee hyvin
             // 112 / 2f = 
