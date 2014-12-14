@@ -12,6 +12,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
     public class TargetingComponent : GameObjectComponent
     {
         #region Vars
+        private readonly string[] ignoredTags;
+
         private AABB queryRegion;
         private GameObject target;
         #endregion
@@ -35,9 +37,14 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         #endregion
 
-        public TargetingComponent(GameObject owner) : base(owner, false)
+        public TargetingComponent(GameObject owner, string[] ignoredTags) 
+            : base(owner, false)
         {
-            
+            this.ignoredTags = ignoredTags;
+        }
+        public TargetingComponent(GameObject owner)
+            : this(owner, null)
+        {
         }
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -46,6 +53,15 @@ namespace Neva.BeatEmUp.GameObjects.Components
             queryRegion = new AABB(owner.Position.X + owner.Size.X + 1, owner.Position.Y, 32f, 32f);
             // TODO mites jos ei ookkaan tarpeeksi iso collider?
             List<BroadphaseProxy> proxies = owner.Game.World.QueryAABB(ref queryRegion);
+
+            if (ignoredTags != null)
+            {
+                for (int i = 0; i < ignoredTags.Length; i++)
+                {
+                    proxies.RemoveAll(o => o.Client.Owner.ContainsTag(ignoredTags[i]));
+                }
+            }
+
             target = GetClosest(proxies);
     
             return new ComponentUpdateResults(this, true);
@@ -66,17 +82,20 @@ namespace Neva.BeatEmUp.GameObjects.Components
                     min = d;
                 }
             }
+
             return proxies[i].Client.Owner;
         }
 
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
+#if DEBUG
             spriteBatch.FillRectangle(queryRegion.ToRectangle(), Color.Black, 0f);
 
             if (target != null)
             {
                 spriteBatch.FillRectangle(target.Body.BroadphaseProxy.AABB.ToRectangle(), Color.Orange, 0f);
             }
+#endif
         }
     }
 }

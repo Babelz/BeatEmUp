@@ -34,13 +34,13 @@
     <Compile Include="Behaviours\Crawler.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviours\MapBehaviour.cs">
+    <Compile Include="Behaviours\Map.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Behaviours\MapNode.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviours\SelectorBehaviour.cs">
+    <Compile Include="Behaviours\Selector.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Behaviours\ShopBehaviour.cs">
@@ -58,8 +58,9 @@
     <Compile Include="GameObjects\Components\AI\BehaviorTree\Selector.cs" />
     <Compile Include="GameObjects\Components\AI\BehaviorTree\Sequence.cs" />
     <Compile Include="GameObjects\Components\AI\BehaviorTree\Succeeder.cs" />
+    <Compile Include="GameObjects\Components\AI\BehaviorTree\Tree.cs" />
     <Compile Include="GameObjects\Components\AI\FiniteStateMachine.cs" />
-    <Compile Include="Behaviours\PlayerBehaviour.cs">
+    <Compile Include="Behaviours\Player.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Camera.cs" />
@@ -102,7 +103,9 @@
     <Compile Include="GameObjects\Components\LineRenderer.cs" />
     <Compile Include="GameObjects\Components\MapComponent.cs" />
     <Compile Include="GameObjects\Components\RenderComponent.cs" />
+    <Compile Include="GameObjects\Components\Rotations.cs" />
     <Compile Include="GameObjects\Components\Shop\ShopRenderer.cs" />
+    <Compile Include="GameObjects\Components\SkillRotation.cs" />
     <Compile Include="GameObjects\Components\SkillSet.cs" />
     <Compile Include="GameObjects\Components\SkillSets.cs" />
     <Compile Include="GameObjects\Components\SpriterComponent.cs" />
@@ -112,12 +115,13 @@
     <Compile Include="GameObjects\Components\TargetingComponent.cs" />
     <Compile Include="GameObjects\Components\TextRenderer.cs" />
     <Compile Include="GameObjects\Components\Weapons.cs" />
+    <Compile Include="GameObjects\Components\DamageRenderer.cs" />
     <Compile Include="GameObjects\Delegates.cs" />
     <Compile Include="GameObjects\Results.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Components\GameObjectComponent.cs" />
     <Compile Include="GameObjects\TagContainer.cs" />
-    <Compile Include="GameObjects\WeaponComponent.cs" />
+    <Compile Include="GameObjects\Components\WeaponComponent.cs" />
     <Compile Include="GameStates\Args.cs" />
     <Compile Include="GameStates\Delegates.cs" />
     <Compile Include="GameStates\GameplayState.cs" />

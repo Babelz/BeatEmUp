@@ -29,7 +29,7 @@ namespace Neva.BeatEmUp.GameStates
         protected override void OnInitialize()
         {
             GameObject map = new GameObject(Game);
-            map.AddBehaviour("MapBehaviour", new object[] { mapName });
+            map.AddBehaviour("Map", new object[] { mapName });
             mapBehaviour = map.FirstBehaviourOfType<Map>();
             map.StartBehaviours();
 

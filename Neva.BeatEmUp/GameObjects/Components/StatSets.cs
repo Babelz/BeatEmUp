@@ -29,8 +29,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
             float stamina = 45f;
             // 150 mana
             float intelligence = 15f;
-            // 125 attack power
-            float strength = 12.5f;
+            // 35 attack power
+            float strength = 3.5f;
             // 10% crit
             float critPercent = 10f;
 

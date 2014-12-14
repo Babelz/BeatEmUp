@@ -21,9 +21,9 @@ namespace Neva.BeatEmUp.GameObjects.Components
         public static Weapon CreateClaws()
         {
             string name = "Claws";
-            float minDamage = 12f;
-            float maxDamage = 16f;
-            int swingTime = 1600;
+            float minDamage = 4f;
+            float maxDamage = 8f;
+            int swingTime = 1400;
             string assetName = string.Empty;
 
             return new Weapon(name, minDamage, maxDamage, swingTime, assetName);

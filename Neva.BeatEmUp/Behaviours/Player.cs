@@ -61,9 +61,17 @@ namespace Neva.BeatEmUp.Behaviours
             Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
         }
 
+        // Melee hyökkäys.
         private void Attack(InputEventArgs args)
         {
             if (args.InputState != InputState.Pressed)
+            {
+                return;
+            }
+
+            WeaponComponent weaponComponent = Owner.FirstComponentOfType<WeaponComponent>();
+
+            if (!weaponComponent.CanSwing)
             {
                 return;
             }
@@ -76,7 +84,7 @@ namespace Neva.BeatEmUp.Behaviours
         }
 
         #region Event Callbacks
-        void spriterComponent_OnAnimationChanged(SaNi.Spriter.Data.SpriterAnimation old, SaNi.Spriter.Data.SpriterAnimation newAnim)
+        private void spriterComponent_OnAnimationChanged(SaNi.Spriter.Data.SpriterAnimation old, SaNi.Spriter.Data.SpriterAnimation newAnim)
         {
             // attack keskeytettiin, niin tyhennetään callback jottai ei lyödä seuraavaa vihua vitullisilla callbackeilla
             if (old.Name == "Attack")
@@ -85,7 +93,7 @@ namespace Neva.BeatEmUp.Behaviours
             }
         }
 
-        void spriterComponent_OnAnimationFinished(SaNi.Spriter.Data.SpriterAnimation animation)
+        private void spriterComponent_OnAnimationFinished(SaNi.Spriter.Data.SpriterAnimation animation)
         {
             spriterComponent.OnAnimationFinished -= spriterComponent_OnAnimationFinished;
             if (animation.Name != "Attack") return;
@@ -107,10 +115,12 @@ namespace Neva.BeatEmUp.Behaviours
                 return;
             }
 
-            healthComponent.TakeDamage(10f);
+            WeaponComponent weaponComponent = Owner.FirstComponentOfType<WeaponComponent>();
+            StatSet statSet = Owner.FirstComponentOfType<StatSet>();
 
-            Console.WriteLine("HITTING TARGET w/ NAME OF {0} - {1} HP's left!!", target.Name, target.FirstComponentOfType<HealthComponent>().HealthPoints);
+            bool isCrit = false;
 
+            healthComponent.TakeDamage(weaponComponent.GenerateAttack(statSet.GetAttackPower(), statSet.GetCritPercent(), ref isCrit));
         }
 
         #endregion
@@ -130,14 +140,14 @@ namespace Neva.BeatEmUp.Behaviours
             }
         }
 
-        #endregion
-
-        #endregion
-
         private float VelocityFunc(float src, InputEventArgs args)
         {
             return args.InputState == InputState.Released ? 0f : src;
         }
+        #endregion
+
+        #endregion
+
         private void InitializeMappings()
         {
             KeyboardInputListener keylistener = Owner.Game.KeyboardListener;
@@ -178,10 +188,16 @@ namespace Neva.BeatEmUp.Behaviours
             StatSet statSet = StatSets.CreateWarriorStatSet(Owner);
             HealthComponent healthComponent = new HealthComponent(Owner, statSet);
             WeaponComponent weaponComponent = new WeaponComponent(Owner, Weapons.CreateSlicerClaymore());
+            TextRenderer healthRenderer = new TextRenderer(Owner)
+            {
+                Font = Owner.Game.Content.Load<SpriteFont>("default"),
+                FollowOwner = false
+            };
 
             Owner.AddComponent(statSet);
             Owner.AddComponent(healthComponent);
             Owner.AddComponent(weaponComponent);
+            Owner.AddComponent(healthRenderer);
 
             Owner.InitializeComponents();
 
@@ -201,7 +217,11 @@ namespace Neva.BeatEmUp.Behaviours
             if (spriterComponent.CurrentAnimation.Name != "Idle" && spriterComponent.CurrentAnimation.Name != "Attack" && Owner.Body.Velocity == Vector2.Zero)
             {
                 spriterComponent.ChangeAnimation("Idle");
-            }
+            } 
+
+            TextRenderer healthRenderer = Owner.FirstComponentOfType<TextRenderer>();
+            healthRenderer.Text = ((int)Owner.FirstComponentOfType<HealthComponent>().HealthPoints).ToString();
+            healthRenderer.Position = Owner.Game.View.Position;
         }
     }
 }

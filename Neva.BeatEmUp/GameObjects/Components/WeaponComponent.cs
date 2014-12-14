@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Neva.BeatEmUp.GameObjects
+namespace Neva.BeatEmUp.GameObjects.Components
 {
     public struct Weapon
     {
@@ -35,8 +35,6 @@ namespace Neva.BeatEmUp.GameObjects
         #endregion
 
         #region Vars
-        private readonly float dps;
-
         private float normalFSwingTimer;
         private int currentSwingTime;
 
@@ -120,7 +118,7 @@ namespace Neva.BeatEmUp.GameObjects
             return current;
         }
 
-        public float GenerateAttack(float minBaseDamage, float maxBaseDamage, float attackPower, float crit, ref bool isCrit)
+        public float GenerateAttack(float minAddedDamage, float maxAddedDamage, float attackPower, float crit, ref bool isCrit)
         {
             if (!CanSwing)
             {
@@ -133,9 +131,35 @@ namespace Neva.BeatEmUp.GameObjects
 
             isCrit = 0.0f + (random.NextDouble() * (100f - 0.0f)) <= crit;
 
-            float damage = (float)(weapon.MaxDamage + minBaseDamage + apMod + (random.NextDouble() * (weapon.MaxDamage + maxBaseDamage + apMod - weapon.MinDamage + weapon.MinDamage + apMod)));
+            float damage = (float)(weapon.MaxDamage + minAddedDamage + apMod + (random.NextDouble() * (weapon.MaxDamage + maxAddedDamage + apMod - weapon.MinDamage + weapon.MinDamage + apMod)));
 
             return isCrit ? damage * 1.5f : damage;
+        }
+        public float GenerateAttack(float attackPower, float crit, ref bool isCrit)
+        {
+            return GenerateAttack(0f, 0f, attackPower, crit, ref isCrit);
+        }
+        
+        public float[] GenerateAttacks(float minAddedDamage, float maxAddedDamage, float attackPower, float crit, int attacksCount, ref bool[] crits)
+        {
+            int oldElapsed = elapsed;
+
+            float[] attacks = new float[attacksCount];
+
+            for (int i = 0; i < attacksCount; i++)
+            {
+                attacks[i] = GenerateAttack(minAddedDamage, maxAddedDamage, attackPower, crit, ref crits[i]);
+                cooldown = false;
+            }
+
+            cooldown = true;
+            elapsed = oldElapsed;
+
+            return attacks;
+        }
+        public float[] GenerateAttacks(float attackPower, float crit, int attacksCount, ref bool[] crits)
+        {
+            return GenerateAttacks(0f, 0f, attackPower, crit, attacksCount, ref crits);
         }
     }
 }

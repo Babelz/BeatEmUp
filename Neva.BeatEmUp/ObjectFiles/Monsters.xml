@@ -1,9 +1,11 @@
 ﻿<Monsters>
   <Object Key="Monster" Enabled="true" Visible="true" Name="Crawler" Width="32" Height="32">
     <Behaviour Name="Crawler" Start="true"/>
+    <Tag Value="monster"/>
   </Object>
 
   <Object Key="Monster" Enabled="true" Visible="true" Name="Zombie" Width="32" Height="32">
     <Behaviour Name="Zombie" Start="true"/>
+    <Tag Value="monster"/>
   </Object>
 </Monsters>

@@ -121,5 +121,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             return skills.Find(s => s.Name == name);
         }
+
+        public IEnumerable<Skill> Skills()
+        {
+            return skills;
+        }
     }
 }

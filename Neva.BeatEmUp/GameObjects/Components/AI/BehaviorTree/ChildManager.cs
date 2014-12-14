@@ -27,6 +27,10 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree
         {
             this.childs = childs;
         }
+        public ChildManager()
+            : this(new List<T>())
+        {
+        }
 
         private bool IsLastChild()
         {

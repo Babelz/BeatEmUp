@@ -1,14 +1,15 @@
 ﻿<Entities>
   <Object Key="Player" Name="Player" Width="32f" Height="32f" Visible="true" Enabled="true">
-    <Behaviour Name="PlayerBehaviour" Start="true"/>
+    <Behaviour Name="Player" Start="true"/>
     <!--<Component Name="SpriteRenderer" />-->
     <Component Name="ColliderRenderer" />
     <Component Name="TargetingComponent" />
+    <Tag Value="player"/>
   </Object>
 
   <Object Key="MapSelector" Name="Selector" Visible="true" Enabled="true">
     <Component Name="SpriteRenderer"/>
-    <Behaviour Name="SelectorBehaviour" Start="true"/>
+    <Behaviour Name="Selector" Start="true"/>
   </Object>
   <!-- Numero nimessä kuvaa monta itemiä mahtuu -->
   <Object Key="Shop1" Name="Shop1" Visible="true" Enable="true">

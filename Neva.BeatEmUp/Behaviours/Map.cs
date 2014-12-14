@@ -202,6 +202,8 @@ namespace Neva.BeatEmUp.Behaviours
         {
             GameObject wall = new GameObject(Owner.Game);
 
+            wall.AddTag("world");
+
             wall.Position = position;
 
             wall.Body.Shape.Size = size;
