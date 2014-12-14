@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameObjects.Components;
 using GameStates.Transitions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +21,8 @@ namespace GameStates
     {
         private readonly GameState parent;
 
+        private float playerScale;
+
         public ShopState(GameState parent)
         {
             this.parent = parent;
@@ -34,6 +37,8 @@ namespace GameStates
             map.StartBehaviours();
 
             player.Position = new Vector2(500, 600f);
+            playerScale = player.FirstComponentOfType<SpriterComponent<Texture2D>>().Scale;
+            player.FirstComponentOfType<SpriterComponent<Texture2D>>().Scale = playerScale + 0.2f;
             player.Enable();
             player.Show();
             
@@ -68,6 +73,12 @@ namespace GameStates
         public override void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.GraphicsDevice.Clear(Color.Pink);
+        }
+
+        public override void OnDeactivate()
+        {
+            GameObject player = Game.FindGameObject(p => p.Name == "Player");
+            player.FirstComponentOfType<SpriterComponent<Texture2D>>().Scale = playerScale;
         }
     }
 }

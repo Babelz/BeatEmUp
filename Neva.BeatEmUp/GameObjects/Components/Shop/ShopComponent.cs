@@ -44,6 +44,27 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
             }
 
             InitItems();
+            InitBigScreen();
+        }
+
+        private void InitBigScreen()
+        {
+         // 140 korkea
+            //440 levee
+
+            // y 130
+            // x 735
+
+            GameObject bigScreen = new GameObject(owner.Game);
+            bigScreen.Size = new Vector2(435f, 140f);
+            bigScreen.Position = new Vector2(735f, 130f);
+            bigScreen.Body.CollisionFlags = CollisionFlags.Solid;
+            bigScreen.Body.BodyType = BodyType.Static;
+
+            bigScreen.AddComponent(new ShopBigScreen(bigScreen));
+            bigScreen.InitializeComponents();
+
+            owner.Game.AddGameObject(bigScreen);
         }
 
         private void InitItems()

@@ -129,14 +129,19 @@ namespace Neva.BeatEmUp.Behaviours
 
         private void WalkAnimation(InputEventArgs args)
         {
+            var spriter = Owner.FirstComponentOfType<SpriterComponent<Texture2D>>();
             if (args.InputState == InputState.Pressed)
             {
-                var spriter = Owner.FirstComponentOfType<SpriterComponent<Texture2D>>();
+                
 
                 if (spriter.CurrentAnimation.Name != "Walk")
                 {
                     spriter.ChangeAnimation("Walk");
                 }
+            }  // koska jos lyö niin animaatio ei enää pelaa
+            else if (args.InputState == InputState.Down && spriter.CurrentAnimation.Name == "Idle")
+            {
+                spriter.ChangeAnimation("Walk");
             }
         }
 
