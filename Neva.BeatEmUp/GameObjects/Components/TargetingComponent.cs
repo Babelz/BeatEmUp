@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameObjects.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.Collision;
@@ -35,6 +36,18 @@ namespace Neva.BeatEmUp.GameObjects.Components
             }
         }
 
+        public float RangeX
+        {
+            get;
+            set;
+        }
+
+        public float RangeY
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         public TargetingComponent(GameObject owner, string[] ignoredTags) 
@@ -45,12 +58,17 @@ namespace Neva.BeatEmUp.GameObjects.Components
         public TargetingComponent(GameObject owner)
             : this(owner, null)
         {
+            RangeX = 32f;
+            RangeY = 32f;
         }
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            // ei oteta itteä mukaan areaan
-            queryRegion = new AABB(owner.Position.X + owner.Size.X + 1, owner.Position.Y, 32f, 32f);
+            FacingComponent facing = owner.FirstComponentOfType<FacingComponent>();
+
+            // ei oteta itteä mukaan areaan, 
+            // facingnumber palauttaa joko 1f tai -1f, riippuen siitä katsooko oikealla vai vasemmalle
+            queryRegion = new AABB(owner.Position.X + facing.FacingNumber * (owner.Size.X + 1), owner.Position.Y, RangeX, RangeY);
             // TODO mites jos ei ookkaan tarpeeksi iso collider?
             List<BroadphaseProxy> proxies = owner.Game.World.QueryAABB(ref queryRegion);
 

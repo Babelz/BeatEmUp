@@ -176,7 +176,7 @@ namespace Neva.BeatEmUp.Behaviours
                     fadeOut.StateFininshed += (sender, eventArgs) => Owner.Game.StateManager.PushStates();
 
                     Owner.Game.StateManager.PushState(new ShopState(Owner.Game.StateManager.Current), p);
-
+                    keylistener.RemoveMapping("Enter Shop");
                 }
             }, Keys.Enter);
         }

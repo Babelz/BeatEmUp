@@ -87,6 +87,11 @@
       <Importer>SpriterImporter</Importer>
       <Processor>SpriterProcessor</Processor>
     </Compile>
+    <Compile Include="Assets\Shop1\data.atlas">
+      <Name>data</Name>
+      <Importer>AtlasImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
     <None Include="Maps\City1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>City1</Name>
@@ -332,11 +337,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Shop1\data.atlas">
-      <Name>data</Name>
-      <Importer>AtlasImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
     <Compile Include="Assets\Shop1\shop1.png">
       <Name>shop1</Name>
       <Importer>TextureImporter</Importer>

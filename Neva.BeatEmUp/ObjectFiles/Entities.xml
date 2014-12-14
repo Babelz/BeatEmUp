@@ -3,6 +3,7 @@
     <Behaviour Name="Player" Start="true"/>
     <!--<Component Name="SpriteRenderer" />-->
     <Component Name="ColliderRenderer" />
+    <Component Name="FacingComponent" />
     <Component Name="TargetingComponent" />
     <Tag Value="player"/>
   </Object>

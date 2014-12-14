@@ -193,6 +193,7 @@ namespace Neva.BeatEmUp.Behaviours
             SkillSet skillSet = SkillSets.CreateCrawlerSkillSet(Owner);
             SkillRotation rotation = Rotations.CreateCrawlerRotation(Owner, skillSet);
             Tree tree = CreateTree();
+            FacingComponent facing = new FacingComponent(Owner);
 
             Owner.AddComponent(spriterComponent);
             Owner.AddComponent(statSet);
@@ -202,6 +203,7 @@ namespace Neva.BeatEmUp.Behaviours
             Owner.AddComponent(skillSet);
             Owner.AddComponent(rotation);
             Owner.AddComponent(tree);
+            Owner.AddComponent(facing);
 
             Owner.InitializeComponents();
 

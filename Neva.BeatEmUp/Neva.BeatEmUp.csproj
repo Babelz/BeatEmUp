@@ -46,6 +46,8 @@
     <Compile Include="Behaviours\ShopBehaviour.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Collision\Narrowphase\PolyPolySolver.cs" />
+    <Compile Include="Collision\Shape\PolygonShape.cs" />
     <Compile Include="GameObjects\Components\AI\BehaviorTree\ChildManager.cs" />
     <Compile Include="GameObjects\Components\AI\BehaviorTree\Decorator.cs" />
     <Compile Include="GameObjects\Components\AI\BehaviorTree\Delegates.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="GameObjects\Components\ColliderRenderer.cs" />
     <Compile Include="GameObjects\Components\Enums.cs" />
     <Compile Include="GameObjects\Components\Exceptions.cs" />
+    <Compile Include="GameObjects\Components\FacingComponent.cs" />
     <Compile Include="GameObjects\Components\FloatingSpriteRenderer.cs" />
     <Compile Include="GameObjects\Components\GoalDetector.cs" />
     <Compile Include="GameObjects\Components\HealthComponent.cs" />
