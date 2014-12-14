@@ -306,7 +306,7 @@
       <Project>{f86f728e-b158-42e3-bac7-de58863e9b36}</Project>
       <Name>BeatEmUpContent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SaNi.Spriter\sani-spriter\SaNi.Spriter.csproj">
+    <ProjectReference Include="..\SaNi.Spriter\SaNi.Spriter.csproj">
       <Project>{10e6b926-4da7-4342-a740-e39dfd69a513}</Project>
       <Name>SaNi.Spriter</Name>
     </ProjectReference>

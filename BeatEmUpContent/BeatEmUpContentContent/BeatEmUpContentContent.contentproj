@@ -148,7 +148,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SaNi.Spriter.Pipeline\sani-spriter-pipeline\SaNi.Spriter.Pipeline.csproj">
+    <ProjectReference Include="..\..\SaNi.Spriter.Pipeline\SaNi.Spriter.Pipeline.csproj">
       <Project>{ed095d93-8c2b-4118-8f35-48c580038350}</Project>
       <Name>SaNi.Spriter.Pipeline</Name>
     </ProjectReference>

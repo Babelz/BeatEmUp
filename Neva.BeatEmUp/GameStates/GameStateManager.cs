@@ -214,10 +214,10 @@ namespace Neva.BeatEmUp.GameStates
 
             OnGameStatePopping(this, new GameStateChangingEventArgs(current, previous));
 
-            current.OnActivate();
-
             current = previous;
             previous = null;
+            current.OnActivate();
+            
             OnGameStatePopped(this, new GameStateChangingEventArgs(current, null));
 
         }
