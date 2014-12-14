@@ -38,7 +38,9 @@ namespace SaNi.TextureAtlas.Pipeline
 
             foreach (var sprite in sprites)
             {
-                output.Write(sprite.Attribute("n").Value);
+                string name = sprite.Attribute("n").Value;
+                name = name.Substring(0, name.LastIndexOf('.'));
+                output.Write(name);
                 output.Write(GetAttributeInt(sprite, "x"));
                 output.Write(GetAttributeInt(sprite, "y"));
                 output.Write(GetAttributeInt(sprite, "w"));

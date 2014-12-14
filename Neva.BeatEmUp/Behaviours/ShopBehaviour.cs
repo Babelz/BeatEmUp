@@ -41,7 +41,7 @@ namespace Behaviours
 
             Atlas = Owner.Game.Content.Load<TextureAtlas>(string.Format("Assets\\{0}\\data", Owner.Name));
 
-            var rectangle = Atlas.Rectangles["top.png"];
+            var rectangle = Atlas.Rectangles["top"];
             
             top.Position = Vector2.Zero;
             top.Size = new Vector2(rectangle.Width, rectangle.Height);
@@ -56,7 +56,7 @@ namespace Behaviours
             top.InitializeComponents();
 
             // haxaillaan renderer oikeaan paikkaan
-            rectangle = Atlas.Rectangles["bottom.png"];
+            rectangle = Atlas.Rectangles["bottom"];
             bottom.Size = new Vector2(rectangle.Width, rectangle.Height);
             bottom.Position = new Vector2(top.Position.X, top.Size.Y);
             bottom.Body.BodyType = BodyType.Static;
