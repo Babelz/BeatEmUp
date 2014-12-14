@@ -51,12 +51,14 @@ namespace Neva.BeatEmUp.Collision
 
         public int NextIndex(int index)
         {
-            return (index + 1 > vertices.Count ? 0 : index + 1);
+            return ((index + 1) >= vertices.Count) 
+                ? 0 : 
+                (index + 1);
         }
 
         public int PreviousIndex(int index)
         {
-            return index - 1 < 0 ? vertices.Count - 1 : index - 1;
+            return ((index - 1) <= 0) ? (vertices.Count - 1) : (index - 1);
         }
 
         public Vector2 NextVertex(int index)

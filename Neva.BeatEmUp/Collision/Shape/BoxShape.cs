@@ -13,11 +13,7 @@ namespace Neva.BeatEmUp.Collision.Shape
         #endregion
 
         #region Properties
-        public override Vector2 Offset
-        {
-            get;
-            protected set;
-        }
+
         public float HalfWidth
         {
             get;

@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Neva.BeatEmUp.Behaviours;
+using Neva.BeatEmUp.Collision.Dynamics;
+using Neva.BeatEmUp.Collision.Shape;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
 using Neva.BeatEmUp.GameStates;

@@ -17,6 +17,7 @@ namespace Neva.BeatEmUp.Collision.Narrowphase
         {
             solvers = new List<ICollisionSolver>(4);
             solvers.Add(new BoxBoxSolver());
+            solvers.Add(new PolyPolySolver());
         }
 
         #endregion
