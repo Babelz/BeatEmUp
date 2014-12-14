@@ -21,6 +21,11 @@ namespace SaNi.TextureAtlas
             private set;
         }
 
+        public int TextureCount
+        {
+            get { return Rectangles.Count;  }
+        }
+
         public TextureAtlas(Texture2D texture, string[] names, Rectangle[] rects)
         {
             Texture = texture;

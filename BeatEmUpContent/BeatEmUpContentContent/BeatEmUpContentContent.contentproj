@@ -48,12 +48,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Objects\table.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>table</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="blank.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>blank</Name>
@@ -88,6 +82,16 @@
       <Processor>SpriterProcessor</Processor>
     </Compile>
     <Compile Include="Assets\Shop1\data.atlas">
+      <Name>data</Name>
+      <Importer>AtlasImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="Assets\Items\data.atlas">
+      <Name>data</Name>
+      <Importer>AtlasImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="Assets\Objects\data.atlas">
       <Name>data</Name>
       <Importer>AtlasImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
@@ -339,6 +343,20 @@
   <ItemGroup>
     <Compile Include="Assets\Shop1\shop1.png">
       <Name>shop1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Items\items.png">
+      <Name>items</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Objects\objects.png">
+      <Name>objects</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

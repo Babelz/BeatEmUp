@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:60dc32af84ddeb58a9cb4a4988e16abd:9565bfad179432369c029717880ba50b:ab148b49413750dbf72d5f52d5f40480$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+-->
+<TextureAtlas imagePath="items.png" width="161" height="81">
+    <sprite n="HealthPot.png" x="2" y="2" w="45" h="67" pX="0.5" pY="0.5"/>
+    <sprite n="LifeUp.png" x="49" y="2" w="67" h="77" pX="0.5" pY="0.5"/>
+    <sprite n="ManaPot.png" x="118" y="2" w="41" h="72" pX="0.5" pY="0.5"/>
+</TextureAtlas>

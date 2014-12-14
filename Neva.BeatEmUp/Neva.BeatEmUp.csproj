@@ -109,6 +109,7 @@
     <Compile Include="GameObjects\Components\RenderComponent.cs" />
     <Compile Include="GameObjects\Components\Rotations.cs" />
     <Compile Include="GameObjects\Components\Shop\Inventory.cs" />
+    <Compile Include="GameObjects\Components\Shop\ItemComponent.cs" />
     <Compile Include="GameObjects\Components\Shop\ShopComponent.cs" />
     <Compile Include="GameObjects\Components\Shop\ShoppingComponent.cs" />
     <Compile Include="GameObjects\Components\SkillRotation.cs" />
