@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:33423565ca24abfa838b73af5384ad4a:781083fe8bc0a63d7c8eaff844191a6c:bd60495ecf8d2190f2ef2e2c7715a2e3$ -->
+<!-- $TexturePacker:SmartUpdate:df1a612db8aa7a7d0624acb54c466124:90578e0656200de2beb6f68a0dccec7e:36769afc2ae4499a38acf6030dd22764$ -->
 <!--Format:
 n  => name of the sprite
 x  => sprite x pos in texture
@@ -15,8 +15,7 @@ oW => sprite's original width (only available if trimmed)
 oH => sprite's original height (only available if trimmed)
 r => 'y' only set if sprite is rotated
 -->
-<TextureAtlas imagePath="shop1.png" width="1492" height="726">
-    <sprite n="bottom.png" x="2" y="513" w="1280" h="211" pX="0" pY="0"/>
-    <sprite n="desk.png" x="1284" y="2" w="206" h="441" pX="0" pY="0" r="y"/>
-    <sprite n="top.png" x="2" y="2" w="1280" h="509" pX="0" pY="0"/>
+<TextureAtlas imagePath="shop1.png" width="1284" height="726">
+    <sprite n="bottom.png" x="2" y="2" w="1280" h="245" pX="0.5" pY="0.5"/>
+    <sprite n="top.png" x="2" y="249" w="1280" h="475" pX="0.5" pY="0.5"/>
 </TextureAtlas>
