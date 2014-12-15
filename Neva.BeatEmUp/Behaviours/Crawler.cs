@@ -23,7 +23,6 @@ namespace Neva.BeatEmUp.Behaviours
     {
         #region Vars
         private SpriterComponent<Texture2D> spriterComponent;
-        private Vector2 velocity;
         #endregion
 
         public Crawler(GameObject owner)
@@ -39,14 +38,10 @@ namespace Neva.BeatEmUp.Behaviours
             if (healthComponent.HealthPoints > 25f)
             {
                 status = NodeStatus.Success;
-
-                Console.WriteLine("Has some hp!");
             }
             else
             {
                 status = NodeStatus.Failed;
-
-                Console.WriteLine("Dont have any hp..");
             }
         }
         private void MoveToPlayer(ref NodeStatus status)
@@ -55,11 +50,9 @@ namespace Neva.BeatEmUp.Behaviours
 
             if (targetingComponent.HasTarget && string.Equals(targetingComponent.Target.Name, "player", StringComparison.OrdinalIgnoreCase))
             {
-                velocity = Vector2.Zero;
+                Owner.Body.Velocity = Vector2.Zero;
 
                 status = NodeStatus.Success;
-
-                Console.WriteLine("At player!");
             }
             else
             {
@@ -74,8 +67,6 @@ namespace Neva.BeatEmUp.Behaviours
                                                   MathHelper.Clamp(player.Position.Y - Owner.Position.Y, -1f, 1f));
 
                 spriterComponent.FlipX = Owner.Body.Velocity.X > 0f;
-               
-                Console.WriteLine("Moving to player..");
 
                 Console.WriteLine(Owner.Body.Velocity);
 
@@ -88,15 +79,11 @@ namespace Neva.BeatEmUp.Behaviours
 
             if (targetingComponent.HasTarget && string.Equals(targetingComponent.Target.Name, "player", StringComparison.OrdinalIgnoreCase))
             {
-                status = NodeStatus.Running;
-
-                Console.WriteLine("Attacking!");
+                status = NodeStatus.Success;
             }
             else
             {
                 status = NodeStatus.Failed;
-
-                Console.WriteLine("No target...");
             }
         }
         private void HasLowHp(ref NodeStatus status)
@@ -106,14 +93,10 @@ namespace Neva.BeatEmUp.Behaviours
             if (healthComponent.HealthPoints < 25f)
             {
                 status = NodeStatus.Success;
-
-                Console.WriteLine("Low on hp!");
             }
             else
             {
                 status = NodeStatus.Failed;
-
-                Console.WriteLine("Still have some hp..");
             }
         }
         private void RunAway(ref NodeStatus status)
@@ -131,26 +114,12 @@ namespace Neva.BeatEmUp.Behaviours
                                               MathHelper.Clamp(Owner.Position.Y - player.Position.Y, -1, 1));
 
             spriterComponent.FlipX = Owner.Body.Velocity.X < 0f;
-
-            Console.WriteLine("Running away from player..");
         }
         private void IsAlive(ref NodeStatus status)
         {
             HealthComponent healthComponent = Owner.FirstComponentOfType<HealthComponent>();
 
             status = healthComponent.IsAlive ? NodeStatus.Success : NodeStatus.Failed;
-
-            switch (status)
-            {
-                case NodeStatus.Success:
-                    Console.WriteLine("Im alive!");
-                    break;
-                case NodeStatus.Failed:
-                    Console.WriteLine("Im dead..");
-                    break;
-                default:
-                    break;
-            }
         }
         #endregion
 
@@ -223,6 +192,8 @@ namespace Neva.BeatEmUp.Behaviours
                                                     Owner.Position.Y + Owner.Body.BroadphaseProxy.AABB.Height);
 
             Owner.Position += Owner.Body.Velocity;
+
+            Console.WriteLine(Owner.Body.Velocity);
         }
     }
 }
