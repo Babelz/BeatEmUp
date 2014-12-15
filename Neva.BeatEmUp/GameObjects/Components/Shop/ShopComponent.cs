@@ -14,6 +14,12 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
     {
         private const string Root = @"Assets\Items\";
         public const int Slots = 5;
+        private GameObject bigScreen;
+
+        // haxx
+        private string lastCollision;
+        private string currentCollision;
+
         public ShopComponent(GameObject owner) : base(owner, true)
         {
             slots = new GameObject[Slots];
@@ -55,7 +61,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
             // y 130
             // x 735
 
-            GameObject bigScreen = new GameObject(owner.Game);
+            bigScreen= new GameObject(owner.Game);
             bigScreen.Size = new Vector2(435f, 140f);
             bigScreen.Position = new Vector2(735f, 130f);
             bigScreen.Body.CollisionFlags = CollisionFlags.Solid;
@@ -83,8 +89,20 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
 
         private bool OnCollision(Body bodyA, Body bodyB)
         {
+            currentCollision = bodyA.Owner.Name;
             // bodyA on aina tämä
-            Console.WriteLine(bodyA.Owner.Name + " yrittaa myyda jotain to " + bodyB.Owner.Name);
+
+            // onko meillä itemiä mitä myydä
+            if (bodyA.Owner.ChildsCount == 0) return true;
+
+            var screen = bigScreen.FirstComponentOfType<ShopBigScreen>();
+            // on itemi, voidaanko heijastaa se yläruutuun?
+            if (screen.IsOccupied) return true;
+
+            // voidaan, annetaan pojalle jotain mitä piirtää
+            var itemComponent = bodyA.Owner.ChildAtIndex(0).FirstComponentOfType<ItemComponent>();
+            screen.Display(itemComponent);
+
             return true;
         }
 
@@ -100,6 +118,21 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
             //slot.AddComponent(new ColliderRenderer(slot));
             slot.InitializeComponents();
             return slot;
+        }
+
+        protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
+        {
+            // haxing, 
+            if (currentCollision != null && currentCollision == lastCollision)
+            {
+                currentCollision = null;
+            }
+            else
+            {
+                bigScreen.FirstComponentOfType<ShopBigScreen>().Undisplay();
+            }
+            lastCollision = currentCollision;
+            return new ComponentUpdateResults(this, true);
         }
     }
 }

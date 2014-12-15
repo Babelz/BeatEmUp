@@ -34,7 +34,10 @@ namespace GameStates
             GameObject player = Game.FindGameObject(p => p.Name == "Player");
             player.Game.View.Position = Vector2.Zero;
             GameObject map = Game.CreateGameObjectFromName("Shop1");
+            map.Enable();
             map.StartBehaviours();
+            map.InitializeComponents();
+            
 
             player.Position = new Vector2(500, 600f);
             playerScale = player.FirstComponentOfType<SpriterComponent<Texture2D>>().Scale;

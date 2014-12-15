@@ -33,7 +33,12 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
 
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(atlas.Texture, owner.Position, sourceRectangle,Color.White,0f, origin, 1f, SpriteEffects.None, 0f);
+            DrawTo(owner.Position, spriteBatch);
+        }
+
+        public void DrawTo(Vector2 position, SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(atlas.Texture, position, sourceRectangle, Color.White, 0f, origin, 1f, SpriteEffects.None, 0f);
         }
     }
 }
