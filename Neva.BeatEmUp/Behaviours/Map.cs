@@ -183,7 +183,7 @@ namespace Neva.BeatEmUp.Behaviours
             TextRenderer textRenderer = Owner.FirstComponentOfType<TextRenderer>();
             Owner.RemoveComponent(textRenderer);
 
-            Owner.Game.World.CreateBody(nextLeft.Body);
+            Owner.Game.World.CreateBody(nextLeft.Body, CollisionSettings.ObstacleCollisionGroup);
             nextLeft.Enable();
 
 #if DEBUG
@@ -210,7 +210,7 @@ namespace Neva.BeatEmUp.Behaviours
             
             wall.Name = name;
 
-            Owner.Game.World.CreateBody(wall.Body);
+            Owner.Game.World.CreateBody(wall.Body, CollisionSettings.ObstacleCollisionGroup);
             wall.Body.CollisionFlags = CollisionFlags.Solid;
 
 #if DEBUG
@@ -222,7 +222,7 @@ namespace Neva.BeatEmUp.Behaviours
 #endif
 
             Owner.Game.AddGameObject(wall);
-            Owner.Game.World.CreateBody(wall.Body);
+            Owner.Game.World.CreateBody(wall.Body, CollisionSettings.ObstacleCollisionGroup);
 
             return wall;
         }

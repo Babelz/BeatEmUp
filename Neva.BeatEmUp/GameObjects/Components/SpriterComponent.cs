@@ -101,6 +101,10 @@ namespace GameObjects.Components
 
         public float Scale
         {
+            get
+            {
+                return player.ScaleX;
+            }
             set
             {
                 player.SetScale(value);

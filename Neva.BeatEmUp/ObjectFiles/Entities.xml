@@ -5,6 +5,9 @@
     <Component Name="ColliderRenderer" />
     <Component Name="FacingComponent" />
     <Component Name="TargetingComponent" />
+    <Component Name="Wallet" />
+    <Component Name="Inventory" />
+    <Component Name="ShoppingComponent" />
     <Tag Value="player"/>
   </Object>
 
@@ -15,5 +18,6 @@
   <!-- Numero nimessä kuvaa monta itemiä mahtuu -->
   <Object Key="Shop1" Name="Shop1" Visible="true" Enable="true">
     <Behaviour Name="ShopBehaviour" Start="true" />
+    <Component Name="ShopComponent" />
   </Object>
 </Entities>

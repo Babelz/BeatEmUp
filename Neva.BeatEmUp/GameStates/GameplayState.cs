@@ -71,9 +71,11 @@ namespace Neva.BeatEmUp.GameStates
         }
 
         private Vector2 lastPosition = new Vector2(200f, 600f);
+        private Vector2 lastViewPosition = Vector2.Zero;
 
         public override void OnActivate()
         {
+            Game.View.Position = lastViewPosition;
             GameObject player = Game.FindGameObject(o => o.Name == "Player");
             if (player == null) return;
 
@@ -83,6 +85,7 @@ namespace Neva.BeatEmUp.GameStates
         public override void OnDeactivate()
         {
             lastPosition = Game.FindGameObject(o => o.Name == "Player").Position;
+            lastViewPosition = Game.View.Position;
         }
     }
 }

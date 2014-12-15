@@ -70,7 +70,7 @@ namespace Neva.BeatEmUp.Collision.Dynamics
         /// Kutsutaan kun kaksi otusta ovat törmänneet ja niiden kontakti on poistettu
         /// TODO: howto
         /// </summary>
-        public OnSeparatioinEventHandler OpSeparation;
+        public OnSeparatioinEventHandler OnSeparation;
 
         #endregion
         #endregion

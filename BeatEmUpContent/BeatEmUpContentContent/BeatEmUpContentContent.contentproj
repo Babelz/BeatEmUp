@@ -48,26 +48,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Objects\table.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>table</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="blank.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>blank</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="game.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>game</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="greennode.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>greennode</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -92,6 +83,16 @@
       <Importer>AtlasImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
+    <Compile Include="Assets\Items\data.atlas">
+      <Name>data</Name>
+      <Importer>AtlasImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="Assets\Objects\data.atlas">
+      <Name>data</Name>
+      <Importer>AtlasImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
     <None Include="Maps\City1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>City1</Name>
@@ -99,43 +100,36 @@
       <Processor>PassThroughProcessor</Processor>
     </None>
     <Compile Include="neva.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>neva</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="rednode.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>rednode</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="road.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>road</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="taustatemp.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>taustatemp</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="team.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>team</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="worldmap.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>worldmap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="worldmapbase.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>worldmapbase</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -148,7 +142,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SaNi.Spriter.Pipeline\sani-spriter-pipeline\SaNi.Spriter.Pipeline.csproj">
+    <ProjectReference Include="..\..\Neva.BeatEmUp.DataTypes\Neva.BeatEmUp.DataTypes.csproj">
+      <Project>{d5febe18-0b43-4f33-bad3-b9109dab224e}</Project>
+      <Name>Neva.BeatEmUp.DataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SaNi.Spriter.Pipeline\SaNi.Spriter.Pipeline.csproj">
       <Project>{ed095d93-8c2b-4118-8f35-48c580038350}</Project>
       <Name>SaNi.Spriter.Pipeline</Name>
     </ProjectReference>
@@ -341,6 +339,27 @@
       <Name>shop1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Items\items.png">
+      <Name>items</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Objects\objects.png">
+      <Name>objects</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Shop1Items.xml">
+      <Name>Shop1Items</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
