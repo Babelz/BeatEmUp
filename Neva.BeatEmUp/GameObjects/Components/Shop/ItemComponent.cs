@@ -18,6 +18,16 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
         private ItemData data;
         private SpriteFont font;
 
+        public float Price
+        {
+            get { return data.Price; }
+        }
+
+        public string ItemName
+        {
+            get { return data.Name; }
+        }
+
         public ItemComponent(GameObject owner, TextureAtlas atlas, string asset, ItemData[] datas) : base(owner, true)
         {
             this.atlas = atlas;

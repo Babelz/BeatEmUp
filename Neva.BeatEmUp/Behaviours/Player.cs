@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Neva.BeatEmUp.Collision;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
+using Neva.BeatEmUp.GameObjects.Components.Shop;
 using Neva.BeatEmUp.Input;
 using Neva.BeatEmUp.Input.Listener;
 using Neva.BeatEmUp.Input.Trigger;
@@ -81,6 +82,42 @@ namespace Neva.BeatEmUp.Behaviours
             spriterComponent.OnAnimationFinished += spriterComponent_OnAnimationFinished;
             spriterComponent.ChangeAnimation("Attack");
             spriterComponent.SetTime(400);
+        }
+
+        private void InitiateBuy(InputEventArgs args)
+        {
+            if (args.InputState != InputState.Released) return;
+
+            Console.WriteLine("Initiated buy operation!");
+            AABB queryRegion = new AABB(Owner.Position.X, Owner.Position.Y - 5f, 32f, 32f);
+            foreach (var proxy in Owner.Game.World.QueryAABB(ref queryRegion))
+            {
+                GameObject slot = proxy.Client.Owner;
+                if (slot.ContainsTag("ShopSlot"))
+                {
+                    Console.WriteLine("Found ShopSlot, lets see if there's anything for sale..");
+                    if (slot.ChildsCount != 0)
+                    {
+                        Wallet wallet = Owner.FirstComponentOfType<Wallet>();
+                        ItemComponent item = slot.ChildAtIndex(0).FirstComponentOfType<ItemComponent>();
+
+                        if (wallet.CanAfford(item.Price))
+                        {
+                            Console.WriteLine("Can buy {0}, {1} dolans because i have {2} dolans",item.ItemName, item.Price, wallet.Coins);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Cant afford to buy {0}, {1} dolans because i have {2} dolans", item.ItemName, item.Price, wallet.Coins);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("All gone from " + slot.Name);
+                    }
+                    return;
+                }
+            }
+            Console.WriteLine("Didn't find anything to buy!");
         }
 
         #region Event Callbacks
@@ -162,7 +199,7 @@ namespace Neva.BeatEmUp.Behaviours
             keylistener.Map("Up", MoveUp, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
             keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
             keylistener.Map("Attack", Attack, new KeyTrigger(Keys.Space));
-
+            keylistener.Map("Buy", InitiateBuy, Keys.E);
             keylistener.Map("Enter Shop", args =>
             {
                 if (args.InputState == InputState.Released)

@@ -7,10 +7,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
 {
     public class Wallet : GameObjectComponent
     {
+        private float coins;
         public float Coins
         {
-            get;
-            private set;
+            get { return coins; }
         }
 
         public Wallet(GameObject owner) : base(owner, true)
@@ -20,6 +20,20 @@ namespace Neva.BeatEmUp.GameObjects.Components
         public bool CanAfford(float price)
         {
             return Coins >= price;
+        }
+
+        public void AddCoins(float coins)
+        {
+            this.coins += coins;
+        }
+
+        public void RemoveCoins(float amount)
+        {
+            this.coins -= amount;
+            if (coins < 0f)
+            {
+                coins = 0f;
+            }
         }
     }
 }

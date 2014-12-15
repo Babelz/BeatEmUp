@@ -111,13 +111,16 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
         {
             GameObject slot = new GameObject(owner.Game);
             slot.Name = name;
+            slot.AddTag("ShopSlot");
             slot.Body.CollisionFlags = CollisionFlags.Sensor;
             slot.Body.BodyType = BodyType.Static;
             slot.Position = new Vector2(x, y);
             slot.Size = new Vector2(70f, 180f);
             slot.Body.Shape.Size = slot.Size;
+            slot.Body.Shape.Size = slot.Size;
             //slot.AddComponent(new ColliderRenderer(slot));
             slot.InitializeComponents();
+            owner.Game.World.CreateBody(slot.Body);
             return slot;
         }
 
