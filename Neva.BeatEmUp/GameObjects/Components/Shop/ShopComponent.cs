@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.Collision;
 using Neva.BeatEmUp.Collision.Dynamics;
+using Neva.BeatEmUp.DataTypes;
 using SaNi.TextureAtlas;
 
 namespace Neva.BeatEmUp.GameObjects.Components.Shop
@@ -75,13 +76,13 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
 
         private void InitItems()
         {
-            
+            ItemData[] data = owner.Game.Content.Load<ItemData[]>(string.Format(@"Data\{0}Items", owner.Name));
             TextureAtlas itemset = owner.Game.Content.Load<TextureAtlas>(Root + "data");
             for (int i = 0; i < itemset.TextureCount && i < Slots; i++)
             {
                 GameObject item = new GameObject(owner.Game);
                 slots[i].AddChild(item);
-                item.AddComponent(new ItemComponent(item, itemset, itemset.Rectangles.Keys.ElementAt(i)));
+                item.AddComponent(new ItemComponent(item, itemset, itemset.Rectangles.Keys.ElementAt(i), data));
                 item.InitializeComponents();
                 owner.Game.AddGameObject(item);
             }

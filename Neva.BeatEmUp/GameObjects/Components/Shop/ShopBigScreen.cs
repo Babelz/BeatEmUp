@@ -27,6 +27,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
             if (!IsOccupied) return;
             //spriteBatch.DrawRectangle(new Rectangle((int) owner.Position.X, (int) owner.Position.Y, (int) owner.Size.X, (int) owner.Size.Y), Color.Black, 0f);
             item.DrawTo(placement, spriteBatch);
+            item.DrawSpecification(placement + new Vector2(100f, 0f), spriteBatch);
         }
 
         public void Display(ItemComponent item)

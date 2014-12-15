@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <!-- TODO: replace this Asset with your own XML asset data. -->
+  <Asset Type="Neva.BeatEmUp.DataTypes.ItemData[]">
+    <Item>
+      <Name>Health Potion</Name>
+      <AssetName>HealthPot</AssetName>
+      <Price>100</Price>
+    </Item>
+    <Item>
+      <Name>Mana Potion</Name>
+      <AssetName>ManaPot</AssetName>
+      <Price>200</Price>
+    </Item>
+    <Item>
+      <Name>Life Up</Name>
+      <AssetName>LifeUp</AssetName>
+      <Price>9001</Price>
+    </Item>
+  </Asset>
+</XnaContent>
