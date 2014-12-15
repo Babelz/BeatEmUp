@@ -10,8 +10,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
         public static Weapon CreateSlicerClaymore()
         {
             string name = "Slicer Claymore";
-            float minDamage = 32f;
-            float maxDamage = 64f;
+            float minDamage = 16f;
+            float maxDamage = 32f;
             int swingTime = 2800;
             string assetName = string.Empty;
 

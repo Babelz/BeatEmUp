@@ -139,8 +139,30 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             return GenerateAttack(0f, 0f, attackPower, crit, ref isCrit);
         }
-        
-        public float[] GenerateAttacks(float minAddedDamage, float maxAddedDamage, float attackPower, float crit, int attacksCount, ref bool[] crits)
+
+        /// <summary>
+        /// Generoi hyökkäyksen joka ei triggeröi swing timerin cdtä.
+        /// </summary>
+        public float GenerateSpecialAttack(float minAddedDamage, float maxAddedDamage, float attackPower, float crit, ref bool isCrit)
+        {
+            float damage = GenerateAttack(minAddedDamage, maxAddedDamage, attackPower, crit, ref isCrit);
+
+            cooldown = false;
+
+            return damage;
+        }
+        /// <summary>
+        /// Generoi hyökkäyksen joka ei triggeröi swing timerin cdtä.
+        /// </summary>
+        public float GenerateSpecialAttack(float attackPower, float crit, ref bool isCrit)
+        {
+            return GenerateSpecialAttack(0f, 0f, attackPower, crit, ref isCrit);
+        }
+
+        /// <summary>
+        /// Generoi hyökkäyksiä jotka eivät triggeröi swing timerin cdtä.
+        /// </summary>
+        public float[] GenerateSpecialAttacks(float minAddedDamage, float maxAddedDamage, float attackPower, float crit, int attacksCount, ref bool[] crits)
         {
             int oldElapsed = elapsed;
 
@@ -157,9 +179,12 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             return attacks;
         }
-        public float[] GenerateAttacks(float attackPower, float crit, int attacksCount, ref bool[] crits)
+        /// <summary>
+        /// Generoi hyökkäyksiä jotka eivät triggeröi swing timerin cdtä.
+        /// </summary>
+        public float[] GenerateSpecialAttacks(float attackPower, float crit, int attacksCount, ref bool[] crits)
         {
-            return GenerateAttacks(0f, 0f, attackPower, crit, attacksCount, ref crits);
+            return GenerateSpecialAttacks(0f, 0f, attackPower, crit, attacksCount, ref crits);
         }
     }
 }

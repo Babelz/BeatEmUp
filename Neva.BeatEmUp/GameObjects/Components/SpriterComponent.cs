@@ -15,7 +15,7 @@ using SaNi.Spriter.Renderer;
 
 namespace GameObjects.Components
 {
-    public class SpriterComponent<T> : RenderComponent
+    public class SpriterComponent<T> : GameObjectComponent
     {
         
         // TODO HAXXXX

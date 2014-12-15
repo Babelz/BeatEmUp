@@ -11,7 +11,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             SkillSet skillSet = new SkillSet(crawler);
 
-            Skill attack = new Skill("attack", 900, () =>
+            Skill attack = new Skill("attack", 1400, () =>
                 {
                     TargetingComponent targetingComponent = crawler.FirstComponentOfType<TargetingComponent>();
                     WeaponComponent weaponComponent = crawler.FirstComponentOfType<WeaponComponent>();
@@ -44,9 +44,11 @@ namespace Neva.BeatEmUp.GameObjects.Components
                         HealthComponent enemyHealth = targetingComponent.Target.FirstComponentOfType<HealthComponent>();
 
 
-                        float damage = weaponComponent.GenerateAttack(statSet.GetAttackPower(),
-                                                                      statSet.GetCritPercent(),
-                                                                      ref isCrit);
+                        float damage = weaponComponent.GenerateSpecialAttack(10f, 
+                                                                             25f,
+                                                                             statSet.GetAttackPower(),
+                                                                             statSet.GetCritPercent(),
+                                                                             ref isCrit);
 
                         HealthComponent myHealth = crawler.FirstComponentOfType<HealthComponent>();
 
@@ -69,10 +71,12 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
                         HealthComponent enemyHealth = targetingComponent.Target.FirstComponentOfType<HealthComponent>();
 
-                        float[] hits = weaponComponent.GenerateAttacks(statSet.GetAttackPower(),
-                                                                         statSet.GetCritPercent(),
-                                                                         3,
-                                                                         ref crits);
+                        float[] hits = weaponComponent.GenerateSpecialAttacks(17f,
+                                                                              32f,
+                                                                              statSet.GetAttackPower(),
+                                                                              statSet.GetCritPercent(),
+                                                                              3,
+                                                                              ref crits);
 
                         for (int i = 0; i < hits.Length; i++)
                         {

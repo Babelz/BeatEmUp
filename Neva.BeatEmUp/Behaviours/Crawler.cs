@@ -5,6 +5,7 @@ using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
 using Neva.BeatEmUp.GameObjects.Components.AI;
 using Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree;
+using Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses;
 using System;
 using System.Collections.Generic;
@@ -19,15 +20,34 @@ namespace Neva.BeatEmUp.Behaviours
 #if DEBUG
     [ScriptAttribute(false)]
 #endif
+
     public sealed class Crawler : Behaviour
     {
         #region Vars
         private SpriterComponent<Texture2D> spriterComponent;
+
+        private readonly SeekBehavior seek;
+        private readonly FleeBehavior flee;
+        
+        private SteeringBehavior current;
         #endregion
 
         public Crawler(GameObject owner)
             : base(owner)
         {
+            flee = new FleeBehavior()
+            {
+                DesiredVelocity = new Vector2(2.25f),
+                MaxSpeed = 1.25f
+            };
+
+            seek = new SeekBehavior()
+            {
+                DesiredVelocity = new Vector2(2.25f),
+                MaxSpeed = 1.25f
+            };
+
+            current = seek;
         }
 
         #region Tree methods
@@ -35,7 +55,7 @@ namespace Neva.BeatEmUp.Behaviours
         {
             HealthComponent healthComponent = Owner.FirstComponentOfType<HealthComponent>();
 
-            if (healthComponent.HealthPoints > 25f)
+            if (healthComponent.HealthPercent >= 45f)
             {
                 status = NodeStatus.Success;
             }
@@ -48,9 +68,13 @@ namespace Neva.BeatEmUp.Behaviours
         {
             TargetingComponent targetingComponent = Owner.FirstComponentOfType<TargetingComponent>();
 
-            if (targetingComponent.HasTarget && string.Equals(targetingComponent.Target.Name, "player", StringComparison.OrdinalIgnoreCase))
+            if (targetingComponent.HasTarget && targetingComponent.Target.Name == "Player")
             {
+                Console.WriteLine("Saatiin target...");
+
                 Owner.Body.Velocity = Vector2.Zero;
+
+                current = null;
 
                 status = NodeStatus.Success;
             }
@@ -63,34 +87,44 @@ namespace Neva.BeatEmUp.Behaviours
                     return;
                 }
 
-                Owner.Body.Velocity = new Vector2(MathHelper.Clamp(player.Position.X - Owner.Position.X, -1f, 1f),
-                                                  MathHelper.Clamp(player.Position.Y - Owner.Position.Y, -1f, 1f));
+                current = seek;
+                current.TargetX = player.Position.X;
+                current.TargetY = player.Position.Y;
 
                 spriterComponent.FlipX = Owner.Body.Velocity.X > 0f;
 
-                Console.WriteLine(Owner.Body.Velocity);
-
                 status = NodeStatus.Running;
+
+                Console.WriteLine("Liikutaan targettia kohti...");
             }
         }
         private void Attack(ref NodeStatus status)
         {
             TargetingComponent targetingComponent = Owner.FirstComponentOfType<TargetingComponent>();
+            SkillRotation rotation = Owner.FirstComponentOfType<SkillRotation>();
 
-            if (targetingComponent.HasTarget && string.Equals(targetingComponent.Target.Name, "player", StringComparison.OrdinalIgnoreCase))
+            if (targetingComponent.HasTarget && targetingComponent.Target.Name == "Player")
             {
-                status = NodeStatus.Success;
+                status = NodeStatus.Running;
+
+                rotation.Enable();
+
+                Console.WriteLine("Hyökätään...");
             }
             else
             {
                 status = NodeStatus.Failed;
+
+                rotation.Disable();
+
+                Console.WriteLine("Ei targettia..");
             }
         }
         private void HasLowHp(ref NodeStatus status)
         {
             HealthComponent healthComponent = Owner.FirstComponentOfType<HealthComponent>();
 
-            if (healthComponent.HealthPoints < 25f)
+            if (healthComponent.HealthPercent < 45f)
             {
                 status = NodeStatus.Success;
             }
@@ -101,8 +135,6 @@ namespace Neva.BeatEmUp.Behaviours
         }
         private void RunAway(ref NodeStatus status)
         {
-            status = NodeStatus.Running;
-
             GameObject player = Owner.Game.FindGameObject(o => o.Name == "Player");
 
             if (player == null)
@@ -110,10 +142,11 @@ namespace Neva.BeatEmUp.Behaviours
                 return;
             }
 
-            Owner.Body.Velocity = new Vector2(MathHelper.Clamp(Owner.Position.X - player.Position.X, -1, 1),
-                                              MathHelper.Clamp(Owner.Position.Y - player.Position.Y, -1, 1));
+            current = flee;
+            current.TargetX = player.Position.X;
+            current.TargetY = player.Position.Y;
 
-            spriterComponent.FlipX = Owner.Body.Velocity.X < 0f;
+            spriterComponent.FlipX = Owner.Body.Velocity.X > 0f;
         }
         private void IsAlive(ref NodeStatus status)
         {
@@ -132,7 +165,6 @@ namespace Neva.BeatEmUp.Behaviours
                 new Sequence(
                     new List<Node>() 
                     {
-                        new Leaf(HasSomeHp),
                         new Leaf(MoveToPlayer),
                         new Leaf(Attack)
                     }),
@@ -140,12 +172,11 @@ namespace Neva.BeatEmUp.Behaviours
                  new Sequence(
                      new List<Node>()
                      {
-                         new Leaf(HasLowHp),
                          new Leaf(RunAway)
                      })
             };
 
-            return new Tree(Owner, new Sequence(tree));
+            return new Tree(Owner, new Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree.Selector(HasSomeHp, tree));
         }
 
         protected override void OnInitialize()
@@ -157,10 +188,19 @@ namespace Neva.BeatEmUp.Behaviours
 
             StatSet statSet = StatSets.CreateCrawlerStatSet(Owner);
             WeaponComponent weaponComponent = new WeaponComponent(Owner, Weapons.CreateClaws());
-            TargetingComponent targetingComponent = new TargetingComponent(Owner, new string[] { "monster", "world" });
+
+            TargetingComponent targetingComponent = new TargetingComponent(Owner, new string[] { "monster", "world" })
+            {
+               RangeX = 256f,
+               RangeY = 256f
+            };
+
             HealthComponent healthComponent = new HealthComponent(Owner, statSet);
             SkillSet skillSet = SkillSets.CreateCrawlerSkillSet(Owner);
+
             SkillRotation rotation = Rotations.CreateCrawlerRotation(Owner, skillSet);
+            rotation.Disable();
+
             Tree tree = CreateTree();
             FacingComponent facing = new FacingComponent(Owner);
 
@@ -193,7 +233,14 @@ namespace Neva.BeatEmUp.Behaviours
 
             Owner.Position += Owner.Body.Velocity;
 
-            Console.WriteLine(Owner.Body.Velocity);
+            if (current != null)
+            {
+                Owner.Body.Velocity = current.Update(gameTime, Owner);
+            }
+            else
+            {
+                Owner.Body.Velocity = Vector2.Zero;
+            }
         }
     }
 }

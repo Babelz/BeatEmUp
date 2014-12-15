@@ -15,12 +15,18 @@ namespace Neva.BeatEmUp.GameObjects.Components
         #endregion
 
         #region Properties
-
         public float HealthPoints
         {
             get
             {
                 return currentHealth;
+            }
+        }
+        public float HealthPercent
+        {
+            get
+            {
+                return statSet.GetMaxHealth() / 100f * currentHealth;
             }
         }
         public float MaxHealthPoints
@@ -30,7 +36,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
                 return statSet.GetMaxHealth();
             }
         }
-
         public bool IsAlive
         {
             get
@@ -38,7 +43,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
                 return currentHealth > 0f;
             }
         }
-
         #endregion
 
         public HealthComponent(GameObject owner, StatSet statSet) 

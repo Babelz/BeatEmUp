@@ -68,11 +68,19 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             // ei oteta itteä mukaan areaan, 
             // facingnumber palauttaa joko 1f tai -1f, riippuen siitä katsooko oikealla vai vasemmalle
-            queryRegion = new AABB(owner.Position.X + facing.FacingNumber * (owner.Size.X + 1), owner.Position.Y, RangeX, RangeY);
+            if (facing.IsFacingLeft)
+            {
+                queryRegion = new AABB(owner.Position.X - RangeX - 1, owner.Position.Y, RangeX, RangeY);
+            }
+            else
+            {
+                queryRegion = new AABB(owner.Position.X + owner.Size.X + 1, owner.Position.Y, RangeX, RangeY);
+            }
+            
             // TODO mites jos ei ookkaan tarpeeksi iso collider?
             List<BroadphaseProxy> proxies = owner.Game.World.QueryAABB(ref queryRegion);
 
-            if (ignoredTags != null)
+            if (ignoredTags != null && proxies.Count > 0)
             {
                 for (int i = 0; i < ignoredTags.Length; i++)
                 {
@@ -87,13 +95,18 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         private GameObject GetClosest(List<BroadphaseProxy> proxies)
         {
-            if (proxies.Count == 0) return null;
+            if (proxies.Count == 0)
+            {
+                return null;
+            }
 
             int i = 0;
             float min = Vector2.Distance(owner.Position, proxies[0].Client.Position);
+
             for (int j = 1; j < proxies.Count; j++)
             {
                 float d = Vector2.Distance(owner.Position, proxies[j].Client.Position);
+
                 if (d < min)
                 {
                     i = j;

@@ -6,39 +6,52 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
 {
-    public sealed class SteeringComponent : GameObjectComponent
-    {
-        #region Vars
-        private readonly Dictionary<string, SteeringBehavior> behaviors;
-        #endregion
-
-        public SteeringComponent(GameObject owner)
-            : base(owner, true)
-        {
-            behaviors = new Dictionary<string, SteeringBehavior>();
-        }
-
-        public void AddBehavior(SteeringBehavior behavior, string key)
-        {
-            if (ContainsBehavior(key))
-            {
-                throw new ArgumentException("Already contains key \"" + key + "\".");
-            }
-
-            behaviors.Add(key, behavior);
-        }
-        public bool RemoveBehavior(string key)
-        {
-            return behaviors.Remove(key);
-        }
-        public bool ContainsBehavior(string key)
-        {
-            return behaviors.ContainsKey(key);
-        }
-    }
-
     public abstract class SteeringBehavior
     {
+        #region Properites
+        public abstract float TargetX
+        {
+            get;
+            set;
+        }
+        public abstract float TargetY
+        {
+            get;
+            set;
+        }
+        public abstract float MaxSpeedX
+        {
+            get;
+            set;
+        }
+        public abstract float MaxSpeedY
+        {
+            get;
+            set;
+        }
+        public abstract Vector2 DesiredVelocity
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Asettaa annetun arvon x ja y komponentteihin.
+        /// </summary>
+        public abstract float MaxSpeed
+        {
+            set;
+        }
+
+        protected abstract Vector2 MaxSpeedVector
+        {
+            get;
+        }
+        protected abstract Vector2 TargetVector
+        {
+            get;
+        }
+        #endregion
+
         public abstract Vector2 OnUpdate(GameTime gameTime, GameObject owner);
 
         public Vector2 Update(GameTime gameTime, GameObject owner)
@@ -56,7 +69,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
         #endregion
 
         #region Properties
-        public float TargetX
+        public override float TargetX
         {
             get
             {
@@ -67,7 +80,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
                 target.X = value;
             }
         }
-        public float TargetY
+        public override float TargetY
         {
             get
             {
@@ -78,7 +91,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
                 target.Y = value;
             }
         }
-        public float MaxSpeedX
+        public override float MaxSpeedX
         {
             get
             {
@@ -89,7 +102,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
                 maxSpeed.X = value;
             }
         }
-        public float MaxSpeedY
+        public override float MaxSpeedY
         {
             get
             {
@@ -100,7 +113,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
                 maxSpeed.Y = value;
             }
         }
-        public Vector2 DesiredVelocity
+        public override Vector2 DesiredVelocity
         {
             get
             {
@@ -114,7 +127,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
         /// <summary>
         /// Asettaa annetun arvon x ja y komponentteihin.
         /// </summary>
-        public float MaxSpeed
+        public override float MaxSpeed
         {
             set
             {
@@ -123,14 +136,14 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
             }
         }
 
-        protected Vector2 MaxSpeedVector
+        protected override Vector2 MaxSpeedVector
         {
             get
             {
                 return maxSpeed;
             }
         }
-        protected Vector2 TargetVector
+        protected override Vector2 TargetVector
         {
             get
             {
@@ -143,7 +156,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
         {
             Vector2 desiredVelocity = Vector2.Normalize(target - owner.Position) * maxSpeed;
 
-            return desiredVelocity - owner.Body.Velocity;
+            return desiredVelocity;
         }
     }
 
@@ -151,9 +164,9 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
     {
         public override Vector2 OnUpdate(GameTime gameTime, GameObject owner)
         {
-            Vector2 desiredVelocity = Vector2.Normalize(owner.Position - TargetVector) * MaxSpeedVector;
+            Vector2 desiredVelocity = Vector2.Normalize(TargetVector - owner.Position) * MaxSpeedVector;
 
-            return desiredVelocity - owner.Body.Velocity;
+            return desiredVelocity;
         }
     }
 
