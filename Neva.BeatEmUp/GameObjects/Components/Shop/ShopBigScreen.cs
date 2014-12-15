@@ -19,7 +19,9 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
 
         protected override void OnInitialize()
         {
-            placement = owner.Position + owner.Size/2f;
+            placement = owner.Position;
+            placement.Y += owner.Size.Y/2f;
+            placement.X += 100f;
         }
 
         protected override void OnDraw(SpriteBatch spriteBatch)
@@ -27,7 +29,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
             if (!IsOccupied) return;
             //spriteBatch.DrawRectangle(new Rectangle((int) owner.Position.X, (int) owner.Position.Y, (int) owner.Size.X, (int) owner.Size.Y), Color.Black, 0f);
             item.DrawTo(placement, spriteBatch);
-            item.DrawSpecification(placement + new Vector2(100f, 0f), spriteBatch);
+            item.DrawSpecification(placement + new Vector2(50f, -32f), spriteBatch);
         }
 
         public void Display(ItemComponent item)

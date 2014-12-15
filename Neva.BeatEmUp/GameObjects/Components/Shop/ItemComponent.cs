@@ -48,7 +48,10 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
 
         public void DrawSpecification(Vector2 position, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, "Price " + data.Price, position, Color.Red, 0f, Vector2.Zero, 0.2f, SpriteEffects.None, 0f);
+            float scale = 0.15f;
+            spriteBatch.DrawString(font, data.Name, position, Color.Red, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            position.Y += 32f;
+            spriteBatch.DrawString(font, "" + data.Price + " dolans", position, Color.Red, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
         }
     }
 }
