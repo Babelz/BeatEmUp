@@ -22,6 +22,16 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree
         {
             root.Update();
 
+            switch (root.Status)
+            {
+                case NodeStatus.Success:
+                case NodeStatus.Failed:
+                    root.Reset();
+                    break;
+                default:
+                    break;
+            }
+
             return new ComponentUpdateResults(this, true);
         }
     }

@@ -46,7 +46,14 @@ namespace Neva.BeatEmUp.Maps
                 string bottomName = sceneElements[i].Attribute("Bottom").Value;
 
                 List<XElement> waveElements = sceneElements[i].Element("Waves").Elements("Wave").ToList();
-                List<XElement> objectElements = sceneElements[i].Element("Objects").Elements("Object").ToList();
+
+                List<XElement> objectElements = new List<XElement>();
+                XElement sceneObjectRoot = sceneElements[i].Element("Objects");
+
+                if (sceneObjectRoot != null)
+                {
+                    objectElements = sceneObjectRoot.Elements("Object").ToList();
+                }
 
                 List<Wave> waves = new List<Wave>();
 

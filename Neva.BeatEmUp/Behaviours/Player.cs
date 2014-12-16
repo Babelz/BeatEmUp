@@ -36,6 +36,8 @@ namespace Neva.BeatEmUp.Behaviours
             owner.Game.World.CreateBody(owner.Body, CollisionSettings.PlayerCollisionGroup);
             spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\Player\Player");
             owner.AddComponent(spriterComponent);
+
+            owner.AddTag("player");
         }
 
         #region Input maps
@@ -247,6 +249,8 @@ namespace Neva.BeatEmUp.Behaviours
             spriterComponent.Scale = 0.4f;
 
             spriterComponent.OnAnimationChanged += spriterComponent_OnAnimationChanged;
+
+            Owner.FirstComponentOfType<TargetingComponent>().Ignore("player");
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)

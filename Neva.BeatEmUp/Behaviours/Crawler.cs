@@ -12,15 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using SelectorNode = Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree.Selector;
+
 namespace Neva.BeatEmUp.Behaviours
 {
-    /// <summary>
-    /// Lima hirviön toiminto.
-    /// </summary>
-#if DEBUG
     [ScriptAttribute(false)]
-#endif
-
     public sealed class Crawler : Behaviour
     {
         #region Vars
@@ -165,6 +161,7 @@ namespace Neva.BeatEmUp.Behaviours
                 new Sequence(
                     new List<Node>() 
                     {
+                        new Leaf(HasSomeHp),
                         new Leaf(MoveToPlayer),
                         new Leaf(Attack)
                     }),
@@ -172,17 +169,21 @@ namespace Neva.BeatEmUp.Behaviours
                  new Sequence(
                      new List<Node>()
                      {
+                         new Leaf(HasLowHp),
                          new Leaf(RunAway)
                      })
             };
 
-            return new Tree(Owner, new Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree.Selector(HasSomeHp, tree));
+            return new Tree(Owner, new SelectorNode(tree));
         }
 
         protected override void OnInitialize()
         {
             Owner.Size = new Vector2(32f, 32f);
             Owner.Body.Shape.Size = new Vector2(128f, 32f);
+
+            Owner.Game.World.CreateBody(Owner.Body, CollisionSettings.EnemyCollisionGroup,
+                Collision.CollisionGroup.All & ~CollisionSettings.PlayerCollisionGroup & ~CollisionSettings.ObstacleCollisionGroup);
 
             spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\Crawler\crawler");
 
@@ -191,8 +192,8 @@ namespace Neva.BeatEmUp.Behaviours
 
             TargetingComponent targetingComponent = new TargetingComponent(Owner, new string[] { "monster", "world" })
             {
-               RangeX = 256f,
-               RangeY = 256f
+               RangeX = 32f,
+               RangeY = 32f
             };
 
             HealthComponent healthComponent = new HealthComponent(Owner, statSet);
@@ -222,16 +223,8 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            // TODO miten tän sais?
-            if (Owner.Body.BroadphaseProxy == null)
-            {
-                return;
-            }
-
             spriterComponent.Position = new Vector2(Owner.Position.X + Owner.Body.BroadphaseProxy.AABB.Width / 2f,
                                                     Owner.Position.Y + Owner.Body.BroadphaseProxy.AABB.Height);
-
-            Owner.Position += Owner.Body.Velocity;
 
             if (current != null)
             {
@@ -241,6 +234,8 @@ namespace Neva.BeatEmUp.Behaviours
             {
                 Owner.Body.Velocity = Vector2.Zero;
             }
+
+            Owner.Position += Owner.Body.Velocity;
         }
     }
 }

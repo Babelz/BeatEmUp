@@ -9,7 +9,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree
     /// Node jonka suoritus palauttaa successin jos yksi child node palauttaa
     /// successin. Palauttaa failed staten jos kaikki childit failaavat.
     /// </summary>
-    public sealed class Selector : Leaf
+    public sealed class Selector : Node
     {
         #region Vars
         private readonly ChildManager<Node> nodeManager;
@@ -17,8 +17,8 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree
         private int successfullNodes;
         #endregion
 
-        public Selector(NodeUpdateDelegate updateDelegate, List<Node> nodes)
-            : base(updateDelegate)
+        public Selector(List<Node> nodes)
+            : base()
         {
             if (nodes == null)
             {

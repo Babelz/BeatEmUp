@@ -26,7 +26,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             get
             {
-                return statSet.GetMaxHealth() / 100f * currentHealth;
+                return currentHealth / statSet.GetMaxHealth() * 100f;
             }
         }
         public float MaxHealthPoints
