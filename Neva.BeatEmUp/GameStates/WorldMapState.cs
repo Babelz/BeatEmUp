@@ -220,7 +220,10 @@ namespace Neva.BeatEmUp.GameStates
 
         private GameObject CreateNode(Vector2 position, GameObject parent, string mapName = "", bool canEnter = true)
         {
-            GameObject node = new GameObject(Game);
+            GameObject node = new GameObject(Game)
+            {
+                Name = "MapNode"
+            };
             
             node.Position = position;
             node.AddBehaviour("MapNode", new object[] { mapName, canEnter });

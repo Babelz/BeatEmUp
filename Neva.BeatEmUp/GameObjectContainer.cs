@@ -20,7 +20,7 @@ namespace Neva.BeatEmUp
         {
             get
             {
-                return backgroundObjects.ItemsCount > 0;
+                return backgroundObjects.Count > 0;
             }
         }
         /// <summary>
@@ -101,7 +101,7 @@ namespace Neva.BeatEmUp
         }
         public void MoveAllToBackground()
         {
-            backgroundObjects.Add(AllItems());
+            backgroundObjects.Add(Items());
             
             Clear();
         }
@@ -129,7 +129,7 @@ namespace Neva.BeatEmUp
         }
         public void MoveAllToForeground()
         {
-            Add(backgroundObjects.AllItems());
+            Add(backgroundObjects.Items());
 
             backgroundObjects.Clear();
         }

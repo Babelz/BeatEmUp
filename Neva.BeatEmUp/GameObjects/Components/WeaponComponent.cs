@@ -118,6 +118,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
             return current;
         }
 
+        public float GenerateAttack(float attackPower, float crit, ref bool isCrit)
+        {
+            return GenerateAttack(0f, 0f, attackPower, crit, ref isCrit);
+        }
         public float GenerateAttack(float minAddedDamage, float maxAddedDamage, float attackPower, float crit, ref bool isCrit)
         {
             if (!CanSwing)
@@ -135,22 +139,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             return isCrit ? damage * 1.5f : damage;
         }
-        public float GenerateAttack(float attackPower, float crit, ref bool isCrit)
-        {
-            return GenerateAttack(0f, 0f, attackPower, crit, ref isCrit);
-        }
 
-        /// <summary>
-        /// Generoi hyökkäyksen joka ei triggeröi swing timerin cdtä.
-        /// </summary>
-        public float GenerateSpecialAttack(float minAddedDamage, float maxAddedDamage, float attackPower, float crit, ref bool isCrit)
-        {
-            float damage = GenerateAttack(minAddedDamage, maxAddedDamage, attackPower, crit, ref isCrit);
 
-            cooldown = false;
-
-            return damage;
-        }
         /// <summary>
         /// Generoi hyökkäyksen joka ei triggeröi swing timerin cdtä.
         /// </summary>
@@ -158,12 +148,35 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             return GenerateSpecialAttack(0f, 0f, attackPower, crit, ref isCrit);
         }
+        /// <summary>
+        /// Generoi hyökkäyksen joka ei triggeröi swing timerin cdtä.
+        /// </summary>
+        public float GenerateSpecialAttack(float minAddedDamage, float maxAddedDamage, float attackPower, float crit, ref bool isCrit)
+        {
+            bool oldCd = cooldown;
+            int oldElapsed = elapsed;
 
+            float damage = GenerateAttack(minAddedDamage, maxAddedDamage, attackPower, crit, ref isCrit);
+
+            cooldown = oldCd;
+            elapsed = oldElapsed;
+
+            return damage;
+        }
+
+        /// <summary>
+        /// Generoi hyökkäyksiä jotka eivät triggeröi swing timerin cdtä.
+        /// </summary>
+        public float[] GenerateSpecialAttacks(float attackPower, float crit, int attacksCount, ref bool[] crits)
+        {
+            return GenerateSpecialAttacks(0f, 0f, attackPower, crit, attacksCount, ref crits);
+        }
         /// <summary>
         /// Generoi hyökkäyksiä jotka eivät triggeröi swing timerin cdtä.
         /// </summary>
         public float[] GenerateSpecialAttacks(float minAddedDamage, float maxAddedDamage, float attackPower, float crit, int attacksCount, ref bool[] crits)
         {
+            bool oldCd = cooldown;
             int oldElapsed = elapsed;
 
             float[] attacks = new float[attacksCount];
@@ -174,17 +187,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
                 cooldown = false;
             }
 
-            cooldown = true;
+            cooldown = oldCd;
             elapsed = oldElapsed;
 
             return attacks;
-        }
-        /// <summary>
-        /// Generoi hyökkäyksiä jotka eivät triggeröi swing timerin cdtä.
-        /// </summary>
-        public float[] GenerateSpecialAttacks(float attackPower, float crit, int attacksCount, ref bool[] crits)
-        {
-            return GenerateSpecialAttacks(0f, 0f, attackPower, crit, attacksCount, ref crits);
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
                 }
             }
 
-            if (currentSkillIndex > rotation.Count)
+            if (currentSkillIndex >= rotation.Count)
             {
                 currentSkillIndex = 0;
             }

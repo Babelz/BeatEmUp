@@ -11,13 +11,17 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             SkillSet skillSet = new SkillSet(crawler);
 
+            // Jokainen skilli hakee tarvittavat komponentit siksi, että
+            // niitä ei välttämättä ole vielä objektilla tässä vaiheessa.
+
             Skill attack = new Skill("attack", 1400, () =>
                 {
                     TargetingComponent targetingComponent = crawler.FirstComponentOfType<TargetingComponent>();
                     WeaponComponent weaponComponent = crawler.FirstComponentOfType<WeaponComponent>();
                     StatSet statSet = crawler.FirstComponentOfType<StatSet>();
 
-                    if (targetingComponent.HasTarget)
+                    // Tarkistetaan että voidaan lyödä koska tänä on crawlerin auto attack ability.
+                    if (targetingComponent.HasTarget && weaponComponent.CanSwing)
                     {
                         bool isCrit = false;
 
@@ -25,12 +29,15 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
                         enemyHealth.TakeDamage(weaponComponent.GenerateAttack(statSet.GetAttackPower(),
                                                                               statSet.GetCritPercent(),
-                                                                              ref isCrit));                                          
+                                                                              ref isCrit));
+
+                        return true;
                     }
 
                     return false;
                 });
 
+            // Skilli joka tekee 10-25 + ap damagea ja parantaa crawleria 50% damagen määrästä.
             Skill bloodFury = new Skill("blood fury", 2500, () =>
                 {
                     TargetingComponent targetingComponent = crawler.FirstComponentOfType<TargetingComponent>();
@@ -54,11 +61,14 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
                         enemyHealth.TakeDamage(damage);
                         myHealth.Heal(damage / 2f);
+
+                        return true;
                     }
 
                     return false;
                 });
 
+            // Skilli joka tekee 3x hyökkäystä targettiin. Damage on 17-32 + ap.
             Skill whirlwind = new Skill("whirlwind", 6000, () =>
                 {
                     TargetingComponent targetingComponent = crawler.FirstComponentOfType<TargetingComponent>();
@@ -82,6 +92,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
                         {
                             enemyHealth.TakeDamage(hits[i]);
                         }
+
+                        return true;
                     }
 
                     return false;

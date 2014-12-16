@@ -6,6 +6,61 @@ using Microsoft.Xna.Framework;
 
 namespace Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors
 {
+    public sealed class SteeringComponent : GameObjectComponent
+    {
+        #region Vars
+        private readonly HashSet<SteeringBehavior> behaviors;
+
+        private SteeringBehavior current;
+        #endregion
+
+        #region Properties
+        public SteeringBehavior Current
+        {
+            get
+            {
+                return current;
+            }
+        }
+        #endregion
+
+        public SteeringComponent(GameObject owner)
+            : base(owner, false)
+        {
+            behaviors = new HashSet<SteeringBehavior>();
+        }
+
+        protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
+        {
+            if (current != null)
+            {
+                owner.Body.Velocity = current.Update(gameTime, owner);
+            }
+            else
+            {
+                owner.Body.Velocity = Vector2.Zero;
+            }
+
+            owner.Position += owner.Body.Velocity;
+
+            return new ComponentUpdateResults(this, true);
+        }
+
+        public void AddBehavior(SteeringBehavior behavior)
+        {
+            behaviors.Add(behavior);
+        }
+        public void RemoveBehavior(SteeringBehavior behavior)
+        {
+            behaviors.Remove(behavior);
+        }
+
+        public void ChangeActiveBehavior(Type type)
+        {
+            current = behaviors.First(b => b.GetType() == type);
+        }
+    }
+
     public abstract class SteeringBehavior
     {
         #region Properites

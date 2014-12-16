@@ -220,6 +220,9 @@ namespace GameObjects.Components
         {
             player.Update();
 
+            position = new Vector2(owner.Position.X + owner.Body.BroadphaseProxy.AABB.Width / 2f,
+                                   owner.Position.Y + owner.Body.BroadphaseProxy.AABB.Height);
+
             return new ComponentUpdateResults(this, true);
         }
 

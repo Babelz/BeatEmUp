@@ -70,6 +70,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         private bool enabled;
         private bool visible;
 
+        private bool destroyed;
         private bool skipUpdate;
         private bool skipDraw;
         private string name;
@@ -78,6 +79,13 @@ namespace Neva.BeatEmUp.GameObjects.Components
         #endregion
 
         #region Properties
+        public bool Destroyed
+        {
+            get
+            {
+                return destroyed;
+            }
+        }
         public bool WillSkipUpdate
         {
             get
@@ -169,6 +177,21 @@ namespace Neva.BeatEmUp.GameObjects.Components
         }
         protected virtual void OnInitialize()
         {
+        }
+        protected virtual void OnDestroyed()
+        {
+        }
+
+        public void Destroy()
+        {
+            if (destroyed)
+            {
+                return;
+            }
+
+            destroyed = true;
+
+            OnDestroyed();
         }
 
         public void Initialize()

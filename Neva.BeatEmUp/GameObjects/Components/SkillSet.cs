@@ -71,7 +71,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             elapsed += gameTime.ElapsedGameTime.Milliseconds;
 
-            isInCooldown = elapsed > cooldown;
+            isInCooldown = elapsed < cooldown;
 
             if (!isInCooldown)
             {

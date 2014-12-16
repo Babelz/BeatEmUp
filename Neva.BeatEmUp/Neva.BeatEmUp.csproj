@@ -97,6 +97,7 @@
     <Compile Include="GameObjects\ComponentManager.cs" />
     <Compile Include="GameObjects\Components\AI\SteeringBehaviors\SteeringComponent.cs" />
     <Compile Include="GameObjects\Components\BuffSet.cs" />
+    <Compile Include="GameObjects\Components\Builders.cs" />
     <Compile Include="GameObjects\Components\ColliderRenderer.cs" />
     <Compile Include="GameObjects\Components\Enums.cs" />
     <Compile Include="GameObjects\Components\Exceptions.cs" />

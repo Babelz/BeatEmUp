@@ -38,7 +38,7 @@ namespace Neva.BeatEmUp.GameObjects
         {
             get
             {
-                return components.ItemsCount;
+                return components.Count;
             }
         }
         #endregion
@@ -72,6 +72,11 @@ namespace Neva.BeatEmUp.GameObjects
                 }
             }
 
+            if (components.Contains(component))
+            {
+                return;
+            }
+
             ValidateComponent(component);
 
             components.Add(component);
@@ -81,7 +86,7 @@ namespace Neva.BeatEmUp.GameObjects
             components.OrderAllItemsListBy(c => c.UpdateOrder);
 
             sortedDrawableComponents = components
-                .AllItems()
+                .Items()
                 .OrderBy(c => c.DrawOrder)
                 .ToList();
         }
@@ -113,16 +118,24 @@ namespace Neva.BeatEmUp.GameObjects
         }
         public IEnumerable<GameObjectComponent> Components()
         {
-            return components.AllItems();
+            return components.Items();
         }
 
         public IEnumerable<ComponentUpdateResults> Update(GameTime gameTime)
         {
             List<ComponentUpdateResults> results = new List<ComponentUpdateResults>();
+            List<GameObjectComponent> destroyedComponents = new List<GameObjectComponent>();
 
-            for (int i = 0; i < components.ItemsCount; i++)
+            foreach (GameObjectComponent component in components.Items())
             {
-                ComponentUpdateResults result = components[i].Update(gameTime, results);
+                if (component.Destroyed)
+                {
+                    destroyedComponents.Add(component);
+
+                    continue;
+                }
+
+                ComponentUpdateResults result = component.Update(gameTime, results);
 
                 if (ComponentUpdateResults.IsEmpty(result))
                 {
@@ -130,6 +143,13 @@ namespace Neva.BeatEmUp.GameObjects
                 }
 
                 results.Add(result);
+            }
+
+            foreach (GameObjectComponent component in destroyedComponents)
+            {
+                //components.Remove(component);
+
+                //ComponentRemoved(this, new ComponentRemovedEventArgs(component));
             }
 
             for (int i = 0; i < results.Count; i++)

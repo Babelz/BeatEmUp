@@ -435,7 +435,7 @@ namespace Neva.BeatEmUp.GameObjects
         /// </summary>
         public void StartBehaviours()
         {
-            for (int i = 0; i < behaviours.ItemsCount; i++)
+            for (int i = 0; i < behaviours.Count; i++)
             {
                 behaviours[i].Start();
             }
@@ -471,7 +471,7 @@ namespace Neva.BeatEmUp.GameObjects
 
             IEnumerable<ComponentUpdateResults> results = componentManager.Update(gameTime);
 
-            for (int i = 0; i < behaviours.ItemsCount; i++)
+            for (int i = 0; i < behaviours.Count; i++)
             {
                 behaviours[i].Update(gameTime, results);
             }
@@ -485,7 +485,7 @@ namespace Neva.BeatEmUp.GameObjects
 
             componentManager.Draw(spriteBatch);
 
-            for (int i = 0; i < behaviours.ItemsCount; i++)
+            for (int i = 0; i < behaviours.Count; i++)
             {
                 behaviours[i].Draw(spriteBatch);
             }
