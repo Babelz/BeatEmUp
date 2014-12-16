@@ -120,7 +120,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
             slot.Body.Shape.Size = slot.Size;
             //slot.AddComponent(new ColliderRenderer(slot));
             slot.InitializeComponents();
-            owner.Game.World.CreateBody(slot.Body);
+            owner.Game.World.CreateBody(slot.Body, CollisionSettings.ShopCollisionGroup, CollisionSettings.PlayerCollisionGroup);
             return slot;
         }
 
