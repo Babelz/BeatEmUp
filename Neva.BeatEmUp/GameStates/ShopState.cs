@@ -30,20 +30,24 @@ namespace GameStates
 
         protected override void OnInitialize()
         {
-
-            GameObject player = Game.FindGameObject(p => p.Name == "Player");
-            player.Game.View.Position = Vector2.Zero;
+#warning ja tälle
+            List<GameObject> players = Game.FindGameObjects(p => p.Name.StartsWith("Player"));
+            
             GameObject map = Game.CreateGameObjectFromName("Shop1");
             map.Enable();
             map.StartBehaviours();
             map.InitializeComponents();
-            
 
-            player.Position = new Vector2(500, 600f);
-            playerScale = player.FirstComponentOfType<SpriterComponent<Texture2D>>().Scale;
-            player.FirstComponentOfType<SpriterComponent<Texture2D>>().Scale = playerScale + 0.2f;
-            player.Enable();
-            player.Show();
+            foreach (var player in players)
+            {
+                player.Game.View.Position = Vector2.Zero;
+                player.Position = new Vector2(500, 600f);
+                playerScale = player.FirstComponentOfType<SpriterComponent<Texture2D>>().Scale;
+                player.FirstComponentOfType<SpriterComponent<Texture2D>>().Scale = playerScale + 0.2f;
+                player.Enable();
+                player.Show();
+            }
+
             
             Game.EnableSortedDraw();
 
@@ -65,7 +69,7 @@ namespace GameStates
 
                 Game.StateManager.PopState(p);
                 Game.KeyboardListener.RemoveMapping("Go Back");
-            }, Keys.Enter);
+            }, Keys.X);
         }
 
         public override void Update(GameTime gameTime)
@@ -80,8 +84,12 @@ namespace GameStates
 
         public override void OnDeactivate()
         {
-            GameObject player = Game.FindGameObject(p => p.Name == "Player");
-            player.FirstComponentOfType<SpriterComponent<Texture2D>>().Scale = playerScale;
+            List<GameObject> players = Game.FindGameObjects(p => p.Name.StartsWith("Player"));
+            foreach (var player in players)
+            {
+                player.FirstComponentOfType<SpriterComponent<Texture2D>>().Scale = playerScale;
+            }
+            
         }
     }
 }

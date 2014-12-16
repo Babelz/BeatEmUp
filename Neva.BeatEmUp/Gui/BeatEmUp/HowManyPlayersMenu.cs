@@ -39,6 +39,14 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
         private List<SpriterRenderer<Texture2D>> renderers;
         #endregion
 
+        #region Props
+
+        public Button Start
+        {
+            get { return start; }
+        }
+        #endregion
+
         public HowManyPlayersMenu(Game game)
             : base(game)
         {

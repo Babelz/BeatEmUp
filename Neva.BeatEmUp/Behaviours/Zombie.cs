@@ -42,7 +42,7 @@ namespace Neva.BeatEmUp.Behaviours
         {
             TargetingComponent targetingComponent = Owner.FirstComponentOfType<TargetingComponent>();
 
-            if (targetingComponent.HasTarget && targetingComponent.Target.Name == "Player")
+            if (targetingComponent.HasTarget && targetingComponent.Target.Name.StartsWith("Player"))
             {
                 Owner.Body.Velocity = Vector2.Zero;
 
@@ -52,7 +52,8 @@ namespace Neva.BeatEmUp.Behaviours
             }
             else
             {
-                GameObject player = Owner.Game.FindGameObject(o => o.Name == "Player");
+#warning pitää ettiä StartsWith("Player" koko solutionista
+                GameObject player = Owner.Game.FindGameObject(o => o.Name.StartsWith("Player"));
 
                 if (player == null)
                 {

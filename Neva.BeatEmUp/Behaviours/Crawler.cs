@@ -47,7 +47,7 @@ namespace Neva.BeatEmUp.Behaviours
         {
             TargetingComponent targetingComponent = Owner.FirstComponentOfType<TargetingComponent>();
 
-            if (targetingComponent.HasTarget && targetingComponent.Target.Name == "Player")
+            if (targetingComponent.HasTarget && targetingComponent.Target.Name.StartsWith("Player"))
             {
                 Owner.Body.Velocity = Vector2.Zero;
 
@@ -57,7 +57,7 @@ namespace Neva.BeatEmUp.Behaviours
             }
             else
             {
-                GameObject player = Owner.Game.FindGameObject(o => o.Name == "Player");
+                GameObject player = Owner.Game.FindGameObject(o => o.Name.StartsWith("Player"));
 
                 if (player == null)
                 {
@@ -80,7 +80,7 @@ namespace Neva.BeatEmUp.Behaviours
             TargetingComponent targetingComponent = Owner.FirstComponentOfType<TargetingComponent>();
             SkillRotation rotation = Owner.FirstComponentOfType<SkillRotation>();
 
-            if (targetingComponent.HasTarget && targetingComponent.Target.Name == "Player")
+            if (targetingComponent.HasTarget && targetingComponent.Target.Name.StartsWith("Player"))
             {
                 status = NodeStatus.Running;
 
@@ -108,7 +108,7 @@ namespace Neva.BeatEmUp.Behaviours
         }
         private void RunAway(ref NodeStatus status)
         {
-            GameObject player = Owner.Game.FindGameObject(o => o.Name == "Player");
+            GameObject player = Owner.Game.FindGameObject(o => o.Name.StartsWith("Player"));
 
             if (player == null)
             {

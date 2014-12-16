@@ -41,31 +41,52 @@ namespace Neva.BeatEmUp.Behaviours
         }
 
         #region Input maps
-        private void MoveLeft(InputEventArgs args)
+        public void MoveLeft(InputEventArgs args)
         {
             WalkAnimation(args);
             spriterComponent.FlipX = true;
             Owner.Body.Velocity = new Vector2(VelocityFunc(-speed, args), Owner.Body.Velocity.Y);
         }
-        private void MoveDown(InputEventArgs args)
+        public void MoveDown(InputEventArgs args)
         {
             WalkAnimation(args);
             Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(speed, args));
         }
-        private void MoveUp(InputEventArgs args)
+        public void MoveUp(InputEventArgs args)
         {
             WalkAnimation(args);
             Owner.Body.Velocity = new Vector2(Owner.Body.Velocity.X, VelocityFunc(-speed, args));
         }
-        private void MoveRight(InputEventArgs args)
+        public void MoveRight(InputEventArgs args)
         {
             WalkAnimation(args);
             spriterComponent.FlipX = false;
             Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
         }
 
+
+        public void DebugEnterShop(InputEventArgs args)
+        {
+
+            // Alustetaan transition.
+            Texture2D blank = Owner.Game.Content.Load<Texture2D>("blank");
+
+            Fade fadeIn = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.In, 1, 10, 255);
+            Fade fadeOut = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.Out, 10, 10, 0);
+
+            TransitionPlayer p = new TransitionPlayer();
+
+            p.AddTransition(fadeOut);
+            p.AddTransition(fadeIn);
+
+            fadeOut.StateFininshed += (sender, eventArgs) => Owner.Game.StateManager.PushStates();
+
+            Owner.Game.StateManager.PushState(new ShopState(Owner.Game.StateManager.Current), p);
+
+        }
+
         // Melee hyökkäys.
-        private void Attack(InputEventArgs args)
+        public void Attack(InputEventArgs args)
         {
             if (args.InputState != InputState.Pressed)
             {
@@ -86,7 +107,7 @@ namespace Neva.BeatEmUp.Behaviours
             spriterComponent.SetTime(400);
         }
 
-        private void InitiateBuy(InputEventArgs args)
+        public void InitiateBuy(InputEventArgs args)
         {
             if (args.InputState != InputState.Released) return;
 
@@ -121,6 +142,8 @@ namespace Neva.BeatEmUp.Behaviours
             }
             Console.WriteLine("Didn't find anything to buy!");
         }
+
+        
 
         #region Event Callbacks
         private void spriterComponent_OnAnimationChanged(SaNi.Spriter.Data.SpriterAnimation old, SaNi.Spriter.Data.SpriterAnimation newAnim)
@@ -196,38 +219,19 @@ namespace Neva.BeatEmUp.Behaviours
         {
             KeyboardInputListener keylistener = Owner.Game.KeyboardListener;
 
+            /*
             keylistener.Map("Left", MoveLeft, new KeyTrigger(Keys.A), new KeyTrigger(Keys.Left));
             keylistener.Map("Right", MoveRight, new KeyTrigger(Keys.D), new KeyTrigger(Keys.Right));
             keylistener.Map("Up", MoveUp, new KeyTrigger(Keys.W), new KeyTrigger(Keys.Up));
             keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
             keylistener.Map("Attack", Attack, new KeyTrigger(Keys.Space));
-            keylistener.Map("Buy", InitiateBuy, Keys.E);
-            keylistener.Map("Enter Shop", args =>
-            {
-                if (args.InputState == InputState.Released)
-                {
-                    // Alustetaan transition.
-                    Texture2D blank = Owner.Game.Content.Load<Texture2D>("blank");
-
-                    Fade fadeIn = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.In, 1, 10, 255);
-                    Fade fadeOut = new Fade(Color.Black, blank, new Rectangle(0, 0, 1280, 720), FadeType.Out, 10, 10, 0);
-
-                    TransitionPlayer p = new TransitionPlayer();
-
-                    p.AddTransition(fadeOut);
-                    p.AddTransition(fadeIn);
-
-                    fadeOut.StateFininshed += (sender, eventArgs) => Owner.Game.StateManager.PushStates();
-
-                    Owner.Game.StateManager.PushState(new ShopState(Owner.Game.StateManager.Current), p);
-                    keylistener.RemoveMapping("Enter Shop");
-                }
-            }, Keys.Enter);
+            keylistener.Map("Buy", InitiateBuy, Keys.E); */
+            
         }
 
         protected override void OnInitialize()
         {
-            InitializeMappings();
+            //InitializeMappings();
 
             StatSet statSet = StatSets.CreateWarriorStatSet(Owner);
             HealthComponent healthComponent = new HealthComponent(Owner, statSet);

@@ -480,6 +480,11 @@ namespace Neva.BeatEmUp
             return gameObjects.Find(c => predicate(c));
         }
 
+        public List<GameObject> FindGameObjects(Predicate<GameObject> predicate)
+        {
+            return gameObjects.FindAll(predicate);
+        }
+
         /// <summary>
         /// Luo uuden objektin käyttäen olemassa olevia repoja ja lisää sen worldiin jos argumentin add arvo on true.
         /// </summary>

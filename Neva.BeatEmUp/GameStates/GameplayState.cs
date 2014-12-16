@@ -35,7 +35,7 @@ namespace Neva.BeatEmUp.GameStates
 
             Game.AddGameObject(map);
 
-            player = Game.CreateGameObjectFromKey("player");
+            player = Game.FindGameObject(p => p.Name == "Player 1");
         }
 
         private GameObject CreateTable()
@@ -67,25 +67,44 @@ namespace Neva.BeatEmUp.GameStates
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.FillRectangle(new Rectangle(400, 0, 10, 50), Color.Red, 0f);
+            
         }
 
-        private Vector2 lastPosition = new Vector2(200f, 600f);
+        private Vector2[] lastPositions =
+        {
+            new Vector2(200f, 600f),
+            new Vector2(200f, 600f),
+            new Vector2(200f, 600f),
+            new Vector2(200f, 600f)
+        };
         private Vector2 lastViewPosition = Vector2.Zero;
 
         public override void OnActivate()
         {
             Game.View.Position = lastViewPosition;
-            GameObject player = Game.FindGameObject(o => o.Name == "Player");
-            if (player == null) return;
+            List<GameObject> players = Game.FindGameObjects(o => o.Name.StartsWith("Player"));
+            
+            if (players.Count == 0) return;
 
-            player.Position = lastPosition;
+            foreach (var player in players)
+            {
+                int index = int.Parse(player.Name.Substring(player.Name.Length - 1));
+                player.Position = lastPositions[index - 1];
+            }
         }
         // testing
         public override void OnDeactivate()
         {
-            lastPosition = Game.FindGameObject(o => o.Name == "Player").Position;
             lastViewPosition = Game.View.Position;
+            List<GameObject> players = Game.FindGameObjects(o => o.Name.StartsWith("Player"));
+            if (players.Count == 0) return;
+
+            foreach (var player in players)
+            {
+                int index = int.Parse(player.Name.Substring(player.Name.Length - 1));
+                lastPositions[index - 1] = player.Position;
+            }
+            
         }
     }
 }

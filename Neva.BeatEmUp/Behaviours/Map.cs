@@ -94,7 +94,8 @@ namespace Neva.BeatEmUp.Behaviours
             currentRight.Hide();
             left.Hide();
 #endif
-            GameObject player = Owner.Game.FindGameObject(g => g.Name == "Player");
+#warning mitäs tälle?
+            GameObject player = Owner.Game.FindGameObject(g => g.Name.StartsWith("Player"));
             GoalDetector goalDetector = new GoalDetector(player, new Vector2(goal + currentTop.Size.X * 0.5f, 0.0f));
 
             player.AddComponent(goalDetector);
@@ -126,11 +127,12 @@ namespace Neva.BeatEmUp.Behaviours
         {
             Console.WriteLine("Map finished");
 
-            GameObject player = Owner.Game.FindGameObject(p => p.Name == "Player");
+            //GameObject player = Owner.Game.FindGameObject(p => p.Name == "Player");
         }
         private void goalDetector_AtGoal(object sender, GameObjectComponentEventArgs e)
         {
-            GameObject player = Owner.Game.FindGameObject(g => g.Name == "Player");
+#warning jotain täytyy tehdä position tms
+            GameObject player = Owner.Game.FindGameObject(g => g.Name.StartsWith("Player"));
             
             GoalDetector goalDetector = player.FirstComponentOfType<GoalDetector>();
 
