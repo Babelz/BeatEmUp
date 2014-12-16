@@ -202,7 +202,6 @@ namespace GameObjects.Components
 
         public void ChangeAnimation(int name)
         {
-            
             player.SetAnimation(name);
         }
 
@@ -219,9 +218,6 @@ namespace GameObjects.Components
         protected override ComponentUpdateResults OnUpdate(GameTime gt, IEnumerable<ComponentUpdateResults> results)
         {
             player.Update();
-
-            position = new Vector2(owner.Position.X + owner.Body.BroadphaseProxy.AABB.Width / 2f,
-                                   owner.Position.Y + owner.Body.BroadphaseProxy.AABB.Height);
 
             return new ComponentUpdateResults(this, true);
         }

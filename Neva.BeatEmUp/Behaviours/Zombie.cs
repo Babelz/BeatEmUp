@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
-using Neva.BeatEmUp.GameObjects.Components.AI;
 using Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree;
 using Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors;
 using Neva.BeatEmUp.Scripts.CSharpScriptEngine.ScriptClasses;
@@ -17,33 +16,29 @@ using SelectorNode = Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree.Select
 namespace Neva.BeatEmUp.Behaviours
 {
     [ScriptAttribute(false)]
-    public sealed class Crawler : Behaviour
-    {
+    public sealed class Zombie : Behaviour
+    {   
         #region Vars
         private SteeringComponent steeringComponent;
         private SpriterComponent<Texture2D> spriterComponent;
         #endregion
 
-        public Crawler(GameObject owner)
+        public Zombie(GameObject owner)
             : base(owner)
         {
         }
 
         #region Tree methods
-        private void HasSomeHp(ref NodeStatus status)
+        private void NeedsTarget(ref NodeStatus status)
         {
-            HealthComponent healthComponent = Owner.FirstComponentOfType<HealthComponent>();
-
-            if (healthComponent.HealthPercent >= 45f)
-            {
-                status = NodeStatus.Success;
-            }
-            else
+            if (Owner.FirstComponentOfType<TargetingComponent>().HasTarget)
             {
                 status = NodeStatus.Failed;
             }
+
+            status = NodeStatus.Success;
         }
-        private void MoveToPlayer(ref NodeStatus status)
+        private void FindPlayer(ref NodeStatus status)
         {
             TargetingComponent targetingComponent = Owner.FirstComponentOfType<TargetingComponent>();
 
@@ -70,93 +65,51 @@ namespace Neva.BeatEmUp.Behaviours
                 steeringComponent.Current.TargetX = player.Position.X;
                 steeringComponent.Current.TargetY = player.Position.Y;
 
-                spriterComponent.FlipX = Owner.Body.Velocity.X > 0f;
+                spriterComponent.FlipX = Owner.Body.Velocity.X < 0f;
 
                 status = NodeStatus.Running;
             }
         }
         private void Attack(ref NodeStatus status)
         {
-            TargetingComponent targetingComponent = Owner.FirstComponentOfType<TargetingComponent>();
+            NeedsTarget(ref status);
+
             SkillRotation rotation = Owner.FirstComponentOfType<SkillRotation>();
 
-            if (targetingComponent.HasTarget && targetingComponent.Target.Name == "Player")
+            if (status == NodeStatus.Success)
             {
-                status = NodeStatus.Running;
-
                 rotation.Enable();
             }
             else
             {
-                status = NodeStatus.Failed;
-
                 rotation.Disable();
-            }
-        }
-        private void HasLowHp(ref NodeStatus status)
-        {
-            HealthComponent healthComponent = Owner.FirstComponentOfType<HealthComponent>();
 
-            if (healthComponent.HealthPercent < 45f)
-            {
-                status = NodeStatus.Success;
-            }
-            else
-            {
                 status = NodeStatus.Failed;
             }
-        }
-        private void RunAway(ref NodeStatus status)
-        {
-            GameObject player = Owner.Game.FindGameObject(o => o.Name == "Player");
-
-            if (player == null)
-            {
-                return;
-            }
-
-            steeringComponent.Enable();
-
-            steeringComponent.ChangeActiveBehavior(typeof(FleeBehavior));
-            steeringComponent.Current.TargetX = player.Position.X;
-            steeringComponent.Current.TargetY = player.Position.Y;
-
-            spriterComponent.FlipX = Owner.Body.Velocity.X > 0f;
-        }
-        private void IsAlive(ref NodeStatus status)
-        {
-            HealthComponent healthComponent = Owner.FirstComponentOfType<HealthComponent>();
-
-            status = healthComponent.IsAlive ? NodeStatus.Success : NodeStatus.Failed;
         }
         #endregion
 
         private Tree CreateTree()
         {
-            List<Node> tree = new List<Node>() 
+            List<Node> tree = new List<Node>()
             {
                 new Sequence(
                     new List<Node>() 
                     {
-                        new Leaf(HasSomeHp),
-                        new Leaf(MoveToPlayer),
-                        new Leaf(Attack)
+                        new Leaf(NeedsTarget),
+                        new Leaf(FindPlayer)
                     }),
 
-                 new Sequence(
-                     new List<Node>()
-                     {
-                         new Leaf(HasLowHp),
-                         new Leaf(RunAway)
-                     })
+                new Inverter(NeedsTarget, new Leaf(Attack))
             };
 
             return new Tree(Owner, new SelectorNode(tree));
         }
 
+        // TODO: duplicated code. Crawlerilla melkein init logic.
         protected override void OnInitialize()
         {
-            MonsterBuilder builder = new CrawlerBuilder();
+            MonsterBuilder builder = new ZombieBuilder();
             builder.Build(Owner);
 
             Tree tree = CreateTree();
@@ -164,25 +117,26 @@ namespace Neva.BeatEmUp.Behaviours
 
             Owner.AddComponent(tree);
 
-            spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\Crawler\crawler");
+            // Idle, Walk, Attack
+            spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\GenericZombie\GenericZombie");
             spriterComponent.Initialize();
-            spriterComponent.ChangeAnimation("NewAnimation");
-            spriterComponent.Scale = 0.2f;
+            spriterComponent.ChangeAnimation("Walk");
+            spriterComponent.Scale = 0.5f;
 
             Owner.AddComponent(spriterComponent);
 
             steeringComponent = Owner.FirstComponentOfType<SteeringComponent>();
-            
+
             SteeringBehavior flee = new FleeBehavior()
             {
-                DesiredVelocity = new Vector2(2.25f),
-                MaxSpeed = 1.25f
+                DesiredVelocity = new Vector2(4.25f),
+                MaxSpeed = 3.25f
             };
 
             SteeringBehavior seek = new SeekBehavior()
             {
-                DesiredVelocity = new Vector2(2.25f),
-                MaxSpeed = 1.25f
+                DesiredVelocity = new Vector2(4.25f),
+                MaxSpeed = 3.25f
             };
 
             steeringComponent.AddBehavior(flee);

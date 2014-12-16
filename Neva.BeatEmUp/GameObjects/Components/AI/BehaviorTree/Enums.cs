@@ -5,24 +5,23 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree
 {
-    [Flags]
     public enum NodeStatus
     {
         /// <summary>
         /// Noden suoritusta ei ole aloitettu.
         /// </summary>
-        Ready = 0x0,
+        Ready,
         /// <summary>
         /// Nodea suoritetaan.
         /// </summary>
-        Running = 0x1,
+        Running,
         /// <summary>
         /// Noden suoritus onnistui.
         /// </summary>
-        Success = 0x2,
+        Success,
         /// <summary>
         /// Noden suoritus epäonnistui.
         /// </summary>
-        Failed = 0x3
+        Failed
     }
 }

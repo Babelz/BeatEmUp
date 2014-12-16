@@ -18,6 +18,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         private StatSet statSet;
         private SkillSet skillSet;
         private WeaponComponent weaponComponent;
+        private SkillRotation rotation;
         #endregion
 
         public MonsterBuilder()
@@ -47,9 +48,6 @@ namespace Neva.BeatEmUp.GameObjects.Components
             };
 
             HealthComponent healthComponent = new HealthComponent(monster, statSet);
-            SkillSet skillSet = SkillSets.CreateCrawlerSkillSet(monster);
-
-            SkillRotation rotation = Rotations.CreateCrawlerRotation(monster, skillSet);
             rotation.Disable();
 
             FacingComponent facing = new FacingComponent(monster);
@@ -71,12 +69,14 @@ namespace Neva.BeatEmUp.GameObjects.Components
         protected abstract StatSet CreateStatSet(GameObject monster);
         protected abstract SkillSet CreateSkillSet(GameObject monster);
         protected abstract WeaponComponent CreateWeaponComponent(GameObject monster);
+        protected abstract SkillRotation CreateRotation(GameObject monster, SkillSet skillSet);
 
         public void Build(GameObject monster)
         {
             statSet = CreateStatSet(monster);
             skillSet = CreateSkillSet(monster);
             weaponComponent = CreateWeaponComponent(monster);
+            rotation = CreateRotation(monster, skillSet);
 
             if (statSet == null)
             {
@@ -89,6 +89,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
             if (weaponComponent == null)
             {
                 throw new ArgumentNullException("weaponComponent");
+            }
+            if (rotation == null)
+            {
+                throw new ArgumentNullException("rotation");
             }
 
             CreateBody(monster);
@@ -114,6 +118,35 @@ namespace Neva.BeatEmUp.GameObjects.Components
         protected override WeaponComponent CreateWeaponComponent(GameObject monster)
         {
             return new WeaponComponent(monster, Weapons.CreateClaws());
+        }
+        protected override SkillRotation CreateRotation(GameObject monster, SkillSet skillSet)
+        {
+            return Rotations.CreateCrawlerRotation(monster, skillSet);
+        }
+    }
+
+    public class ZombieBuilder : MonsterBuilder
+    {
+        public ZombieBuilder()
+            : base()
+        {
+        }
+
+        protected override StatSet CreateStatSet(GameObject monster)
+        {
+            return StatSets.CreateZombieStatSet(monster);
+        }
+        protected override SkillSet CreateSkillSet(GameObject monster)
+        {
+            return SkillSets.CreateZombieSkillSet(monster);
+        }
+        protected override WeaponComponent CreateWeaponComponent(GameObject monster)
+        {
+            return new WeaponComponent(monster, Weapons.CreateHands());
+        }
+        protected override SkillRotation CreateRotation(GameObject monster, SkillSet skillSet)
+        {
+            return Rotations.CreateZombieRotation(monster, skillSet);
         }
     }
 }

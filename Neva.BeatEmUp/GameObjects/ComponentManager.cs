@@ -124,18 +124,18 @@ namespace Neva.BeatEmUp.GameObjects
         public IEnumerable<ComponentUpdateResults> Update(GameTime gameTime)
         {
             List<ComponentUpdateResults> results = new List<ComponentUpdateResults>();
-            List<GameObjectComponent> destroyedComponents = new List<GameObjectComponent>();
 
-            foreach (GameObjectComponent component in components.Items())
+            for (int i = 0; i < components.Count; i++)
             {
-                if (component.Destroyed)
+                if (components[i].Destroyed)
                 {
-                    destroyedComponents.Add(component);
+                    components.Remove(components[i]);
+                    ComponentRemoved(this, new ComponentRemovedEventArgs(components[i]));
 
                     continue;
                 }
 
-                ComponentUpdateResults result = component.Update(gameTime, results);
+                ComponentUpdateResults result = components[i].Update(gameTime, results);
 
                 if (ComponentUpdateResults.IsEmpty(result))
                 {
@@ -143,13 +143,6 @@ namespace Neva.BeatEmUp.GameObjects
                 }
 
                 results.Add(result);
-            }
-
-            foreach (GameObjectComponent component in destroyedComponents)
-            {
-                //components.Remove(component);
-
-                //ComponentRemoved(this, new ComponentRemovedEventArgs(component));
             }
 
             for (int i = 0; i < results.Count; i++)

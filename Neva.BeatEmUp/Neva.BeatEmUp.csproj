@@ -46,6 +46,9 @@
     <Compile Include="Behaviours\ShopBehaviour.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Behaviours\Zombie.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="CollisionSettings.cs" />
     <Compile Include="Collision\Narrowphase\PolyPolySolver.cs" />
     <Compile Include="Collision\Shape\PolygonShape.cs" />

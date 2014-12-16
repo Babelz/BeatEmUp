@@ -38,5 +38,17 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             return statSet;
         }
+
+        public static StatSet CreateZombieStatSet(GameObject zombie)
+        {
+            float stamina = 9.5f;
+            float intelligence = 0f;
+            float strength = 1f;
+            float critPercent = 20f;
+
+            StatSet statSet = new StatSet(zombie, stamina, intelligence, strength, critPercent);
+
+            return statSet;
+        }
     }
 }

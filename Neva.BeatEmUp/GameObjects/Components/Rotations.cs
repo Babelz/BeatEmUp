@@ -17,5 +17,17 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             return rotation;
         }
+
+        public static SkillRotation CreateZombieRotation(GameObject zombie, SkillSet zombieSkillSet)
+        {
+            SkillRotation rotation = new SkillRotation(zombie, zombieSkillSet);
+
+            rotation.AddToRotation("attack", 0);
+            rotation.AddToRotation("slam", 5);
+            rotation.AddToRotation("rage", 8);
+            rotation.AddToRotation("meat wall", 10);
+
+            return rotation;
+        }
     }
 }

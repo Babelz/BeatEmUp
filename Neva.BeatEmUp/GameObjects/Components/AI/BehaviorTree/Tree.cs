@@ -22,7 +22,7 @@ namespace Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree
         {
             root.Update();
 
-            if (root.Status == (NodeStatus.Success | NodeStatus.Failed))
+            if (root.Status == NodeStatus.Success || root.Status == NodeStatus.Failed)
             {
                 root.Reset();
             }

@@ -1,7 +1,7 @@
 ﻿<Map Top="taustatemp" Bottom="road">
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
-      <Wave Monster="Crawler" ReleaseTime="0" Count="1" Direction="Right"/>
+      <Wave Monster="Zombie" ReleaseTime="0" Count="5" Direction="Right"/>
     </Waves>
   </Scene>
 
