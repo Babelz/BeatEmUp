@@ -59,7 +59,7 @@ namespace Neva.BeatEmUp.Gui.Cursor.Components
 
         protected void GetFocusableChilds(IContainer container, List<Control> focusableControls)
         {
-            foreach (Control child in container.Childs())
+            foreach (Control child in container.Childs().OrderByDescending(c => c.DrawOrder))
             {
                 IContainer childContainer = child as IContainer;
 

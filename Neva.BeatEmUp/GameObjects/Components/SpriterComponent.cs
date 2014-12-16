@@ -194,6 +194,30 @@ namespace GameObjects.Components
             player.SetAnimation(0);
             renderer = Activator.CreateInstance(lookup2[typeof(T)], new object[] { loader }) as SpriterRenderer<T>;
         }
+        // TODO MOAR HAX
+        public static SpriterAnimationPlayer LoadAnimation(Game game, string file, ref SpriterRenderer<T> renderer)
+        {
+            SpriterData data = game.Content.Load<SpriterData>(file);
+            object[] args = { game, data };
+            Type to = lookup[typeof(T)];
+            SpriterLoader<T> loader = Activator.CreateInstance(to, args) as SpriterLoader<T>;
+            string root = file;
+            if (root.Contains(Path.DirectorySeparatorChar))
+            {
+                root = root.Substring(0, root.LastIndexOf(Path.DirectorySeparatorChar));
+            }
+            else
+            {
+                root = "";
+            }
+
+            loader.Load(root);
+            SpriterAnimationPlayer player = new SpriterAnimationPlayer(data.GetEntity(0));
+            player.SetAnimation(0);
+            renderer = Activator.CreateInstance(lookup2[typeof(T)], new object[] { loader }) as SpriterRenderer<T>;
+
+            return player;
+        }
 
         public void ChangeAnimation(string name)
         {
