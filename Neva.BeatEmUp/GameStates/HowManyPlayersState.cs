@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameObjects.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -13,6 +14,7 @@ using System.Linq;
 using System.Text;
 using Neva.BeatEmUp.Input;
 using Neva.BeatEmUp.Input.Listener;
+using SaNi.Spriter.Data;
 
 namespace Neva.BeatEmUp.GameStates
 {
@@ -109,11 +111,16 @@ namespace Neva.BeatEmUp.GameStates
 
                 int p = 1;
                 // 1x keyboard ja x määrä gamepad
+                string[] charmaps = {"GREEN", "RED", "YELLOW"};
                 foreach (var index in players)
                 {
                     GameObject player = PlayerFactory.CreatePlayer(index, game);
                     player.Name = "Player " + ++p;
                     player.RemoveTag(game.StateManager.CurrentName);
+                    var spriter = player.FirstComponentOfType<SpriterComponent<Texture2D>>();
+                    
+                    spriter.CharacterMaps = new Entity.CharacterMap[1];
+                    spriter.CharacterMaps[0] = spriter.Entity.GetCharacterMap(charmaps[p - 1]);
                 }
 
                 foreach (var listener in game.GamepadListeners)

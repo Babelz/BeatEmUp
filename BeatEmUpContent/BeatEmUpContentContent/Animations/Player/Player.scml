@@ -16,8 +16,47 @@
         <file id="12" name="HeadMoving.png" width="55" height="64" pivot_x="0" pivot_y="1"/>
         <file id="13" name="KehoMoving.png" width="70" height="131" pivot_x="0" pivot_y="1"/>
         <file id="14" name="Miekka.png" width="75" height="254" pivot_x="0" pivot_y="1"/>
+        <file id="15" name="KehoGREEN.png" width="77" height="131" pivot_x="0" pivot_y="1"/>
+        <file id="16" name="OikeaJalkaGREEN.png" width="51" height="108" pivot_x="0" pivot_y="1"/>
+        <file id="17" name="OikeakasivarsiGREEN.png" width="72" height="83" pivot_x="0" pivot_y="1"/>
+        <file id="18" name="OikeaReisiGREEN.png" width="51" height="91" pivot_x="0" pivot_y="1"/>
+        <file id="19" name="VasenjalkaGREEN.png" width="59" height="98" pivot_x="0" pivot_y="1"/>
+        <file id="20" name="VasenReisiGREEN.png" width="42" height="89" pivot_x="0" pivot_y="1"/>
+        <file id="21" name="OikeaOlkapaaGREEN.png" width="53" height="84" pivot_x="0" pivot_y="1"/>
+        <file id="22" name="VasenolkapaaGREEN.png" width="46" height="81" pivot_x="0" pivot_y="1"/>
+        <file id="23" name="VasenkasivarsiGREEN.png" width="59" height="72" pivot_x="0" pivot_y="1"/>
+        <file id="24" name="OikeaReisiMovingGREEN.png" width="42" height="89" pivot_x="0" pivot_y="1"/>
+        <file id="25" name="OikeaJalkamovingGREEN.png" width="59" height="98" pivot_x="0" pivot_y="1"/>
+        <file id="26" name="KehoMovingGREEN.png" width="70" height="131" pivot_x="0" pivot_y="1"/>
+        <file id="27" name="MiekkaGREEN.png" width="75" height="254" pivot_x="0" pivot_y="1"/>
+        <file id="28" name="KehoMovingRED.png" width="70" height="131" pivot_x="0" pivot_y="1"/>
+        <file id="29" name="OikeaJalkaRED.png" width="51" height="108" pivot_x="0" pivot_y="1"/>
+        <file id="30" name="OikeakasivarsiRED.png" width="72" height="83" pivot_x="0" pivot_y="1"/>
+        <file id="31" name="OikeaReisiRED.png" width="51" height="91" pivot_x="0" pivot_y="1"/>
+        <file id="32" name="VasenjalkaRED.png" width="59" height="98" pivot_x="0" pivot_y="1"/>
+        <file id="33" name="VasenReisiRED.png" width="42" height="89" pivot_x="0" pivot_y="1"/>
+        <file id="34" name="OikeaOlkapaaRED.png" width="53" height="84" pivot_x="0" pivot_y="1"/>
+        <file id="35" name="VasenolkapaaRED.png" width="46" height="81" pivot_x="0" pivot_y="1"/>
+        <file id="36" name="VasenkasivarsiRED.png" width="59" height="72" pivot_x="0" pivot_y="1"/>
+        <file id="37" name="OikeaReisiMovingRED.png" width="42" height="89" pivot_x="0" pivot_y="1"/>
+        <file id="38" name="OikeaJalkamovingRED.png" width="59" height="98" pivot_x="0" pivot_y="1"/>
+        <file id="39" name="MiekkaRED.png" width="75" height="254" pivot_x="0" pivot_y="1"/>
+        <file id="40" name="KehoYELLOW.png" width="77" height="131" pivot_x="0" pivot_y="1"/>
+        <file id="41" name="OikeaJalkaYELLOW.png" width="51" height="108" pivot_x="0" pivot_y="1"/>
+        <file id="42" name="OikeakasivarsiYELLOW.png" width="72" height="83" pivot_x="0" pivot_y="1"/>
+        <file id="43" name="OikeaReisiYELLOW.png" width="51" height="91" pivot_x="0" pivot_y="1"/>
+        <file id="44" name="VasenjalkaYELLOW.png" width="59" height="98" pivot_x="0" pivot_y="1"/>
+        <file id="45" name="VasenReisiYELLOW.png" width="42" height="89" pivot_x="0" pivot_y="1"/>
+        <file id="46" name="OikeaOlkapaaYELLOW.png" width="53" height="84" pivot_x="0" pivot_y="1"/>
+        <file id="47" name="VasenolkapaaYELLOW.png" width="46" height="81" pivot_x="0" pivot_y="1"/>
+        <file id="48" name="VasenkasivarsiYELLOW.png" width="59" height="72" pivot_x="0" pivot_y="1"/>
+        <file id="49" name="OikeaReisiMovingYELLOW.png" width="42" height="89" pivot_x="0" pivot_y="1"/>
+        <file id="50" name="OikeaJalkamovingYELLOW.png" width="59" height="98" pivot_x="0" pivot_y="1"/>
+        <file id="51" name="MiekkaYELLOW.png" width="75" height="254" pivot_x="0" pivot_y="1"/>
+        <file id="52" name="KehoMovingYELLOW.png" width="70" height="131" pivot_x="0" pivot_y="1"/>
+        <file id="53" name="KehoRED.png" width="77" height="131" pivot_x="0" pivot_y="1"/>
     </folder>
-    <entity id="0" name="Player">
+    <entity id="0" name="entity_000">
         <obj_info name="bone_010" type="bone" w="50.1323" h="10"/>
         <obj_info name="bone_011" type="bone" w="109.6" h="10"/>
         <obj_info name="bone_012" type="bone" w="85.9967" h="10"/>
@@ -32,6 +71,51 @@
         <obj_info name="bone_001" type="bone" w="168.179" h="10"/>
         <obj_info name="bone_002" type="bone" w="189.553" h="10"/>
         <obj_info name="bone_003" type="bone" w="172.644" h="10"/>
+        <character_map id="0" name="GREEN">
+            <map folder="0" file="1" target_folder="0" target_file="15"/>
+            <map folder="0" file="2" target_folder="0" target_file="16"/>
+            <map folder="0" file="3" target_folder="0" target_file="17"/>
+            <map folder="0" file="4" target_folder="0" target_file="18"/>
+            <map folder="0" file="5" target_folder="0" target_file="19"/>
+            <map folder="0" file="6" target_folder="0" target_file="20"/>
+            <map folder="0" file="7" target_folder="0" target_file="21"/>
+            <map folder="0" file="8" target_folder="0" target_file="22"/>
+            <map folder="0" file="9" target_folder="0" target_file="23"/>
+            <map folder="0" file="10" target_folder="0" target_file="24"/>
+            <map folder="0" file="11" target_folder="0" target_file="25"/>
+            <map folder="0" file="13" target_folder="0" target_file="26"/>
+            <map folder="0" file="14" target_folder="0" target_file="27"/>
+        </character_map>
+        <character_map id="1" name="RED">
+            <map folder="0" file="1" target_folder="0" target_file="53"/>
+            <map folder="0" file="2" target_folder="0" target_file="29"/>
+            <map folder="0" file="3" target_folder="0" target_file="30"/>
+            <map folder="0" file="4" target_folder="0" target_file="31"/>
+            <map folder="0" file="5" target_folder="0" target_file="32"/>
+            <map folder="0" file="6" target_folder="0" target_file="33"/>
+            <map folder="0" file="7" target_folder="0" target_file="34"/>
+            <map folder="0" file="8" target_folder="0" target_file="35"/>
+            <map folder="0" file="9" target_folder="0" target_file="36"/>
+            <map folder="0" file="10" target_folder="0" target_file="37"/>
+            <map folder="0" file="11" target_folder="0" target_file="38"/>
+            <map folder="0" file="13" target_folder="0" target_file="28"/>
+            <map folder="0" file="14" target_folder="0" target_file="39"/>
+        </character_map>
+        <character_map id="2" name="YELLOW">
+            <map folder="0" file="1" target_folder="0" target_file="40"/>
+            <map folder="0" file="2" target_folder="0" target_file="41"/>
+            <map folder="0" file="3" target_folder="0" target_file="42"/>
+            <map folder="0" file="4" target_folder="0" target_file="43"/>
+            <map folder="0" file="5" target_folder="0" target_file="44"/>
+            <map folder="0" file="6" target_folder="0" target_file="45"/>
+            <map folder="0" file="7" target_folder="0" target_file="46"/>
+            <map folder="0" file="8" target_folder="0" target_file="47"/>
+            <map folder="0" file="9" target_folder="0" target_file="48"/>
+            <map folder="0" file="10" target_folder="0" target_file="49"/>
+            <map folder="0" file="11" target_folder="0" target_file="50"/>
+            <map folder="0" file="14" target_folder="0" target_file="51"/>
+            <map folder="0" file="13" target_folder="0" target_file="52"/>
+        </character_map>
         <animation id="0" name="Idle" length="2000" interval="100">
             <mainline>
                 <key id="0">

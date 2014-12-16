@@ -68,11 +68,6 @@
       <Importer>SpriterImporter</Importer>
       <Processor>SpriterProcessor</Processor>
     </Compile>
-    <Compile Include="Animations\Player\Player.scml">
-      <Name>Player</Name>
-      <Importer>SpriterImporter</Importer>
-      <Processor>SpriterProcessor</Processor>
-    </Compile>
     <Compile Include="Animations\Crawler\crawler.scml">
       <Name>crawler</Name>
       <Importer>SpriterImporter</Importer>
@@ -97,6 +92,11 @@
       <Name>guifont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Player.scml">
+      <Name>Player</Name>
+      <Importer>SpriterImporter</Importer>
+      <Processor>SpriterProcessor</Processor>
     </Compile>
     <None Include="Maps\City1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -221,81 +221,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Animations\Player\Head.png">
-      <Name>Head</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\HeadMoving.png">
-      <Name>HeadMoving</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\Keho.png">
-      <Name>Keho</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\KehoMoving.png">
-      <Name>KehoMoving</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\Miekka.png">
-      <Name>Miekka</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\OikeaJalka.png">
-      <Name>OikeaJalka</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\OikeaJalkamoving.png">
-      <Name>OikeaJalkamoving</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\Oikeakasivarsi.png">
-      <Name>Oikeakasivarsi</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\OikeaOlkapaa.png">
-      <Name>OikeaOlkapaa</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\OikeaReisi.png">
-      <Name>OikeaReisi</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\OikeaReisiMoving.png">
-      <Name>OikeaReisiMoving</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\Vasenjalka.png">
-      <Name>Vasenjalka</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\Vasenkasivarsi.png">
-      <Name>Vasenkasivarsi</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\Vasenolkapaa.png">
-      <Name>Vasenolkapaa</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Animations\Player\VasenReisi.png">
-      <Name>VasenReisi</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animations\Crawler\keho.png">
@@ -370,6 +295,278 @@
   <ItemGroup>
     <Compile Include="slot.png">
       <Name>slot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\Player\Head.png">
+      <Name>Head</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\HeadMoving.png">
+      <Name>HeadMoving</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Keho.png">
+      <Name>Keho</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\KehoGREEN.png">
+      <Name>KehoGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\KehoMoving.png">
+      <Name>KehoMoving</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\KehoMovingGREEN.png">
+      <Name>KehoMovingGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\KehoMovingRED.png">
+      <Name>KehoMovingRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\KehoMovingYELLOW.png">
+      <Name>KehoMovingYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\KehoRED.png">
+      <Name>KehoRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\KehoYELLOW.png">
+      <Name>KehoYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Miekka.png">
+      <Name>Miekka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\MiekkaGREEN.png">
+      <Name>MiekkaGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\MiekkaRED.png">
+      <Name>MiekkaRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\MiekkaYELLOW.png">
+      <Name>MiekkaYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaJalka.png">
+      <Name>OikeaJalka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaJalkaGREEN.png">
+      <Name>OikeaJalkaGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaJalkamoving.png">
+      <Name>OikeaJalkamoving</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaJalkamovingGREEN.png">
+      <Name>OikeaJalkamovingGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaJalkamovingRED.png">
+      <Name>OikeaJalkamovingRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaJalkamovingYELLOW.png">
+      <Name>OikeaJalkamovingYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaJalkaRED.png">
+      <Name>OikeaJalkaRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaJalkaYELLOW.png">
+      <Name>OikeaJalkaYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Oikeakasivarsi.png">
+      <Name>Oikeakasivarsi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeakasivarsiGREEN.png">
+      <Name>OikeakasivarsiGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeakasivarsiRED.png">
+      <Name>OikeakasivarsiRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeakasivarsiYELLOW.png">
+      <Name>OikeakasivarsiYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaOlkapaa.png">
+      <Name>OikeaOlkapaa</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaOlkapaaGREEN.png">
+      <Name>OikeaOlkapaaGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaOlkapaaRED.png">
+      <Name>OikeaOlkapaaRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaOlkapaaYELLOW.png">
+      <Name>OikeaOlkapaaYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaReisi.png">
+      <Name>OikeaReisi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaReisiGREEN.png">
+      <Name>OikeaReisiGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaReisiMoving.png">
+      <Name>OikeaReisiMoving</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaReisiMovingGREEN.png">
+      <Name>OikeaReisiMovingGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaReisiMovingRED.png">
+      <Name>OikeaReisiMovingRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaReisiMovingYELLOW.png">
+      <Name>OikeaReisiMovingYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaReisiRED.png">
+      <Name>OikeaReisiRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\OikeaReisiYELLOW.png">
+      <Name>OikeaReisiYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Vasenjalka.png">
+      <Name>Vasenjalka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenjalkaGREEN.png">
+      <Name>VasenjalkaGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenjalkaRED.png">
+      <Name>VasenjalkaRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenjalkaYELLOW.png">
+      <Name>VasenjalkaYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Vasenkasivarsi.png">
+      <Name>Vasenkasivarsi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenkasivarsiGREEN.png">
+      <Name>VasenkasivarsiGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenkasivarsiRED.png">
+      <Name>VasenkasivarsiRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenkasivarsiYELLOW.png">
+      <Name>VasenkasivarsiYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\Vasenolkapaa.png">
+      <Name>Vasenolkapaa</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenolkapaaGREEN.png">
+      <Name>VasenolkapaaGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenolkapaaRED.png">
+      <Name>VasenolkapaaRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenolkapaaYELLOW.png">
+      <Name>VasenolkapaaYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenReisi.png">
+      <Name>VasenReisi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenReisiGREEN.png">
+      <Name>VasenReisiGREEN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenReisiRED.png">
+      <Name>VasenReisiRED</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Player\VasenReisiYELLOW.png">
+      <Name>VasenReisiYELLOW</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -6,11 +6,13 @@ using Neva.BeatEmUp.GameStates;
 using Neva.BeatEmUp.Gui.Controls;
 using Neva.BeatEmUp.Gui.Controls.Components;
 using SaNi.Spriter;
+using SaNi.Spriter.Data;
 using SaNi.Spriter.Renderer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Neva.BeatEmUp.Gui.BeatEmUp
 {
@@ -55,14 +57,22 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             animations = new List<SpriterAnimationPlayer>();
             renderers = new List<SpriterRenderer<Texture2D>>();
 
+            
             for (int i = 0; i < 4; i++)
             {
                 SpriterRenderer<Texture2D> renderer = null;
                 SpriterAnimationPlayer animation = SpriterComponent<Texture2D>.LoadAnimation(game, @"Animations\Player\Player", ref renderer);
+                string[] charmaps = {"GREEN", "RED", "YELLOW"};
 
+
+                if (i > 0)
+                {
+                    animation.CharacterMaps = new Entity.CharacterMap[1];
+                    animation.CharacterMaps[0] = animation.Entity.GetCharacterMap(charmaps[i - 1]);
+                    
+                }
                 animation.SetAnimation("Walk");
                 animation.SetScale(0.5f);
-
                 renderers.Add(renderer);
                 animations.Add(animation);
             }

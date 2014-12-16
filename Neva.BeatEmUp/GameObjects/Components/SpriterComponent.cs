@@ -154,6 +154,23 @@ namespace GameObjects.Components
             set { throw new NotImplementedException();}
         }
 
+        public Entity Entity
+        {
+            get
+            {
+                return player.Entity;
+            }
+        }
+
+        public Entity.CharacterMap[] CharacterMaps
+        {
+            get { return player.CharacterMaps; }
+            set
+            {
+                player.CharacterMaps = value;
+            }
+        }
+
         #endregion
 
         private SpriterData data;
