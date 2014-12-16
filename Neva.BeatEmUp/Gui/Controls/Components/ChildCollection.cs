@@ -8,8 +8,9 @@ namespace Neva.BeatEmUp.Gui.Controls.Components
     public sealed class ChildCollection
     {
         #region Vars
-        private readonly List<Control> childs;
         private readonly Control owner;
+
+        private List<Control> childs;
         #endregion
 
         #region Events
@@ -74,6 +75,8 @@ namespace Neva.BeatEmUp.Gui.Controls.Components
 
             childs.Add(control);
 
+            childs = childs.OrderBy(c => c.DrawOrder).ToList();
+
             ChildAdded(new GuiChildComponentEventArgs(control), this);
         }
         public void RemoveChild(Control control)
@@ -86,6 +89,8 @@ namespace Neva.BeatEmUp.Gui.Controls.Components
             CheckBeforeRemoving(control);
 
             childs.Remove(control);
+
+            childs = childs.OrderBy(c => c.DrawOrder).ToList();
 
             ChildRemoved(new GuiChildComponentEventArgs(control), this);
         }

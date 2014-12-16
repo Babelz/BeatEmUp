@@ -189,7 +189,7 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             player.AddTransition(fadeOut);
             player.AddTransition(fadeIn);
 
-            gameStateManager.ChangeState(new WorldMapState(), player);
+            gameStateManager.ChangeState(new HowManyPlayersState(), player);
         }
 
         void start_MouseButtonDown(GuiCursorInputEventArgs e, object sender)
