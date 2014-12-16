@@ -47,6 +47,13 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
         {
             get { return start; }
         }
+
+        public Label[] Labels
+        {
+            get;
+            private set;
+        }
+
         #endregion
 
         public HowManyPlayersMenu(Game game)
@@ -220,6 +227,14 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             };
 
             p4Label.Size = font.MeasureString(p4Label.Text) * 0.75f;
+
+            Labels = new []
+            {
+                
+                p2Label,
+                p3Label,
+                p4Label
+            };
 
             grid.Add(p1Label, 1, 1);
             grid.Add(p2Label, 1, 2);

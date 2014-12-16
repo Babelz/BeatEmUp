@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Neva.BeatEmUp.Gui.Controls;
 using Neva.BeatEmUp.Input;
 using Neva.BeatEmUp.Input.Listener;
 using SaNi.Spriter.Data;
@@ -58,7 +59,11 @@ namespace Neva.BeatEmUp.GameStates
         {
             if (args.InputState != InputState.Released) return;
             var gamepadInputListener = args.Listener as GamepadInputListener;
-            players.Remove(gamepadInputListener.PlayerIndex);
+            if (players.Contains(gamepadInputListener.PlayerIndex))
+            {
+                players.Remove(gamepadInputListener.PlayerIndex);
+                controller.UnjoinGame(gamepadInputListener.PlayerIndex);
+            }
         }
 
         private void JoinGame(InputEventArgs args)
@@ -69,7 +74,9 @@ namespace Neva.BeatEmUp.GameStates
             if (!players.Contains(gamepadInputListener.PlayerIndex))
             {
                 players.Add(gamepadInputListener.PlayerIndex);
+                controller.JoinGame(gamepadInputListener.PlayerIndex);
             }
+            
         }
 
         public override void OnDeactivate()
@@ -90,11 +97,15 @@ namespace Neva.BeatEmUp.GameStates
             private readonly HowManyPlayersMenu gui;
             private readonly BeatEmUpGame game;
 
+            private Label[] labels;
+
             public HowManyPlayersController(List<PlayerIndex> players, HowManyPlayersMenu gui, BeatEmUpGame game)
             {
                 this.players = players;
                 this.gui = gui;
                 this.game = game;
+
+                labels = gui.Labels;
                 gui.Start.ButtonPressed += Start_ButtonPressed;
                 
             }
@@ -128,6 +139,18 @@ namespace Neva.BeatEmUp.GameStates
                     listener.RemoveMapping("Join");
                     listener.RemoveMapping("Unjoin");
                 }
+            }
+
+            public void JoinGame(PlayerIndex playerIndex)
+            {
+                int index = (int) playerIndex;
+                gui.Labels[index].Text = "Connected (P" + (index + 2 )+ ")";
+            }
+
+            public void UnjoinGame(PlayerIndex playerIndex)
+            {
+                int index = (int) playerIndex;
+                gui.Labels[index].Text = "Not Connected";
             }
         }
     }
