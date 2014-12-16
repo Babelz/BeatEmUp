@@ -53,9 +53,9 @@ namespace Neva.BeatEmUp.GameObjects.Components
         public TargetingComponent(GameObject owner, string[] ignoredTags) 
             : base(owner, false)
         {
+            this.ignoredTags = new List<string>();
             if (ignoredTags != null)
             {
-                this.ignoredTags = new List<string>();
                 this.ignoredTags.AddRange(ignoredTags);
             }
         }
@@ -135,7 +135,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         public void Ignore(string tag)
         {
-            
+            ignoredTags.Add(tag);
         }
         public void RemoveIgnore(string tag)
         {

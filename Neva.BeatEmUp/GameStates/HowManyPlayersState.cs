@@ -115,6 +115,12 @@ namespace Neva.BeatEmUp.GameStates
                     player.Name = "Player " + ++p;
                     player.RemoveTag(game.StateManager.CurrentName);
                 }
+
+                foreach (var listener in game.GamepadListeners)
+                {
+                    listener.RemoveMapping("Join");
+                    listener.RemoveMapping("Unjoin");
+                }
             }
         }
     }
