@@ -1,15 +1,14 @@
 ﻿<Map Top="taustatemp" Bottom="road">
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
+      <Wave Monster="Zombie" ReleaseTime="0" Count="1" Direction="Right"/>
       <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
     </Waves>
   </Scene>
 
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
-      <Wave Monster="Zombie" ReleaseTime="0" Count="10" Direction="Right"/>
-      <Wave Monster="Zombie" ReleaseTime="0" Count="10" Direction="Left"/>
-      <Wave Monster="Crawler" ReleaseTime="10000" Count="10" Direction="Left"/>
+      <Wave Monster="Zombie" ReleaseTime="0" Count="1" Direction="Right"/>
     </Waves>
   </Scene>
 
