@@ -31,7 +31,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
             monster.Body.Shape.Size = new Vector2(128f, 32f);
 
             monster.Game.World.CreateBody(monster.Body, CollisionSettings.EnemyCollisionGroup,
-                Collision.CollisionGroup.All & ~CollisionSettings.PlayerCollisionGroup & ~CollisionSettings.ObstacleCollisionGroup);
+                 ~CollisionSettings.PlayerCollisionGroup & ~CollisionSettings.ObstacleCollisionGroup );
         }
 
         /// <summary>

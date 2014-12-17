@@ -98,6 +98,11 @@
       <Importer>SpriterImporter</Importer>
       <Processor>SpriterProcessor</Processor>
     </Compile>
+    <Compile Include="Animations\Boss\Boss.scml">
+      <Name>Boss</Name>
+      <Importer>SpriterImporter</Importer>
+      <Processor>SpriterProcessor</Processor>
+    </Compile>
     <None Include="Maps\City1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>City1</Name>
@@ -567,6 +572,28 @@
     </Compile>
     <Compile Include="Animations\Player\VasenReisiYELLOW.png">
       <Name>VasenReisiYELLOW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\Boss\Jalka.png">
+      <Name>Jalka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Boss\Kasi.png">
+      <Name>Kasi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Boss\Keho.png">
+      <Name>Keho</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Boss\Suu.png">
+      <Name>Suu</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

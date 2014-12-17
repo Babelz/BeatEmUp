@@ -167,7 +167,7 @@ namespace Neva.BeatEmUp.Behaviours
             spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\Crawler\crawler");
             spriterComponent.Initialize();
             spriterComponent.ChangeAnimation("NewAnimation");
-            spriterComponent.Scale = 0.2f;
+            spriterComponent.Scale = 0.6f;
 
             Owner.AddComponent(spriterComponent);
 
