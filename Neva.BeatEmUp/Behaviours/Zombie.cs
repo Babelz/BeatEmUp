@@ -42,7 +42,7 @@ namespace Neva.BeatEmUp.Behaviours
         {
             TargetingComponent targetingComponent = Owner.FirstComponentOfType<TargetingComponent>();
 
-            if (targetingComponent.HasTarget && targetingComponent.Target.Name.StartsWith("Player"))
+            if (targetingComponent.HasTarget && targetingComponent.Target.Name.Contains("Player"))
             {
                 Owner.Body.Velocity = Vector2.Zero;
 
@@ -52,8 +52,7 @@ namespace Neva.BeatEmUp.Behaviours
             }
             else
             {
-#warning pitää ettiä StartsWith("Player" koko solutionista
-                GameObject player = Owner.Game.FindGameObject(o => o.Name.StartsWith("Player"));
+                GameObject player = Owner.Game.FindGameObject(o => o.Name.Contains("Player"));
 
                 if (player == null)
                 {
@@ -107,7 +106,7 @@ namespace Neva.BeatEmUp.Behaviours
             return new Tree(Owner, new SelectorNode(tree));
         }
 
-        // TODO: duplicated code. Crawlerilla melkein init logic.
+        // TODO: duplicated code. Crawlerilla melkein sama init logic.
         protected override void OnInitialize()
         {
             MonsterBuilder builder = new ZombieBuilder();

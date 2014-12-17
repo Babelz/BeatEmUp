@@ -149,4 +149,29 @@ namespace Neva.BeatEmUp.GameObjects.Components
             return Rotations.CreateZombieRotation(monster, skillSet);
         }
     }
+
+    public class BlobBuilder : MonsterBuilder
+    {
+        public BlobBuilder()
+            : base()
+        {
+        }
+
+        protected override StatSet CreateStatSet(GameObject monster)
+        {
+            return StatSets.CreateBlobStatSet(monster);
+        }
+        protected override SkillSet CreateSkillSet(GameObject monster)
+        {
+            return SkillSets.CreateBlobSkillSet(monster);
+        }
+        protected override WeaponComponent CreateWeaponComponent(GameObject monster)
+        {
+            return new WeaponComponent(monster, Weapons.CreateSlimeHand());
+        }
+        protected override SkillRotation CreateRotation(GameObject monster, SkillSet skillSet)
+        {
+            return Rotations.CreateBlobRotation(monster, skillSet);
+        }
+    }
 }

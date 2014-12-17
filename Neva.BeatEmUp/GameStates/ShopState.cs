@@ -30,8 +30,7 @@ namespace GameStates
 
         protected override void OnInitialize()
         {
-#warning ja tälle
-            List<GameObject> players = Game.FindGameObjects(p => p.Name.StartsWith("Player"));
+            List<GameObject> players = Game.FindGameObjects(p => p.Name.Contains("Player"));
             
             GameObject map = Game.CreateGameObjectFromName("Shop1");
             map.Enable();

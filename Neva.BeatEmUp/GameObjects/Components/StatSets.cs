@@ -50,5 +50,17 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             return statSet;
         }
+
+        public static StatSet CreateBlobStatSet(GameObject blob)
+        {
+            float stamina = 100f;
+            float intelligence = 0f;
+            float strength = 10f;
+            float critPercent = 5f;
+
+            StatSet statSet = new StatSet(blob, stamina, intelligence, strength, critPercent);
+
+            return statSet;
+        }
     }
 }
