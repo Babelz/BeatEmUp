@@ -29,5 +29,16 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             return rotation;
         }
+
+        public static SkillRotation CreateBlobRotation(GameObject blob, SkillSet blobSkillSet)
+        {
+            SkillRotation rotation = new SkillRotation(blob, blobSkillSet);
+
+            rotation.AddToRotation("attack", 0);
+            rotation.AddToRotation("smash", 1);
+            rotation.AddToRotation("beam", 2);
+
+            return rotation;
+        }
     }
 }

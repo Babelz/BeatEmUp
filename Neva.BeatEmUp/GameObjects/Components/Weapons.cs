@@ -39,5 +39,16 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             return new Weapon(name, minDamage, maxDamage, swingTime, assetName);
         }
+
+        public static Weapon CreateSlimeHand()
+        {
+            string name = "Hands";
+            float minDamage = 32f;
+            float maxDamage = 64f;
+            int swingTime = 5200;
+            string assetName = string.Empty;
+
+            return new Weapon(name, minDamage, maxDamage, swingTime, assetName);
+        }
     }
 }

@@ -8,4 +8,10 @@
     <Behaviour Name="Zombie" Start="true"/>
     <Tag Value="monster"/>
   </Object>
+  
+  <Object Key="Monster" Enabled="true" Visible="true" Name="Blob" Width="32" Height="32">
+    <Behaviour Name="Blob" Start="true"/>
+    <Tag Value="monster"/>
+    <Tag Value="boss"/>
+  </Object>
 </Monsters>

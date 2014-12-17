@@ -97,6 +97,7 @@
       <Name>Player</Name>
       <Importer>SpriterImporter</Importer>
       <Processor>SpriterProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
     <Compile Include="Animations\Boss\Boss.scml">
       <Name>Boss</Name>
@@ -582,11 +583,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Animations\Boss\Kasi.png">
-      <Name>Kasi</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Animations\Boss\Keho.png">
       <Name>Keho</Name>
       <Importer>TextureImporter</Importer>
@@ -594,6 +590,25 @@
     </Compile>
     <Compile Include="Animations\Boss\Suu.png">
       <Name>Suu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\Boss\Käsi.png">
+      <Name>Käsi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\Boss\Efekti.png">
+      <Name>Efekti</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\Boss\Plasma.png">
+      <Name>Plasma</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

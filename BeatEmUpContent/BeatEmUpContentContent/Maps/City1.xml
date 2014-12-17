@@ -2,6 +2,7 @@
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
       <Wave Monster="Zombie" ReleaseTime="0" Count="1" Direction="Right"/>
+      <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
     </Waves>
   </Scene>
 

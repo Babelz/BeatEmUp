@@ -255,6 +255,19 @@ namespace GameObjects.Components
         {
             player.SetTime(value);
         }
+        public void SetSpeed(int speed)
+        {
+            player.Speed = speed;
+        }
+
+        public int Speed
+        {
+            get
+            {
+                return player.Speed;
+            }
+        }
+        
 
         protected override ComponentUpdateResults OnUpdate(GameTime gt, IEnumerable<ComponentUpdateResults> results)
         {

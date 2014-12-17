@@ -31,6 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BeatEmUpGame.cs" />
+    <Compile Include="Behaviours\Blob.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Behaviours\Crawler.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

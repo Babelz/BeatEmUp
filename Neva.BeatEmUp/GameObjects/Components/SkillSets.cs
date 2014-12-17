@@ -1,5 +1,10 @@
 ﻿using GameObjects.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Neva.BeatEmUp.Collision;
+using Neva.BeatEmUp.Collision.Broadphase;
+using Neva.BeatEmUp.Collision.Dynamics;
+using Neva.BeatEmUp.GameObjects.Components.AI.SteeringBehaviors;
 using SaNi.Spriter;
 using SaNi.Spriter.Data;
 using System;
@@ -139,6 +144,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
                                 spriterComponent.ChangeAnimation("Walk");
                             };
 
+                        spriterComponent.OnAnimationFinished += animationFininshedEventHandler;
+
                         spriterComponent.OnAnimationChanged += (old, newAnim) => 
                             {
                                 if(old.Name == "Attack") 
@@ -179,6 +186,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
                             {
                                 spriterComponent.ChangeAnimation("Walk");
                             };
+
+                        spriterComponent.OnAnimationFinished += animationFininshedEventHandler;
 
                         spriterComponent.OnAnimationChanged += (old, newAnim) => 
                             {
@@ -234,6 +243,142 @@ namespace Neva.BeatEmUp.GameObjects.Components
             skillSet.AddSkill(slam);
             skillSet.AddSkill(meatWall);
             skillSet.AddSkill(rage);
+
+            return skillSet;
+        }
+
+        public static SkillSet CreateBlobSkillSet(GameObject blob)
+        {
+            SkillSet skillSet = new SkillSet(blob);
+
+            Skill attack = new Skill("attack", 5200, () =>
+                {
+                    TargetingComponent targetingComponent = blob.FirstComponentOfType<TargetingComponent>();
+                    WeaponComponent weaponComponent = blob.FirstComponentOfType<WeaponComponent>();
+                    StatSet statSet = blob.FirstComponentOfType<StatSet>();
+
+                    if (targetingComponent.HasTarget)
+                    {
+                        bool isCrit = false;
+
+                        float damage = weaponComponent.GenerateAttack(statSet.GetAttackPower(), statSet.GetCritPercent(), ref isCrit);
+
+                        targetingComponent.Target.FirstComponentOfType<HealthComponent>().TakeDamage(damage);
+
+                        SpriterComponent<Texture2D> spriterComponent = blob.FirstComponentOfType<SpriterComponent<Texture2D>>();
+                        spriterComponent.ChangeAnimation("Attack");
+
+                        AnimationFinishedEventHandler animationFininshedEventHandler = (animation) =>
+                        {
+                            spriterComponent.ChangeAnimation("Walk");
+                        };
+
+                        spriterComponent.OnAnimationFinished += animationFininshedEventHandler;
+
+                        spriterComponent.OnAnimationChanged += (old, newAnim) =>
+                        {
+                            if (old.Name == "Attack")
+                            {
+                                spriterComponent.OnAnimationFinished -= animationFininshedEventHandler;
+                            }
+                        };
+
+                        return true;
+                    }
+
+                    return false;
+                });
+
+            Skill beam = new Skill("beam", 300, () =>
+                {
+                    TargetingComponent targetingComponent = blob.FirstComponentOfType<TargetingComponent>();
+                    WeaponComponent weaponComponent = blob.FirstComponentOfType<WeaponComponent>();
+                    StatSet statSet = blob.FirstComponentOfType<StatSet>();
+                    FacingComponent facing = blob.FirstComponentOfType<FacingComponent>();
+
+                    SpriterComponent<Texture2D> spriterComponent = blob.FirstComponentOfType<SpriterComponent<Texture2D>>();
+                    spriterComponent.ChangeAnimation("Attack2");
+
+                    int oldTime = spriterComponent.Speed;
+                    //spriterComponent.SetSpeed(100);
+
+                    Texture2D plasma = blob.Game.Content.Load<Texture2D>(@"Animations\Boss\Plasma");
+
+                    AABB area = new AABB(blob.Position.X * facing.FacingNumber * -1, blob.Position.Y, plasma.Width, plasma.Height);
+                    List<BroadphaseProxy> proxies = blob.Game.World.QueryAABB(ref area);
+
+                    foreach (BroadphaseProxy proxy in proxies.Where(p => p.Client.Owner.Name.StartsWith("Player")))
+                    {
+                        
+                    }
+
+                    SteeringComponent steeringComponent = blob.FirstComponentOfType<SteeringComponent>();
+                    steeringComponent.Disable();
+
+                    AnimationFinishedEventHandler animationFininshedEventHandler = (animation) =>
+                    {
+                        spriterComponent.ChangeAnimation("Walk");
+                        spriterComponent.SetSpeed(oldTime);
+
+                        steeringComponent.Enable();
+                    };
+
+                    spriterComponent.OnAnimationFinished += animationFininshedEventHandler;
+
+                    spriterComponent.OnAnimationChanged += (old, newAnim) =>
+                    {
+                        if (old.Name == "Attack2")
+                        {
+                            spriterComponent.OnAnimationFinished -= animationFininshedEventHandler;
+                        }
+                    };
+
+                    return true;
+                });
+
+            Skill smash = new Skill("smash", 10200, () =>
+                {
+                    TargetingComponent targetingComponent = blob.FirstComponentOfType<TargetingComponent>();
+                    WeaponComponent weaponComponent = blob.FirstComponentOfType<WeaponComponent>();
+                    StatSet statSet = blob.FirstComponentOfType<StatSet>();
+
+                    if (targetingComponent.HasTarget)
+                    {
+                        Console.WriteLine("SMASH!");
+
+                        bool isCrit = false;
+
+                        float damage = weaponComponent.GenerateAttack(statSet.GetAttackPower(), statSet.GetCritPercent(), ref isCrit);
+
+                        targetingComponent.Target.FirstComponentOfType<HealthComponent>().TakeDamage(damage);
+
+                        SpriterComponent<Texture2D> spriterComponent = blob.FirstComponentOfType<SpriterComponent<Texture2D>>();
+                        spriterComponent.ChangeAnimation("Attack");
+
+                        AnimationFinishedEventHandler animationFininshedEventHandler = (animation) =>
+                        {
+                            spriterComponent.ChangeAnimation("Walk");
+                        };
+
+                        spriterComponent.OnAnimationFinished += animationFininshedEventHandler;
+
+                        spriterComponent.OnAnimationChanged += (old, newAnim) =>
+                        {
+                            if (old.Name == "Attack")
+                            {
+                                spriterComponent.OnAnimationFinished -= animationFininshedEventHandler;
+                            }
+                        };
+
+                        return true;
+                    }
+
+                    return false;
+                });
+
+            skillSet.AddSkill(attack);
+            skillSet.AddSkill(beam);
+            skillSet.AddSkill(smash);
 
             return skillSet;
         }

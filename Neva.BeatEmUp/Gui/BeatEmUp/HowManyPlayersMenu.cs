@@ -78,6 +78,7 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
                     animation.CharacterMaps[0] = animation.Entity.GetCharacterMap(charmaps[i - 1]);
                     
                 }
+
                 animation.SetAnimation("Walk");
                 animation.SetScale(0.5f);
                 renderers.Add(renderer);
