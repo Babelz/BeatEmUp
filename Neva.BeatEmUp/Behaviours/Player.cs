@@ -183,6 +183,13 @@ namespace Neva.BeatEmUp.Behaviours
             bool isCrit = false;
 
             healthComponent.TakeDamage(weaponComponent.GenerateAttack(statSet.GetAttackPower(), statSet.GetCritPercent(), ref isCrit));
+
+            SpriterEffect effect = new SpriterEffect(Owner, @"Animations\splatters\Splatters");
+            effect.Initialize();
+
+            effect.SpriterComponent.FlipX = Owner.FirstComponentOfType<FacingComponent>().FacingNumber < 0f;
+
+            Owner.AddComponent(effect);
         }
 
         #endregion

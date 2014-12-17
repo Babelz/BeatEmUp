@@ -149,6 +149,17 @@ namespace Neva.BeatEmUp.Behaviours
         {
             spriterComponent.Position = new Vector2(Owner.Position.X + Owner.Body.BroadphaseProxy.AABB.Width / 2f,
                                                     Owner.Position.Y + Owner.Body.BroadphaseProxy.AABB.Height);
+
+            if (Owner.Game.FindGameObjects(o => o.ContainsTag("player")).Count == 0)
+            {
+                Owner.FirstComponentOfType<Tree>().Disable();
+                steeringComponent.Disable();
+
+                Owner.Body.Velocity = new Vector2(-2.25f, 0f);
+                Owner.Position += Owner.Body.Velocity;
+
+                spriterComponent.FlipX = Owner.Body.Velocity.X < 0f;
+            }
         }
     }
 }

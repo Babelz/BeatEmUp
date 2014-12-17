@@ -104,6 +104,11 @@
       <Importer>SpriterImporter</Importer>
       <Processor>SpriterProcessor</Processor>
     </Compile>
+    <Compile Include="Animations\splatters\Splatters.scml">
+      <Name>Splatters</Name>
+      <Importer>SpriterImporter</Importer>
+      <Processor>SpriterProcessor</Processor>
+    </Compile>
     <None Include="Maps\City1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>City1</Name>
@@ -157,7 +162,7 @@
       <Project>{d5febe18-0b43-4f33-bad3-b9109dab224e}</Project>
       <Name>Neva.BeatEmUp.DataTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SaNi.Spriter.Pipeline\SaNi.Spriter.Pipeline.csproj">
+    <ProjectReference Include="..\..\SaNi.Spriter.Pipeline\sani-spriter-pipeline\SaNi.Spriter.Pipeline.csproj">
       <Project>{ed095d93-8c2b-4118-8f35-48c580038350}</Project>
       <Name>SaNi.Spriter.Pipeline</Name>
     </ProjectReference>
@@ -616,6 +621,190 @@
   <ItemGroup>
     <Compile Include="Skull.png">
       <Name>Skull</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\splatters\Blood_ribon_0.png">
+      <Name>Blood_ribon_0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\splatters\Blood_ribon_1.png">
+      <Name>Blood_ribon_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\splatters\Blood_ribon_2.png">
+      <Name>Blood_ribon_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\splatters\Blood_ribon_3.png">
+      <Name>Blood_ribon_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\splatters\blood_squirt_0.png">
+      <Name>blood_squirt_0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\splatters\blood_squirt_1.png">
+      <Name>blood_squirt_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\splatters\blood_squirt_2.png">
+      <Name>blood_squirt_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\splatters\blood_squirt_3.png">
+      <Name>blood_squirt_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\splatters\blood_squirt_4.png">
+      <Name>blood_squirt_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\explosion_0\ball_dark.png">
+      <Name>ball_dark</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\ball_white.png">
+      <Name>ball_white</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\glow_red.png">
+      <Name>glow_red</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\glow_yellow.png">
+      <Name>glow_yellow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\Oexplosion_0.png">
+      <Name>Oexplosion_0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\Oexplosion_1.png">
+      <Name>Oexplosion_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\Oexplosion_2.png">
+      <Name>Oexplosion_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\Oexplosion_3.png">
+      <Name>Oexplosion_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\Oexplosion_4.png">
+      <Name>Oexplosion_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\Oexplosion_5.png">
+      <Name>Oexplosion_5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\Oexplosion_6.png">
+      <Name>Oexplosion_6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\Oexplosion_7.png">
+      <Name>Oexplosion_7</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\Oexplosion_8.png">
+      <Name>Oexplosion_8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\Oexplosion_9.png">
+      <Name>Oexplosion_9</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_black.png">
+      <Name>puff_black</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_black_a.png">
+      <Name>puff_black_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_brown.png">
+      <Name>puff_brown</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_brown_a.png">
+      <Name>puff_brown_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_grey.png">
+      <Name>puff_grey</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_grey_a.png">
+      <Name>puff_grey_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_orange.png">
+      <Name>puff_orange</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_orange_a.png">
+      <Name>puff_orange_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_red.png">
+      <Name>puff_red</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_red_a.png">
+      <Name>puff_red_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_white.png">
+      <Name>puff_white</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_white_a.png">
+      <Name>puff_white_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Animations\explosion_0\puff_yellow.png">
+      <Name>puff_yellow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
