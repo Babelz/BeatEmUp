@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -58,10 +59,78 @@ namespace Neva.BeatEmUp.GameStates
         public override void Update(GameTime gameTime)
         {
             Vector2 newViewPosition = new Vector2();
+            /*
+            List<GameObject> players = Game.FindGameObjects(o => o.Name.StartsWith("Player"));
+            if (players.Count == 0) return;
+
+            var player = players[0];
+            float minX, minY, maxY, maxX;
+            minX = maxX = player.Position.X;
+            minY = maxY = player.Position.Y;
+
+            for (int i = 1; i < players.Count; i++)
+            {
+                GameObject p = players[i];
+                float x = p.Position.X;
+                float y = p.Position.Y;
+                if (x < minX)
+                {
+                    minX = x;
+                }
+                if (x > maxX)
+                {
+                    maxX = x;
+                }
+
+                if (y < minY)
+                {
+                    minY = y;
+                }
+                if (y > maxY)
+                {
+                    maxY = y;
+                }
+            }
+
+
+
+            float width = maxX - minX;
+            float height = maxY - minY;
+
+            // etsi kerroin joka kertoo molemmat puolet
+            float winWidth = Game.Window.ClientBounds.Width;
+
+            float diff = winWidth - width;
+
+            float xx = minX - diff / 2f;
+            width += diff/2f;
+            */
 
             newViewPosition.X = MathHelper.Clamp(player.Position.X - Game.Window.ClientBounds.Width / 2f, 0, mapBehaviour.Area.Width + mapBehaviour.Area.X);
-            newViewPosition.Y = MathHelper.Clamp(player.Position.Y - Game.Window.ClientBounds.Height / 2f, 0, mapBehaviour.Area.Height + mapBehaviour.Area.Y);
+            // ei kiinnosta vittuakaa enää
+            newViewPosition.Y = MathHelper.Clamp(player.Position.Y - Game.Window.ClientBounds.Height / 2f - player.Body.BroadphaseProxy.AABB.Height, 0, mapBehaviour.Area.Height  / 2f - player.Size.Y - player.Body.BroadphaseProxy.AABB.Height - 18f );
+/*
+            float x1 = (minX + maxX)/2f;
+            float y1 = (minY + maxY)/2f;
+            float zoom = 1f;
+            if (Game.Window.ClientBounds.Width > width && height > Game.Window.ClientBounds.Height)
+            {
+                // zoom = 1 tjsp
+            }
+            else if (width > height)
+            {
+                zoom = width/Game.Window.ClientBounds.Width;
+            }
+            else
+            {
+                zoom = height / Game.Window.ClientBounds.Height;
+            }
 
+            float middleX = minX + (Game.Window.ClientBounds.Width/2f);
+            float middleY = minY + (Game.Window.ClientBounds.Height / 2f);
+
+            newViewPosition.X = middleX;//MathHelper.Clamp(middleX, 0, mapBehaviour.Area.Width + mapBehaviour.Area.X);
+            newViewPosition.Y = middleY;//MathHelper.Clamp(middleY, 0, mapBehaviour.Area.Height + mapBehaviour.Area.Y);*/
             Game.View.Position = newViewPosition;
         }
 
