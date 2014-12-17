@@ -127,6 +127,17 @@ namespace Neva.BeatEmUp.Behaviours
                         if (wallet.CanAfford(item.Price))
                         {
                             Console.WriteLine("Can buy {0}, {1} dolans because i have {2} dolans",item.ItemName, item.Price, wallet.Coins);
+                            var inventory = Owner.FirstComponentOfType<Inventory>();
+                            if (!inventory.IsFull)
+                            {
+                                item.PrepareBuy(Owner);
+                                inventory.Add(item);
+                                wallet.RemoveCoins(item.Price);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invi on täynnä!");
+                            }
                         }
                         else
                         {
@@ -253,7 +264,7 @@ namespace Neva.BeatEmUp.Behaviours
             spriterComponent.Scale = 0.4f;
 
             spriterComponent.OnAnimationChanged += spriterComponent_OnAnimationChanged;
-
+            Owner.FirstComponentOfType<Wallet>().AddCoins(7000f);
             Owner.FirstComponentOfType<TargetingComponent>().Ignore("player");
         }
 
@@ -272,6 +283,7 @@ namespace Neva.BeatEmUp.Behaviours
             TextRenderer healthRenderer = Owner.FirstComponentOfType<TextRenderer>();
             healthRenderer.Text = ((int)Owner.FirstComponentOfType<HealthComponent>().HealthPoints).ToString();
             healthRenderer.Position = Owner.Game.View.Position;
+            Console.WriteLine(Owner.FirstComponentOfType<Inventory>().IsFull);
         }
     }
 }

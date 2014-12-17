@@ -7,6 +7,8 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
 {
     public class Inventory : GameObjectComponent
     {
+        private List<ItemComponent> items;
+
         public int Slots
         {
             get;
@@ -15,25 +17,34 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
 
         public int SlotsAvailable
         {
-            get;
-            private set;
+            get
+            {
+                return Slots - items.Count;
+            }
         }
         public Inventory(GameObject owner) : base(owner, true)
         {
+            items = new List<ItemComponent>();
             Slots = 1;
-            SlotsAvailable = Slots;
         }
 
         public bool IsFull
         {
             get
             {
-                return SlotsAvailable == 0;
+                return SlotsAvailable <= 0;
             }
         }
 
-        
 
-        
+        public void Add(ItemComponent item)
+        {
+            items.Add(item);
+        }
+
+        public void Remove(ItemComponent item)
+        {
+            items.Remove(item);
+        }
     }
 }

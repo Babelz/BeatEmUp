@@ -63,5 +63,10 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
             position.Y += 32f;
             spriteBatch.DrawString(font, "" + data.Price + " dolans", position, Color.Red, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
         }
+        // jotta ei poistu kun switchitää
+        public void PrepareBuy(GameObject gameObject)
+        {
+            owner.RemoveTag(owner.Game.StateManager.CurrentName);
+        }
     }
 }
