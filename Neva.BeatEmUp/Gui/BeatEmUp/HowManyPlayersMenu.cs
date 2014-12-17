@@ -166,7 +166,6 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             {
                 Rows = 3,
                 Columns = 6,
-                DrawBorders = true,
             };
 
             grid.SetColumnWidth(0, 15f);

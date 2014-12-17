@@ -36,9 +36,13 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
                         HealthComponent enemyHealth = targetingComponent.Target.FirstComponentOfType<HealthComponent>();
 
-                        enemyHealth.TakeDamage(weaponComponent.GenerateAttack(statSet.GetAttackPower(),
+                        float damage = weaponComponent.GenerateAttack(statSet.GetAttackPower(),
                                                                               statSet.GetCritPercent(),
-                                                                              ref isCrit));
+                                                                              ref isCrit);
+
+                        enemyHealth.TakeDamage(damage);
+
+                        crawler.FirstComponentOfType<DamageRenderer>().AddText(((int)(damage)).ToString(), isCrit);
 
                         return true;
                     }
@@ -71,6 +75,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
                         enemyHealth.TakeDamage(damage);
                         myHealth.Heal(damage / 2f);
 
+                        crawler.FirstComponentOfType<DamageRenderer>().AddText(((int)(damage)).ToString(), isCrit);
+
                         return true;
                     }
 
@@ -100,6 +106,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
                         for (int i = 0; i < hits.Length; i++)
                         {
                             enemyHealth.TakeDamage(hits[i]);
+
+                            crawler.FirstComponentOfType<DamageRenderer>().AddText(((int)(hits[i])).ToString(), crits[i]);
                         }
 
                         return true;
@@ -154,6 +162,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
                                 }
                             };
 
+                        zombie.FirstComponentOfType<DamageRenderer>().AddText(((int)(damage)).ToString(), isCrit);
+
                         return true;
                     }
 
@@ -196,6 +206,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
                                     spriterComponent.OnAnimationFinished -= animationFininshedEventHandler;
                                 }
                             };
+
+                        zombie.FirstComponentOfType<DamageRenderer>().AddText(((int)(damage)).ToString(), isCrit);
                                                                              
                         return true;
                     }
@@ -283,6 +295,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
                             }
                         };
 
+                        blob.FirstComponentOfType<DamageRenderer>().AddText(((int)(damage)).ToString(), isCrit);
+
                         return true;
                     }
 
@@ -311,6 +325,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
                     foreach (BroadphaseProxy proxy in proxies.Where(p => p.Client.Owner.Name.StartsWith("Player")))
                     {
                         proxy.Client.Owner.FirstComponentOfType<HealthComponent>().TakeDamage(damage);
+
+                        blob.FirstComponentOfType<DamageRenderer>().AddText(((int)(damage)).ToString(), isCrit);
                     }
 
                     AnimationFinishedEventHandler animationFininshedEventHandler = (animation) =>
@@ -364,6 +380,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
                                 spriterComponent.OnAnimationFinished -= animationFininshedEventHandler;
                             }
                         };
+
+                        blob.FirstComponentOfType<DamageRenderer>().AddText(((int)(damage)).ToString(), isCrit);
 
                         return true;
                     }

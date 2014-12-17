@@ -60,7 +60,10 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         public float GetCritPercent()
         {
-            return InternalCalculateValue(critPercent, BuffType.Crit);
+            // TODO: HAX koska algo kusee...
+            //return InternalCalculateValue(critPercent, BuffType.Crit);
+
+            return critPercent;
         }
 
         public void AddBuff(Buff buff)

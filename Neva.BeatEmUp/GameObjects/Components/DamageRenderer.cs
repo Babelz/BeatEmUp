@@ -72,6 +72,8 @@ namespace Neva.BeatEmUp.GameObjects.Components
             color = Color.White;
 
             font = owner.Game.Content.Load<SpriteFont>("guifont");
+
+            DrawOrder = 100;
         }
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -80,12 +82,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
             {
                 t.Elapsed += gameTime.ElapsedGameTime.Milliseconds;
 
-                if (t.IsCrit)
-                {
-                    t.Rotation = (float)random.NextDouble();
-                }
-
-                t.Position = new Vector2(t.Position.X + 0.25f, t.Position.Y - 0.75f);
+                t.Position = new Vector2(t.Position.X + 0.25f, t.Position.Y - 1.75f);
             }
 
             return new ComponentUpdateResults(this, true);
@@ -94,7 +91,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             foreach (FloatingCombatText text in texts)
             {
-                spriteBatch.DrawString(font, text.Text, text.Position, color, text.Rotation, (text.IsCrit ? font.MeasureString(text.Text) / 2f : Vector2.Zero), 1f, SpriteEffects.None, 0.0f);
+                spriteBatch.DrawString(font, text.Text, text.Position, color, text.Rotation, Vector2.Zero, (!text.IsCrit ? 1f : 2f), SpriteEffects.None, 0.0f);
             }
         }
 
@@ -104,7 +101,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
                 text,
                 new Vector2(owner.Position.X - 64f + random.Next(-10, 10), owner.Position.Y + owner.Size.Y / 2f),
                 isCrit,
-                random.Next(900, 3600)));
+                1400));
         }
     }
 }

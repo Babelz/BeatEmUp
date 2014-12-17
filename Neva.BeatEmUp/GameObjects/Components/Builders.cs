@@ -54,6 +54,11 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             SteeringComponent steeringComponent = new SteeringComponent(monster);
 
+            DamageRenderer r = new DamageRenderer(monster);
+            r.Initialize();
+            r.Color = Color.Red;
+
+            monster.AddComponent(r);
             monster.AddComponent(statSet);
             monster.AddComponent(targetingComponent);
             monster.AddComponent(healthComponent);

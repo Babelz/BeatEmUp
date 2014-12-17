@@ -1,29 +1,28 @@
 ﻿<Map Top="taustatemp" Bottom="road">
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
-      <Wave Monster="Zombie" ReleaseTime="0" Count="1" Direction="Right"/>
+      <Wave Monster="Zombie" ReleaseTime="0" Count="5" Direction="Right"/>
+      <Wave Monster="Zombie" ReleaseTime="7500" Count="5" Direction="Right"/>
+    </Waves>
+  </Scene>
+
+  <Scene Top="taustatemp" Bottom="road">
+    <Waves>
+      <Wave Monster="Zombie" ReleaseTime="0" Count="5" Direction="Left"/>
+    </Waves>
+  </Scene>
+
+  <Scene Top="taustatemp" Bottom="road">
+    <Waves>
+      <Wave Monster="Zombie" ReleaseTime="0" Count="5" Direction="Right"/>
+      <Wave Monster="Zombie" ReleaseTime="0" Count="5" Direction="Left"/>
+      <Wave Monster="Crawler" ReleaseTime="15000" Count="1" Direction="Left"/>
+    </Waves>
+  </Scene>
+
+  <Scene Top="taustatemp" Bottom="road">
+    <Waves>
       <Wave Monster="Blob" ReleaseTime="0" Count="1" Direction="Right"/>
-    </Waves>
-  </Scene>
-
-  <Scene Top="taustatemp" Bottom="road">
-    <Waves>
-      <Wave Monster="Zombie" ReleaseTime="0" Count="1" Direction="Right"/>
-    </Waves>
-  </Scene>
-
-  <Scene Top="taustatemp" Bottom="road">
-    <Waves>
-      <Wave Monster="Zombie" ReleaseTime="0" Count="15" Direction="Right"/>
-      <Wave Monster="Zombie" ReleaseTime="0" Count="15" Direction="Left"/>
-      <Wave Monster="Crawler" ReleaseTime="15000" Count="15" Direction="Left"/>
-    </Waves>
-  </Scene>
-
-  <Scene Top="taustatemp" Bottom="road">
-    <Waves>
-      <Wave Monster="Zombie" ReleaseTime="0" Count="20" Direction="Right"/>
-      <Wave Monster="Zombie" ReleaseTime="0" Count="20" Direction="Left"/>
     </Waves>
   </Scene>
 </Map>

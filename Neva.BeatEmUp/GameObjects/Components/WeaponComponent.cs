@@ -137,7 +137,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             float damage = (float)(weapon.MaxDamage + minAddedDamage + apMod + (random.NextDouble() * (weapon.MaxDamage + maxAddedDamage + apMod - weapon.MinDamage + weapon.MinDamage + apMod)));
 
-            return isCrit ? damage * 1.5f : damage;
+            return isCrit ? damage * 2.5f : damage;
         }
 
 
