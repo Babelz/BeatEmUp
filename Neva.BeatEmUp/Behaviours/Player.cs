@@ -236,16 +236,10 @@ namespace Neva.BeatEmUp.Behaviours
             StatSet statSet = StatSets.CreateWarriorStatSet(Owner);
             HealthComponent healthComponent = new HealthComponent(Owner, statSet);
             WeaponComponent weaponComponent = new WeaponComponent(Owner, Weapons.CreateSlicerClaymore());
-            TextRenderer healthRenderer = new TextRenderer(Owner)
-            {
-                Font = Owner.Game.Content.Load<SpriteFont>("default"),
-                FollowOwner = false
-            };
 
             Owner.AddComponent(statSet);
             Owner.AddComponent(healthComponent);
             Owner.AddComponent(weaponComponent);
-            Owner.AddComponent(healthRenderer);
 
             Owner.InitializeComponents();
 
@@ -268,10 +262,6 @@ namespace Neva.BeatEmUp.Behaviours
             {
                 spriterComponent.ChangeAnimation("Idle");
             } 
-
-            TextRenderer healthRenderer = Owner.FirstComponentOfType<TextRenderer>();
-            healthRenderer.Text = ((int)Owner.FirstComponentOfType<HealthComponent>().HealthPoints).ToString();
-            healthRenderer.Position = Owner.Game.View.Position;
         }
     }
 }

@@ -155,6 +155,7 @@
     <Compile Include="GameStates\Transitions\TransitionPlayer.cs" />
     <Compile Include="GameStates\WorldMapState.cs" />
     <Compile Include="Gui\BeatEmUp\HowManyPlayersMenu.cs" />
+    <Compile Include="Gui\BeatEmUp\HUD.cs" />
     <Compile Include="Gui\BeatEmUp\MainMenu.cs" />
     <Compile Include="Gui\Controls\Button.cs" />
     <Compile Include="Gui\Controls\ButtonBase.cs" />
