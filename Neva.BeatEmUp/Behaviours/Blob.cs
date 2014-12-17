@@ -145,6 +145,20 @@ namespace Neva.BeatEmUp.Behaviours
             
             status = NodeStatus.Running;
         }
+
+        private void HasLowHp(ref NodeStatus status)
+        {
+            if (Owner.FirstComponentOfType<HealthComponent>().HealthPercent < 35f)
+            {
+                spriterComponent.SetSpeed(200);
+
+                status = NodeStatus.Success;
+
+                return;
+            }
+
+            status = NodeStatus.Failed;
+        }
         #endregion
 
         private GameObject CreateBeam()
@@ -156,6 +170,7 @@ namespace Neva.BeatEmUp.Behaviours
         {
             List<Node> tree = new List<Node>()
             {
+                new Leaf(HasLowHp),
                 new Sequence(
                     new List<Node>()
                     {
@@ -188,7 +203,7 @@ namespace Neva.BeatEmUp.Behaviours
             spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\Boss\Boss");
             spriterComponent.Initialize();
             spriterComponent.ChangeAnimation("Walk");
-            spriterComponent.Scale = 1.0f;
+            spriterComponent.Scale = 0.75f;
 
             Owner.AddComponent(spriterComponent);
 
@@ -206,6 +221,10 @@ namespace Neva.BeatEmUp.Behaviours
 
             rotation = Owner.FirstComponentOfType<SkillRotation>();
             targetingComponent = Owner.FirstComponentOfType<TargetingComponent>();
+
+            BossHealthComponent c = new BossHealthComponent(Owner);
+            c.Initialize();
+            Owner.AddComponent(c);
 
             rotation.Enable();
         }

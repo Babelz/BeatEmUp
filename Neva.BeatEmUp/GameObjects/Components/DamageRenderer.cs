@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Neva.BeatEmUp.GameObjects.Components
 {
-    public struct FloatingCombatText
+    public sealed class FloatingCombatText
     {
         public readonly bool IsCrit;
         public readonly string Text;
@@ -70,14 +70,22 @@ namespace Neva.BeatEmUp.GameObjects.Components
             random = new Random();
 
             color = Color.White;
+
+            font = owner.Game.Content.Load<SpriteFont>("guifont");
         }
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
-            foreach (FloatingCombatText text in texts)
+            foreach (FloatingCombatText t in texts)
             {
-                //text.Elapsed += gameTime.ElapsedGameTime.Milliseconds;
+                t.Elapsed += gameTime.ElapsedGameTime.Milliseconds;
 
+                if (t.IsCrit)
+                {
+                    t.Rotation = (float)random.NextDouble();
+                }
+
+                t.Position = new Vector2(t.Position.X + 0.25f, t.Position.Y - 0.75f);
             }
 
             return new ComponentUpdateResults(this, true);
@@ -86,7 +94,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             foreach (FloatingCombatText text in texts)
             {
-                spriteBatch.DrawString(font, text.Text, text.Position, color, text.Rotation, Vector2.Zero, 0.25f, SpriteEffects.None, 0.0f);
+                spriteBatch.DrawString(font, text.Text, text.Position, color, text.Rotation, (text.IsCrit ? font.MeasureString(text.Text) / 2f : Vector2.Zero), 1f, SpriteEffects.None, 0.0f);
             }
         }
 
@@ -94,9 +102,9 @@ namespace Neva.BeatEmUp.GameObjects.Components
         {
             texts.Add(new FloatingCombatText(
                 text,
-                new Vector2(owner.Position.X - owner.Size.X / 2f + random.Next(-10, 10), owner.Position.Y + owner.Size.Y / 2f),
+                new Vector2(owner.Position.X - 64f + random.Next(-10, 10), owner.Position.Y + owner.Size.Y / 2f),
                 isCrit,
-                random.Next(900, 1600)));
+                random.Next(900, 3600)));
         }
     }
 }

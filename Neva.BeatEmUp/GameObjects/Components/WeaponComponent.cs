@@ -133,7 +133,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
             float apMod = attackPower / 3.5f;
 
-            isCrit = 0.0f + (random.NextDouble() * (100f - 0.0f)) <= crit;
+            isCrit = random.Next(0, 100) < (int)crit;
 
             float damage = (float)(weapon.MaxDamage + minAddedDamage + apMod + (random.NextDouble() * (weapon.MaxDamage + maxAddedDamage + apMod - weapon.MinDamage + weapon.MinDamage + apMod)));
 

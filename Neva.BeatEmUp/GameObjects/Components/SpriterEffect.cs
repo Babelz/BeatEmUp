@@ -38,7 +38,12 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         private void component_OnAnimationFinished(SaNi.Spriter.Data.SpriterAnimation animation)
         {
+            component.Disable();
+            component.Hide();
             component.Destroy();
+
+            this.Disable();
+            this.Hide();
             this.Destroy();
         }
     }

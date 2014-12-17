@@ -16,7 +16,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
             // 450 attack power
             float strength = 45f;
             // 20% crit
-            float critPercent = 20f;
+            float critPercent = 2f;
 
             StatSet statSet = new StatSet(player, stamina, intelligence, strength, critPercent);
 
@@ -32,7 +32,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
             // 35 attack power
             float strength = 3.5f;
             // 10% crit
-            float critPercent = 10f;
+            float critPercent = 1f;
 
             StatSet statSet = new StatSet(crawler, stamina, intelligence, strength, critPercent);
 
@@ -44,7 +44,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
             float stamina = 9.5f;
             float intelligence = 0f;
             float strength = 1f;
-            float critPercent = 20f;
+            float critPercent = 2f;
 
             StatSet statSet = new StatSet(zombie, stamina, intelligence, strength, critPercent);
 
@@ -53,7 +53,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         public static StatSet CreateBlobStatSet(GameObject blob)
         {
-            float stamina = 100f;
+            float stamina = 1000f;
             float intelligence = 0f;
             float strength = 10f;
             float critPercent = 5f;

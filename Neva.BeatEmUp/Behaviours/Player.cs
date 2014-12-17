@@ -24,10 +24,11 @@ namespace Neva.BeatEmUp.Behaviours
     {
         #region Vars
         private SpriterComponent<Texture2D> spriterComponent;
+        private DamageRenderer r;
         private float speed = 2.5f;
         #endregion
 
-        public Player(GameObject owner) 
+        public Player(GameObject owner)
             : base(owner)
         {
             owner.Body.Shape.Size = new Vector2(32.0f, 32.0f);
@@ -126,7 +127,7 @@ namespace Neva.BeatEmUp.Behaviours
 
                         if (wallet.CanAfford(item.Price))
                         {
-                            Console.WriteLine("Can buy {0}, {1} dolans because i have {2} dolans",item.ItemName, item.Price, wallet.Coins);
+                            Console.WriteLine("Can buy {0}, {1} dolans because i have {2} dolans", item.ItemName, item.Price, wallet.Coins);
                         }
                         else
                         {
@@ -143,7 +144,7 @@ namespace Neva.BeatEmUp.Behaviours
             Console.WriteLine("Didn't find anything to buy!");
         }
 
-        
+
 
         #region Event Callbacks
         private void spriterComponent_OnAnimationChanged(SaNi.Spriter.Data.SpriterAnimation old, SaNi.Spriter.Data.SpriterAnimation newAnim)
@@ -182,12 +183,22 @@ namespace Neva.BeatEmUp.Behaviours
 
             bool isCrit = false;
 
-            healthComponent.TakeDamage(weaponComponent.GenerateAttack(statSet.GetAttackPower(), statSet.GetCritPercent(), ref isCrit));
+            float damage = weaponComponent.GenerateAttack(statSet.GetAttackPower(), statSet.GetCritPercent(), ref isCrit);
+            r.AddText(((int)damage).ToString(), isCrit);
 
-            SpriterEffect effect = new SpriterEffect(Owner, @"Animations\splatters\Splatters");
+            healthComponent.TakeDamage(damage);
+
+            SpriterEffect effect = new SpriterEffect(Owner, @"Animations/Splatters");
             effect.Initialize();
+            effect.SpriterComponent.Position = target.Position + new Vector2(24f, -38f);
+
+            if (target.ContainsTag("boss"))
+            {
+                effect.SpriterComponent.Scale = 2.5f;
+            }
 
             effect.SpriterComponent.FlipX = Owner.FirstComponentOfType<FacingComponent>().FacingNumber < 0f;
+            effect.SpriterComponent.ChangeAnimation("blood_ribon_0");
 
             Owner.AddComponent(effect);
         }
@@ -201,7 +212,7 @@ namespace Neva.BeatEmUp.Behaviours
             var spriter = Owner.FirstComponentOfType<SpriterComponent<Texture2D>>();
             if (args.InputState == InputState.Pressed)
             {
-                
+
 
                 if (spriter.CurrentAnimation.Name != "Walk")
                 {
@@ -233,7 +244,7 @@ namespace Neva.BeatEmUp.Behaviours
             keylistener.Map("Down", MoveDown, new KeyTrigger(Keys.S), new KeyTrigger(Keys.Down));
             keylistener.Map("Attack", Attack, new KeyTrigger(Keys.Space));
             keylistener.Map("Buy", InitiateBuy, Keys.E); */
-            
+
         }
 
         protected override void OnInitialize()
@@ -256,6 +267,12 @@ namespace Neva.BeatEmUp.Behaviours
             spriterComponent.OnAnimationChanged += spriterComponent_OnAnimationChanged;
 
             Owner.FirstComponentOfType<TargetingComponent>().Ignore("player");
+
+            r = new DamageRenderer(Owner);
+            r.Initialize();
+            r.Color = Color.Green;
+
+            Owner.AddComponent(r);
         }
 
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
@@ -268,7 +285,7 @@ namespace Neva.BeatEmUp.Behaviours
             if (spriterComponent.CurrentAnimation.Name != "Idle" && spriterComponent.CurrentAnimation.Name != "Attack" && Owner.Body.Velocity == Vector2.Zero)
             {
                 spriterComponent.ChangeAnimation("Idle");
-            } 
+            }
         }
     }
 }

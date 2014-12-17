@@ -92,13 +92,20 @@ namespace Neva.BeatEmUp.GameObjects.Components
 
         protected override ComponentUpdateResults OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
+            float flip = 1f;
+
+            if (RangeY < 0f)
+            {
+                flip = -1f;   
+            }
+
             FacingComponent facing = owner.FirstComponentOfType<FacingComponent>();
 
             // ei oteta itteä mukaan areaan, 
             // facingnumber palauttaa joko 1f tai -1f, riippuen siitä katsooko oikealla vai vasemmalle
             if (facing.IsFacingLeft)
             {
-                queryRegion = new AABB(owner.Position.X - RangeX - 1, owner.Position.Y, RangeX, RangeY);
+                queryRegion = new AABB(owner.Position.X - RangeX - 1, owner.Position.Y + flip * Math.Abs(RangeY), RangeX, Math.Abs(RangeY));
             }
             else
             {

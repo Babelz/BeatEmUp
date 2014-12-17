@@ -102,6 +102,7 @@
     <Compile Include="GameObjects\Args.cs" />
     <Compile Include="GameObjects\ComponentManager.cs" />
     <Compile Include="GameObjects\Components\AI\SteeringBehaviors\SteeringComponent.cs" />
+    <Compile Include="GameObjects\Components\BossHealthComponent.cs" />
     <Compile Include="GameObjects\Components\BuffSet.cs" />
     <Compile Include="GameObjects\Components\Builders.cs" />
     <Compile Include="GameObjects\Components\ColliderRenderer.cs" />

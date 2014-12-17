@@ -129,8 +129,8 @@ namespace Neva.BeatEmUp.GameObjects
             {
                 if (components[i].Destroyed)
                 {
-                    components.Remove(components[i]);
                     ComponentRemoved(this, new ComponentRemovedEventArgs(components[i]));
+                    components.Remove(components[i]);
 
                     continue;
                 }
