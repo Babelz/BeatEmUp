@@ -194,6 +194,13 @@ namespace Neva.BeatEmUp.Behaviours
             bool isCrit = false;
 
             healthComponent.TakeDamage(weaponComponent.GenerateAttack(statSet.GetAttackPower(), statSet.GetCritPercent(), ref isCrit));
+
+            SpriterEffect effect = new SpriterEffect(Owner, @"Animations\splatters\Splatters");
+            effect.Initialize();
+
+            effect.SpriterComponent.FlipX = Owner.FirstComponentOfType<FacingComponent>().FacingNumber < 0f;
+
+            Owner.AddComponent(effect);
         }
 
         #endregion
@@ -247,16 +254,10 @@ namespace Neva.BeatEmUp.Behaviours
             StatSet statSet = StatSets.CreateWarriorStatSet(Owner);
             HealthComponent healthComponent = new HealthComponent(Owner, statSet);
             WeaponComponent weaponComponent = new WeaponComponent(Owner, Weapons.CreateSlicerClaymore());
-            TextRenderer healthRenderer = new TextRenderer(Owner)
-            {
-                Font = Owner.Game.Content.Load<SpriteFont>("default"),
-                FollowOwner = false
-            };
 
             Owner.AddComponent(statSet);
             Owner.AddComponent(healthComponent);
             Owner.AddComponent(weaponComponent);
-            Owner.AddComponent(healthRenderer);
 
             Owner.InitializeComponents();
 
@@ -279,11 +280,12 @@ namespace Neva.BeatEmUp.Behaviours
             {
                 spriterComponent.ChangeAnimation("Idle");
             } 
-
+            /*
             TextRenderer healthRenderer = Owner.FirstComponentOfType<TextRenderer>();
             healthRenderer.Text = ((int)Owner.FirstComponentOfType<HealthComponent>().HealthPoints).ToString();
-            healthRenderer.Position = Owner.Game.View.Position;
+            healthRenderer.Position = Owner.Game.View.Position;*/
             Console.WriteLine(Owner.FirstComponentOfType<Inventory>().IsFull);
+
         }
     }
 }

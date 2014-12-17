@@ -124,6 +124,7 @@
     <Compile Include="GameObjects\Components\SkillSet.cs" />
     <Compile Include="GameObjects\Components\SkillSets.cs" />
     <Compile Include="GameObjects\Components\SpriterComponent.cs" />
+    <Compile Include="GameObjects\Components\SpriterEffect.cs" />
     <Compile Include="GameObjects\Components\SpriteRenderer.cs" />
     <Compile Include="GameObjects\Components\StatSet.cs" />
     <Compile Include="GameObjects\Components\StatSets.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="GameStates\Transitions\TransitionPlayer.cs" />
     <Compile Include="GameStates\WorldMapState.cs" />
     <Compile Include="Gui\BeatEmUp\HowManyPlayersMenu.cs" />
+    <Compile Include="Gui\BeatEmUp\HUD.cs" />
     <Compile Include="Gui\BeatEmUp\MainMenu.cs" />
     <Compile Include="Gui\Controls\Button.cs" />
     <Compile Include="Gui\Controls\ButtonBase.cs" />

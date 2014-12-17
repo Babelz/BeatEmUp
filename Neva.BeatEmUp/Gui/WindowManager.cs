@@ -271,7 +271,7 @@ namespace Neva.BeatEmUp.Gui
                 return;
             }
 
-            GraphicsDevice.Clear(Color.Black);
+            //GraphicsDevice.Clear(Color.Black);
 
             DrawBackground();
 

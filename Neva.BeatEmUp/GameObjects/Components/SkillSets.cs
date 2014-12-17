@@ -289,7 +289,7 @@ namespace Neva.BeatEmUp.GameObjects.Components
                     return false;
                 });
 
-            Skill beam = new Skill("beam", 300, () =>
+            Skill beam = new Skill("beam", 15200, () =>
                 {
                     TargetingComponent targetingComponent = blob.FirstComponentOfType<TargetingComponent>();
                     WeaponComponent weaponComponent = blob.FirstComponentOfType<WeaponComponent>();
@@ -299,28 +299,23 @@ namespace Neva.BeatEmUp.GameObjects.Components
                     SpriterComponent<Texture2D> spriterComponent = blob.FirstComponentOfType<SpriterComponent<Texture2D>>();
                     spriterComponent.ChangeAnimation("Attack2");
 
-                    int oldTime = spriterComponent.Speed;
-                    //spriterComponent.SetSpeed(100);
-
                     Texture2D plasma = blob.Game.Content.Load<Texture2D>(@"Animations\Boss\Plasma");
 
                     AABB area = new AABB(blob.Position.X * facing.FacingNumber * -1, blob.Position.Y, plasma.Width, plasma.Height);
                     List<BroadphaseProxy> proxies = blob.Game.World.QueryAABB(ref area);
 
+                    bool isCrit = false;
+
+                    float damage = weaponComponent.GenerateSpecialAttack(25f, 50f, statSet.GetAttackPower(), statSet.GetCritPercent(), ref isCrit);
+
                     foreach (BroadphaseProxy proxy in proxies.Where(p => p.Client.Owner.Name.StartsWith("Player")))
                     {
-                        
+                        proxy.Client.Owner.FirstComponentOfType<HealthComponent>().TakeDamage(damage);
                     }
-
-                    SteeringComponent steeringComponent = blob.FirstComponentOfType<SteeringComponent>();
-                    steeringComponent.Disable();
 
                     AnimationFinishedEventHandler animationFininshedEventHandler = (animation) =>
                     {
                         spriterComponent.ChangeAnimation("Walk");
-                        spriterComponent.SetSpeed(oldTime);
-
-                        steeringComponent.Enable();
                     };
 
                     spriterComponent.OnAnimationFinished += animationFininshedEventHandler;

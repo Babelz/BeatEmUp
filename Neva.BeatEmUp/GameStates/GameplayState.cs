@@ -10,6 +10,7 @@ using Neva.BeatEmUp.Collision.Shape;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
 using Neva.BeatEmUp.Behaviours;
+using Neva.BeatEmUp.Gui.BeatEmUp;
 
 namespace Neva.BeatEmUp.GameStates
 {
@@ -20,6 +21,7 @@ namespace Neva.BeatEmUp.GameStates
 
         private GameObject player;
         private Map mapBehaviour;
+        private HUD hud;
         #endregion
 
         public GameplayState(string mapName)
@@ -37,6 +39,12 @@ namespace Neva.BeatEmUp.GameStates
             Game.AddGameObject(map);
 
             player = Game.FindGameObject(p => p.Name == "Player 1");
+
+            hud = new HUD(Game);
+            Game.WindowManager.AddWindow(hud);
+            Game.WindowManager.MoveToFront("Main");
+            Game.WindowManager.Background = null;
+            Game.WindowManager.Show(false);
         }
 
         private GameObject CreateTable()
