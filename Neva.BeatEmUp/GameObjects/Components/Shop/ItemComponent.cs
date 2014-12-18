@@ -9,6 +9,9 @@ using SaNi.TextureAtlas;
 
 namespace Neva.BeatEmUp.GameObjects.Components.Shop
 {
+    public delegate void ConsumeItemDelegate(GameObject g);
+
+
     public class ItemComponent : GameObjectComponent
     {
         private readonly TextureAtlas atlas;
@@ -68,5 +71,37 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
         {
             owner.RemoveTag(owner.Game.StateManager.CurrentName);
         }
+
+        public void Consume(GameObject to)
+        {
+            var decorator = ItemFactory.GetDecorator(asset);
+            decorator(to);
+        }
     }
+
+    public class ItemFactory
+    {
+        private static Dictionary<string, ConsumeItemDelegate> behaviours;
+
+        static ItemFactory()
+        {
+           behaviours = new Dictionary<string, ConsumeItemDelegate>();
+            behaviours["HealthPot"] = o =>
+            {
+                o.FirstComponentOfType<HealthComponent>().Heal(300f);
+            };
+            behaviours["ManaPot"] = o =>
+            {
+                
+            };
+        }
+
+        public static ConsumeItemDelegate GetDecorator(string asset)
+        {
+            return behaviours[asset];
+        }
+    }
+    
 }
+
+

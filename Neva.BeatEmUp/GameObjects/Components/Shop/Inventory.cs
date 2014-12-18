@@ -46,5 +46,12 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
         {
             items.Remove(item);
         }
+
+        public ItemComponent Pop()
+        {
+            var item = items[items.Count - 1];
+            Remove(item);
+            return item;
+        }
     }
 }

@@ -329,7 +329,7 @@
       <Project>{d5febe18-0b43-4f33-bad3-b9109dab224e}</Project>
       <Name>Neva.BeatEmUp.DataTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SaNi.Spriter\sani-spriter\SaNi.Spriter.csproj">
+    <ProjectReference Include="..\SaNi.Spriter\SaNi.Spriter.csproj">
       <Project>{10e6b926-4da7-4342-a740-e39dfd69a513}</Project>
       <Name>SaNi.Spriter</Name>
     </ProjectReference>

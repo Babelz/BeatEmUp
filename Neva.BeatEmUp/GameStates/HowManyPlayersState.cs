@@ -202,7 +202,7 @@ namespace Neva.BeatEmUp.GameStates
                     listener.RemoveMapping("DebugEnterShop");
                 }
             }, Keys.Z);
-
+            listener.Map("UseItem", player.UseItem, Keys.Q);
         }
     }
 
@@ -227,6 +227,7 @@ namespace Neva.BeatEmUp.GameStates
             listener.Map("Up", player.MoveUp, Buttons.LeftThumbstickUp, Buttons.DPadUp);
             listener.Map("Attack", player.Attack, Buttons.A);
             listener.Map("InitiateBuy", player.InitiateBuy, Buttons.B);
+            listener.Map("UseItem", player.UseItem, Buttons.Y);
         }
     }
 }

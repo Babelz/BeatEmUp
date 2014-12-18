@@ -65,6 +65,17 @@ namespace Neva.BeatEmUp.Behaviours
             Owner.Body.Velocity = new Vector2(VelocityFunc(speed, args), Owner.Body.Velocity.Y);
         }
 
+        public void UseItem(InputEventArgs args)
+        {
+            if( args.InputState!=InputState.Released) return;
+
+            var inv = Owner.FirstComponentOfType<Inventory>();
+            if (inv.IsFull)
+            {
+                var item = inv.Pop();
+                item.Consume(Owner);
+            }
+        }
 
         public void DebugEnterShop(InputEventArgs args)
         {
