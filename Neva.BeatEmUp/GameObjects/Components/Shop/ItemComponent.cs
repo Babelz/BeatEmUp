@@ -31,6 +31,16 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
             get { return data.Name; }
         }
 
+        public TextureAtlas Atlas
+        {
+            get { return atlas; }
+        }
+
+        public Rectangle SourceRectangle
+        {
+            get { return sourceRectangle; }
+        }
+
         public ItemComponent(GameObject owner, TextureAtlas atlas, string asset, ItemData[] datas) : base(owner, true)
         {
             this.atlas = atlas;

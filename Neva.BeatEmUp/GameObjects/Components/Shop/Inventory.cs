@@ -53,5 +53,10 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
             Remove(item);
             return item;
         }
+
+        public ItemComponent this[int index]
+        {
+            get { return items[index];  }
+        }
     }
 }

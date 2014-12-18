@@ -33,6 +33,13 @@ namespace Neva.BeatEmUp
                 effect = value;
             }
         }
+
+        public Rectangle? Source
+        {
+            get { return source; }
+            set { source = value; }
+        }
+
         public Texture2D Texture
         {
             get

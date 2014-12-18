@@ -20,7 +20,7 @@ namespace Neva.BeatEmUp.Gui.Controls.Renderers
                 owner.Sprite.Texture,
                 owner.Position,
                 null,
-                null,
+                owner.Sprite.Source,
                 owner.Sprite.Origin,
                 owner.Sprite.Rotation,
                 VectorHelper.CalculateScale(owner.Sprite.Size, owner.SizeInPixels),

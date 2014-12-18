@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
+using Neva.BeatEmUp.GameObjects.Components.Shop;
 using Neva.BeatEmUp.Gui.Controls;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,8 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
             public SpriteBox Face;
             public SpriteBox HealthBar;
             public SpriteBox ManaBar;
-            
+            public SpriteBox ItemBox;
+
             public Label Name;
             public Label HealthPercent;
             public Label ManaPercent;
@@ -34,7 +36,7 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
                 Root.Add(HealthPercent);
                 Root.Add(ManaPercent);
                 Root.Add(Name);
-
+                Root.Add(ItemBox);
                 Root.UpdateLayout(new GuiLayoutEventArgs());
 
                 canvas.Add(Root);
@@ -65,7 +67,7 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
         {
             Vector2 zero = Vector2.Zero;
             Vector2 offset = new Vector2(10f, 10f);
-            Vector2 size = new Vector2(250f, 100f);
+            Vector2 size = new Vector2(250f, 150f);
             Vector2 childOffset = new Vector2((size.X * (huds.Count)) + offset.X, 0f);
 
             Texture2D blank = game.Content.Load<Texture2D>("blank");
@@ -95,6 +97,30 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
                 Size = size,
                 Brush = new Brush(Color.White)
             };
+
+            hud.ItemBox = new SpriteBox(game)
+            {
+                Sprite = new Sprite(game.Content.Load<Texture2D>("blank")),
+                Size = new Vector2(32f),
+                Position = new Vector2(40f, 100f),
+                Brush = new Brush(Color.White)
+            };
+
+            hud.ItemBox.Invoker.BeginInvoking("update", time =>
+            {
+                var inv = player.FirstComponentOfType<Inventory>();
+                if (inv.IsFull)
+                {
+                    hud.ItemBox.Sprite.Texture = inv[0].Atlas.Texture;
+                    hud.ItemBox.Sprite.Source = inv[0].SourceRectangle;
+                }
+                else
+                {
+                    hud.ItemBox.Sprite.Texture = game.Content.Load<Texture2D>("blank");
+                    hud.ItemBox.Sprite.Source = null;
+                }
+                return false;
+            });
 
             hud.Face = new SpriteBox(game)
             {
