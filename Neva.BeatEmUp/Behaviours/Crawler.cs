@@ -16,7 +16,6 @@ using SelectorNode = Neva.BeatEmUp.GameObjects.Components.AI.BehaviorTree.Select
 
 namespace Neva.BeatEmUp.Behaviours
 {
-    [ScriptAttribute(false)]
     public sealed class Crawler : Behaviour
     {
         #region Vars
@@ -167,7 +166,7 @@ namespace Neva.BeatEmUp.Behaviours
             spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\Crawler\crawler");
             spriterComponent.Initialize();
             spriterComponent.ChangeAnimation("NewAnimation");
-            spriterComponent.Scale = 0.6f;
+            spriterComponent.Scale = 0.3f;
 
             Owner.AddComponent(spriterComponent);
 

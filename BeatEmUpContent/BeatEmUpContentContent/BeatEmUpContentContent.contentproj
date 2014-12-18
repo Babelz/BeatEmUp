@@ -119,6 +119,7 @@
       <Name>City1</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
     </None>
     <Compile Include="neva.png">
       <Name>neva</Name>

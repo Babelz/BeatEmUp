@@ -122,7 +122,7 @@ namespace Neva.BeatEmUp.GameStates
 
                 int p = 1;
                 // 1x keyboard ja x määrä gamepad
-                string[] charmaps = {"GREEN", "RED", "YELLOW"};
+                string[] charmaps = {"GREEN", "RED", "YELLOW" };
                 foreach (var index in players)
                 {
                     GameObject player = PlayerFactory.CreatePlayer(index, game);
@@ -131,7 +131,7 @@ namespace Neva.BeatEmUp.GameStates
                     var spriter = player.FirstComponentOfType<SpriterComponent<Texture2D>>();
                     
                     spriter.CharacterMaps = new Entity.CharacterMap[1];
-                    spriter.CharacterMaps[0] = spriter.Entity.GetCharacterMap(charmaps[p - 1]);
+                    spriter.CharacterMaps[0] = spriter.Entity.GetCharacterMap(charmaps[p - 2]);
                 }
 
                 foreach (var listener in game.GamepadListeners)

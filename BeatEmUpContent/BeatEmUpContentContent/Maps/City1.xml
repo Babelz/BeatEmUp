@@ -2,7 +2,7 @@
   <Scene Top="taustatemp" Bottom="road">
     <Waves>
       <Wave Monster="Zombie" ReleaseTime="0" Count="5" Direction="Right"/>
-      <Wave Monster="Zombie" ReleaseTime="7500" Count="5" Direction="Right"/>
+      <Wave Monster="Zombie" ReleaseTime="7500" Count="5" Direction="Left"/>
     </Waves>
   </Scene>
 
@@ -17,6 +17,7 @@
       <Wave Monster="Zombie" ReleaseTime="0" Count="5" Direction="Right"/>
       <Wave Monster="Zombie" ReleaseTime="0" Count="5" Direction="Left"/>
       <Wave Monster="Crawler" ReleaseTime="15000" Count="1" Direction="Left"/>
+      <Wave Monster="Crawler" ReleaseTime="15000" Count="1" Direction="Right"/>
     </Waves>
   </Scene>
 

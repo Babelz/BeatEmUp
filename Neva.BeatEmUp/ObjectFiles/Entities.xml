@@ -12,7 +12,6 @@
   </Object>
 
   <Object Key="MapSelector" Name="Selector" Visible="true" Enabled="true">
-    <Component Name="SpriteRenderer"/>
     <Behaviour Name="Selector" Start="true"/>
   </Object>
   <!-- Numero nimessä kuvaa monta itemiä mahtuu -->

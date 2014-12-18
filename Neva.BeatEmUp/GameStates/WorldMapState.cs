@@ -120,6 +120,14 @@ namespace Neva.BeatEmUp.GameStates
         }
         private void Select(InputEventArgs args)
         {
+            if (currentNode != null)
+            {
+                if (!(currentNode.FirstBehaviourOfType<MapNode>().MapName == "City1.xml"))
+                {
+                    return;
+                }
+            }
+
             if (args.InputState == InputState.Pressed)
             {
                 RemoveMappings();
