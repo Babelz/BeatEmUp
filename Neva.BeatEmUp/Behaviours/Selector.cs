@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameObjects.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Neva.BeatEmUp.GameObjects;
 using Neva.BeatEmUp.GameObjects.Components;
@@ -14,6 +15,7 @@ namespace Neva.BeatEmUp.Behaviours
     public sealed class Selector : Behaviour
     {
         #region Vars
+        private SpriterComponent<Texture2D> spriterComponent;
         private Vector2 destination;
         private Vector2 speed;
 
@@ -47,27 +49,31 @@ namespace Neva.BeatEmUp.Behaviours
 
         protected override void OnInitialize()
         {
-            SpriteRenderer renderer = Owner.FirstComponentOfType<SpriteRenderer>();
-            renderer.FollowOwner = true;
-
-            renderer.Sprite = new Sprite(Owner.Game.Content.Load<Texture2D>("blank"))
-            {
-                Size = new Vector2(32f),
-                Color = Color.Pink
-            };
-
-            renderer.Origin = new Vector2(-12f, 8f);
+            spriterComponent = new SpriterComponent<Texture2D>(Owner, @"Animations\Player\Player");
+            spriterComponent.Initialize();
+            spriterComponent.Scale = 0.2f;
+            Owner.AddComponent(spriterComponent);
 
             Owner.InitializeComponents();
         }
         protected override void OnUpdate(GameTime gameTime, IEnumerable<ComponentUpdateResults> results)
         {
+            spriterComponent.Position = new Vector2(Owner.Position.X + 36f,
+                                                    Owner.Position.Y + 28f);
+
             // TODO: vois siirtää johonkin luokkaan tämän metodin sisällön.
             if (Owner.Position == destination)
             {
                 Reset();
 
+                spriterComponent.ChangeAnimation("Idle");
+
                 return;
+            }
+
+            if (spriterComponent.CurrentAnimation.Name != "Walk")
+            {
+                spriterComponent.ChangeAnimation("Walk");
             }
 
             // Asetetaan alku arvo ajalle josta lasketaan alku nopeus.
@@ -94,6 +100,7 @@ namespace Neva.BeatEmUp.Behaviours
             speed.Y += sY;
 
             Owner.Position = new Vector2(Owner.Position.X + speed.X, Owner.Position.Y + speed.Y);
+            spriterComponent.FlipX = speed.X < 0f;
 
             float timeX = Math.Abs(dist.X / speed.X);
             float timeY = Math.Abs(dist.Y / speed.Y);

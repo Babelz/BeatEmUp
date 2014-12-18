@@ -63,7 +63,6 @@ namespace Neva.BeatEmUp.Gui.BeatEmUp
 
             animations = new List<SpriterAnimationPlayer>();
             renderers = new List<SpriterRenderer<Texture2D>>();
-
             
             for (int i = 0; i < 4; i++)
             {

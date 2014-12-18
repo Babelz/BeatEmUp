@@ -107,7 +107,7 @@ namespace Neva.BeatEmUp.Behaviours
             TextRenderer arrowRenderer = new TextRenderer(Owner)
             {
                 Font = Owner.Game.Content.Load<SpriteFont>("default"),
-                Text = "GO HERE U MOFO =>",
+                Text = "UNKLE GO HIER PLS =>",
                 ScaleX = 0.25f,
                 ScaleY = 0.25f,
                 Y = 150f,
@@ -330,7 +330,7 @@ namespace Neva.BeatEmUp.Behaviours
 
                 Vector2 size = font.MeasureString(displayString);
                 Vector2 position = new Vector2(Owner.Game.Window.ClientBounds.Width / 2 - size.X / 2,
-                                               Owner.Game.Window.ClientBounds.Height / 2 - size.Y / 2);
+                                               Owner.Game.Window.ClientBounds.Height / 2 + size.Y / 2);
 
                 spriteBatch.DrawString(font, displayString, position, Color.Red);
             }
