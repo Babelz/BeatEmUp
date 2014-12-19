@@ -142,8 +142,8 @@ namespace Neva.BeatEmUp.Behaviours
                             var inventory = Owner.FirstComponentOfType<Inventory>();
                             if (!inventory.IsFull)
                             {
-                                item.PrepareBuy(Owner);
-                                inventory.Add(item);
+                                
+                                inventory.Add(item.PrepareBuy(Owner));
                                 wallet.RemoveCoins(item.Price);
                             }
                             else

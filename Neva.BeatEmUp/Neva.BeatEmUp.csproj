@@ -29,6 +29,9 @@
   <PropertyGroup>
     <RootNamespace>Neva.BeatEmUp</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="BeatEmUpGame.cs" />
     <Compile Include="Behaviours\Blob.cs">

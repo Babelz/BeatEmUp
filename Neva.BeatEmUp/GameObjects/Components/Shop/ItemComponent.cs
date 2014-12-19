@@ -77,9 +77,14 @@ namespace Neva.BeatEmUp.GameObjects.Components.Shop
             spriteBatch.DrawString(font, "" + data.Price + " dolans", position, Color.Red, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
         }
         // jotta ei poistu kun switchitää
-        public void PrepareBuy(GameObject gameObject)
+        public ItemComponent PrepareBuy(GameObject gameObject)
         {
-            owner.RemoveTag(owner.Game.StateManager.CurrentName);
+            //owner.RemoveTag(owner.Game.StateManager.CurrentName);
+            ItemComponent paska = new ItemComponent(gameObject, Atlas, asset, new []
+            {
+                data
+            });
+            return paska;
         }
 
         public void Consume(GameObject to)

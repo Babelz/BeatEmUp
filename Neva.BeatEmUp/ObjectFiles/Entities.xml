@@ -2,7 +2,6 @@
   <Object Key="Player" Name="Player" Width="32f" Height="32f" Visible="true" Enabled="true">
     <Behaviour Name="Player" Start="true"/>
     <!--<Component Name="SpriteRenderer" />-->
-    <Component Name="ColliderRenderer" />
     <Component Name="FacingComponent" />
     <Component Name="TargetingComponent" />
     <Component Name="Wallet" />
